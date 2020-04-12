@@ -37,17 +37,17 @@ class Header extends Component {
                     <div className="col-md-6">
                       <ul>							 					
                       <li>
-                      <a title="Affordable Chicago" href="https://www.chicago.gov/city/en/progs/affordchic.html">Affordable Chicago</a>
-                      <a title="Chicago Census 2020" href="/contenthttps://www.chicago.gov/city/en/sites/census2020/home.html">Chicago Census 2020</a>
-                      <a title="Consumer Protection" href="https://www.chicago.gov/city/en/progs/protect.html">Consumer Protection</a>
-                      <a title="Education" href="https://www.chicago.gov/city/en/progs/edu.html">Education</a>
-                      <a title="Environment" href="https://www.chicago.gov/city/en/progs/env.html">Environment</a>
-                      <a title="Food Service Establishments" href="https://www.chicago.gov/city/en/ofinterest/bus/food.html">Food Service Establishments</a> 
-                      <a title="Freedom of Information (FOIA)" href="https://www.chicago.gov/city/en/progs/foia.html">Freedom of Information (FOIA)</a>
-                      <a title="Grants" href="https://www.chicago.gov/city/en/progs/grants.html">Grants</a>
-                      <a title="Grounds for Peace" href="https://www.chicago.gov/city/en/progs/grounds_for_peace.html">Grounds for Peace</a>
-                      <a title="Health &amp; Wellness" href="https://www.chicago.gov/city/en/progs/health.html">Health &amp; Wellness</a>
-                      <a title="Housing" href="https://www.chicago.gov/city/en/depts/doh.html">Housing</a>
+                      <a title="Affordable Barcelona" href="#">Affordable Barcelona</a>
+                      <a title="Barcelona Census 2020"  href="#">Barcelona Census 2020</a>
+                      <a title="Consumer Protection"  href="#">Consumer Protection</a>
+                      <a title="Education"  href="#">Education</a>
+                      <a title="Environment"  href="#">Environment</a>
+                      <a title="Food Service Establishments"  href="#">Food Service Establishments</a> 
+                      <a title="Freedom of Information (FOIA)"  href="#">Freedom of Information (FOIA)</a>
+                      <a title="Grants"  href="#">Grants</a>
+                      <a title="Grounds for Peace"  href="#">Grounds for Peace</a>
+                      <a title="Health &amp; Wellness"  href="#">Health &amp; Wellness</a>
+                      <a title="Housing"  href="#">Housing</a>
       
                       </li>
                       </ul>
@@ -55,16 +55,16 @@ class Header extends Component {
                     <div className="col-md-6">
                       <ul>
                       <li>
-                      <a title="Inspections, Permitting &amp; Licensing" href="https://www.chicago.gov/city/en/progs/inspectionspermitting.html">Inspections, Permitting &amp; Licensing</a>
-                      <a title="Jobs" href="https://www.chicago.gov/city/en/progs/emp.html">Jobs</a>
-                      <a title="Municipal Marketing" href="https://www.chicago.gov/city/en/progs/municipal_marketing.html">Municipal Marketing</a>
-                      <a title="Our City. Our Safety." href="https://www.chicago.gov/summer">Our City. Our Safety.</a>
-                      <a title="Safety" href="https://www.chicago.gov/city/en/progs/safety.html">Safety</a>
-                      <a title="Sustain Chicago" target="_blank" href="https://sustainchicago.cityofchicago.org/">Sustain Chicago</a>
-                      <a title="Taxes" href="https://www.chicago.gov/city/en/progs/tax.html">Taxes</a>
-                      <a title="Technology" href="https://www.chicago.gov/city/en/progs/tech.html">Technology</a>
-                      <a title="Transparency" href="https://www.chicago.gov/city/en/progs/transparency.html">Transparency</a>
-                      <a title="Transportation" href="https://www.chicago.gov/city/en/progs/trnsprt.html">Transportation</a>												
+                      <a title="Inspections, Permitting &amp; Licensing"  href="#">Inspections, Permitting &amp; Licensing</a>
+                      <a title="Jobs"  href="#">Jobs</a>
+                      <a title="Municipal Marketing"  href="#">Municipal Marketing</a>
+                      <a title="Our City. Our Safety."  href="#">Our City. Our Safety.</a>
+                      <a title="Safety"  href="#">Safety</a>
+                      <a title="Sustain Chicago" target="_blank"  href="#">Sustain Barcelona</a>
+                      <a title="Taxes"  href="#">Taxes</a>
+                      <a title="Technology"  href="#">Technology</a>
+                      <a title="Transparency"  href="#">Transparency</a>
+                      <a title="Transportation"  href="#">Transportation</a>												
                       </li>
                       </ul>
                     </div>
@@ -87,9 +87,9 @@ class Header extends Component {
                     <span>About</span>
                   </button>
                   <ul id="nav-about" className="cds-nav-submenu" aria-hidden="true">
-                      <li><a title="Chicago History" href="https://www.chicago.gov/city/en/about/history.html">Chicago History</a></li>
-                      <li><a title="Facts &amp; Statistics" href="https://www.chicago.gov/city/en/about/facts.html">Facts &amp; Statistics</a></li>
-                      <li><a title="Attractions" href="https://www.choosechicago.com/" target="_blank">Attractions</a></li>       
+                      <li><a title="Chicago History"  href="#">Barcelona History</a></li>
+                      <li><a title="Facts &amp; Statistics"  href="#">Facts &amp; Statistics</a></li>
+                      <li><a title="Attractions"  href="#"target="_blank">Attractions</a></li>       
                   </ul>
                 </li>
              </ul>		
