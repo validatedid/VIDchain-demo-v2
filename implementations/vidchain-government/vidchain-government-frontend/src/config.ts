@@ -3,6 +3,7 @@ const BearerToken = "eyJhbGciOiJFUzI1NksiLCJ0eXAiOiJKV1QiLCJqa3UiOiJodHRwczovL3d
 const DID = "did:ebsi:0x91A743152Cb0b4BCcb21da65e38732E5005eb93E";
 const Name = "City of Barcelona";
 
+
 export { 
     BearerToken,
     DID,
