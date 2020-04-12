@@ -8,7 +8,7 @@ import Official from './components/Official/Official';
 class App extends Component {
 
   loginWithVIDChain(){
-
+    
   }
 
   render() {
@@ -18,7 +18,7 @@ class App extends Component {
     <Header></Header>
     <div className= "content">
       <div className="login_form">
-          <h2>Access to my Account</h2><br/>
+          <h3 className="cds-nav-link"><span>Access to your Account</span></h3><br/>
           <div className="sign_in_vidchain">
               <a className="btn btn-default" href="#" role="button" onClick={() => this.loginWithVIDChain()}><i className="fa fa-check-square-o"></i>Sign in with ViDChain</a>
           </div>
