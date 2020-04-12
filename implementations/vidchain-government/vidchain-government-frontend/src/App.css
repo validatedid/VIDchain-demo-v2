@@ -1,5 +1,143 @@
+.content{
+  text-align: center;
+}
 .footer{
   position: fixed;
   bottom: 0;
   width: 100%;
+}
+.login_form {
+  border: 1px solid #f6f6f6;
+  width: 100%;
+  padding: 17px 30px;
+  box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+.sign_in_vidchain {
+  display: inline-block;
+  width: auto;
+  border-radius: 5px;
+  background-color: #00bf71;
+  margin-left: 10px;
+}
+.sign_in_vidchain>a {
+  color: #fff;
+  background-color: #00bf71;
+  font-size: 14px;
+  text-transform: uppercase;
+}
+.sign_in_vidchain>a:hover,
+.sign_in_vidchain>a:focus {
+    background-color: #00bf71;
+    color: rgba(255, 255, 255, 0.9)
+}
+.sign_in_vidchain>a>i {
+    padding-right: 5px;
+}
+
+.language_area .btn.btn-default,
+.language_area .btn.btn-default:focus {
+    border: 0 solid transparent;
+    border-radius: 0;
+    color: #fff;
+    background-color: #2c3e50;
+    -webkit-transition-duration: 500ms;
+    transition-duration: 500ms;
+}
+
+.language_area .btn.btn-default:hover {
+    background-color: #fff;
+    color: #2c3e50;
+}
+
+.language_area .btn.btn-default i:first-child {
+    padding-right: 5px;
+}
+
+.language_area .btn.btn-default i:last-child {
+    padding-left: 5px;
+}
+
+
+.login_manual_form .form-group {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.login_manual_form .form-group>i{
+  background-color: #f6f6f6;
+  color: #7f8c8d;
+  padding: 15px;
+  font-size: 14px;
+  display: inline-block;
+}
+
+.login_manual_form .form-group>input{
+  border: medium none;
+  width: 35%;
+  padding: 10px;
+  display: inline-block;
+  border-bottom: 1px solid #f6f6f6;
+}
+
+.login_manual_form button {
+  background-color: #f39c12;
+  color: #fff;
+  width: 200px;
+  -webkit-transition-duration: 500ms;
+  transition-duration: 500ms;
+  border: none;
+  text-transform: uppercase;
+}
+.login_manual_form button:hover,
+.login_manual_form button:focus {
+    background-color: #2c3e50;
+    color: #fff;
+}
+.login_manual_form .form-group>input#login_submit:hover {
+    background-color: #a85409;
+}
+.login_manual_form>p {
+  color: #6f6f6f;
+  margin: 0;
+  padding: 15px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.login_manual_form form .form-group:last-child {
+  margin-bottom: 5px;
+}
+.form-group{
+  text-align: center;
+}
+
+.forget_pass {
+  display: inline-block;
+}
+
+.forget_pass>a {
+  margin-top: 10px;
+  color: #6f6f6f;
+  display: inline-block;
+}
+
+.forget_pass>a:hover{
+  color: #3498db;
+}
+
+.forget_pass>a>i {
+  padding-right: 15px;
+}
+
+.forget_pass.one {
+  padding-right: 30px;
+}
+
+.forget_pass.login {
+  position: absolute;
+  width: auto;
+  height: auto;
+  bottom: 30px;
+  right: 30px;
 }
