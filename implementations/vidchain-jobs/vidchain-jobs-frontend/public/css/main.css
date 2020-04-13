@@ -6,24 +6,9 @@ Last change:	7/08/17
 Primary use:	Online Job Portal Theme
 -------------------------------------------------------------------*/
 @import url('https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,600,700');
-@import url('./plugins.css');  
-@import url('./common.css');
-/**
- Custom
-*/
-.img-style{
-  background-image: url(./assets/images/bg-1.jpg);background-size:cover;
-}
-.img-style2{
-  background-image: url(./assets/images/bg-2.jpg);background-size:cover;
-}
-.img-style3{
-  background-image: url(./assets/images/bg-3.jpg);background-size:cover;
-}
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
-
 body{
 background:#ffffff;
 font-family: 'Montserrat', sans-serif;
@@ -90,7 +75,6 @@ position:relative;
 text-align:center;
 color:#ffffff;
 margin:0;
-background:#242c36 url(./assets/images/slider-01.jpg) no-repeat
 }
 .main-banner .caption{
 position:relative;
@@ -148,7 +132,7 @@ line-height: 1.2;
 
 /*--------------------Default Page Header-----------------------*/
 .jumbotron{
-
+background:url(../img/background.jpg);
 background-size:cover;
 background-position:center;
 padding:13% 0;
