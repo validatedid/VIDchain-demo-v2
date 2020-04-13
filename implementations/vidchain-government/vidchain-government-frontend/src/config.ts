@@ -3,9 +3,13 @@ const BearerToken = "eyJhbGciOiJFUzI1NksiLCJ0eXAiOiJKV1QiLCJqa3UiOiJodHRwczovL3d
 const DID = "did:ebsi:0x91A743152Cb0b4BCcb21da65e38732E5005eb93E";
 const Name = "City of Barcelona";
 
+const BACKEND_URL= "http://localhost:3021/"
+const API_URL = "https://walletapi-dev.vidchain.net/wallet/";
 
 export { 
     BearerToken,
     DID,
-    Name
+    Name,
+    BACKEND_URL,
+    API_URL
 }

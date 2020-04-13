@@ -3,8 +3,13 @@ const BearerToken = "eyJhbGciOiJFUzI1NksiLCJ0eXAiOiJKV1QiLCJqa3UiOiJodHRwczovL3d
 const DID = "did:ebsi:0x9F1FB9abbD8C238bFd7E09458BCaC69eB249cca6";
 const Name = "Jobs Site";
 
+const BACKEND_URL= "http://localhost:3025/"
+const API_URL = "https://walletapi-dev.vidchain.net/wallet/";
+
 export { 
     BearerToken,
     DID,
-    Name
+    Name,
+    BACKEND_URL,
+    API_URL
 }
