@@ -4,15 +4,38 @@ import './Home.css';
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Official from '../../components/Official/Official';
+import * as config from '../../config';
+import io from 'socket.io-client'
+import socketIOClient from "socket.io-client";
 
-interface IHomeProps {
+interface Props {
 	history?: any;
 }
   
-interface IHomeState {
+interface State {
+  
 }
-class Home extends Component<IHomeProps, IHomeState> {
 
+
+class Home extends Component<Props, State> {
+
+  constructor(props: any) {
+    super(props);
+
+    this.state = {
+
+    }
+  }
+  componentDidMount(){
+    const socket = io(config.BACKEND_URL)
+    console.log("socket created");
+    //const socket = socketIOClient(config.BACKEND_URL);
+    socket.on('login', (msg:any) => {
+      console.log(msg);
+    });
+    // const socket = socketIOClient(config.BACKEND_URL);
+    // socket.on("login", (data:any) => console.log(data));
+  }
   loginWithVIDChain(){
     this.props.history.push("/registration"); 
   }
