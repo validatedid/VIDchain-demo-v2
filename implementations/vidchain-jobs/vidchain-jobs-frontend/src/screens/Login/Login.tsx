@@ -1,11 +1,18 @@
 import React, { Component } from "react";
 import "./Login.css";
+import { Redirect } from "react-router-dom";
 
+interface ILoginProps {
+	history?: any;
+}
+  
+interface ILoginState {
+}
+class Login extends Component<ILoginProps, ILoginState> {
 
-class Login extends Component {
-
+    
     loginWithVIDChain(){
-        
+        this.props.history.push("/CV"); 
     }
 
 
