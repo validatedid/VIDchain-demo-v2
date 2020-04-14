@@ -9,7 +9,6 @@ function App() {
   return (
     <div className="App">
             <BrowserRouter>
-              {/* <Ribbon></Ribbon> */}
               <Switch>
                 <Route exact path="/" component={Home} />
                 <Route

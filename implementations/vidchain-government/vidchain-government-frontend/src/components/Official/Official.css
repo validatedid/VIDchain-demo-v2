@@ -1,3 +1,7 @@
+/* .header{
+  height: 20px;
+} */
+
 .flex-row.row {
     display: flex;
     flex-wrap: wrap;
@@ -62,3 +66,4 @@
   .accordion-toggle.text-white a, .accordion-toggle.text-white::after {
     color:#FFF;	
   }
+
