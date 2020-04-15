@@ -3,7 +3,7 @@ import * as io from 'socket.io-client'
 import * as config from './config';
 import { Logger } from '@nestjs/common';
 import {ValidateResponse, Signature} from "./interfaces/dtos"
-
+import {vidchainBackend} from "./api/vidchainBackend";
 
 @Injectable()
 export class AppService {
@@ -22,13 +22,11 @@ export class AppService {
     var validateReponse:ValidateResponse = {
       response: "success"
     }
-    const validate = await this.validateJWTInBackend(signature);
+    const validate = await vidchainBackend.validateJWTInBackend(signature);
     const socket = io(config.BASE_URL);
     socket.emit('login', 'hello from a client on the backend');
     return validateReponse;
   }
 
-  async validateJWTInBackend(signature: Signature){
-
-  }
+ 
 }
