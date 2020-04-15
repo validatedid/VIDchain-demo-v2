@@ -3,12 +3,13 @@ import * as io from 'socket.io-client'
 import * as config from './config';
 import { Logger } from '@nestjs/common';
 import {ValidateResponse, Signature} from "./interfaces/dtos"
-import {vidchainBackend} from "./api/vidchainBackend";
-
+import {VidchainBackend} from "./api/vidchainBackend";
+import { parseJwt } from "./utils/Parser";
 @Injectable()
 export class AppService {
   private logger: Logger = new Logger('LoginGateway');
   private readonly socket = io(config.BASE_URL);
+  private vidchainBackend:VidchainBackend = new VidchainBackend();
 
   getHello(): string {
     //var allowedOrigins = "http://localhost:* http://127.0.0.1:*";
@@ -22,10 +23,23 @@ export class AppService {
     var validateReponse:ValidateResponse = {
       response: "success"
     }
-    const validate = await vidchainBackend.validateJWTInBackend(signature);
-    const socket = io(config.BASE_URL);
-    socket.emit('login', 'hello from a client on the backend');
+    
+    const validate:any = await this.vidchainBackend.validateJWTInBackend(signature);
+    if(!validate.payload){
+      validateReponse.response = "error";
+    }
+    else{
+      const user = this.getUser(signature.signature);
+      const socket = io(config.BASE_URL);
+      socket.emit('login', '{}');
+    }
     return validateReponse;
+  }
+
+  getUser(signature){
+    var token = parseJwt(signature);
+    this.logger.log(`token:`);
+    this.logger.log(token);
   }
 
  

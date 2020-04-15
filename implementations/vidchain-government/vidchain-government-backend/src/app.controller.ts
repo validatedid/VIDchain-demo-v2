@@ -16,5 +16,6 @@ export class AppController {
     if (!signature) {
       throw new BadRequestException("Invalid Params")
     }
-    return this.appService.validate(signature);;
+    return this.appService.validate(signature);
+  }
 }
