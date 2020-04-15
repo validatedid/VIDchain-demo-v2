@@ -81,7 +81,7 @@ class Home extends Component<Props, State> {
       issuer: config.DID,
       payload: {
         did: config.DID,
-        url: config.BACKEND_URL + "/",
+        url: config.BACKEND_URL + "/validate",
         nonce: this.randomIntFromInterval(100000,999999999)
       }
     };
