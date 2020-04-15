@@ -19,7 +19,7 @@ export class AppService {
     const user = await this.nonceRedis.get(userDID)
     this.logger.log(`User from DB:`)
     this.logger.log(user)
-    const socket = io(config.BASE_URL);
+    //const socket = io(config.BASE_URL);
     // this.logger.log(`socket created:`)
     // socket.emit('login', 'hello from a client on the backend');
     return user;
@@ -29,13 +29,13 @@ export class AppService {
     var validateReponse:ValidateResponse = {
       response: "success"
     }
-    
     const validate:any = await this.vidchainBackend.validateJWTInBackend(signature);
+
     if(!validate.payload){
       validateReponse.response = "error";
     }
     else{
-      const tokenParsed = parseJwt(signature);
+      const tokenParsed = parseJwt(signature.signature);
       this.storeUser(tokenParsed);
       this.sendDataToClient(tokenParsed.did);
     }

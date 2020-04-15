@@ -12,7 +12,6 @@ export class VidchainBackend {
 
   async validateJWTInBackend(signature:Signature): Promise<string> {
     var bearerToken = await this.establishConnection();
-    this.logger.log(bearerToken);
     let authorization = {
         headers: {
           Authorization: "Bearer " + bearerToken
@@ -32,7 +31,6 @@ export class VidchainBackend {
   }
   private async validateJWTInVidChain(authorization,signature){
       const response = await axios.post(config.API_URL + "signature/validation", signature, authorization);
-      this.logger.log(response.data);
       return response.data;
   }
 }
