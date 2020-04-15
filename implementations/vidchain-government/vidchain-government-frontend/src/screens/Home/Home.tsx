@@ -9,6 +9,8 @@ import * as config from '../../config';
 import {
   Modal
 } from "react-bootstrap";
+
+var QRCode = require('qrcode.react');
 interface Props {
 	history?: any;
 }
@@ -102,9 +104,7 @@ class Home extends Component<Props, State> {
     console.log(showQR);
     return (
     <div>
-    <Official></Official>
-    <Header></Header>
-    <Modal show={showQR} onHide={() => this.closeQR()}>
+      <Modal show={showQR} onHide={() => this.closeQR()} className="modal">
         <Modal.Header
           className="ModalHeader"
           closeButton
@@ -112,12 +112,16 @@ class Home extends Component<Props, State> {
           <Modal.Title className="ModalTitle">Sign In with VIDchain</Modal.Title>
         </Modal.Header>
         <Modal.Body className="ModalBody">
-          <h5> Please  scan the QR code with the VIDchain mobile App </h5>
+          <h5> Please  scan the QR code with the VIDchain mobile App </h5><br/>
+          <QRCode value={contentQR} size={300}/>
         </Modal.Body>
         <Modal.Footer>
           
         </Modal.Footer>
     </Modal>
+
+    <Official></Official>
+    <Header></Header>
     <div className= "content">
       <div className="login_form">
           <h3 className="cds-nav-link"><span>Access to your Account</span></h3><br/>
