@@ -9,6 +9,7 @@ import * as config from '../../config';
 import {
   Modal
 } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
 
 var QRCode = require('qrcode.react');
 interface Props {
@@ -37,6 +38,12 @@ class Home extends Component<Props, State> {
     const socket = io(config.BACKEND_URL)
     socket.on('login', (msg:any) => {
       console.log(msg);
+      this.props.history.push(
+        {
+          pathname: '/registration',
+          state: { did: msg }
+        }
+      ); 
     });
     this.startConnection();
   }

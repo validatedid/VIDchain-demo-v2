@@ -5,8 +5,24 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Official from '../../components/Official/Official';
 
-class Registration extends Component {
+interface Props {
+	did: string;
+	location: any;
+}
+  
+interface State {
 
+}
+class Registration extends Component<Props,State> {
+
+	constructor(props:any) {
+		super(props);
+	}
+  componentDidMount(){
+	var did = this.props.location.state.did;
+	console.log("in Registration");
+	console.log(did);
+  }
   loginWithVIDChain(){
     
   }
