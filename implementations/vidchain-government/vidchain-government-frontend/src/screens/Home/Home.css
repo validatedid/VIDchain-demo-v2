@@ -1,5 +1,17 @@
 .ModalHeader{
-  text-align: center;
+  justify-content: center;
+  background-color: #00bf71;
+  color: white;
+  
+}
+.ModalTitle{
+  justify-content: center;
+  font-size: 18px;
+}
+.ModalBody{
+  justify-content: center;
+  background-color: white;
+  color: black;
 }
 .content{
   text-align: center;

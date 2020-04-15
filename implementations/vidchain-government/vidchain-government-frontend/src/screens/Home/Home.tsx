@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './Home.css';
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
@@ -106,20 +105,18 @@ class Home extends Component<Props, State> {
     <Official></Official>
     <Header></Header>
     <Modal show={showQR} onHide={() => this.closeQR()}>
-            <Modal.Header
-              className="ModalHeader"
-              style={{ backgroundColor: "#00bf71" }}
-              closeButton
-            >
-              <Modal.Title className="ModalTitle">Sign In with VIDchain</Modal.Title>
-            </Modal.Header>
-            <Modal.Body className="ModalBody">
-              <h4> Please  scan the QR code with the VIDchain mobile App </h4>
-              
-            </Modal.Body>
-            <Modal.Footer>
-              
-            </Modal.Footer>
+        <Modal.Header
+          className="ModalHeader"
+          closeButton
+        >
+          <Modal.Title className="ModalTitle">Sign In with VIDchain</Modal.Title>
+        </Modal.Header>
+        <Modal.Body className="ModalBody">
+          <h5> Please  scan the QR code with the VIDchain mobile App </h5>
+        </Modal.Body>
+        <Modal.Footer>
+          
+        </Modal.Footer>
     </Modal>
     <div className= "content">
       <div className="login_form">
