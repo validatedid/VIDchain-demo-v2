@@ -4,16 +4,20 @@ import './Home.css';
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Official from '../../components/Official/Official';
-import * as config from '../../config';
 import io from 'socket.io-client'
-import socketIOClient from "socket.io-client";
-
+import axios from 'axios'
+import * as config from '../../config';
+import {
+  Modal
+} from "react-bootstrap";
 interface Props {
 	history?: any;
 }
   
 interface State {
-  
+  jwt: string,
+  showQR: boolean,
+  contentQR: string
 }
 
 
@@ -23,28 +27,100 @@ class Home extends Component<Props, State> {
     super(props);
 
     this.state = {
-
+      jwt: "",
+      showQR: false,
+      contentQR: ""
     }
   }
   componentDidMount(){
     const socket = io(config.BACKEND_URL)
-    console.log("socket created");
-    //const socket = socketIOClient(config.BACKEND_URL);
     socket.on('login', (msg:any) => {
       console.log(msg);
     });
-    // const socket = socketIOClient(config.BACKEND_URL);
-    // socket.on("login", (data:any) => console.log(data));
+    this.startConnection();
   }
-  loginWithVIDChain(){
-    this.props.history.push("/registration"); 
+
+  async startConnection(){
+    var jwt = await this.connectWithBackend();
+    //Check if there is an error
+    this.setState({
+      jwt: jwt
+    });
+  }
+
+  async connectWithBackend(){
+    let data = {
+        enterpriseName: config.Name,
+        nonce: config.nonce
+    };
+    const response = await axios.post(config.API_URL + "token", data);
+    return response.data.jwt;
+  }
+
+  async loginWithVIDChain(){
+    var qrCodeContent = await this.generateContent();
+    //Check if there is an error
+    console.log(qrCodeContent);
+    this.setState({
+      contentQR: qrCodeContent,
+      showQR: true
+    });
+
+    //this.props.history.push("/registration"); 
+  }
+
+  
+  async generateContent(){
+    let authorization = {
+      headers: {
+        Authorization: "Bearer " + this.state.jwt
+      }
+    };
+    let data = {
+      issuer: config.DID,
+      payload: {
+        did: config.DID,
+        url: config.BACKEND_URL + "/",
+        nonce: this.randomIntFromInterval(100000,999999999)
+      }
+    };
+    const response = await axios.post(config.API_URL + "signature", data, authorization);
+    return response.data.signatureJWS;
+  }
+  private randomIntFromInterval(min: number, max:number) {
+    return Math.floor(Math.random() * (max - min + 1) + min);
+  }
+
+  closeQR(){
+    this.setState({
+      showQR: false,
+      contentQR: ""
+    });
   }
 
   render() {
+    const {showQR, contentQR} = this.state;
+    console.log(showQR);
     return (
     <div>
     <Official></Official>
     <Header></Header>
+    <Modal show={showQR} onHide={() => this.closeQR()}>
+            <Modal.Header
+              className="ModalHeader"
+              style={{ backgroundColor: "#00bf71" }}
+              closeButton
+            >
+              <Modal.Title className="ModalTitle">Sign In with VIDchain</Modal.Title>
+            </Modal.Header>
+            <Modal.Body className="ModalBody">
+              <h4> Please  scan the QR code with the VIDchain mobile App </h4>
+              
+            </Modal.Body>
+            <Modal.Footer>
+              
+            </Modal.Footer>
+    </Modal>
     <div className= "content">
       <div className="login_form">
           <h3 className="cds-nav-link"><span>Access to your Account</span></h3><br/>
