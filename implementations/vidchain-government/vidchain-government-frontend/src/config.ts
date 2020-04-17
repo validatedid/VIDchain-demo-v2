@@ -1,4 +1,4 @@
-import * as dotenv from 'dotenv';
+const dotenv = require('dotenv')
 // importing .env variables
 dotenv.config();
 
@@ -7,7 +7,7 @@ const DID = "did:ebsi:0x91A743152Cb0b4BCcb21da65e38732E5005eb93E";
 const Name = "City of Barcelona";
 const nonce = "barcelona";
 
-const BACKEND_URL= process.env.BACKEND_URL
+const BACKEND_URL= process.env.REACT_APP_BACKEND_URL || "http://localhost:3021"
 const API_URL = "https://walletapi-dev.vidchain.net/wallet/";
 
 export { 

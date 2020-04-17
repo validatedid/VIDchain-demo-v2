@@ -35,6 +35,8 @@ class Home extends Component<Props, State> {
     }
   }
   componentDidMount(){
+    console.log(process.env.REACT_APP_BACKEND_URL
+      );
     const socket = io(config.BACKEND_URL)
     socket.on('login', (msg:any) => {
       console.log(msg);
@@ -125,7 +127,7 @@ class Home extends Component<Props, State> {
         <Modal.Footer>
           
         </Modal.Footer>
-    </Modal>
+      </Modal>
 
     <Official></Official>
     <Header></Header>
