@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 import Home from "./screens/Home/Home";
+import Profile from "./screens/Profile/Profile";
 import Registration from "./screens/Registration/Registration";
 const dotenv = require('dotenv')
 // importing .env variables
@@ -16,6 +17,10 @@ function App() {
             <Route
               path="/registration"
               component={Registration}
+            />
+            <Route
+              path="/profile"
+              component={Profile}
             />
           </Switch>
         </BrowserRouter>

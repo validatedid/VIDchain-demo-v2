@@ -7,6 +7,7 @@ import { Button, Form, Alert, Row,InputGroup, Col } from "react-bootstrap";
 import {IFormData} from "../../interfaces/ICredentialData";
 import axios from 'axios'
 import * as config from '../../config';
+import { Link } from "react-router-dom";
 interface Props {
 	did: string;
 	jwt: string;
@@ -120,13 +121,6 @@ class Registration extends Component<Props,State> {
 		return nonEmptyFields
 	}
 
-	continue(){
-		// this.props.history.push(
-		// 	{
-		// 	  pathname: '/'
-		// 	});
-	}
-
 	
 
 
@@ -146,7 +140,9 @@ class Registration extends Component<Props,State> {
 		<Fragment>
 			<h1>Your request has been issued.</h1>
 			<p>Go to the notifications section in your APP Wallet</p>
-			<Button className="collect-button" onClick={() =>this.continue()}>Continue</Button>
+			<Link to="/profile" className="collect-button">
+              log in
+            </Link>
 		</Fragment>
 		}
 		{!successGeneration &&
