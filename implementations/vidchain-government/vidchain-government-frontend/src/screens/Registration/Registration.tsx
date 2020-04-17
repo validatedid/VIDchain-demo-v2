@@ -137,13 +137,13 @@ class Registration extends Component<Props,State> {
 	<div className="page">
       <main className="main">
 		{successGeneration &&
-		<Fragment>
+		<div className="fragmentSuccess"> 
 			<h1>Your request has been issued.</h1>
 			<p>Go to the notifications section in your APP Wallet</p>
-			<Link to="/profile" className="collect-button">
-              log in
+			<Link to="/profile">
+			<Button type="button" className="collect-button" >Continue</Button>
             </Link>
-		</Fragment>
+		</div>
 		}
 		{!successGeneration &&
 	<Fragment>

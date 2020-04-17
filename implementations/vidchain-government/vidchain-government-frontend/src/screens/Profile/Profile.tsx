@@ -19,16 +19,16 @@ class Profile extends Component<Props,State> {
 		super(props);
 	}
   componentDidMount(){
-	var did = this.props.location.state.did;
-	console.log("in Registration");
-	console.log(did);
+	// var did = this.props.location.state.did;
+	// console.log("in Registration");
+	// console.log(did);
   }
   loginWithVIDChain(){
     
   }
 
   render() {
-	var did = this.props.location.state.did;  
+	var did = "10101";  
     return (
     <div>
     <Official></Official>
