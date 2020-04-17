@@ -45,7 +45,8 @@ class Registration extends Component<Props,State> {
 	}
 
 	componentDidMount(){
-		if(this.props.location.state.did){
+		console.log(this.props.location.state);
+		if(this.props.location.state){
 			this.setState ({
 				did: this.props.location.state.did
 			});
@@ -74,11 +75,11 @@ class Registration extends Component<Props,State> {
 	<div className="page">
       <main className="main">
 	<Fragment>
-      <h1>Request eID VC</h1>
-      <p>All the fields are required unless otherwise stated.</p>
+      <h1>Request your eID Verifiable Credential</h1>
+      <p>Fill all the fields, and claim the VC to receive it in you VIDchain mobile App.</p>
 	  <Form>
 	   <Form.Group as={Row} md="12" controlId="formDID">
-			<Form.Label column md="4">Your Decentralized Indentifier (DID)</Form.Label>
+			<Form.Label column md="4">Your Decentralized Indentifier (DID):</Form.Label>
 			<Col md="8">
 				<Form.Control plaintext readOnly defaultValue={did} />
 			</Col>
@@ -158,7 +159,7 @@ class Registration extends Component<Props,State> {
         </Form.Group>
       </Form.Row>
 	  <Form.Row>
-	  <Form.Group as={Col} md="10" controlId="formAddress">
+	  <Form.Group as={Col} md="12" controlId="formAddress">
           <Form.Label>Current Address</Form.Label>
           <Form.Control
             required
@@ -214,7 +215,7 @@ class Registration extends Component<Props,State> {
           feedback="You must agree before submitting."
         />
       </Form.Group>
-	  <Button type="button" onClick={() =>this.generateCredential()}>Submit form</Button>
+	  <Button type="button" className="collect-button" onClick={() =>this.generateCredential()}>Collect the eID in my VIDchain Wallet</Button>
       </Form>
 	  
     </Fragment>

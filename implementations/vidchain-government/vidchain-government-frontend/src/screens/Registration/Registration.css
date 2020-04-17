@@ -30,3 +30,9 @@ p {
   margin: 0 0 20px 0;
   padding: 0;
 }
+.collect-button{
+  position:relative;
+  left:40%;
+  background-color: #00bf71;
+  color: white;
+}
