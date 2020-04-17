@@ -8,10 +8,12 @@ import {IFormData} from "../../interfaces/ICredentialData";
 
 interface Props {
 	did: string;
+	jwt: string;
 	location: any;
 }
   
 interface State {
+	jwt: string,
 	did: string
 	firstname: string
     lastname: string
@@ -30,6 +32,7 @@ class Registration extends Component<Props,State> {
 	constructor(props:any) {
 		super(props);
 		this.state = {
+			jwt: "",
 			did: "",
 			firstname: "",
 			lastname: "",
@@ -48,18 +51,49 @@ class Registration extends Component<Props,State> {
 		console.log(this.props.location.state);
 		if(this.props.location.state){
 			this.setState ({
-				did: this.props.location.state.did
+				did: this.props.location.state.did,
+				jwt: this.props.location.state.jwt
 			});
 		}	
 	}
 
-	generateCredential(){
+	submit(){
 		this.setState ({
 			checkFields: true
 		});
-		console.log(this.state);
+		if(this.nonEmptyFields()){
+			this.setState ({
+				checkFields: false
+			});
+			this.generateCredential();
+		}
 	}
 
+	generateCredential(){
+		let data = {
+			enterpriseName: config.Name,
+			nonce: config.nonce
+		};
+		const response = await axios.post(config.API_URL + "token", data);
+	}
+
+
+	nonEmptyFields(): boolean{
+		var nonEmptyFields = true;
+		var { did, firstname,
+			lastname,gender,
+			dateOfBirth,placeOfBirth,
+			currentAddress,city,
+			state,zip } = this.state;
+		if(did === "" || firstname === "" || lastname === "" || gender === "" ||
+			dateOfBirth === "" ||placeOfBirth === "" ||currentAddress === "" ||city === "" ||
+			state === "" ||zip === "" ){
+				nonEmptyFields = false;
+			}
+		return nonEmptyFields
+	}
+
+	
 
 
   render() {
@@ -215,7 +249,7 @@ class Registration extends Component<Props,State> {
           feedback="You must agree before submitting."
         />
       </Form.Group>
-	  <Button type="button" className="collect-button" onClick={() =>this.generateCredential()}>Collect the eID in my VIDchain Wallet</Button>
+	  <Button type="button" className="collect-button" onClick={() =>this.submit()}>Collect the eID in my VIDchain Wallet</Button>
       </Form>
 	  
     </Fragment>
