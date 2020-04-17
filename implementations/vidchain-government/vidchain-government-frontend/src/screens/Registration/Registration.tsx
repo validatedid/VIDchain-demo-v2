@@ -5,7 +5,8 @@ import Footer from "../../components/Footer/Footer";
 import Official from '../../components/Official/Official';
 import { Button, Form, Alert, Row,InputGroup, Col } from "react-bootstrap";
 import {IFormData} from "../../interfaces/ICredentialData";
-
+import axios from 'axios'
+import * as config from '../../config';
 interface Props {
 	did: string;
 	jwt: string;
@@ -24,7 +25,8 @@ interface State {
     city: string
     state: string
 	zip: string
-	checkFields: boolean
+	checkFields: boolean,
+	successGeneration: boolean
 }
 
 class Registration extends Component<Props,State> {
@@ -43,7 +45,8 @@ class Registration extends Component<Props,State> {
 			city: "",
 			state: "",
 			zip: "",
-			checkFields: false
+			checkFields: false,
+			successGeneration: false
 		}
 	}
 
@@ -69,13 +72,37 @@ class Registration extends Component<Props,State> {
 		}
 	}
 
-	generateCredential(){
-		let data = {
-			enterpriseName: config.Name,
-			nonce: config.nonce
+	async generateCredential(){
+		let authorization = {
+			headers: {
+			  Authorization: "Bearer " + this.state.jwt
+			}
 		};
-		const response = await axios.post(config.API_URL + "token", data);
-	}
+		let data = {
+			issuer: config.DID,
+			credentialSubject: {
+				id: this.state.did,
+				personIdentifier: this.state.did,
+				currentFamilyName: this.state.firstname,
+				currentGivenName: this.state.lastname,
+				birthName: this.state.firstname,
+				dateOfBirth: this.state.dateOfBirth,
+				placeOfBirth: this.state.placeOfBirth,
+				currentAddress: this.state.currentAddress+","+this.state.city+
+				","+this.state.state+","+this.state.zip,
+				gender: this.state.gender,
+				govID: ""
+			}
+		}
+		const response = await axios.post(config.API_URL + "verifiableid", data, authorization);
+		//Check response
+		console.log(response);
+		this.setState ({
+			successGeneration: true
+		})
+	};
+		
+	
 
 
 	nonEmptyFields(): boolean{
@@ -93,6 +120,13 @@ class Registration extends Component<Props,State> {
 		return nonEmptyFields
 	}
 
+	continue(){
+		// this.props.history.push(
+		// 	{
+		// 	  pathname: '/'
+		// 	});
+	}
+
 	
 
 
@@ -101,13 +135,21 @@ class Registration extends Component<Props,State> {
 		lastname,gender,
 		dateOfBirth,placeOfBirth,
 		currentAddress,city,
-		state,zip,checkFields } = this.state;
+		state,zip,checkFields,successGeneration } = this.state;
     return (
     <div>
     <Official></Official>
 	<Header></Header>
 	<div className="page">
       <main className="main">
+		{successGeneration &&
+		<Fragment>
+			<h1>Your request has been issued.</h1>
+			<p>Go to the notifications section in your APP Wallet</p>
+			<Button className="collect-button" onClick={() =>this.continue()}>Continue</Button>
+		</Fragment>
+		}
+		{!successGeneration &&
 	<Fragment>
       <h1>Request your eID Verifiable Credential</h1>
       <p>Fill all the fields, and claim the VC to receive it in you VIDchain mobile App.</p>
@@ -253,6 +295,7 @@ class Registration extends Component<Props,State> {
       </Form>
 	  
     </Fragment>
+  	}
 	</main>
 	</div>
 	<Footer></Footer>
