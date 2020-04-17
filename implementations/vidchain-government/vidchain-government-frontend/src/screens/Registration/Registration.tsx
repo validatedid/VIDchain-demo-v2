@@ -21,7 +21,8 @@ interface State {
     currentAddress: string
     city: string
     state: string
-    zip: string
+	zip: string
+	checkFields: boolean
 }
 
 class Registration extends Component<Props,State> {
@@ -38,7 +39,8 @@ class Registration extends Component<Props,State> {
 			currentAddress: "",
 			city: "",
 			state: "",
-			zip: ""
+			zip: "",
+			checkFields: false
 		}
 	}
 
@@ -51,13 +53,20 @@ class Registration extends Component<Props,State> {
 	}
 
 	generateCredential(){
+		this.setState ({
+			checkFields: true
+		});
 		console.log(this.state);
 	}
 
 
 
   render() {
-	const { did, firstname,lastname,gender,dateOfBirth,placeOfBirth,currentAddress,city,state,zip } = this.state;
+	const { did, firstname,
+		lastname,gender,
+		dateOfBirth,placeOfBirth,
+		currentAddress,city,
+		state,zip,checkFields } = this.state;
     return (
     <div>
     <Official></Official>
@@ -83,7 +92,11 @@ class Registration extends Component<Props,State> {
 			placeholder="First name"
 			value={firstname}
 			onChange={(event:any) =>this.setState({firstname: event.target.value})}
+			isInvalid={checkFields && (firstname==="")}
           />
+		  	<Form.Control.Feedback type="invalid">
+            	Please provide a valid name.
+          	</Form.Control.Feedback>
         </Form.Group>
         <Form.Group as={Col} md="4" controlId="formLastName">
           <Form.Label>Last name</Form.Label>
@@ -93,16 +106,24 @@ class Registration extends Component<Props,State> {
             placeholder="Last name"
             value={lastname}
 			onChange={(event:any) =>this.setState({lastname: event.target.value})}
+			isInvalid={checkFields && (lastname==="")}
           />
+		  	<Form.Control.Feedback type="invalid">
+            	Please provide a valid last name.
+          	</Form.Control.Feedback>
         </Form.Group>
         <Form.Group as={Col} md="4" controlId="formGender">
           <Form.Label>Gender</Form.Label>
           <Form.Control as="select" custom
 		  	value={gender}
-			onChange={(event:any) =>this.setState({gender: event.target.value})}>
-			<option value="Male">Male</option>
-			<option value="Female">Female</option>
+			onChange={(event:any) =>this.setState({gender: event.target.value})}
+			isInvalid={checkFields && (gender==="")}>
+				<option value="Male">Male</option>
+				<option value="Female">Female</option>
 			</Form.Control>
+			<Form.Control.Feedback type="invalid">
+            	Please provide a valid gender.
+          	</Form.Control.Feedback>
         </Form.Group>
       </Form.Row>
 
@@ -115,7 +136,11 @@ class Registration extends Component<Props,State> {
 			placeholder="Date Of Birth"
 			value={dateOfBirth}
 			onChange={(event:any) =>this.setState({dateOfBirth: event.target.value})}
+			isInvalid={checkFields && (dateOfBirth==="")}
           />
+		   <Form.Control.Feedback type="invalid">
+            Please provide a valid date of birth.
+          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group as={Col} md="6" controlId="formPlaceOfBirth">
           <Form.Label>Place Of Birth</Form.Label>
@@ -125,19 +150,27 @@ class Registration extends Component<Props,State> {
             placeholder="Place Of Birth"
             value={placeOfBirth}
 			onChange={(event:any) =>this.setState({placeOfBirth: event.target.value})}
+			isInvalid={checkFields && (placeOfBirth==="")}
           />
+		  <Form.Control.Feedback type="invalid">
+            Please provide a valid place of birth.
+          </Form.Control.Feedback>
         </Form.Group>
       </Form.Row>
 	  <Form.Row>
 	  <Form.Group as={Col} md="10" controlId="formAddress">
-          <Form.Label>Current Address</Form.Label>∫
+          <Form.Label>Current Address</Form.Label>
           <Form.Control
             required
             type="text"
             placeholder="CurrentAddress"
             value={currentAddress}
 			onChange={(event:any) =>this.setState({currentAddress: event.target.value})}
+			isInvalid={checkFields && (currentAddress==="")}
           />
+		  <Form.Control.Feedback type="invalid">
+            Please provide a valid current address.
+          </Form.Control.Feedback>
         </Form.Group>
 	  
 	  </Form.Row>
@@ -147,7 +180,8 @@ class Registration extends Component<Props,State> {
           <Form.Label>City</Form.Label>
           <Form.Control type="text" placeholder="City" required 
 		  	value={city}
-		  	onChange={(event:any) =>this.setState({city: event.target.value})}/>
+		  	onChange={(event:any) =>this.setState({city: event.target.value})}
+			isInvalid={checkFields && (city==="")}/>
           <Form.Control.Feedback type="invalid">
             Please provide a valid city.
           </Form.Control.Feedback>
@@ -156,8 +190,9 @@ class Registration extends Component<Props,State> {
           <Form.Label>State</Form.Label>
 		  <Form.Control type="text" placeholder="State" required
 		  	value={state}
-			onChange={(event:any) =>this.setState({state: event.target.value})} />
-          <Form.Control.Feedback type="invalid">
+			onChange={(event:any) =>this.setState({state: event.target.value})} 
+			isInvalid={checkFields && (state==="")}/>
+			<Form.Control.Feedback type="invalid">
             Please provide a valid state.
           </Form.Control.Feedback>
         </Form.Group>
@@ -165,7 +200,8 @@ class Registration extends Component<Props,State> {
           <Form.Label>Zip</Form.Label>
 		  <Form.Control type="text" placeholder="Zip" required
 		  	value={zip}
-		  	onChange={(event:any) =>this.setState({zip: event.target.value})} />
+			onChange={(event:any) =>this.setState({zip: event.target.value})} 
+			isInvalid={checkFields && (zip==="")} />
           <Form.Control.Feedback type="invalid">
             Please provide a valid zip.
           </Form.Control.Feedback>
