@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import {ValidateResponse, Signature} from "../interfaces/dtos"
+import {ValidateResponse, Signature, User} from "../interfaces/dtos"
 import * as config from '../config';
 import axios from 'axios';
 import { Logger } from '@nestjs/common';

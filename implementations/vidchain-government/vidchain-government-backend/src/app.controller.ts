@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, BadRequestException } from '@nestjs/common';
 import { AppService } from './app.service';
-import {Signature, ValidateResponse} from "./interfaces/dtos";
+import {Signature, ValidateResponse, User} from "./interfaces/dtos";
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
@@ -18,4 +18,5 @@ export class AppController {
     }
     return this.appService.validate(signature);
   }
+
 }
