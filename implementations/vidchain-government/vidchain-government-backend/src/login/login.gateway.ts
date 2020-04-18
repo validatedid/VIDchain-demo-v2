@@ -12,15 +12,17 @@ import {
   import { Socket, Server } from 'socket.io';
   import { Logger } from '@nestjs/common';
   import { AppService } from '../app.service';
-
+  import Redis from 'ioredis';
+  import {User} from "../interfaces/dtos"
 
   
   @WebSocketGateway()
   export class LoginGateway implements OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit {
-    
-    @WebSocketServer() wss: Server;
-    constructor(private readonly appService: AppService) {
+    private readonly userRedis = new Redis({ keyPrefix: "user:" });
 
+    @WebSocketServer() wss: Server;
+    constructor() {
+      
     }
     private logger: Logger = new Logger('LoginGateway');
   
@@ -48,7 +50,11 @@ import {
     handleRegistrationEvent(@MessageBody() message: any): void {
       this.logger.log("handleRegistrationEvent:" + message);
       var user= JSON.parse(message);
-      this.appService.storeUser(user);
+      this.storeUser(user);
+    }
+
+    storeUser(user: User){
+      this.userRedis.set(user.id, user);
     }
   
   }

@@ -51,9 +51,7 @@ export class AppService {
   storeUserNonce(token){
     this.nonceRedis.set(token.did,token.nonce)
   }
-  storeUser(user: User){
-    this.userRedis.set(user.did, user);
-  }
+  
   sendDataToClient(did){
     const socket = io(config.BASE_URL);
     socket.emit('login', did);
