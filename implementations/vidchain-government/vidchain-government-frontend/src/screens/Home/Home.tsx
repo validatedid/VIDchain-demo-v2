@@ -47,6 +47,15 @@ class Home extends Component<Props, State> {
         }
       ); 
     });
+    socket.on('access', (msg:any) => {
+      console.log(msg);
+      this.props.history.push(
+        {
+          pathname: '/profile',
+          state: { user: msg }
+        }
+      ); 
+    });
     this.startConnection();
   }
 
