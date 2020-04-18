@@ -6,14 +6,14 @@ export interface ValidateResponse {
     response: string;
 }
 export interface User {
-    did: string
-    firstname: string
-    lastname: string
-    gender: string
+    id: string
+    personIdentifier: string
+    currentFamilyName: string
+    currentGivenName: string
+    birthName: string
     dateOfBirth: string
     placeOfBirth: string
     currentAddress: string
-    city: string
-    state: string
-    zip: string
+    gender: string
+    govID: string
 }
