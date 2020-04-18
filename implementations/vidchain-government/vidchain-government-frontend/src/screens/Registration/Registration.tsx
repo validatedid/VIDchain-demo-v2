@@ -4,10 +4,11 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Official from '../../components/Official/Official';
 import { Button, Form, Alert, Row,InputGroup, Col } from "react-bootstrap";
-import {IFormData} from "../../interfaces/ICredentialData";
+import {ICredentialData} from "../../interfaces/ICredentialData";
 import axios from 'axios'
 import * as config from '../../config';
 import { Link } from "react-router-dom";
+import io from 'socket.io-client'
 interface Props {
 	did: string;
 	jwt: string;
@@ -52,7 +53,6 @@ class Registration extends Component<Props,State> {
 	}
 
 	componentDidMount(){
-		console.log(this.props.location.state);
 		if(this.props.location.state){
 			this.setState ({
 				did: this.props.location.state.did,
@@ -79,29 +79,37 @@ class Registration extends Component<Props,State> {
 			  Authorization: "Bearer " + this.state.jwt
 			}
 		};
+		let credentialSubject:ICredentialData = {
+			id: this.state.did,
+			personIdentifier: this.state.did,
+			currentFamilyName: this.state.firstname,
+			currentGivenName: this.state.lastname,
+			birthName: this.state.firstname,
+			dateOfBirth: this.state.dateOfBirth,
+			placeOfBirth: this.state.placeOfBirth,
+			currentAddress: this.state.currentAddress+","+this.state.city+
+			","+this.state.state+","+this.state.zip,
+			gender: this.state.gender,
+			govID: ""
+		};
 		let data = {
 			issuer: config.DID,
-			credentialSubject: {
-				id: this.state.did,
-				personIdentifier: this.state.did,
-				currentFamilyName: this.state.firstname,
-				currentGivenName: this.state.lastname,
-				birthName: this.state.firstname,
-				dateOfBirth: this.state.dateOfBirth,
-				placeOfBirth: this.state.placeOfBirth,
-				currentAddress: this.state.currentAddress+","+this.state.city+
-				","+this.state.state+","+this.state.zip,
-				gender: this.state.gender,
-				govID: ""
-			}
+			credentialSubject: credentialSubject
 		}
 		const response = await axios.post(config.API_URL + "verifiableid", data, authorization);
 		//Check response
 		console.log(response);
+		this.sendUserToServer(credentialSubject);
 		this.setState ({
 			successGeneration: true
 		})
+
 	};
+
+	sendUserToServer(user: ICredentialData){
+		const socket = io(config.BACKEND_URL);
+		socket.emit('registration', JSON.stringify(user));
+	}
 		
 	
 
