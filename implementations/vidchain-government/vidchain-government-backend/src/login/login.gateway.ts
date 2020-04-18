@@ -46,6 +46,12 @@ import {
       this.wss.emit('login', message);
     }
 
+    @SubscribeMessage('access')
+    handleAccessEvent(@MessageBody() message: any): void {
+      this.logger.log("handleAccessEvent:" + message);
+      this.wss.emit('access', message);
+    }
+
     @SubscribeMessage('registration')
     handleRegistrationEvent(@MessageBody() message: any): void {
       this.logger.log("handleRegistrationEvent:" + message);
@@ -54,7 +60,7 @@ import {
     }
 
     storeUser(user: User){
-      this.userRedis.set(user.id, user);
+      this.userRedis.set(user.id, JSON.stringify(user));
     }
   
   }

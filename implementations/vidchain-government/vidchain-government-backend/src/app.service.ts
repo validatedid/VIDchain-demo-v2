@@ -16,7 +16,7 @@ export class AppService {
   private readonly userRedis = new Redis({ keyPrefix: "user:" });
 
   async getHello(): Promise<string> {
-    var userDID = "did:ebsi:0x72D8cfaB840Bb72391DF733E10E6225b83352807";
+    var userDID = "did:ebsi:0x7748687e6Ad7a5eE05943890404f854739302Ad9";
     const nonce = await this.nonceRedis.get(userDID)
     const user = await this.userRedis.get(userDID)
     this.logger.log(`Nonce from DB:`)
@@ -41,9 +41,21 @@ export class AppService {
     else{
       const tokenParsed = parseJwt(signature.signature);
       this.storeUserNonce(tokenParsed);
-      this.sendDataToClient(tokenParsed.did);
+
+      var user = await this.getUser(tokenParsed.did)
+      if(user !== ""){
+        this.sendUserDataToClient(user);
+      }
+      else{
+        this.sendDataToClient(tokenParsed.did);
+      }
+      
     }
     return validateReponse;
+  }
+
+  async getUser(did: string){
+    return await this.userRedis.get(did)
   }
 
  
@@ -55,6 +67,10 @@ export class AppService {
   sendDataToClient(did){
     const socket = io(config.BASE_URL);
     socket.emit('login', did);
+  }
+  sendUserDataToClient(user){
+    const socket = io(config.BASE_URL);
+    socket.emit('access', user);
   }
 
   
