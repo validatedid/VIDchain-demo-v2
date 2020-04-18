@@ -4,75 +4,83 @@ import './Profile.css';
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Official from '../../components/Official/Official';
-
+import {ICredentialData} from "../../interfaces/ICredentialData";
 interface Props {
-	did: string;
+	user: string;
 	location: any;
 }
   
 interface State {
-
+	user: ICredentialData;
 }
 class Profile extends Component<Props,State> {
 
 	constructor(props:any) {
 		super(props);
+		this.state = {
+			user: {} as ICredentialData
+		}
 	}
   componentDidMount(){
-	// var did = this.props.location.state.did;
-	// console.log("in Registration");
-	// console.log(did);
+	if(this.props.location.state){
+		var user: ICredentialData = JSON.parse(this.props.location.state.user);
+		this.setState ({
+			user: user
+		});
+	}
   }
   loginWithVIDChain(){
     
   }
 
   render() {
-	var did = "10101";  
+	const { user} = this.state;  
     return (
     <div>
     <Official></Official>
     <Header></Header>
+	<h4>Welcome to the electronic site of the city of Barcelona</h4>
     <div className= "content">
+		
         <div className="wrapper">
 			<div className="inner">
 				<div className="image-holder">
-					<img src={require("../../assets/images/IMG_1103.jpg")} alt=""/>
+					<img src={require("../../assets/images/profile_image.png")} alt=""/>
 				</div>
 				<form action="">
-					<h3>Generate your ID</h3>
+					<h3>My Profile</h3>
 					<div className="form-row">
 						<h4>DID</h4>
-						<p>{did}</p>
+						<p>{user.id}</p>
 					</div>
 					<div className="form-row">
 						<h4>Name</h4>
-						<input type="text" className="form-control" placeholder="Name" />
+						<p>{user.currentGivenName}</p>
 					</div>
 					<div className="form-row">
 						<h4>Surname</h4>
-						<input type="text" className="form-control" placeholder="Surname" />
+						<p>{user.currentFamilyName}</p>
 					</div>
 					<div className="form-row">
 						<h4>Date Of Birth</h4>
-						<input type="text" className="form-control" placeholder="YYYY-MM-DD" />
+						<p>{user.dateOfBirth}</p>
 					</div>
 					<div className="form-row">
 						<h4>Place Of Birth</h4>
-						<input type="text" className="form-control" placeholder="Place of Birth" />
+						<p>{user.placeOfBirth}</p>
 					</div>
 					<div className="form-row">
 						<h4>Phone</h4>
-						<input type="text" className="form-control" placeholder="Phone" />
+						<p>{user.govID}</p>
 					</div>
 					<div className="form-row">
 						<h4>Current Address</h4>
-						<input type="text" className="form-control" placeholder="Current Address" />
+						<p>{user.currentAddress}</p>
 					</div>
 					
-					<button className="custom-button">Claim your credential
+					{/* <button className="custom-button">Claim your credential
 						<i className="zmdi zmdi-long-arrow-right"></i>
-					</button>
+					</button> */}
 				</form>
 				
 			</div>

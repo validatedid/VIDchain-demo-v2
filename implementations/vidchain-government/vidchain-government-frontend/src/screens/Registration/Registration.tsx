@@ -12,6 +12,7 @@ import io from 'socket.io-client'
 interface Props {
 	did: string;
 	jwt: string;
+	history?: any;
 	location: any;
 }
   
@@ -129,6 +130,28 @@ class Registration extends Component<Props,State> {
 		return nonEmptyFields
 	}
 
+	continue(){
+		let credentialSubject:ICredentialData = {
+			id: this.state.did,
+			personIdentifier: this.state.did,
+			currentFamilyName: this.state.firstname,
+			currentGivenName: this.state.lastname,
+			birthName: this.state.firstname,
+			dateOfBirth: this.state.dateOfBirth,
+			placeOfBirth: this.state.placeOfBirth,
+			currentAddress: this.state.currentAddress+","+this.state.city+
+			","+this.state.state+","+this.state.zip,
+			gender: this.state.gender,
+			govID: ""
+		};
+		var user = JSON.stringify(credentialSubject);
+		this.props.history.push(
+			{
+			  pathname: '/profile',
+			  state: { user: user }
+			}
+		  ); 
+	}
 	
 
 
@@ -148,9 +171,8 @@ class Registration extends Component<Props,State> {
 		<div className="fragmentSuccess"> 
 			<h1>Your request has been issued.</h1>
 			<p>Go to the notifications section in your APP Wallet</p>
-			<Link to="/profile">
-			<Button type="button" className="collect-button" >Continue</Button>
-            </Link>
+			<Button type="button" className="collect-button" 
+			onClick={()=> this.continue()}>Continue</Button>
 		</div>
 		}
 		{!successGeneration &&

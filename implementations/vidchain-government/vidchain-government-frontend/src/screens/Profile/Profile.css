@@ -39,7 +39,6 @@
   .wrapper {
     min-height: 100vh;
     display: flex;
-    
     /* background: url("../../assets/images/passport.jpg") no-repeat center center; */
     background-size: cover; }
   
@@ -49,6 +48,7 @@
     margin: auto;
     display: flex;
     background: #fff;
+    margin-top:  10px;
     border-radius: 20px;
     padding-top: 35px;
     padding-bottom: 35px;
@@ -208,7 +208,8 @@
 
   
     .wrapper {
-      background: none; } }
+      
+    } }
   
   /*# sourceMappingURL=style.css.map */
   
