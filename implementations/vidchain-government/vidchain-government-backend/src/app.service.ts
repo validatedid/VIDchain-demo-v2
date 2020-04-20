@@ -43,7 +43,8 @@ export class AppService {
       this.storeUserNonce(tokenParsed);
 
       var user = await this.getUser(tokenParsed.did)
-      if(user !== ""){
+      console.log(user);
+      if(user !== null && user !== ""){
         this.sendUserDataToClient(user);
       }
       else{
