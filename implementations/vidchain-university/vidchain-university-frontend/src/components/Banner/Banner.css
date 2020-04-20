@@ -1,4 +1,45 @@
-/*
+.modal{
+    z-index: 100000;
+  }
+  .ModalHeader{
+    justify-content: center;
+    background-color: #00bf71;
+    color: white;
+    
+  }
+  .ModalTitle{
+    justify-content: center;
+    font-size: 18px;
+  }
+  .ModalBody{
+    text-align: center;
+    background-color: white;
+    color: black;
+  }
+  .content{
+    text-align: center;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    border: none;
+    /* margin-top: -1.5%;
+    margin-bottom: -1.5%; */
+  }
+  .footer{
+    clear: both;
+    position: relative;
+  }
+
+  .App {
+    text-align: center;
+  }
+  
+  .App-logo {
+    height: 40vmin;
+    pointer-events: none;
+  }
+  
+  /*
   Author URI: http://webthemez.com/
   Note: Licence under Creative Commons Attribution 3.0  
   -------------------------------------------------------*/
@@ -1801,3 +1842,6 @@
   
   
   }
+  
+   
+  
