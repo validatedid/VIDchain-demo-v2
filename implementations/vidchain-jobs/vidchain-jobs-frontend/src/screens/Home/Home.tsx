@@ -2,11 +2,18 @@ import React, { Component } from "react";
 import "./Home.css";
 import { Link } from "react-router-dom";
 
-class Home extends Component {
+interface Props {
+	history?: any;
+}
+  
+interface State {
+}
+class Home extends Component<Props, State> {
 
-    goToLogin(){
-        
-    }
+  loginWithVIDChain(){
+    this.props.history.push("/CV"); 
+  }
+
 
 
   render() {
@@ -175,11 +182,31 @@ class Home extends Component {
       <div className="container">
         <div className="row heading">
           <h2>Find Popular Jobs</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do</p>
+          <p>Click on the job you want to apply, and login with your mobile wallet</p>
         </div>
         <div className="companies">
+        <div className="company-list">
+            <div className="row">
+              <div className="col-md-2 col-sm-2">
+                <div className="company-logo">
+                  <img src={require("../../assets/images/validatedid.png")} className="img-responsive" alt="" />
+                </div>
+              </div>
+              <div className="col-md-10 col-sm-10">
+                <div className="company-content">
+                  <h3>Software developer<span className="full-time">Full Time</span></h3>
+                  <p><span className="company-name"><i className="fa fa-briefcase"></i>Validated ID</span><span className="company-location"><i className="fa fa-map-marker"></i> C/ Aragó 179, Barcelona, Spain</span><span className="package"><i className="fa fa-money"></i>$24,000-$52,000</span></p>
+                </div>
+              </div>
+              <div className="sign_in_vidchain">
+                  <a className="btn btn-default" href="#" role="button" onClick={() => this.loginWithVIDChain()}><i className="fa fa-check-square-o"></i>Apply with ViDChain</a>
+              </div>
+            </div>
+          </div>
+
           <div className="company-list">
             <div className="row">
+
               <div className="col-md-2 col-sm-2">
                 <div className="company-logo">
                   <img src={require("../../assets/images/google.png")} className="img-responsive" alt="" />
@@ -187,9 +214,12 @@ class Home extends Component {
               </div>
               <div className="col-md-10 col-sm-10">
                 <div className="company-content">
-                  <h3>IOS Developer<span className="full-time">Full Time</span></h3>
+                  <h3>IOS Developer<span className="internship">Internship</span></h3>
                   <p><span className="company-name"><i className="fa fa-briefcase"></i>Google</span><span className="company-location"><i className="fa fa-map-marker"></i> 07th Avenue, New York, NY, United States</span><span className="package"><i className="fa fa-money"></i>$22,000-$50,000</span></p>
                 </div>
+              </div>
+              <div className="sign_in_vidchain special">
+                  <a className="btn btn-default" href="#" role="button" onClick={() => this.loginWithVIDChain()}><i className="fa fa-check-square-o"></i>Apply with ViDChain</a>
               </div>
             </div>
           </div>
@@ -206,6 +236,10 @@ class Home extends Component {
                   <h3>Back-End developer<span className="part-time">Part Time</span></h3>
                   <p><span className="company-name"><i className="fa fa-briefcase"></i>Microsoft</span><span className="company-location"><i className="fa fa-map-marker"></i> 7th Avenue, New York, NY, United States</span><span className="package"><i className="fa fa-money"></i>$20,000-$52,000</span></p>
                 </div>
+                
+              </div>
+              <div className="sign_in_vidchain special">
+                  <a className="btn btn-default" href="#" role="button" onClick={() => this.loginWithVIDChain()}><i className="fa fa-check-square-o"></i>Apply with ViDChain</a>
               </div>
             </div>
           </div>
@@ -223,24 +257,12 @@ class Home extends Component {
                   <p><span className="company-name"><i className="fa fa-briefcase"></i>Apple</span><span className="company-location"><i className="fa fa-map-marker"></i> 7th Avenue, New York, NY, United States</span><span className="package"><i className="fa fa-money"></i>$22,000-$50,000</span></p>
                 </div>
               </div>
-            </div>
-          </div>
-          
-          <div className="company-list">
-            <div className="row">
-              <div className="col-md-2 col-sm-2">
-                <div className="company-logo">
-                  <img src={require("../../assets/images/wipro.png")} className="img-responsive" alt="" />
-                </div>
-              </div>
-              <div className="col-md-10 col-sm-10">
-                <div className="company-content">
-                  <h3>IOS developer<span className="internship">Intership</span></h3>
-                  <p><span className="company-name"><i className="fa fa-briefcase"></i>Wipro</span><span className="company-location"><i className="fa fa-map-marker"></i> 8th Avenue, New York, NY, United States</span><span className="package"><i className="fa fa-money"></i>$24,000-$52,000</span></p>
-                </div>
+              <div className="sign_in_vidchain special">
+                  <a className="btn btn-default" href="#" role="button" onClick={() => this.loginWithVIDChain()}><i className="fa fa-check-square-o"></i>Apply with ViDChain</a>
               </div>
             </div>
           </div>
+        
           
           <div className="company-list">
             <div className="row">
@@ -256,6 +278,9 @@ class Home extends Component {
                 </div>
               </div>
             </div>
+            <div className="sign_in_vidchain">
+                  <a className="btn btn-default" href="#" role="button" onClick={() => this.loginWithVIDChain()}><i className="fa fa-check-square-o"></i>Apply with ViDChain</a>
+              </div>
           </div>
         </div>
         <div className="row">

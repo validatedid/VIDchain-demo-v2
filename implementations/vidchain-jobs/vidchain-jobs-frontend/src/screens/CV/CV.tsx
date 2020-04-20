@@ -5,6 +5,9 @@ import "./CV.css";
 class CV extends Component {
 
 
+  apply(){
+
+  }
 
   render() {
     return (
@@ -39,7 +42,7 @@ class CV extends Component {
                 <section className="inner-banner banner">
                 <div className="container">
                     <div className="caption">
-                        <h2>Get your jobs</h2>
+                        <h2>Apply to a Job</h2>
                         <p>Get your Popular jobs <span>202 New job</span></p>
                     </div>
                 </div>
@@ -52,41 +55,43 @@ class CV extends Component {
                         <div className="row">
                             <div className="basic-information">
                                 <div className="col-md-3 col-sm-3">
-                                <img src={require("../../assets/images/user.jpg")} alt="" className="img-responsive"/>
+                                <img src={require("../../assets/images/validatedid.png")} alt="" className="img-responsive"/>
                                 </div>
                                 <div className="col-md-9 col-sm-9">
                                     <div className="profile-content">
-                                            <h2>Daniel Duke<span>Web designer</span></h2>
-                                            <p>Soft Techi Infoteck Pvt.</p>
-                                            <ul className="information">
-                                                <li><span>Name:</span>Daniel Duke</li>
-                                                <li><span>Email:</span>daniel-duke@gmail.com</li>
-                                                <li><span>Mobile:</span>+91 548 576 8579</li>
-                                                <li><span>Company:</span>Soft Techi Infoteck Pvt.</li>
-                                                <li><span>Date of Birth:</span>10 July 1990</li>
-                                            </ul>
+                                            <h2>Software Developer<span>Validated ID</span></h2>
+                                            <i className="fa fa-map-marker fa-fw"></i> Barcelona
+                                            <p><span>Website:</span>https://www.validatedid.com/</p>
+                                            <div className="sign_in_vidchain">
+                                                <a className="btn btn-default" href="#" role="button" onClick={() => this.apply()}><i className="fa fa-check-square-o"></i>Apply</a>
+                                            </div>
                                         </div>
                                     </div>
-                                <ul className="social">
+                                {/* <ul className="social">
                                     <li><a href="" className="facebook"><i className="fa fa-facebook"></i>Facebook</a></li>
                                     <li><a href="" className="google"><i className="fa fa-google-plus"></i>Google Plus</a></li>
                                     <li><a href="" className="twitter"><i className="fa fa-twitter"></i>Twitter</a></li>
                                     <li><a href="" className="linkedin"><i className="fa fa-linkedin"></i>Linked In</a></li>
                                     <li><a href="" className="instagram"><i className="fa fa-instagram"></i>Instagram</a></li>
-                                </ul>
+                                </ul> */}
                                 <div className="panel panel-default">
                                     <div className="panel-heading">
-                                        <i className="fa fa-user fa-fw"></i> About Me
+                                        <i className="fa fa-user fa-fw"></i> About the company
                                     </div>
                                
                                     <div className="panel-body">
-                                    <p>The front end is the part that users see and interact with, includes the User Interface, the animations, and usually a bunch of logic to talk to the backend. It is the visual bit that the user interacts with. This includes the design, images, colours, buttons, forms, typography, animations and content. It’s basically everything that you as a user of the website can see.</p>	
+                                    <p>Validated ID was created in 2012 by several enthusiasts from the world of digital ID and electronic signatures. We were never a start-up as such. Between us all we had over 50 years’ experience within the field of ID and signature systems. We knew exactly what we wanted to achieve and where we were starting from. We had worked on countless authentication and signature projects, often complicated in nature, and as a result got to work in deploying services that put simplicity first, whilst maintaining the highest levels of technical and legal security. A clear business plan was drawn up, not merely for a product, but for a service. This, naturally, was challenging in itself.
+With the above objectives laid down, we drew upon our years of experience in different areas: cryptography, digital certification, biometry, provision of high availability services, cloud computing, mobility and legal services. We put them all into a cocktail shaker and what was created was what continues to be our star service: VIDsigner Bio. This handwritten electronic signature service is easy to use, easy to integrate and incredibly robust legally.
+Over time, new services have been added to VIDsigner that also strive to fulfil the same objectives: VIDsigner Mobile, VIDsigner DNIe, VIDstamp, VIDdelivery y Docusign (vía partnership).
+Thanks to the knowledge and efforts of our founders, to date, since 2012, we have successfully maintained growth typical of a bootstrap, improving turnover and consolidating the company.
+We have achieved recognition in the market and gathered both a partner and client base that provide us with stability and the drive to continue growing.
+We are currently focusing our efforts on the creation of a new ID and signature system applicable to contracts. This system will incorporate various technologies and aim to make life easier for both buyers and sellers. We want to revolutionise the market with something completely new and make it available universally.</p>	
                                     </div>
                                 </div>
                                 
                                 <div className="panel panel-default">
                                     <div className="panel-heading">
-                                        <i className="fa fa-leaf fa-fw"></i> Responsibilities:
+                                        <i className="fa fa-leaf fa-fw"></i> Responsibilities of the job:
                                     </div>
                                                      
                                     <div className="panel-body">
@@ -108,17 +113,17 @@ class CV extends Component {
                                 
                                 <div className="panel panel-default">
                                     <div className="panel-heading">
-                                        <i className="fa fa-cog fa-fw"></i> Skills
+                                        <i className="fa fa-cog fa-fw"></i> Skills fo the job
                                     </div>
                                                    
                                     <div className="panel-body">
                                     <p>The front end is the part that users see and interact with, includes the User Interface, the animations, and usually a bunch of logic to talk to the backend.</p>	
-                                    <span className="service-tag">Web Design</span>
-                                    <span className="service-tag">Graphics</span>
+                                    <span className="service-tag">Blockchain</span>
+                                    <span className="service-tag">SSI</span>
                                     <span className="service-tag">Development</span>
                                     <span className="service-tag">App design</span>
                                     <span className="service-tag">IOS Apps</span>
-                                    <span className="service-tag">CMS Development</span>
+                                    <span className="service-tag">React</span>
                                     </div>
                                 </div>
                             </div>
