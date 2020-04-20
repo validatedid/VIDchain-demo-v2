@@ -59,8 +59,8 @@ import {
       this.storeUser(user);
     }
 
-    storeUser(user: User){
-      this.userRedis.set(user.id, JSON.stringify(user));
+    storeUser(user: any){
+      this.userRedis.set(user.credentialSubject.id, JSON.stringify(user));
     }
   
   }
