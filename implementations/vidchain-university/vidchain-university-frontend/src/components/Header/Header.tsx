@@ -42,8 +42,8 @@ class Header extends Component {
                                   <li><a href="#">Investors</a></li>
                               </ul>
                           </li> 
-                  <li><a href="#">Courses</a></li>
-                              <li><a href="#">Portfolio</a></li>
+                              <li><a href="#">Courses</a></li>
+                              <li><a href="#">Student Portal</a></li>
                               <li><a href="#">Fees</a></li>
                               <li><a href="#">Contact</a></li>
                           </ul>

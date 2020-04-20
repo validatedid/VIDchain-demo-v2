@@ -37,8 +37,7 @@ class Home extends Component<Props, State> {
   }
 
   componentDidMount(){
-    console.log(process.env.REACT_APP_BACKEND_URL
-      );
+    console.log(process.env.REACT_APP_BACKEND_URL);
     const socket = io(config.BACKEND_URL)
     socket.on('login', (msg:any) => {
       console.log(msg);
@@ -124,7 +123,7 @@ class Home extends Component<Props, State> {
     console.log(showQR);
     return (
     <div>
-      <Modal show={showQR} onHide={() => this.closeQR()} className="modal">
+      <Modal animation={false} show={showQR} onHide={() => this.closeQR()} className="modal">
         <Modal.Header
           className="ModalHeader"
           closeButton
