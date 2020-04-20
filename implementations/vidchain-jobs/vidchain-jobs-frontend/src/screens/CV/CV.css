@@ -1,3 +1,28 @@
-.banner{
-    backend:#242c36 url(https://via.placeholder.com/1920x600)no-repeat;
-}
+
+.collect-button{
+    position:relative;
+    float: center;
+    margin-right: 10%;
+    background-color: #00bf71;
+    border-color: #00bf71;
+    color: white;
+    width: 200px;
+    height: 50px;
+    margin-bottom: 5%;
+  }
+  .collect-button:active,
+  .collect-button:hover,
+  .collect-button:focus,
+  .collect-button>a,
+  .collect-button>a:hover,
+  .collect-button>a:focus {
+    position:relative;
+    float: center;
+    margin-right: 10%;
+    background-color: #00bf71;
+    border-color: #00bf71;
+    color: white;
+    width: 200px;
+    height: 50px;
+    margin-bottom: 5%;
+  }

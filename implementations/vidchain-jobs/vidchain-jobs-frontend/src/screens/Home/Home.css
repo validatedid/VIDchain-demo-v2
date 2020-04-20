@@ -23,6 +23,24 @@
   .sign_in_vidchain>a>i {
       padding-right: 5px;
   }
+  .modal{
+    z-index: 100000;
+  }
+  .ModalHeader{
+    justify-content: center;
+    background-color: #00bf71;
+    color: white;
+    
+  }
+  .ModalTitle{
+    justify-content: center;
+    font-size: 18px;
+  }
+  .ModalBody{
+    text-align: center;
+    background-color: white;
+    color: black;
+  }
 /*------------------------------------------------------------------
 
 Project:	Jober Desk

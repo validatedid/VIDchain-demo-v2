@@ -1,15 +1,88 @@
 import React, { Component } from "react";
 import "./CV.css";
+import { Button, Form } from "react-bootstrap";
+import * as config from '../../config';
+import {fullCredential} from '../../models/Credential';
+import axios from 'axios'
+import io from 'socket.io-client'
 
+interface Props {
+	did: string;
+	jwt: string;
+	history?: any;
+	location: any;
+}
 
-class CV extends Component {
+interface State {
+	jwt: string,
+	did: string
+    today: string
+	successGeneration: boolean
+}
 
+class CV extends Component<Props,State> {
 
-  apply(){
+    constructor(props:any) {
+		super(props);
+		this.state = {
+			jwt: "",
+			did: "",
+            today: "",
+            successGeneration: false
+        }
+    }
+    componentDidMount(){
+    this.getCurrentDay();
+        if(this.props.location.state){
+            this.setState ({
+                did: this.props.location.state.did,
+                jwt: this.props.location.state.jwt
+        });
+        if(this.props.location.state.jwt === undefined){
+        this.setState ({
+            successGeneration: true
+        })
+        }
+        }	
+    }
+    
+    getCurrentDay(){
+    var today = new Date();
+    var dd = String(today.getDate()).padStart(2, '0');
+    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    var yyyy = today.getFullYear();
 
+    this.setState ({
+        today: dd + '/' + mm + '/' + yyyy
+    });
+    }
+
+  async apply(){
+    let authorization = {
+        headers: {
+          Authorization: "Bearer " + this.state.jwt
+        }
+    };
+    let data = fullCredential;
+    data.credentialSubject.id = this.state.did;
+    data.credentialSubject.learningActivity.endedAtTime = this.state.today;
+    console.log(data);
+    const response = await axios.post(config.API_URL + "educreds/", data, authorization);
+    //Check response
+    console.log(response);
+    this.sendUserToServer(data);
+    this.setState ({
+        successGeneration: true
+    })
+
+  }
+  sendUserToServer(credential: any){
+    const socket = io(config.BACKEND_URL);
+    socket.emit('registration', JSON.stringify(credential));
   }
 
   render() {
+    const { did,today, successGeneration} = this.state;
     return (
         <div className= "content">
             <nav className="navbar navbar-default navbar-sticky bootsnav">
@@ -61,10 +134,10 @@ class CV extends Component {
                                     <div className="profile-content">
                                             <h2>Software Developer<span>Validated ID</span></h2>
                                             <i className="fa fa-map-marker fa-fw"></i> Barcelona
-                                            <p><span>Website:</span>https://www.validatedid.com/</p>
-                                            <div className="sign_in_vidchain">
-                                                <a className="btn btn-default" href="#" role="button" onClick={() => this.apply()}><i className="fa fa-check-square-o"></i>Apply</a>
-                                            </div>
+                                            <br/><br/>
+                                            <h6>Your Decentralized Indentifier (DID):</h6>
+                                            <p>{did}</p>
+                                            <Button disabled={successGeneration} type="button" className="collect-button" onClick={() => this.apply()}>Apply for the job</Button>
                                         </div>
                                     </div>
                                 {/* <ul className="social">
