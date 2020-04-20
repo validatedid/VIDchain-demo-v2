@@ -43,7 +43,7 @@ class Home extends Component<Props, State> {
       console.log(msg);
       this.props.history.push(
         {
-          pathname: '/registration',
+          pathname: '/profile',
           state: { did: msg, jwt: this.state.jwt }
         }
       ); 

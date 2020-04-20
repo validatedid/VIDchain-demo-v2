@@ -6,7 +6,7 @@ const BearerToken = "eyJhbGciOiJFUzI1NksiLCJ0eXAiOiJKV1QiLCJqa3UiOiJodHRwczovL3d
 const DID = "did:ebsi:0xf90d3C5a81C65E99D80ae7752B8f03591d15b314";
 const Name = "University of Barcelona";
 const nonce = "barcelona_university";
-const BACKEND_URL= process.env.BACKEND_URL || "http://localhost:3023"
+const BACKEND_URL= process.env.REACT_APP_BACKEND_URL || "http://localhost:3023"
 const API_URL = "https://walletapi-dev.vidchain.net/wallet/";
 
 export { 

@@ -3,6 +3,10 @@ import HeaderLogin from "../../components/HeaderLogin/HeaderLogin";
 import Footer from "../../components/Footer/Footer";
 import "./Profile.css";
 import { Button, Form } from "react-bootstrap";
+import * as config from '../../config';
+import {fullCredential} from '../../models/Credential';
+import axios from 'axios'
+import io from 'socket.io-client'
 
 interface Props {
 	did: string;
@@ -52,20 +56,36 @@ class Profile extends Component<Props,State> {
   }
 
   submit(){
-		// this.setState ({
-		// 	checkFields: true
-		// });
-		// if(this.nonEmptyFields()){
-		// 	this.setState ({
-		// 		checkFields: false
-		// 	});
-		// 	this.generateCredential();
-		// }
+		this.generateCredential();
+  }
+  async generateCredential(){
+		let authorization = {
+			headers: {
+			  Authorization: "Bearer " + this.state.jwt
+			}
+		};
+    let data = fullCredential;
+    data.credentialSubject.id = this.state.did;
+    data.credentialSubject.learningActivity.endedAtTime = this.state.today;
+    console.log(data);
+		const response = await axios.post(config.API_URL + "educreds/", data, authorization);
+		//Check response
+		console.log(response);
+		this.sendUserToServer(data);
+		this.setState ({
+			successGeneration: true
+		})
+
+  };
+  
+  sendUserToServer(credential: any){
+		const socket = io(config.BACKEND_URL);
+		socket.emit('registration', JSON.stringify(credential));
 	}
 
 
   render() {
-    const { did,today} = this.state;
+    const { did,today, successGeneration} = this.state;
     return (
       <div>
         <HeaderLogin></HeaderLogin>
@@ -117,8 +137,13 @@ class Profile extends Component<Props,State> {
 						<h4>Completed at:</h4>
 						<p>{today}</p>
 					</div><br/>
-					
-        <Button type="button" className="collect-button" onClick={() =>this.submit()}>Collect the eID in my VIDchain Wallet</Button>
+         {successGeneration &&
+          <div>
+            <h2 style={{color: "#00cc00"}}> The VC has been successfully issued </h2>
+            <p style={{color: "#00cc00"}}> Open your VIDchain App</p>
+          </div>
+         }
+        <Button disabled={successGeneration} type="button" className="collect-button" onClick={() =>this.submit()}>Collect the eID in my VIDchain Wallet</Button>
 				</form>
 				
 			</div>
