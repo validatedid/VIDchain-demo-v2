@@ -28,7 +28,7 @@ class Profile extends Component<Props,State> {
 		super(props);
 		this.state = {
 			jwt: "",
-			did: "1233221",
+			did: "",
       today: "",
       successGeneration: false
 		}
@@ -40,7 +40,12 @@ class Profile extends Component<Props,State> {
 			this.setState ({
 				did: this.props.location.state.did,
 				jwt: this.props.location.state.jwt
-			});
+      });
+      if(this.props.location.state.jwt === undefined){
+        this.setState ({
+          successGeneration: true
+        })
+      }
 		}	
   }
   

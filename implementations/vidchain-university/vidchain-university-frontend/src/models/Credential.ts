@@ -48,7 +48,7 @@ export var fullCredential:any = {
         "id": "university-barcelona-c4de/laa1",
         "identifier": "laaIdentifier1",
         "title": "Degree in Software Engineering",
-        "description": "The bachelor’s degree in Software Engineering provides the knowledge needed to conceive, design, develop, maintain and manage computer systems, services, applications and architectures and to understand and apply relevant legislation. You will also become an expert in new methods and technologies in the field of ICTs.",
+        "description": "The bachelor degree in Software Engineering provides the knowledge needed to conceive, design, develop, maintain and manage computer systems, services, applications and architectures and to understand and apply relevant legislation. You will also become an expert in new methods and technologies in the field of ICTs.",
         "startedAtTime": "2020-01-01T19:73:24Z",
         "endedAtTime": "",
         "hasPart": []
