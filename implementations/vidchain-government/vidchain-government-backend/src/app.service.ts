@@ -16,7 +16,7 @@ export class AppService {
   private readonly userRedis = new Redis({ keyPrefix: "user:" });
 
   async getHello(): Promise<string> {
-    var userDID = "did:ebsi:0x7748687e6Ad7a5eE05943890404f854739302Ad9";
+    var userDID = "did:ebsi:0xB7C3CAD23c2445aFdBE0DE95eb4FBE4ae982C783";
     const nonce = await this.nonceRedis.get(userDID)
     const user = await this.userRedis.get(userDID)
     this.logger.log(`Nonce from DB:`)
