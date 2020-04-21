@@ -160,7 +160,7 @@ class CV extends Component<Props,State> {
                                             {applied &&
                                                 <div>
                                                     <p style={{color: "#00cc00"}}> You got the job! CONGRATULATIONS!</p>
-                                                    <Button disabled={successGeneration} type="button" className="collect-button" onClick={() => this.issueCredential()}>Claim the VC</Button>
+                                                    <Button disabled={successGeneration} type="button" className="collect-button" onClick={() => this.issueCredential()}><i className="fa fa-check-square-o"></i>Claim the VC</Button>
                                                 </div>
                                             }
                                              {successGeneration &&

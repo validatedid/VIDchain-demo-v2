@@ -25,15 +25,15 @@
   /* margin-top: -1.5%;
   margin-bottom: -1.5%; */
 }
+
 .footer{
   clear: both;
   position: relative;
 }
 .login_form {
-  border: 1px solid #f6f6f6;
+  border: 0px solid #f6f6f6;
   width: 100%;
   padding: 17px 30px;
-  box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
   position: relative;
 }
 .sign_in_vidchain {

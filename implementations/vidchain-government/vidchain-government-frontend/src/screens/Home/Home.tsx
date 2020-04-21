@@ -142,7 +142,8 @@ class Home extends Component<Props, State> {
     <Header></Header>
     <div className= "content">
       <div className="login_form">
-          <h3 className="cds-nav-link"><span>Access to your Account</span></h3><br/>
+          <h4 className="mt-0">Manage your account online</h4><br/>
+          <p>You can access your payment history, balance, bills, letters and set up or change a direct debit.</p>
           <div className="sign_in_vidchain">
               <a className="btn btn-default" href="#" role="button" onClick={() => this.loginWithVIDChain()}><i className="fa fa-check-square-o"></i>Sign in with ViDChain</a>
           </div>

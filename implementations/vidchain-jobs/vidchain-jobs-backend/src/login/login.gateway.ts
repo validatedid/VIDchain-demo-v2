@@ -18,7 +18,7 @@ import {
   
   @WebSocketGateway()
   export class LoginGateway implements OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit {
-    private readonly userRedis = new Redis({ keyPrefix: "user:" });
+    private readonly userRedis = new Redis({ keyPrefix: "jobs-user:" });
 
     @WebSocketServer() wss: Server;
     constructor() {

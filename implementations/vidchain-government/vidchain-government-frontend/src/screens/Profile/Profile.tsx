@@ -22,7 +22,9 @@ class Profile extends Component<Props,State> {
 		}
 	}
   componentDidMount(){
+	  console.log(this.props.location.state);
 	if(this.props.location.state){
+		
 		var user: ICredentialData = JSON.parse(this.props.location.state.user);
 		this.setState ({
 			user: user
@@ -41,7 +43,6 @@ class Profile extends Component<Props,State> {
     <Header></Header>
 	<h4>Welcome to the electronic site of the city of Barcelona</h4>
     <div className= "content">
-		
         <div className="wrapper">
 			<div className="inner">
 				<div className="image-holder">
