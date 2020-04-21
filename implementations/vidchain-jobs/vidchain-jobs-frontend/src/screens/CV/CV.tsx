@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./CV.css";
-import { Button, Form } from "react-bootstrap";
+import { Button } from "react-bootstrap";
+import Loader from "react-loader-spinner";
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
 import * as config from '../../config';
 import {fullCredential} from '../../models/Credential';
 import axios from 'axios'
@@ -17,7 +19,9 @@ interface State {
 	jwt: string,
 	did: string
     today: string
-	successGeneration: boolean
+    successGeneration: boolean
+    applied: boolean
+    loading: boolean
 }
 
 class CV extends Component<Props,State> {
@@ -28,7 +32,9 @@ class CV extends Component<Props,State> {
 			jwt: "",
 			did: "",
             today: "",
-            successGeneration: false
+            successGeneration: false,
+            applied: false,
+            loading: false
         }
     }
     componentDidMount(){
@@ -56,8 +62,16 @@ class CV extends Component<Props,State> {
         today: dd + '/' + mm + '/' + yyyy
     });
     }
+    async apply(){
+        this.setState({
+            loading: true
+        })
+        setTimeout(() => {
+            this.setState({ loading: false, applied:true });
+        }, 3000);
+    }
 
-  async apply(){
+  async issueCredential(){
     let authorization = {
         headers: {
           Authorization: "Bearer " + this.state.jwt
@@ -82,7 +96,7 @@ class CV extends Component<Props,State> {
   }
 
   render() {
-    const { did,today, successGeneration} = this.state;
+    const { did,today, successGeneration, applied, loading} = this.state;
     return (
         <div className= "content">
             <nav className="navbar navbar-default navbar-sticky bootsnav">
@@ -137,7 +151,24 @@ class CV extends Component<Props,State> {
                                             <br/><br/>
                                             <h6>Your Decentralized Indentifier (DID):</h6>
                                             <p>{did}</p>
-                                            <Button disabled={successGeneration} type="button" className="collect-button" onClick={() => this.apply()}>Apply for the job</Button>
+
+                                            <Loader visible={loading} type="Circles" color="#00cc00" height={100} width={100}/>
+                      
+                                            {!applied &&
+                                                <Button disabled={successGeneration} type="button" className="collect-button" onClick={() => this.apply()}>Apply for the job</Button>
+                                            }
+                                            {applied &&
+                                                <div>
+                                                    <p style={{color: "#00cc00"}}> You got the job! CONGRATULATIONS!</p>
+                                                    <Button disabled={successGeneration} type="button" className="collect-button" onClick={() => this.issueCredential()}>Claim the VC</Button>
+                                                </div>
+                                            }
+                                             {successGeneration &&
+                                                <div>
+                                                    <h2 style={{color: "#00cc00"}}> The VC has been successfully issued </h2>
+                                                    <p style={{color: "#00cc00"}}> Open your VIDchain App</p>
+                                                </div>
+                                              }
                                         </div>
                                     </div>
                                 {/* <ul className="social">
