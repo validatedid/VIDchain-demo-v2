@@ -35,6 +35,7 @@ class Home extends Component<Props, State> {
     const socket = io(config.BACKEND_URL)
     socket.on('login', (msg:any) => {
       console.log(msg);
+      
       this.props.history.push(
         {
           pathname: '/CV',
@@ -44,10 +45,11 @@ class Home extends Component<Props, State> {
     });
     socket.on('access', (msg:any) => {
       console.log(msg);
+      var msgParsed = JSON.parse(msg);
       this.props.history.push(
         {
           pathname: '/CV',
-          state: { user: msg }
+          state: { did: msgParsed.credentialSubject.id }
         }
       ); 
     });

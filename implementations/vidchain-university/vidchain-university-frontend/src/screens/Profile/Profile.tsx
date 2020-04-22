@@ -7,7 +7,7 @@ import * as config from '../../config';
 import {fullCredential} from '../../models/Credential';
 import axios from 'axios'
 import io from 'socket.io-client'
-
+import * as transform from "../../utils/StringTransformer";
 interface Props {
 	did: string;
 	jwt: string;
@@ -124,7 +124,7 @@ class Profile extends Component<Props,State> {
 				<form action="">
 					<div className="form-row">
 						<h4>Your Decentralized Indentifier (DID):</h4>
-						<p>{did}</p>
+						<p>{transform.replaceDID(did)}</p>
 					</div><br/>
 					<div className="form-row">
 						<h4>Title</h4>

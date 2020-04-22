@@ -9,6 +9,7 @@ import axios from 'axios'
 import * as config from '../../config';
 import { Link } from "react-router-dom";
 import io from 'socket.io-client'
+import * as transform from "../../utils/StringTransformer";
 interface Props {
 	did: string;
 	jwt: string;
@@ -183,7 +184,7 @@ class Registration extends Component<Props,State> {
 	   <Form.Group as={Row} md="12" controlId="formDID">
 			<Form.Label column md="4">Your Decentralized Indentifier (DID):</Form.Label>
 			<Col md="8">
-				<Form.Control plaintext readOnly defaultValue={did} />
+				<Form.Control plaintext readOnly defaultValue={transform.replaceDID(did)} />
 			</Col>
 		</Form.Group>
       <Form.Row>

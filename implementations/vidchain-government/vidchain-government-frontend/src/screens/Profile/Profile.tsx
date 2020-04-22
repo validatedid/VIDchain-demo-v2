@@ -5,6 +5,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Official from '../../components/Official/Official';
 import {ICredentialData} from "../../interfaces/ICredentialData";
+import * as transform from "../../utils/StringTransformer";
 interface Props {
 	user: string;
 	location: any;
@@ -52,7 +53,7 @@ class Profile extends Component<Props,State> {
 					<h3>My Profile</h3>
 					<div className="form-row">
 						<h4>DID</h4>
-						<p>{user.id}</p>
+						<p>{transform.replaceDID(user.id)}</p>
 					</div>
 					<div className="form-row">
 						<h4>Name</h4>

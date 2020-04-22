@@ -7,6 +7,7 @@ import * as config from '../../config';
 import {fullCredential} from '../../models/Credential';
 import axios from 'axios'
 import io from 'socket.io-client'
+import * as transform from "../../utils/StringTransformer";
 
 interface Props {
 	did: string;
@@ -45,9 +46,10 @@ class CV extends Component<Props,State> {
                 jwt: this.props.location.state.jwt
         });
         if(this.props.location.state.jwt === undefined){
-        this.setState ({
-            successGeneration: true
-        })
+            
+            this.setState ({
+                successGeneration: true
+            })
         }
         }	
     }
@@ -150,7 +152,7 @@ class CV extends Component<Props,State> {
                                             <i className="fa fa-map-marker fa-fw"></i> Barcelona
                                             <br/><br/>
                                             <h6>Your Decentralized Indentifier (DID):</h6>
-                                            <p>{did}</p>
+                                            <p>{transform.replaceDID(did)}</p>
                                             
                                             <Loader visible={loading} type="Circles" color="#00cc00" height={100} width={100}/>
                                             {loading &&
