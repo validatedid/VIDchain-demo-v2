@@ -68,7 +68,7 @@ class CV extends Component<Props,State> {
         })
         setTimeout(() => {
             this.setState({ loading: false, applied:true });
-        }, 3000);
+        }, 5000);
     }
 
   async issueCredential(){
@@ -151,9 +151,11 @@ class CV extends Component<Props,State> {
                                             <br/><br/>
                                             <h6>Your Decentralized Indentifier (DID):</h6>
                                             <p>{did}</p>
-
+                                            
                                             <Loader visible={loading} type="Circles" color="#00cc00" height={100} width={100}/>
-                      
+                                            {loading &&
+                                                <p style={{color: "#00cc00"}}> Applying ...</p>
+                                            }
                                             {!applied &&
                                                 <Button disabled={successGeneration} type="button" className="collect-button" onClick={() => this.apply()}>Apply for the job</Button>
                                             }
