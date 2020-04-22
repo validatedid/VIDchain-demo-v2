@@ -52,10 +52,9 @@
   }
   .login_form {
     
-    border: 2px solid #white;
+    border: 0px solid ;
     width: 100%;
     padding: 17px 30px;
-    box-shadow: 0 0 16px rgba(0, 0, 0, 0.1);
     position: relative;
   }
   .sign_in_vidchain {
@@ -108,19 +107,23 @@
     margin-bottom: 15px;
     text-align: center;
   }
+  .minilogo{
+    margin-top: 10px;
+  }
   
   .login_manual_form .form-group>i{
     background-color: #f6f6f6;
     color: #7f8c8d;
-    padding: 15px;
-    font-size: 14px;
+    padding: 16px;
+    padding-bottom: 19px;
+    font-size: 16px;
     display: inline-block;
   }
   
   .login_manual_form .form-group>input{
     border: medium none;
     width: 35%;
-    padding: 10px;
+    padding: 13px;
     display: inline-block;
     border-bottom: 1px solid #f6f6f6;
   }
@@ -158,12 +161,13 @@
   }
   
   .forget_pass {
+    
     display: inline-block;
   }
   
   .forget_pass>a {
     margin-top: 10px;
-    color: #6f6f6f;
+    color: #ffffff;
     display: inline-block;
   }
   

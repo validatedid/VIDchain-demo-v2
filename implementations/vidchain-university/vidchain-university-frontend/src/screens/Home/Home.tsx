@@ -147,7 +147,7 @@ class Home extends Component<Props, State> {
           <div className="container">
             <div className="row">
               <div className="col-md-12 col-sm-11">
-                <h3>Welcome to the Univesity of Barcelona</h3>
+                <h3>Welcome to the University of Barcelona</h3>
                 <p>Sign In to access to your profile and handle your credentials</p>
               </div>
             </div>
