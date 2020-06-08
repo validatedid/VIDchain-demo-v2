@@ -4,6 +4,7 @@ import { Switch, Route, BrowserRouter } from "react-router-dom";
 import Home from "./screens/Home/Home";
 import Profile from "./screens/Profile/Profile";
 import Registration from "./screens/Registration/Registration";
+import Callback from "./screens/Callback/Callback";
 import {IFormData} from "./interfaces/ICredentialData"
 const dotenv = require('dotenv')
 // importing .env variables
@@ -22,6 +23,10 @@ function App() {
             <Route exact
               path="/profile"
               component={Profile}
+            />
+            <Route exact
+              path="/callback"
+              component={Callback}
             />
           </Switch>
         </BrowserRouter>

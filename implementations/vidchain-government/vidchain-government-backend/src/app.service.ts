@@ -12,8 +12,14 @@ export class AppService {
   private logger: Logger = new Logger('LoginGateway');
   private readonly socket = io(config.BASE_URL);
   private vidchainBackend:VidchainBackend = new VidchainBackend();
-  private readonly nonceRedis = new Redis({ keyPrefix: "government-nonce:" });
-  private readonly userRedis = new Redis({ keyPrefix: "government-user:" });
+  private readonly nonceRedis = new Redis({ 
+    port: 6379, // Redis port
+    host: process.env.REDIS_URL,
+    keyPrefix: "government-nonce:" });
+  private readonly userRedis = new Redis({ 
+    port: 6379, // Redis port
+    host: process.env.REDIS_URL,
+    keyPrefix: "government-user:" });
 
   async getHello(): Promise<string> {
     var userDID = "did:ebsi:0xB7C3CAD23c2445aFdBE0DE95eb4FBE4ae982C783";

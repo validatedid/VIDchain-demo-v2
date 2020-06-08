@@ -9,7 +9,7 @@ import * as config from '../../config';
 import {
   Modal
 } from "react-bootstrap";
-import { Redirect } from "react-router-dom";
+import { startFlow } from "../../libs/openid-connect/openid-connect";
 
 var QRCode = require('qrcode.react');
 interface Props {
@@ -35,57 +35,58 @@ class Home extends Component<Props, State> {
     }
   }
   componentDidMount(){
-    console.log(process.env.REACT_APP_BACKEND_URL
-      );
-    const socket = io(config.BACKEND_URL)
-    socket.on('login', (msg:any) => {
-      console.log(msg);
-      this.props.history.push(
-        {
-          pathname: '/registration',
-          state: { did: msg, jwt: this.state.jwt }
-        }
-      ); 
-    });
-    socket.on('access', (msg:any) => {
-      console.log(msg);
-      this.props.history.push(
-        {
-          pathname: '/profile',
-          state: { user: msg }
-        }
-      ); 
-    });
-    this.startConnection();
+    // console.log(process.env.REACT_APP_BACKEND_URL
+    //   );
+    // const socket = io(config.BACKEND_URL)
+    // socket.on('login', (msg:any) => {
+    //   console.log(msg);
+    //   this.props.history.push(
+    //     {
+    //       pathname: '/registration',
+    //       state: { did: msg, jwt: this.state.jwt }
+    //     }
+    //   ); 
+    // });
+    // socket.on('access', (msg:any) => {
+    //   console.log(msg);
+    //   this.props.history.push(
+    //     {
+    //       pathname: '/profile',
+    //       state: { user: msg }
+    //     }
+    //   ); 
+    // });
+    // this.startConnection();
   }
 
-  async startConnection(){
-    var jwt = await this.connectWithBackend();
-    //Check if there is an error
-    this.setState({
-      jwt: jwt
-    });
-  }
+  // async startConnection(){
+  //   var jwt = await this.connectWithBackend();
+  //   //Check if there is an error
+  //   this.setState({
+  //     jwt: jwt
+  //   });
+  // }
 
-  async connectWithBackend(){
-    let data = {
-        enterpriseName: config.Name,
-        nonce: config.nonce
-    };
-    const response = await axios.post(config.API_URL + "token", data);
-    return response.data.jwt;
-  }
+  // async connectWithBackend(){
+  //   let data = {
+  //       enterpriseName: config.Name,
+  //       nonce: config.nonce
+  //   };
+  //   const response = await axios.post(config.API_URL + "token", data);
+  //   return response.data.jwt;
+  // }
 
   async loginWithVIDChain(){
-    var qrCodeContent = await this.generateContent();
-    //Check if there is an error
-    console.log(qrCodeContent);
-    this.setState({
-      contentQR: qrCodeContent,
-      showQR: true
-    });
-
-    //this.props.history.push("/registration"); 
+    // var qrCodeContent = await this.generateContent();
+    // //Check if there is an error
+    // console.log(qrCodeContent);
+    // this.setState({
+    //   contentQR: qrCodeContent,
+    //   showQR: true
+    // });
+    const urlToRedirect = startFlow();
+    console.log(urlToRedirect);
+    window.location.href = urlToRedirect;
   }
 
   

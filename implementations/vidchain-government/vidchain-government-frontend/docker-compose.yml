@@ -2,26 +2,26 @@ version: "3.7"
 
 services:
 
-  government-backend:
+  government-frontend:
     build:
       context: .
       dockerfile: Dockerfile
-    image: vidchain/ government-backend:v0.1
-    container_name:  government-backend
+    image: vidchain/ government-frontend:v0.1
+    container_name:  government-frontend
     restart: always
     logging:
       options:
         max-size: "100m"
         max-file: "50"
     ports:
-      - 3021:3021
+      - 3022:3022
     networks:
       - hydra_network
     environment:
       - REDIS_URL=redis
-      - BASE_URL=http://localhost:3021
-      - CLIENT_URL=http://localhost:3022
-
+      - REACT_APP_BACKEND_URL=http://localhost:3021
+      - REDIRECT_CALLBACK=http%3A%2F%2F127.0.0.1%3A3022%2Fcallback
+      
 networks:
   hydra_network:
     driver: bridge

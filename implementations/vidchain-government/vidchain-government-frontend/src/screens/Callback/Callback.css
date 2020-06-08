@@ -1,0 +1,41 @@
+
+.page {
+  background: linear-gradient(to bottom, #e9e9eb 0%, #fff 100%);
+  color: #282828;
+  margin-top: -25px;
+  margin-bottom: 20px;
+  padding: 20px 30px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex-grow: 1;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1.67;
+  color: #5b6f90;
+  margin: 0 0 20px 0;
+  padding: 0;
+}
+
+p {
+  font-size: 1.5rem;
+  font-weight: 400;
+  line-height: 1.38;
+  margin: 0 0 20px 0;
+  padding: 0;
+}
+.collect-button{
+  position:relative;
+  left:40%;
+  background-color: #00bf71;
+  color: white;
+}
+.fragmentSucces{
+  height: 80%;
+}
