@@ -12,7 +12,7 @@ import io from 'socket.io-client'
 import * as transform from "../../utils/StringTransformer";
 interface Props {
 	did: string;
-	jwt: string;
+	code: string;
 	history?: any;
 	location: any;
 }
@@ -55,12 +55,13 @@ class Registration extends Component<Props,State> {
 	}
 
 	componentDidMount(){
-		if(this.props.location.state){
-			this.setState ({
-				did: this.props.location.state.did,
-				jwt: this.props.location.state.jwt
-			});
-		}	
+		console.log(this.props.location.state.code);
+		// if(this.props.location.state){
+		// 	this.setState ({
+		// 		did: this.props.location.state.did,
+		// 		jwt: this.props.location.state.jwt
+		// 	});
+		// }	
 	}
 
 	submit(){
@@ -101,17 +102,17 @@ class Registration extends Component<Props,State> {
 		const response = await axios.post(config.API_URL + "verifiableid", data, authorization);
 		//Check response
 		console.log(response);
-		this.sendUserToServer(credentialSubject);
+		//this.sendUserToServer(credentialSubject);
 		this.setState ({
 			successGeneration: true
 		})
 
 	};
 
-	sendUserToServer(user: ICredentialData){
-		const socket = io(config.BACKEND_URL);
-		socket.emit('registration', JSON.stringify(user));
-	}
+	// sendUserToServer(user: ICredentialData){
+	// 	const socket = io(config.BACKEND_URL);
+	// 	socket.emit('registration', JSON.stringify(user));
+	// }
 		
 	
 
@@ -184,7 +185,7 @@ class Registration extends Component<Props,State> {
 	   <Form.Group as={Row} md="12" controlId="formDID">
 			<Form.Label column md="4">Your Decentralized Indentifier (DID):</Form.Label>
 			<Col md="8">
-				<Form.Control plaintext readOnly defaultValue={transform.replaceDID(did)} />
+				<Form.Control plaintext readOnly defaultValue={did} />
 			</Col>
 		</Form.Group>
       <Form.Row>

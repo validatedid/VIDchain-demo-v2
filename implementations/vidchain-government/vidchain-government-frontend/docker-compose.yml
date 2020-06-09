@@ -19,8 +19,8 @@ services:
       - hydra_network
     environment:
       - REDIS_URL=redis
-      - REACT_APP_BACKEND_URL=http://localhost:3021
-      - REDIRECT_CALLBACK=http%3A%2F%2F127.0.0.1%3A3022%2Fcallback
+      - REDIRECT_CALLBACK=https://dev.api.vidchain.net/demo/government/callback
+      - IDENTITY_PROVIDER=https://dev.api.vidchain.net
       
 networks:
   hydra_network:

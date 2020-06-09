@@ -7,14 +7,16 @@ const DID = "did:ebsi:0x91A743152Cb0b4BCcb21da65e38732E5005eb93E";
 const Name = "City of Barcelona";
 const nonce = "barcelona";
 
-const BACKEND_URL= process.env.REACT_APP_BACKEND_URL || "http://localhost:3021"
+// const BACKEND_URL= process.env.REACT_APP_BACKEND_URL || "http://localhost:3021"
 const API_URL = "https://walletapi-dev.vidchain.net/wallet/";
+const IDENTITY_PROVIDER = process.env.REACT_APP_BACKEND_URL || "https://dev.api.vidchain.net";
+//"http://localhost:9000/"
 
 export { 
     BearerToken,
     DID,
     Name,
     nonce,
-    BACKEND_URL,
-    API_URL
+    API_URL,
+    IDENTITY_PROVIDER
 }

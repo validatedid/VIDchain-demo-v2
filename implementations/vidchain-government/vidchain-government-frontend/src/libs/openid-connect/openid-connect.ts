@@ -1,7 +1,9 @@
 import { initiateFlow } from "./dtos";
+import * as config from '../../config';
 import * as utils from "../../utils/utils";
 
-const API_HYDRA = "https://dev.api.vidchain.net";
+// const API_HYDRA = "https://dev.api.vidchain.net";
+const API_HYDRA = config.IDENTITY_PROVIDER;
 const REDIRECT_CALLBACK = process.env.REDIRECT_CALLBACK || "http%3A%2F%2F127.0.0.1%3A3022%2Fcallback"
 
 /**
@@ -14,12 +16,12 @@ function startFlow() {
 
     const parameters: initiateFlow = {
         audience: "",
-        client_id: "barcelona",
+        client_id: "barcelona-city",
         max_age: 0,
         nonce: nonce,
         prompt: "",
         redirect_uri: REDIRECT_CALLBACK,
-        response_type: "code,id_token",
+        response_type: "code",
         scope: "openid+offline",
         state: state,
     }
@@ -32,6 +34,8 @@ function startFlow() {
     `response_type=${parameters.response_type}&`+
     `scope=${parameters.scope}&`+
     `state=${parameters.state}`;
+
+    console.log(url);
 
     return url;
   }

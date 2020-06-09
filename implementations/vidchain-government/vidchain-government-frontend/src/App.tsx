@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import { Switch, Route, BrowserRouter } from "react-router-dom";
+import { Switch, Route, BrowserRouter, useLocation } from "react-router-dom";
+import { withRouter } from "react-router";
 import Home from "./screens/Home/Home";
 import Profile from "./screens/Profile/Profile";
 import Registration from "./screens/Registration/Registration";
@@ -24,7 +25,7 @@ function App() {
               path="/profile"
               component={Profile}
             />
-            <Route exact
+            <Route
               path="/callback"
               component={Callback}
             />

@@ -10,16 +10,33 @@ import * as config from '../../config';
 import { Link } from "react-router-dom";
 import io from 'socket.io-client'
 import * as transform from "../../utils/StringTransformer";
+import { OpenIDClient } from '../../libs/openid-connect/client';
+import queryString from "query-string";
+import { withRouter } from "react-router";
+import { NodeRequestor } from "@openid/appauth/built/node_support/node_requestor";
+import {
+	BaseTokenRequestHandler,
+	TokenRequestHandler
+  } from "@openid/appauth/built/token_request_handler";
+import {
+GRANT_TYPE_AUTHORIZATION_CODE,
+GRANT_TYPE_REFRESH_TOKEN,
+TokenRequest
+} from "@openid/appauth/built/token_request";
+import { StringMap } from "@openid/appauth/built/types";
+import { AuthorizationServiceConfiguration, AuthorizationServiceConfigurationJson } from "@openid/appauth/built/authorization_service_configuration";
+var ClientOAuth2 = require('client-oauth2')
 interface Props {
-	AccessToken: string;
-	TokenType: string;
-	RefreshToken: any;
-	IDToken: any;
-	Expiry: any;
+	history:any;
+	location: any;
+	match: any
 }
   
 interface State {
-	
+	access_token: string,
+	refresh_token: string,
+	id_token: string,
+	expires: number
 }
 
 class Callback extends Component<Props,State> {
@@ -27,37 +44,50 @@ class Callback extends Component<Props,State> {
 	constructor(props:any) {
 		super(props);
 		this.state = {
-			jwt: "",
-			did: "",
-			firstname: "",
-			lastname: "",
-			gender: "Male",
-			dateOfBirth: "",
-			placeOfBirth: "",
-			currentAddress: "",
-			city: "",
-			state: "",
-			zip: "",
-			checkFields: false,
-			successGeneration: false
+			access_token: '',
+			refresh_token: '',
+			id_token: '',
+			expires: 0
 		}
 	}
 
-	componentDidMount(){
-		console.log(this.props.AccessToken);
-		console.log(this.props.TokenType);
-		console.log(this.props.RefreshToken);
-		console.log(this.props.IDToken);
-		console.log(this.props.Expiry);
+	async componentDidMount(){
+		const { location, history, match } = this.props;
+		console.log("in");
+		const params = queryString.parse(location.search);
+		var client = OpenIDClient.getInstance().getClient();
+		let token = await client.checkToken({
+			scopes: {
+				request: ["openid", "offline"],
+				require: ["openid", "offline"]
+      		}
+		});
+		if (token !== null) {
+			console.log("I got the token: ", token)
+			this.setState({
+				access_token: token.access_token,
+				refresh_token: token.refresh_token,
+				id_token: token.id_token,
+				expires: token.expires
+			});
+		}
 	}
 
-	continue(){
-		
+	goToRegistration(){
+		const { location } = this.props;
+		const params = queryString.parse(location.search);
+		this.props.history.push(
+			{
+			  pathname: '/registration',
+			  state: { code: params.code }
+			}
+		  ); 
 	}
 	
 
 
   render() {
+	  const {access_token, refresh_token, id_token, expires} = this.state;
     return (
     <div>
     <Official></Official>
@@ -67,25 +97,22 @@ class Callback extends Component<Props,State> {
 	  	<p>
         	OAuth2 authorize code flow was performed successfully!
 		</p>
-		<dl>
-			{/* <dt>AccessToken</dt>
-			<dd><code>{{.AccessToken}}</code></dd>
-			<dt>TokenType</dt>
-			<dd><code>{{.TokenType}}</code></dd>
-			<dt>RefreshToken</dt>
-			<dd><code>{{.RefreshToken}}</code></dd>
-			<dt>Expiry</dt>
-			<dd><code>{{.Expiry}}</code></dd>
-			<dt>ID Token</dt>
-			<dd><code>{{.IDToken}}</code></dd> */}
-		</dl>
+		<li>
+			<ul><b>Access Token: </b>{access_token}</ul>
+			<ul><b>Refresh Token: </b> {refresh_token}</ul>
+			<ul><b>ID Token: </b> {id_token}</ul>
+			<ul><b>Expires In: </b> {expires}</ul>
+		</li>
+		<Button type="button" className="register-button" onClick={() =>this.goToRegistration()}>Create the eID in my VIDchain Wallet</Button>
 		<p>
 			<a href="/">Do it again</a>
 		</p>
 	
 	</main>
 	</div>
-	<Footer></Footer>
+	<div className="footer">
+		<Footer></Footer>
+	</div>
     
     </div>
     

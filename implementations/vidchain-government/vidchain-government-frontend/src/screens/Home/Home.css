@@ -28,7 +28,9 @@
 
 .footer{
   clear: both;
-  position: relative;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
 }
 .login_form {
   border: 0px solid #f6f6f6;

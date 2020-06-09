@@ -10,7 +10,7 @@ FROM node:12-alpine
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 COPY --from=builder node_modules node_modules
-COPY --from=builder dist dist
+COPY --from=builder build build
 COPY package*.json ./
 RUN npm prune --production && \
   mkdir log && \

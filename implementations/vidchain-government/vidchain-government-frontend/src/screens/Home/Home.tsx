@@ -10,7 +10,10 @@ import {
   Modal
 } from "react-bootstrap";
 import { startFlow } from "../../libs/openid-connect/openid-connect";
-
+import { OpenIDClient } from '../../libs/openid-connect/client';
+import * as utils from "../../utils/utils";
+var ClientOAuth2 = require('client-oauth2')
+var OAuth = require('@zalando/oauth2-client-js');
 var QRCode = require('qrcode.react');
 interface Props {
 	history?: any;
@@ -35,6 +38,7 @@ class Home extends Component<Props, State> {
     }
   }
   componentDidMount(){
+    // console.log(client);
     // console.log(process.env.REACT_APP_BACKEND_URL
     //   );
     // const socket = io(config.BACKEND_URL)
@@ -84,29 +88,46 @@ class Home extends Component<Props, State> {
     //   contentQR: qrCodeContent,
     //   showQR: true
     // });
-    const urlToRedirect = startFlow();
-    console.log(urlToRedirect);
-    window.location.href = urlToRedirect;
+    var client = OpenIDClient.getInstance().getClient();
+    const ur = client.callback();
+    client.getToken({
+			scopes: {
+				request: ["openid", "offline"],
+				require: ["openid", "offline"]
+      },
+      response_type: "code"
+		})
+    console.log(ur);
+    //const urlToRedirect = startFlow();
+    // const nonce = utils.randomString(24);
+    // const state = utils.randomString(24);
+    // var client = OpenIDClient.getInstance().getClient();
+    // var provider = OpenIDClient.getInstance().getProvider();
+    // const urlToRedirect = provider.requestToken(client);
+    // const urlToRedirect = client.code.getUri()
+    //const urlToRedirect = OpenIDClient.getInstance().requestToken();
+    //console.log(urlToRedirect);
+    //window.location.href = urlToRedirect;
   }
 
   
-  async generateContent(){
-    let authorization = {
-      headers: {
-        Authorization: "Bearer " + this.state.jwt
-      }
-    };
-    let data = {
-      issuer: config.DID,
-      payload: {
-        did: config.DID,
-        url: config.BACKEND_URL + "/validate",
-        nonce: this.randomIntFromInterval(100000,999999999)
-      }
-    };
-    const response = await axios.post(config.API_URL + "signature", data, authorization);
-    return response.data.signatureJWS;
-  }
+  // async generateContent(){
+  //   let authorization = {
+  //     headers: {
+  //       Authorization: "Bearer " + this.state.jwt
+  //     }
+  //   };
+  //   let data = {
+  //     issuer: config.DID,
+  //     payload: {
+  //       did: config.DID,
+  //       url: config.BACKEND_URL + "/validate",
+  //       nonce: this.randomIntFromInterval(100000,999999999)
+  //     }
+  //   };
+  //   const response = await axios.post(config.API_URL + "signature", data, authorization);
+  //   return response.data.signatureJWS;
+  // }
   private randomIntFromInterval(min: number, max:number) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
