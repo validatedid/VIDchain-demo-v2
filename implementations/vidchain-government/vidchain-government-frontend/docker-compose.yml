@@ -6,23 +6,12 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: vidchain/ government-frontend:v0.1
+    image: vidchain/government-frontend:v0.1
     container_name:  government-frontend
-    restart: always
-    logging:
-      options:
-        max-size: "100m"
-        max-file: "50"
     ports:
       - 3022:3022
-    networks:
-      - hydra_network
     environment:
       - REDIS_URL=redis
       - REDIRECT_CALLBACK=https://dev.api.vidchain.net/demo/government/callback
       - IDENTITY_PROVIDER=https://dev.api.vidchain.net
       
-networks:
-  hydra_network:
-    driver: bridge
-    name: hydra_oidc_network

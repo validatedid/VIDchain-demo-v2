@@ -12,8 +12,7 @@ import {
 import { startFlow } from "../../libs/openid-connect/openid-connect";
 import { OpenIDClient } from '../../libs/openid-connect/client';
 import * as utils from "../../utils/utils";
-var ClientOAuth2 = require('client-oauth2')
-var OAuth = require('@zalando/oauth2-client-js');
+
 var QRCode = require('qrcode.react');
 interface Props {
 	history?: any;

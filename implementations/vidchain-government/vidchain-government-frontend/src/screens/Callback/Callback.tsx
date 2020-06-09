@@ -13,19 +13,7 @@ import * as transform from "../../utils/StringTransformer";
 import { OpenIDClient } from '../../libs/openid-connect/client';
 import queryString from "query-string";
 import { withRouter } from "react-router";
-import { NodeRequestor } from "@openid/appauth/built/node_support/node_requestor";
-import {
-	BaseTokenRequestHandler,
-	TokenRequestHandler
-  } from "@openid/appauth/built/token_request_handler";
-import {
-GRANT_TYPE_AUTHORIZATION_CODE,
-GRANT_TYPE_REFRESH_TOKEN,
-TokenRequest
-} from "@openid/appauth/built/token_request";
-import { StringMap } from "@openid/appauth/built/types";
-import { AuthorizationServiceConfiguration, AuthorizationServiceConfigurationJson } from "@openid/appauth/built/authorization_service_configuration";
-var ClientOAuth2 = require('client-oauth2')
+
 interface Props {
 	history:any;
 	location: any;

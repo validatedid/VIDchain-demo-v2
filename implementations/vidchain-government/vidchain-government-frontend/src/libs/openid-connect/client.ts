@@ -2,8 +2,6 @@ import * as config from '../../config';
 import * as utils from "../../utils/utils";
 // @ts-ignore
 import {JSO, Popup} from 'jso'
-var ClientOAuth2 = require('client-oauth2')
-var OAuth = require('@zalando/oauth2-client-js');
 
 
 export class OpenIDClient {
