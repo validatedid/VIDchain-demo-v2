@@ -25,11 +25,10 @@ RUN chown -R nginx:nginx /app && chmod -R 755 /app && \
 RUN touch /var/run/nginx.pid && \
   chown -R nginx:nginx /var/run/nginx.pid
 USER nginx
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY nginx.conf /etc/nginx/nginx.conf
 ## Remove default nginx index page
 RUN rm -rf /usr/share/nginx/html/*
-
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
+COPY ./nginx.conf /etc/nginx/nginx.conf
 COPY --from=builder-demo /usr/src/app/build /usr/share/nginx/html
 EXPOSE 3022
 CMD ["nginx", "-g", "daemon off;"]
