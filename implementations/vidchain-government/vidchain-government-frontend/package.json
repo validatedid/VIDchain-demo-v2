@@ -1,6 +1,6 @@
 {
   "name": "vidchain-government-frontend",
-  "homepage": "https://dev.api.vidchain.net/demo/",
+  "homepage": ".",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

@@ -15,7 +15,7 @@ COPY . ./
 RUN npm run build
 
 # Stage 2: run nginx
-FROM nginx
+FROM nginx:alpine
 RUN mkdir -p /app
 WORKDIR /app
 RUN chown -R nginx:nginx /app && chmod -R 755 /app && \
@@ -25,9 +25,12 @@ RUN chown -R nginx:nginx /app && chmod -R 755 /app && \
 RUN touch /var/run/nginx.pid && \
   chown -R nginx:nginx /var/run/nginx.pid
 USER nginx
-COPY --from=builder-demo /usr/src/app/build /app
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY nginx.conf /etc/nginx/nginx.conf
+## Remove default nginx index page
+RUN rm -rf /usr/share/nginx/html/*
+
+COPY --from=builder-demo /usr/src/app/build /usr/share/nginx/html
 EXPOSE 3022
 CMD ["nginx", "-g", "daemon off;"]
 
