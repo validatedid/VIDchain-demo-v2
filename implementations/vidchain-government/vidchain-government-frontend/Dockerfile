@@ -29,7 +29,7 @@ FROM nginx:alpine
 RUN rm -rf /usr/share/nginx/html/*
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
-COPY --from=builder-demo /usr/src/app/build /usr/share/nginx/html
+COPY --from=builder-demo /app /usr/share/nginx/html
 EXPOSE 3022
 CMD ["nginx", "-g", "daemon off;"]
 
