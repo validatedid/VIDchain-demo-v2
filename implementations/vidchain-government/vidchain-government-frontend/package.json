@@ -14,9 +14,8 @@
     "@types/react-router-dom": "^5.1.4",
     "axios": "^0.19.2",
     "babel-polyfill": "^6.26.0",
+    "browserify": "^16.5.1",
     "dotenv": "^8.2.0",
-    "ioredis": "^4.17.3",
-    "jose": "^1.27.1",
     "jso": "^4.1.1",
     "qrcode.react": "^1.0.0",
     "query-string": "^6.13.0",
@@ -29,7 +28,7 @@
     "typescript": "~3.7.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=3022 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

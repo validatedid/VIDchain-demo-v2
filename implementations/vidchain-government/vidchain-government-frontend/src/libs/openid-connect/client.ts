@@ -19,7 +19,7 @@ export class OpenIDClient {
 			authorization: config.IDENTITY_PROVIDER + '/oauth2/auth',
 			redirect_uri: config.REDIRECT_CALLBACK,
             scopes: { request: ['openid', 'offline'], require: ['openid', 'offline']},
-            response_type: "code"
+            response_type: "code,token_id"
         };
         this.client = new JSO(clientConfig);
     }

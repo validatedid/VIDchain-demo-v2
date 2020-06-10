@@ -13,13 +13,13 @@ export interface IFormData {
 }
 export interface ICredentialData {
     id: string
-    personIdentifier: string
-    currentFamilyName: string
-    currentGivenName: string
-    birthName: string
+    firstName: string
+    lastName: string
     dateOfBirth: string
     placeOfBirth: string
     currentAddress: string
+    city: string
+    state: string
+    zip: string
     gender: string
-    govID: string
 }

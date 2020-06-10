@@ -24,17 +24,15 @@ interface State {
 	refresh_token: string,
 	id_token: string,
 	expires: number,
-	signUp: boolean,
+	signUp: boolean
 }
 
 class Callback extends Component<Props,State> {
-	// private readonly userRedis = new Redis({ 
-	// 	port: 6379, // Redis port
-	// 	host: process.env.REDIS_URL,
-	// 	keyPrefix: "government-user:" });
+	
 
 	constructor(props:any) {
 		super(props);
+
 		this.state = {
 			access_token: '',
 			refresh_token: '',
@@ -42,6 +40,7 @@ class Callback extends Component<Props,State> {
 			expires: 0,
 			signUp: true,
 		}
+		
 	}
 
 	async componentDidMount(){
@@ -74,8 +73,9 @@ class Callback extends Component<Props,State> {
 	async checkIfSignInOrSignUp(){
 		const userDID = utils.getUserDid(this.state.id_token);
 		console.log(userDID);
-		// const user = await this.userRedis.get(userDID);
-		// console.log(user);
+		//Check if User exists and go to Registration of Profile
+		//const user = await this.state.userRedis.get(userDID);
+		//console.log(user);
 	}
 
 	goToRegistration(){

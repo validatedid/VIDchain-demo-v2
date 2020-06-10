@@ -1,4 +1,3 @@
-import { JWT } from 'jose';
 import {IDTokenPayload} from '../interfaces/ITokens'
 
 function randomString (length: number) {
@@ -10,17 +9,33 @@ function randomString (length: number) {
     return text;
 }
 
-function decodePayload( jwt: string ): IDTokenPayload{
-    const { payload } = JWT.decode(jwt, { complete: true });
-    return payload as IDTokenPayload;
+/**
+ * Parse a JWT token
+ */
+function parseJwt(token: string) {
+    try {
+      const base64Url = token.split(".")[1];
+      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split("")
+          .map(function atobFunction(c) {
+            return `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`;
+          })
+          .join("")
+      );
+      return JSON.parse(jsonPayload);
+    } catch (error) {
+      return "Error";
+    }
   }
   
   function getJwtNonce(jwt: string): string {
-    return decodePayload(jwt).nonce
+    return parseJwt(jwt).nonce
   }
   
   function getUserDid( jwt: string ): string {
-    return decodePayload(jwt).sub;
+    return parseJwt(jwt).sub;
   }
   
 

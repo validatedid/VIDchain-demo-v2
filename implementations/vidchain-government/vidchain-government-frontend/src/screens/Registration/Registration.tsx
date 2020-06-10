@@ -10,6 +10,8 @@ import * as config from '../../config';
 import { Link } from "react-router-dom";
 import io from 'socket.io-client'
 import * as transform from "../../utils/StringTransformer";
+import * as utils from "../../utils/utils";
+import * as vidchain from "../../apis/vidchain";
 interface Props {
 	did: string;
 	code: string;
@@ -18,7 +20,9 @@ interface Props {
 }
   
 interface State {
-	jwt: string,
+	access_token: string,
+	refresh_token: string,
+	id_token: string,
 	did: string
 	firstname: string
     lastname: string
@@ -38,7 +42,9 @@ class Registration extends Component<Props,State> {
 	constructor(props:any) {
 		super(props);
 		this.state = {
-			jwt: "",
+			access_token: "",
+			refresh_token: "",
+			id_token: "",
 			did: "",
 			firstname: "",
 			lastname: "",
@@ -55,13 +61,14 @@ class Registration extends Component<Props,State> {
 	}
 
 	componentDidMount(){
-		console.log(this.props.location.state.code);
-		// if(this.props.location.state){
-		// 	this.setState ({
-		// 		did: this.props.location.state.did,
-		// 		jwt: this.props.location.state.jwt
-		// 	});
-		// }	
+		if(this.props.location.state){
+			this.setState ({
+				access_token: this.props.location.state.access_token,
+				refresh_token: this.props.location.state.refresh_token,
+				id_token: this.props.location.state.id_token,
+				did: utils.getUserDid(this.props.location.state.id_token),
+			});
+		}	
 	}
 
 	submit(){
@@ -77,35 +84,25 @@ class Registration extends Component<Props,State> {
 	}
 
 	async generateCredential(){
-		// let authorization = {
-		// 	headers: {
-		// 	  Authorization: "Bearer " + this.state.jwt
-		// 	}
-		// };
-		// let credentialSubject:ICredentialData = {
-		// 	id: this.state.did,
-		// 	personIdentifier: this.state.did,
-		// 	currentFamilyName: this.state.firstname,
-		// 	currentGivenName: this.state.lastname,
-		// 	birthName: this.state.firstname,
-		// 	dateOfBirth: this.state.dateOfBirth,
-		// 	placeOfBirth: this.state.placeOfBirth,
-		// 	currentAddress: this.state.currentAddress+","+this.state.city+
-		// 	","+this.state.state+","+this.state.zip,
-		// 	gender: this.state.gender,
-		// 	govID: ""
-		// };
-		// let data = {
-		// 	issuer: config.DID,
-		// 	credentialSubject: credentialSubject
-		// }
-		// const response = await axios.post(config.API_URL + "verifiableid", data, authorization);
-		// //Check response
-		// console.log(response);
-		// //this.sendUserToServer(credentialSubject);
-		// this.setState ({
-		// 	successGeneration: true
-		// })
+		let credentialSubject:ICredentialData = {
+			id: this.state.did,
+			firstName: this.state.firstname,
+			lastName: this.state.lastname,
+			dateOfBirth: this.state.dateOfBirth,
+			placeOfBirth: this.state.placeOfBirth,
+			currentAddress: this.state.currentAddress,
+			city:this.state.city,
+			state: this.state.state,
+			zip: this.state.zip,
+			gender: this.state.gender,
+		};
+		const token = await vidchain.getAuthzToken();
+		const response = await vidchain.generateVerifiableID(token, credentialSubject);
+		//Check response
+		console.log(response);
+		this.setState ({
+			successGeneration: true
+		})
 
 	};
 
@@ -135,16 +132,15 @@ class Registration extends Component<Props,State> {
 	continue(){
 		let credentialSubject:ICredentialData = {
 			id: this.state.did,
-			personIdentifier: this.state.did,
-			currentFamilyName: this.state.firstname,
-			currentGivenName: this.state.lastname,
-			birthName: this.state.firstname,
+			firstName: this.state.firstname,
+			lastName: this.state.lastname,
 			dateOfBirth: this.state.dateOfBirth,
 			placeOfBirth: this.state.placeOfBirth,
-			currentAddress: this.state.currentAddress+","+this.state.city+
-			","+this.state.state+","+this.state.zip,
+			currentAddress: this.state.currentAddress,
+			city:this.state.city,
+			state: this.state.state,
+			zip: this.state.zip,
 			gender: this.state.gender,
-			govID: ""
 		};
 		var user = JSON.stringify(credentialSubject);
 		this.props.history.push(
