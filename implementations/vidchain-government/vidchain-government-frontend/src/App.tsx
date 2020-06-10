@@ -10,14 +10,15 @@ import {IFormData} from "./interfaces/ICredentialData"
 const dotenv = require('dotenv')
 // importing .env variables
 
-const publicUrl = process.env.PUBLIC_URL || "https://dev.api.vidchain.net/demo/";
-const basename = publicUrl ? new URL(publicUrl).pathname : "";
+// const publicUrl = process.env.PUBLIC_URL || "https://dev.api.vidchain.net/demo/";
+// const basename = publicUrl ? new URL(publicUrl).pathname : "";
 
 function App() {
   dotenv.config();
   return (
     <div className="App">
-        <BrowserRouter basename={basename}>
+        {/* <BrowserRouter basename={basename}> */}
+        <BrowserRouter>
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact
