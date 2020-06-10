@@ -9,10 +9,9 @@ import axios from 'axios'
 import * as config from '../../config';
 import { Link } from "react-router-dom";
 import io from 'socket.io-client'
-import * as transform from "../../utils/StringTransformer";
+import * as utils from "../../utils/utils";
 import { OpenIDClient } from '../../libs/openid-connect/client';
 import queryString from "query-string";
-import { withRouter } from "react-router";
 
 interface Props {
 	history:any;
@@ -24,10 +23,15 @@ interface State {
 	access_token: string,
 	refresh_token: string,
 	id_token: string,
-	expires: number
+	expires: number,
+	signUp: boolean,
 }
 
 class Callback extends Component<Props,State> {
+	// private readonly userRedis = new Redis({ 
+	// 	port: 6379, // Redis port
+	// 	host: process.env.REDIS_URL,
+	// 	keyPrefix: "government-user:" });
 
 	constructor(props:any) {
 		super(props);
@@ -35,14 +39,20 @@ class Callback extends Component<Props,State> {
 			access_token: '',
 			refresh_token: '',
 			id_token: '',
-			expires: 0
+			expires: 0,
+			signUp: true,
 		}
 	}
 
 	async componentDidMount(){
-		const { location, history, match } = this.props;
-		console.log("in");
+		const { location } = this.props;
 		const params = queryString.parse(location.search);
+		//Do an await and a redirect without have to click the Button.
+		await this.getTokens();
+		this.checkIfSignInOrSignUp();
+	}
+
+	async getTokens(){
 		var client = OpenIDClient.getInstance().getClient();
 		let token = await client.checkToken({
 			scopes: {
@@ -61,13 +71,38 @@ class Callback extends Component<Props,State> {
 		}
 	}
 
+	async checkIfSignInOrSignUp(){
+		const userDID = utils.getUserDid(this.state.id_token);
+		console.log(userDID);
+		// const user = await this.userRedis.get(userDID);
+		// console.log(user);
+	}
+
 	goToRegistration(){
-		const { location } = this.props;
-		const params = queryString.parse(location.search);
-		this.props.history.push(
+		const { history } = this.props;
+		const { access_token,refresh_token,id_token } = this.state;
+		history.push(
 			{
 			  pathname: '/registration',
-			  state: { code: params.code }
+			  state: { 
+				access_token: access_token,
+				refresh_token: refresh_token,
+				id_token: id_token
+			   }
+			}
+		  ); 
+	}
+	goToProfile(){
+		const { history } = this.props;
+		const { access_token,refresh_token,id_token } = this.state;
+		history.push(
+			{
+			  pathname: '/profile',
+			  state: { 
+				access_token: access_token,
+				refresh_token: refresh_token,
+				id_token: id_token
+			   }
 			}
 		  ); 
 	}
@@ -75,7 +110,7 @@ class Callback extends Component<Props,State> {
 
 
   render() {
-	  const {access_token, refresh_token, id_token, expires} = this.state;
+	  const {access_token, refresh_token, id_token, expires, signUp} = this.state;
     return (
     <div>
     <Official></Official>
@@ -91,7 +126,12 @@ class Callback extends Component<Props,State> {
 			<ul><b>ID Token: </b> {id_token}</ul>
 			<ul><b>Expires In: </b> {expires}</ul>
 		</li>
-		<Button type="button" className="register-button" onClick={() =>this.goToRegistration()}>Create the eID in my VIDchain Wallet</Button>
+		{ signUp &&
+			<Button type="button" className="register-button" onClick={() =>this.goToRegistration()}>Create the eID in my VIDchain Wallet</Button>
+		}
+		{ !signUp &&
+			<Button type="button" className="register-button" onClick={() =>this.goToProfile()}>Go to your Profile</Button>
+		}
 		<p>
 			<a href="/">Do it again</a>
 		</p>

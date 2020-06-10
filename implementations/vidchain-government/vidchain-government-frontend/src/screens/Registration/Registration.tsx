@@ -77,35 +77,35 @@ class Registration extends Component<Props,State> {
 	}
 
 	async generateCredential(){
-		let authorization = {
-			headers: {
-			  Authorization: "Bearer " + this.state.jwt
-			}
-		};
-		let credentialSubject:ICredentialData = {
-			id: this.state.did,
-			personIdentifier: this.state.did,
-			currentFamilyName: this.state.firstname,
-			currentGivenName: this.state.lastname,
-			birthName: this.state.firstname,
-			dateOfBirth: this.state.dateOfBirth,
-			placeOfBirth: this.state.placeOfBirth,
-			currentAddress: this.state.currentAddress+","+this.state.city+
-			","+this.state.state+","+this.state.zip,
-			gender: this.state.gender,
-			govID: ""
-		};
-		let data = {
-			issuer: config.DID,
-			credentialSubject: credentialSubject
-		}
-		const response = await axios.post(config.API_URL + "verifiableid", data, authorization);
-		//Check response
-		console.log(response);
-		//this.sendUserToServer(credentialSubject);
-		this.setState ({
-			successGeneration: true
-		})
+		// let authorization = {
+		// 	headers: {
+		// 	  Authorization: "Bearer " + this.state.jwt
+		// 	}
+		// };
+		// let credentialSubject:ICredentialData = {
+		// 	id: this.state.did,
+		// 	personIdentifier: this.state.did,
+		// 	currentFamilyName: this.state.firstname,
+		// 	currentGivenName: this.state.lastname,
+		// 	birthName: this.state.firstname,
+		// 	dateOfBirth: this.state.dateOfBirth,
+		// 	placeOfBirth: this.state.placeOfBirth,
+		// 	currentAddress: this.state.currentAddress+","+this.state.city+
+		// 	","+this.state.state+","+this.state.zip,
+		// 	gender: this.state.gender,
+		// 	govID: ""
+		// };
+		// let data = {
+		// 	issuer: config.DID,
+		// 	credentialSubject: credentialSubject
+		// }
+		// const response = await axios.post(config.API_URL + "verifiableid", data, authorization);
+		// //Check response
+		// console.log(response);
+		// //this.sendUserToServer(credentialSubject);
+		// this.setState ({
+		// 	successGeneration: true
+		// })
 
 	};
 

@@ -2,21 +2,38 @@ const dotenv = require('dotenv')
 // importing .env variables
 dotenv.config();
 
-const BearerToken = "eyJhbGciOiJFUzI1NksiLCJ0eXAiOiJKV1QiLCJqa3UiOiJodHRwczovL3dhbGxldGFwaS1kZXYudmlkY2hhaW4ubmV0L2Vic2l0cnVzdGVkYXBwL3B1YmxpYy1rZXlzLyIsImtpZCI6ImVic2ktd2FsbGV0In0.eyJzdWIiOiJDaXR5IG9mIEJhcmNlbG9uYSIsImlhdCI6MTU4NjcyMjk4OSwiZXhwIjoxNTg2ODA5Mzg5LCJhdWQiOiJlYnNpLXdhbGxldCIsImRpZCI6ImRpZDplYnNpOjB4OTFBNzQzMTUyQ2IwYjRCQ2NiMjFkYTY1ZTM4NzMyRTUwMDVlYjkzRSIsImVudGVycHJpc2VOYW1lIjoiQ2l0eSBvZiBCYXJjZWxvbmEiLCJub25jZSI6ImJhcmNlbG9uYSJ9.D9nkns9ZvG3QjEA-n-Ng6Gba2hW05jVrYHcX1SWfLEdWi9qbFwq4IpP6qLIhF_oku59334t67nkJq-650HHCeQ";
-const DID = "did:ebsi:0x91A743152Cb0b4BCcb21da65e38732E5005eb93E";
-const Name = "City of Barcelona";
-const nonce = "barcelona";
+const Entity = {
+    "iss": "City of Barcelona",
+    "aud": "vidchain-api",
+    "nonce": "z-0427dc2515b1"
+};
+//Entity in Base-64
+const assertion = "ewogICAgImlzcyI6ICJDaXR5IG9mIEJhcmNlbG9uYSIsCiAgICAiYXVkIjogInZpZGNoYWluLWFwaSIsCiAgICAibm9uY2UiOiAiei0wNDI3ZGMyNTE1YjEiCn0=";
+//Legal Entity
+const grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer";
+const scope = "vidchain profile test entity";
+
+const CLIENT_ID = "barcelona-city";
+const CLIENT_SECRET = "secret";
 
 // const BACKEND_URL= process.env.REACT_APP_BACKEND_URL || "http://localhost:3021"
-const API_URL = "https://walletapi-dev.vidchain.net/wallet/";
-const IDENTITY_PROVIDER = process.env.REACT_APP_BACKEND_URL || "https://dev.api.vidchain.net";
-//"http://localhost:9000/"
+const API_URL = "https://dev.api.vidchain.net/api/v1/";
+const IDENTITY_PROVIDER = process.env.IDENTITY_PROVIDER || "https://dev.api.vidchain.net";
+
+const REDIRECT_CALLBACK = process.env.REDIRECT_CALLBACK || "http:127.0.0.1:3022/callback";
+
+const REDIS_URL = process.env.REDIS_URL || ""
+const REDIS_PORT: number = Number(process.env.REDIS_PORT) || 6379
 
 export { 
-    BearerToken,
-    DID,
-    Name,
-    nonce,
+    assertion,
+    grantType,
+    scope,
     API_URL,
-    IDENTITY_PROVIDER
+    IDENTITY_PROVIDER,
+    REDIRECT_CALLBACK,
+    CLIENT_ID,
+    CLIENT_SECRET,
+    REDIS_URL,
+    REDIS_PORT
 }
