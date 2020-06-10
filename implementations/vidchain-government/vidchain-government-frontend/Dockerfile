@@ -12,6 +12,7 @@ COPY ./package*.json /usr/src/app/
 RUN npm ci --quiet --no-progress
 COPY ./ /usr/src/app/
 ARG PUBLIC_URL=https://dev.api.vidchain.net/demo
+ARG NODE_ENV=production
 RUN npm run build
 
 # Stage 2: run nginx
