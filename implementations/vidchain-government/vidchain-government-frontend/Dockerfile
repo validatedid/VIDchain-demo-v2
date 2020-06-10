@@ -6,11 +6,10 @@ RUN apk add --update --no-cache \
   g++
 
 ## Stage 1: build the wallet 
-FROM base AS builder-demo
 WORKDIR /usr/src/app
 COPY ./package*.json /usr/src/app/
 RUN npm ci --quiet --no-progress
-COPY ./ /usr/src/app/
+COPY . /usr/src/app/
 
 RUN npm run build && npm run compress
 
@@ -25,7 +24,7 @@ RUN chown -R nginx:nginx /app && chmod -R 755 /app && \
 RUN touch /var/run/nginx.pid && \
   chown -R nginx:nginx /var/run/nginx.pid
 USER nginx
-COPY --from=builder-demo /usr/src/app/build /app/
+COPY --from=base /usr/src/app/build /app
 
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
 EXPOSE 3022
