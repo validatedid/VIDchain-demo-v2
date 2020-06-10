@@ -10,7 +10,7 @@ import {IFormData} from "./interfaces/ICredentialData"
 const dotenv = require('dotenv')
 // importing .env variables
 
-const publicUrl = process.env.PUBLIC_URL;
+const publicUrl = process.env.PUBLIC_URL || "https://dev.api.vidchain.net/demo/";
 const basename = publicUrl ? new URL(publicUrl).pathname : "";
 
 function App() {
