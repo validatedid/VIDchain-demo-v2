@@ -7,30 +7,27 @@ RUN apk add --update --no-cache \
 
 ## Stage 1: build the wallet 
 FROM base AS builder-demo
-WORKDIR /app
-COPY ./package*.json ./
-COPY package-lock.json ./
+WORKDIR /usr/src/app
+COPY ./package*.json /usr/src/app/
 RUN npm ci --quiet --no-progress
-COPY . ./
+COPY ./ /usr/src/app/
+
 RUN npm run build
-CMD ["npm", "start"]
+
 # Stage 2: run nginx
-FROM nginx:alpine
-# RUN mkdir -p /app
-# WORKDIR /app
-# RUN chown -R nginx:nginx /app && chmod -R 755 /app && \
-#   chown -R nginx:nginx /var/cache/nginx && \
-#   chown -R nginx:nginx /var/log/nginx && \
-#   chown -R nginx:nginx /etc/nginx/conf.d
-# RUN touch /var/run/nginx.pid && \
-#   chown -R nginx:nginx /var/run/nginx.pid
-# USER nginx
-## Remove default nginx index page
-RUN rm -rf /usr/share/nginx/html/*
-COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
+FROM nginx
+RUN mkdir -p /app
+WORKDIR /app
+RUN chown -R nginx:nginx /app && chmod -R 755 /app && \
+  chown -R nginx:nginx /var/cache/nginx && \
+  chown -R nginx:nginx /var/log/nginx && \
+  chown -R nginx:nginx /etc/nginx/conf.d
+RUN touch /var/run/nginx.pid && \
+  chown -R nginx:nginx /var/run/nginx.pid
+USER nginx
+COPY --from=builder-demo /usr/src/app/build /app/
+
 COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
-COPY --from=builder-demo /app /usr/share/nginx/html
 EXPOSE 3022
 CMD ["nginx", "-g", "daemon off;"]
-
 
