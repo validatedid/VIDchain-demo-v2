@@ -17,6 +17,7 @@ services:
       - REDIS_PORT=6379
       - REDIRECT_CALLBACK=https://dev.api.vidchain.net/demo/callback
       - IDENTITY_PROVIDER=https://dev.api.vidchain.net
+      - REACT_APP_DEMO=https://dev.api.vidchain.net/demo
 networks:
   hydra_network:
     driver: bridge
