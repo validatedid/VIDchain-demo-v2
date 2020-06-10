@@ -57,11 +57,11 @@ class Profile extends Component<Props,State> {
 					</div>
 					<div className="form-row">
 						<h4>Name</h4>
-						<p>{user.currentGivenName}</p>
+						<p>{user.firstName}</p>
 					</div>
 					<div className="form-row">
 						<h4>Surname</h4>
-						<p>{user.currentFamilyName}</p>
+						<p>{user.lastName}</p>
 					</div>
 					<div className="form-row">
 						<h4>Date Of Birth</h4>
@@ -72,12 +72,20 @@ class Profile extends Component<Props,State> {
 						<p>{user.placeOfBirth}</p>
 					</div>
 					<div className="form-row">
-						<h4>Phone</h4>
-						<p>{user.govID}</p>
-					</div>
-					<div className="form-row">
 						<h4>Current Address</h4>
 						<p>{user.currentAddress}</p>
+					</div>
+					<div className="form-row">
+						<h4>City</h4>
+						<p>{user.city}</p>
+					</div>
+					<div className="form-row">
+						<h4>State</h4>
+						<p>{user.state}</p>
+					</div>
+					<div className="form-row">
+						<h4>Zip</h4>
+						<p>{user.zip}</p>
 					</div>
 					
 					{/* <button className="custom-button">Claim your credential

@@ -24,6 +24,7 @@ function parseJwt(token: string) {
           })
           .join("")
       );
+      console.log(jsonPayload);
       return JSON.parse(jsonPayload);
     } catch (error) {
       return "Error";
@@ -35,6 +36,8 @@ function parseJwt(token: string) {
   }
   
   function getUserDid( jwt: string ): string {
+    console.log("getUserDID");
+    console.log(jwt);
     return parseJwt(jwt).sub;
   }
   

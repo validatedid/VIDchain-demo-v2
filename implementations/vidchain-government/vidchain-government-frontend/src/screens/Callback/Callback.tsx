@@ -12,6 +12,8 @@ import io from 'socket.io-client'
 import * as utils from "../../utils/utils";
 import { OpenIDClient } from '../../libs/openid-connect/client';
 import queryString from "query-string";
+// @ts-ignore
+import {JSO, Popup} from 'jso'
 
 interface Props {
 	history:any;
@@ -44,11 +46,25 @@ class Callback extends Component<Props,State> {
 	}
 
 	async componentDidMount(){
-		const { location } = this.props;
+		const { location,history, match } = this.props;
 		const params = queryString.parse(location.search);
-		//Do an await and a redirect without have to click the Button.
-		await this.getTokens();
-		this.checkIfSignInOrSignUp();
+		var client = OpenIDClient.getInstance().getClient();
+		let token = await client.checkToken({
+			scopes: {
+				require: ["openid", "offline"]
+			  },
+		});
+		console.log(token);
+		if (token !== null) {
+			console.log("I got the token: ", token)
+			this.setState({
+				access_token: token.access_token,
+				refresh_token: token.refresh_token,
+				id_token: token.id_token,
+				expires: token.expires
+			});
+		}
+		//this.checkIfSignInOrSignUp();
 	}
 
 	async getTokens(){
@@ -59,6 +75,7 @@ class Callback extends Component<Props,State> {
 				require: ["openid", "offline"]
       		}
 		});
+		console.log(token);
 		if (token !== null) {
 			console.log("I got the token: ", token)
 			this.setState({
@@ -71,8 +88,8 @@ class Callback extends Component<Props,State> {
 	}
 
 	async checkIfSignInOrSignUp(){
-		const userDID = utils.getUserDid(this.state.id_token);
-		console.log(userDID);
+		// const userDID = utils.getUserDid(this.state.id_token);
+		// console.log(userDID);
 		//Check if User exists and go to Registration of Profile
 		//const user = await this.state.userRedis.get(userDID);
 		//console.log(user);

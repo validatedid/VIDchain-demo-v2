@@ -10,6 +10,8 @@ import {
   Modal
 } from "react-bootstrap";
 import { OpenIDClient } from '../../libs/openid-connect/client';
+// @ts-ignore
+import {JSO, Popup} from 'jso'
 import * as utils from "../../utils/utils";
 
 var QRCode = require('qrcode.react');
@@ -46,8 +48,7 @@ class Home extends Component<Props, State> {
 			scopes: {
 				request: ["openid", "offline"],
 				require: ["openid", "offline"]
-      },
-      response_type: "code"
+      }
 		})
     console.log(ur);
     //const urlToRedirect = startFlow();
