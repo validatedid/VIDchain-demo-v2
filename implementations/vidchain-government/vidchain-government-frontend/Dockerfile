@@ -12,7 +12,7 @@ COPY ./package*.json /usr/src/app/
 RUN npm ci --quiet --no-progress
 COPY ./ /usr/src/app/
 
-RUN npm run build
+RUN npm run build && npm run compress
 
 # Stage 2: run nginx
 FROM nginx
