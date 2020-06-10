@@ -13,6 +13,6 @@ services:
     environment:
       - REDIS_URL=redis
       - REDIS_PORT=6379
-      - REDIRECT_CALLBACK=https://dev.api.vidchain.net/demo/government/callback
+      - REDIRECT_CALLBACK=https://dev.api.vidchain.net/demo/callback
       - IDENTITY_PROVIDER=https://dev.api.vidchain.net
       

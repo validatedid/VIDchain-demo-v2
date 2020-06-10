@@ -1,0 +1,31 @@
+name: VIDchain Demo CI/CD
+# This workflow is triggered on pushes to the repository.
+on: [push]
+
+jobs:
+  build:
+    # Job name is Greeting
+    name: Deployment
+    # This job runs on Linux
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout to master branch
+        uses: actions/checkout@v2
+        with:
+          ref: master
+      - name: Deploy to Dev server
+        uses: easingthemes/ssh-deploy@v2.0.8
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
+          ARGS: "-rltgoDzvO" # test with --delete too
+          SOURCE: ""
+          REMOTE_HOST: dev.api.vidchain.net
+          REMOTE_USER: root
+          TARGET: "deployed-client-demo"
+      - name: Start docker
+        uses: garygrossgarten/github-action-ssh@release
+        with:
+          command: cd deployed-client-demo && sh ./docker-compose.sh
+          host: dev.api.vidchain.net
+          username: root
+          privateKey: ${{ secrets.SERVER_SSH_KEY }}

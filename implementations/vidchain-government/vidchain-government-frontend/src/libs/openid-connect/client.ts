@@ -19,7 +19,8 @@ export class OpenIDClient {
 			authorization: configFile.IDENTITY_PROVIDER + '/oauth2/auth',
 			redirect_uri: configFile.REDIRECT_CALLBACK,
             scopes: { request: ['openid', 'offline'], require: ['openid', 'offline']},
-            response_type: "code"
+            response_type: "code",
+            debug: true
         };
         console.log(config);
         this.client = new JSO(config);
