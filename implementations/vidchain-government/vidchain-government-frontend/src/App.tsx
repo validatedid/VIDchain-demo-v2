@@ -10,7 +10,7 @@ import {IFormData} from "./interfaces/ICredentialData"
 const dotenv = require('dotenv')
 // importing .env variables
 
-const publicUrl = process.env.REACT_APP_DEMO;
+const publicUrl = process.env.PUBLIC_URL;
 const basename = publicUrl ? new URL(publicUrl).pathname : "";
 
 function App() {
