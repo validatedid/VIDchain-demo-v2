@@ -1,9 +1,4 @@
-# Ignore all by default
-*
-
-# Exceptions
-
-!./public
-!./src
-!./package*.json
-!./nginx/nginx.conf
+node_modules
+build
+.dockerignore
+Dockerfile

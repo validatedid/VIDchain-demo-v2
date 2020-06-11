@@ -18,7 +18,7 @@ function App() {
   return (
     <div className="App">
         {/* <BrowserRouter basename={basename}> */}
-        <BrowserRouter>
+        <BrowserRouter basename="/demo">
           <Switch>
             <Route exact path="/" component={Home} />
             <Route exact
