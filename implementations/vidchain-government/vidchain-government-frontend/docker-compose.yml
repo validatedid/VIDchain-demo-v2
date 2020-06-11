@@ -10,6 +10,9 @@ services:
     container_name:  government-frontend
     networks:
       - hydra_network
+    volumes:
+      - '.:/app'
+      - '/app/node_modules'
     ports:
       - 3022:3022
     environment:
