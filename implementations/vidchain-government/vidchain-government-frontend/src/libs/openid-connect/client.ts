@@ -13,11 +13,11 @@ export class OpenIDClient {
         const nonce = utils.randomString(24);
         const state = utils.randomString(24);
         let config = {
-			client_id: 'barcelona-city',
+			client_id: 'barcelona-vidchain',
 			client_secret: 'secret',
-			token: 'https://127.0.0.1/oauth2/token',
-			authorization: 'https://127.0.0.1:9000/oauth2/auth',
-			redirect_uri: 'http://127.0.0.1:3022/callback',
+			token: 'https://dev.api.vidchain.net/oauth2/token',
+			authorization: 'https://dev.api.vidchain.net /oauth2/auth',
+			redirect_uri: 'https://dev.api.vidchain.net/demo/callback',
             scopes: { request: ['openid', 'offline'], require: ['openid', 'offline']},
             response_type: "code"
         };
