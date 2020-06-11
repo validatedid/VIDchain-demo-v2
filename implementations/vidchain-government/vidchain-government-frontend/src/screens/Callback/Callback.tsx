@@ -49,10 +49,9 @@ class Callback extends Component<Props,State> {
 		const { location,history, match } = this.props;
 		const params = queryString.parse(location.search);
 		var client = OpenIDClient.getInstance().getClient();
-		let token = await client.checkToken({
-			scopes: {
-				require: ["openid", "offline"]
-			  },
+		let token = client.checkToken({
+			grant_type : "authorization_code",
+			code: params.code,
 		});
 		console.log(token);
 		if (token !== null) {

@@ -48,7 +48,8 @@ class Home extends Component<Props, State> {
 			scopes: {
 				request: ["openid", "offline"],
 				require: ["openid", "offline"]
-      }
+      },
+      response_type: "code"
 		})
     console.log(ur);
     //const urlToRedirect = startFlow();
