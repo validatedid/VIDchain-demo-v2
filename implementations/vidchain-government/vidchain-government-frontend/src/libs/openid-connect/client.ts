@@ -16,7 +16,7 @@ export class OpenIDClient {
 			client_id: 'barcelona-vidchain',
 			client_secret: 'secret',
 			token: 'https://dev.api.vidchain.net/oauth2/token',
-			authorization: 'https://dev.api.vidchain.net /oauth2/auth',
+			authorization: 'https://dev.api.vidchain.net/oauth2/auth',
 			redirect_uri: 'https://dev.api.vidchain.net/demo/callback',
             scopes: { request: ['openid', 'offline'], require: ['openid', 'offline']},
             response_type: "code"
