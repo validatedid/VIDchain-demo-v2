@@ -26,6 +26,13 @@ async function generateVerifiableID(token: string, user: ICredentialData){
           Authorization: "Bearer " + token
         }
     };
+    try{
+        const response = await axios.post(`${config.API_URL}/verifiable-ids`, user, authorization);
+        if (response.status !== 200 && response.status !== 201) {
+            return "Error";
+        }
+        return response.data;
+    }
 }
 
 export { getAuthzToken, generateVerifiableID };
