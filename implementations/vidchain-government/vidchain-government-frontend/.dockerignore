@@ -1,5 +1,9 @@
-node_modules
-build
-.dockerignore
-Dockerfile
-Dockerfile.prod
+# Ignore all by default
+*
+
+# Exceptions
+
+!./public
+!./src
+!./package*.json
+!./nginx/nginx.conf

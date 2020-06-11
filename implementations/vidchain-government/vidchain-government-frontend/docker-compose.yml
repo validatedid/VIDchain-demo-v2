@@ -8,6 +8,8 @@ services:
       dockerfile: Dockerfile
     image: vidchain/government-frontend:v0.1
     container_name:  government-frontend
+    networks:
+      - hydra_network
     ports:
       - 3022:3022
     environment:
@@ -16,3 +18,8 @@ services:
       - REDIRECT_CALLBACK=https://dev.api.vidchain.net/demo/callback
       - IDENTITY_PROVIDER=https://dev.api.vidchain.net
       - PUBLIC_URL=https://dev.api.vidchain.net/demo
+networks:
+  hydra_network:
+    driver: bridge
+    name: hydra_oidc_network
+      
