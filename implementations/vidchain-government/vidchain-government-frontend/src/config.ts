@@ -20,7 +20,7 @@ const CLIENT_SECRET = "secret";
 const API_URL = "https://dev.api.vidchain.net/api/v1/";
 const IDENTITY_PROVIDER = process.env.IDENTITY_PROVIDER || "https://dev.api.vidchain.net";
 
-const REDIRECT_CALLBACK = process.env.REDIRECT_CALLBACK || "http://127.0.0.1:3022/callback";
+const REDIRECT_CALLBACK = process.env.REDIRECT_CALLBACK || "https://dev.api.vidchain.net/demo/callback";
 
 const REDIS_URL = process.env.REDIS_URL || ""
 const REDIS_PORT: number = Number(process.env.REDIS_PORT) || 6379
