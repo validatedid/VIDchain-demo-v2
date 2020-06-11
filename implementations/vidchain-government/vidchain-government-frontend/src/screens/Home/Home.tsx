@@ -13,6 +13,7 @@ import { OpenIDClient } from '../../libs/openid-connect/client';
 // @ts-ignore
 import {JSO, Popup} from 'jso'
 import * as utils from "../../utils/utils";
+import { initiateFlow } from "../../libs/openid-connect/dtos";
 
 var QRCode = require('qrcode.react');
 interface Props {
@@ -43,19 +44,61 @@ class Home extends Component<Props, State> {
 
   async loginWithVIDChain(){
     var client = OpenIDClient.getInstance().getClient();
-    const ur = client.callback();
+    await client.wipeTokens()
+    await client.callback();
     client.getToken({
 			scopes: {
 				request: ["openid", "offline"],
 				require: ["openid", "offline"]
-      },
-      response_type: "code"
-		})
-    console.log(ur);
+      }
+    });
+    // }).then((token: any) => {
+    //   console.log("token");
+    //   console.log(token);
+    //   //Token exists on LocalStorage but redirect to the process anyway
+    //   if(token !== null){
+    //     //client.wipeTokens()
+    //     const urlToRedirect = this.startFlow();
+    //     console.log(urlToRedirect);
+    //     window.location.href = urlToRedirect;
+    //   }
+    // });
+    
     //const urlToRedirect = startFlow();
     //console.log(urlToRedirect);
     //window.location.href = urlToRedirect;
   }
+
+  // public startFlow(): string {
+  //   var url = "https://dev.api.vidchain.net/oauth2/auth?";
+  //   const nonce = utils.randomString(24);
+  //   const state = utils.randomString(24);
+
+  //   const parameters: initiateFlow = {
+  //       audience: "",
+  //       client_id: "barcelona-city-demo",
+  //       max_age: 0,
+  //       nonce: nonce,
+  //       prompt: "",
+  //       redirect_uri: 'http://127.0.0.1:3022/demo/callback',
+  //       response_type: "code",
+  //       scope: "openid+offline",
+  //       state: state,
+  //   }
+  //   url = url + `audience=${parameters.audience}&`+
+  //   `client_id=${parameters.client_id}&`+
+  //   `max_age=${parameters.max_age}&`+
+  //   `nonce=${parameters.nonce}&`+
+  //   `prompt=${parameters.prompt}&`+
+  //   `redirect_uri=${parameters.redirect_uri}&`+
+  //   `response_type=${parameters.response_type}&`+
+  //   `scope=${parameters.scope}&`+
+  //   `state=${parameters.state}`;
+
+  //   console.log(url);
+
+  //   return url;
+  // }
 
   render() {
     const {showQR, contentQR} = this.state;

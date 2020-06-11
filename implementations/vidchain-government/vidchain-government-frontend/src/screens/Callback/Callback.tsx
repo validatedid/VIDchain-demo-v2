@@ -26,7 +26,8 @@ interface State {
 	refresh_token: string,
 	id_token: string,
 	expires: number,
-	signUp: boolean
+	signUp: boolean,
+	callback: boolean
 }
 
 class Callback extends Component<Props,State> {
@@ -41,6 +42,7 @@ class Callback extends Component<Props,State> {
 			id_token: '',
 			expires: 0,
 			signUp: true,
+			callback: true
 		}
 		
 	}
@@ -49,11 +51,17 @@ class Callback extends Component<Props,State> {
 		const { location,history, match } = this.props;
 		const params = queryString.parse(location.search);
 		var client = OpenIDClient.getInstance().getClient();
-		let token = client.checkToken({
+		try{
+			await client.callback();
+		}
+		catch(error){
+			console.log(error);
+		}
+		let token = await client.checkToken({
 			scopes: {
+				request: ["openid", "offline"],
 				require: ["openid", "offline"]
-			  },
-			  response_type: "code",
+			}
 		});
 		console.log(token);
 		if (token !== null) {
@@ -151,7 +159,7 @@ class Callback extends Component<Props,State> {
 			<Button type="button" className="register-button" onClick={() =>this.goToProfile()}>Go to your Profile</Button>
 		}
 		<p>
-			<a href="/">Do it again</a>
+			<a href="/demo">Do it again</a>
 		</p>
 	
 	</main>
