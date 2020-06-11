@@ -1,38 +1,18 @@
-# Stage 0: prepare node alpine image
-FROM node:12-alpine AS demo
-RUN apk add --update --no-cache \
-  python \
-  make \
-  g++
-
-## Stage 1: build the demo 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-COPY ./package*.json /usr/src/app/
-RUN npm ci --quiet --no-progress
-COPY . /usr/src/app/
-
+# build environment
+FROM node:13.12.0-alpine as build
+WORKDIR /app
+ENV PATH /app/node_modules/.bin:$PATH
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm ci --silent
+RUN npm install react-scripts@3.4.1 -g --silent
+COPY . ./
 RUN npm run build
 
-# Stage 2: run nginx
-FROM nginx
-RUN mkdir -p /app
-WORKDIR /app
-RUN chown -R nginx:nginx /app && chmod -R 755 /app && \
-  chown -R nginx:nginx /var/cache/nginx && \
-  chown -R nginx:nginx /var/log/nginx && \
-  chown -R nginx:nginx /etc/nginx/conf.d
-RUN touch /var/run/nginx.pid && \
-  chown -R nginx:nginx /var/run/nginx.pid
-USER nginx
-COPY --from=demo /usr/src/app /app
-COPY --from=demo /app /usr/share/nginx/html
-
-RUN rm /etc/nginx/conf.d/default.conf
-RUN rm /etc/nginx/conf.d/nginx.conf 
-RUN rm /etc/nginx/nginx.conf
-COPY ./nginx/nginx.conf /etc/nginx/conf.d
-COPY ./nginx/nginx.conf /etc/nginx/nginx.conf
+# production environment
+FROM nginx:stable-alpine
+COPY --from=build /app/build /usr/share/nginx/html
+# new
+COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 3022
 CMD ["nginx", "-g", "daemon off;"]
-
