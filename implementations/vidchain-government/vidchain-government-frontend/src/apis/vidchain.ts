@@ -33,6 +33,9 @@ async function generateVerifiableID(token: string, user: ICredentialData){
         }
         return response.data;
     }
+    catch(error){
+        return "Error";
+    }
 }
 
 export { getAuthzToken, generateVerifiableID };
