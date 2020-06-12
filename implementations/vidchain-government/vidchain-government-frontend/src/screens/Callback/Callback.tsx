@@ -73,7 +73,7 @@ class Callback extends Component<Props,State> {
 				expires: token.expires
 			});
 		}
-		//this.checkIfSignInOrSignUp();
+		this.checkIfSignInOrSignUp();
 	}
 
 	async getTokens(){
@@ -97,11 +97,20 @@ class Callback extends Component<Props,State> {
 	}
 
 	async checkIfSignInOrSignUp(){
-		// const userDID = utils.getUserDid(this.state.id_token);
+		const userDID = utils.getUserDid(this.state.id_token);
 		// console.log(userDID);
 		//Check if User exists and go to Registration of Profile
 		//const user = await this.state.userRedis.get(userDID);
 		//console.log(user);
+		//Check in localstorage if user is registered
+		var user = localStorage.get(userDID);
+		if(user !== null && user!== ""){
+			//Go to Profile
+			this.setState({
+				signUp: false
+			});
+			
+		}	
 	}
 
 	goToRegistration(){
@@ -121,16 +130,23 @@ class Callback extends Component<Props,State> {
 	goToProfile(){
 		const { history } = this.props;
 		const { access_token,refresh_token,id_token } = this.state;
-		history.push(
+		var user = localStorage.get(id_token);
+		this.props.history.push(
 			{
 			  pathname: '/profile',
-			  state: { 
-				access_token: access_token,
-				refresh_token: refresh_token,
-				id_token: id_token
-			   }
+			  state: { user: user }
 			}
 		  ); 
+		// history.push(
+		// 	{
+		// 	  pathname: '/profile',
+		// 	  state: { 
+		// 		access_token: access_token,
+		// 		refresh_token: refresh_token,
+		// 		id_token: id_token
+		// 	   }
+		// 	}
+		//   ); 
 	}
 	
 

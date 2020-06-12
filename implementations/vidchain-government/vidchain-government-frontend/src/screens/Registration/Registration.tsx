@@ -3,7 +3,7 @@ import './Registration.css';
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Official from '../../components/Official/Official';
-import { Button, Form, Alert, Row,InputGroup, Col } from "react-bootstrap";
+import { Button, Form, Alert, Row,InputGroup, Col, Toast } from "react-bootstrap";
 import {ICredentialData} from "../../interfaces/ICredentialData";
 import axios from 'axios'
 import * as config from '../../config';
@@ -34,7 +34,8 @@ interface State {
     state: string
 	zip: string
 	checkFields: boolean,
-	successGeneration: boolean
+	successGeneration: boolean,
+	error: boolean
 }
 
 class Registration extends Component<Props,State> {
@@ -56,7 +57,8 @@ class Registration extends Component<Props,State> {
 			state: "",
 			zip: "",
 			checkFields: false,
-			successGeneration: false
+			successGeneration: false,
+			error: false
 		}
 	}
 
@@ -68,7 +70,8 @@ class Registration extends Component<Props,State> {
 				id_token: this.props.location.state.id_token,
 				did: utils.getUserDid(this.props.location.state.id_token),
 			});
-		}	
+		}
+		
 	}
 
 	submit(){
@@ -100,9 +103,17 @@ class Registration extends Component<Props,State> {
 		const response = await vidchain.generateVerifiableID(token, credentialSubject);
 		//Check response
 		console.log(response);
-		this.setState ({
-			successGeneration: true
-		})
+		if(response !== "Error"){
+
+			this.setState ({
+				successGeneration: true
+			})
+		}
+		else{
+			this.setState ({
+				error: false
+			})
+		}
 
 	};
 
@@ -143,12 +154,21 @@ class Registration extends Component<Props,State> {
 			gender: this.state.gender,
 		};
 		var user = JSON.stringify(credentialSubject);
+		//Store in localstorage
+		localStorage.setItem(credentialSubject.id, user);
 		this.props.history.push(
 			{
 			  pathname: '/profile',
 			  state: { user: user }
 			}
 		  ); 
+		
+	}
+
+	toggleClose (){
+		this.setState ({
+			error: false
+		})
 	}
 	
 
@@ -158,7 +178,7 @@ class Registration extends Component<Props,State> {
 		lastname,gender,
 		dateOfBirth,placeOfBirth,
 		currentAddress,city,
-		state,zip,checkFields,successGeneration } = this.state;
+		state,zip,checkFields,successGeneration, error } = this.state;
     return (
     <div>
     <Official></Official>
@@ -175,6 +195,13 @@ class Registration extends Component<Props,State> {
 		}
 		{!successGeneration &&
 	<Fragment>
+		<Toast show={error} onClose={() => this.toggleClose()}>
+          <Toast.Header>
+            <strong className="mr-auto">Error</strong>
+            <small>City of Barcelona</small>
+          </Toast.Header>
+          <Toast.Body>Something wrong when generation the credential!</Toast.Body>
+        </Toast>
       <h1>Request your eID Verifiable Credential</h1>
       <p>Fill all the fields, and claim the VC to receive it in you VIDchain mobile App.</p>
 	  <Form>
