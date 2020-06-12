@@ -12,8 +12,8 @@ class Header extends Component {
           <button className="cds-menu-btn">MENU</button>
           <div className="cds-logo" id="logo">
             <em className="cds-logo-text">
-              <a href="/design-system-site/" title="Home">
-                <img src={require("../../assets/images/logoCity.png")} alt="Logo of the City" />
+              <a href="https://dev.api.vidchain.net/demo/" title="Home">
+                <img src={require("../../assets/images/logoCity.png")} alt="Logo of the City"/>
                 <h1 className="cds-header-title">Your City Website</h1>
               </a>
             </em>

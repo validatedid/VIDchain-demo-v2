@@ -52,39 +52,39 @@ class Profile extends Component<Props,State> {
 				<form action="">
 					<h3>My Profile</h3>
 					<div className="form-row">
-						<h4>DID</h4>
+						<h4>DID:  </h4>
 						<p className= "welcome">{transform.replaceDID(user.id)}</p>
 					</div>
 					<div className="form-row">
-						<h4>Name</h4>
+						<h4>Name:  </h4>
 						<p className= "welcome">{user.firstName}</p>
 					</div>
 					<div className="form-row">
-						<h4>Surname</h4>
+						<h4>Surname:  </h4>
 						<p className= "welcome">{user.lastName}</p>
 					</div>
 					<div className="form-row">
-						<h4>Date Of Birth</h4>
+						<h4>Date Of Birth:  </h4>
 						<p className= "welcome">{user.dateOfBirth}</p>
 					</div>
 					<div className="form-row">
-						<h4>Place Of Birth</h4>
+						<h4>Place Of Birth:  </h4>
 						<p className= "welcome">{user.placeOfBirth}</p>
 					</div>
 					<div className="form-row">
-						<h4>Current Address</h4>
+						<h4>Current Address:  </h4>
 						<p>{user.currentAddress}</p>
 					</div>
 					<div className="form-row">
-						<h4>City</h4>
+						<h4>City: </h4>
 						<p className= "welcome">{user.city}</p>
 					</div>
 					<div className="form-row">
-						<h4>State</h4>
+						<h4>State: </h4>
 						<p className= "welcome">{user.state}</p>
 					</div>
 					<div className="form-row">
-						<h4>Zip</h4>
+						<h4>Zip: </h4>
 						<p className= "welcome">{user.zip}</p>
 					</div>
 					
