@@ -146,12 +146,12 @@ class Callback extends Component<Props,State> {
 	  	<p>
         	OAuth2 authorize code flow was performed successfully!
 		</p>
-		<li>
-			<ul><b>Access Token: </b>{access_token}</ul>
-			<ul><b>Refresh Token: </b> {refresh_token}</ul>
-			<ul><b>ID Token: </b> {id_token}</ul>
-			<ul><b>Expires In: </b> {expires}</ul>
-		</li>
+		<ul>
+			<li><b>Access Token: </b>{access_token}</li>
+			<li><b>Refresh Token: </b> {refresh_token}</li>
+			<li><b>ID Token: </b> {id_token}</li>
+			<li><b>Expires In: </b> {expires}</li>
+		</ul>
 		{ signUp &&
 			<Button type="button" className="register-button" onClick={() =>this.goToRegistration()}>Create the eID in my VIDchain Wallet</Button>
 		}
@@ -159,7 +159,7 @@ class Callback extends Component<Props,State> {
 			<Button type="button" className="register-button" onClick={() =>this.goToProfile()}>Go to your Profile</Button>
 		}
 		<p>
-			<a href="/demo">Do it again</a>
+			<a href="https://dev.api.vidchain.net/demo/">Do it again</a>
 		</p>
 	
 	</main>
