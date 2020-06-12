@@ -5,11 +5,6 @@ import Footer from "../../components/Footer/Footer";
 import Official from '../../components/Official/Official';
 import { Button, Form, Alert, Row,InputGroup, Col, Toast } from "react-bootstrap";
 import {ICredentialData} from "../../interfaces/ICredentialData";
-import axios from 'axios'
-import * as config from '../../config';
-import { Link } from "react-router-dom";
-import io from 'socket.io-client'
-import * as transform from "../../utils/StringTransformer";
 import * as utils from "../../utils/utils";
 import * as vidchain from "../../apis/vidchain";
 interface Props {
@@ -102,9 +97,7 @@ class Registration extends Component<Props,State> {
 		const token = await vidchain.getAuthzToken();
 		const response = await vidchain.generateVerifiableID(token, credentialSubject);
 		//Check response
-		console.log(response);
 		if(response !== "Error"){
-
 			this.setState ({
 				successGeneration: true
 			})
@@ -116,14 +109,6 @@ class Registration extends Component<Props,State> {
 		}
 
 	};
-
-	// sendUserToServer(user: ICredentialData){
-	// 	const socket = io(config.BACKEND_URL);
-	// 	socket.emit('registration', JSON.stringify(user));
-	// }
-		
-	
-
 
 	nonEmptyFields(): boolean{
 		var nonEmptyFields = true;
@@ -154,7 +139,7 @@ class Registration extends Component<Props,State> {
 			gender: this.state.gender,
 		};
 		var user = JSON.stringify(credentialSubject);
-		//Store in localstorage
+		//Store in localstorage (ideally in DB of the city)
 		localStorage.setItem(credentialSubject.id, user);
 		this.props.history.push(
 			{
@@ -348,7 +333,7 @@ class Registration extends Component<Props,State> {
     </Fragment>
   	}
 	</main>
-	</div>
+	</div >
 	<Footer></Footer>
     
     </div>

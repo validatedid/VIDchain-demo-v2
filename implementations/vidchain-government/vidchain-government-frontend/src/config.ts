@@ -2,14 +2,14 @@ const dotenv = require('dotenv')
 // importing .env variables
 dotenv.config();
 
+//Legal Entity
 const Entity = {
-    "iss": "City of Barcelona",
+    "iss": "Your City",
     "aud": "vidchain-api",
     "nonce": "z-0427dc2515b1"
 };
 //Entity in Base-64
-const assertion = "ewogICAgImlzcyI6ICJDaXR5IG9mIEJhcmNlbG9uYSIsCiAgICAiYXVkIjogInZpZGNoYWluLWFwaSIsCiAgICAibm9uY2UiOiAiei0wNDI3ZGMyNTE1YjEiCn0=";
-//Legal Entity
+const assertion = "ewogICAgImlzcyI6ICJZb3VyIENpdHkiLAogICAgImF1ZCI6ICJ2aWRjaGFpbi1hcGkiLAogICAgIm5vbmNlIjogInotMDQyN2RjMjUxNWIxIgp9";
 const grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 const scope = "vidchain profile test entity";
 
@@ -24,8 +24,6 @@ const IDENTITY_PROVIDER = process.env.REACT_APP_IDENTITY_PROVIDER || "https://de
 
 const REDIRECT_CALLBACK = process.env.REACT_APP_REDIRECT_CALLBACK || "https://dev.api.vidchain.net/demo/callback";
 
-const REDIS_URL = process.env.REDIS_URL || ""
-const REDIS_PORT: number = Number(process.env.REDIS_PORT) || 6379
 
 export { 
     assertion,
@@ -35,7 +33,5 @@ export {
     IDENTITY_PROVIDER,
     REDIRECT_CALLBACK,
     CLIENT_ID,
-    CLIENT_SECRET,
-    REDIS_URL,
-    REDIS_PORT
+    CLIENT_SECRET
 }

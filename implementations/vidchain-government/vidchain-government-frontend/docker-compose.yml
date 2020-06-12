@@ -13,8 +13,6 @@ services:
     ports:
       - 3022:3022
     environment:
-      - REDIS_URL=redis
-      - REDIS_PORT=6379
       - REACT_APP_REDIRECT_CALLBACK=https://dev.api.vidchain.net/demo/callback
       - REACT_APP_IDENTITY_PROVIDER=https://dev.api.vidchain.net
       - REACT_APP_DEMO=https://dev.api.vidchain.net/demo

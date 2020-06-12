@@ -3,27 +3,17 @@ import './Home.css';
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Official from '../../components/Official/Official';
-import io from 'socket.io-client'
-import axios from 'axios'
-import * as config from '../../config';
-import {
-  Modal
-} from "react-bootstrap";
 import { OpenIDClient } from '../../libs/openid-connect/client';
 // @ts-ignore
 import {JSO, Popup} from 'jso'
 import * as utils from "../../utils/utils";
-import { initiateFlow } from "../../libs/openid-connect/dtos";
 
-var QRCode = require('qrcode.react');
 interface Props {
 	history?: any;
 }
   
 interface State {
   jwt: string,
-  showQR: boolean,
-  contentQR: string
 }
 
 
@@ -34,8 +24,6 @@ class Home extends Component<Props, State> {
 
     this.state = {
       jwt: "",
-      showQR: false,
-      contentQR: ""
     }
   }
   componentDidMount(){
@@ -44,6 +32,7 @@ class Home extends Component<Props, State> {
 
   async loginWithVIDChain(){
     var client = OpenIDClient.getInstance().getClient();
+    //Wipe the tokens the library kept in the local Storage
     await client.wipeTokens()
     await client.callback();
     client.getToken({
@@ -52,60 +41,11 @@ class Home extends Component<Props, State> {
 				require: ["openid", "offline"]
       }
     });
-    // }).then((token: any) => {
-    //   console.log("token");
-    //   console.log(token);
-    //   //Token exists on LocalStorage but redirect to the process anyway
-    //   if(token !== null){
-    //     //client.wipeTokens()
-    //     const urlToRedirect = this.startFlow();
-    //     console.log(urlToRedirect);
-    //     window.location.href = urlToRedirect;
-    //   }
-    // });
-    
-    //const urlToRedirect = startFlow();
-    //console.log(urlToRedirect);
-    //window.location.href = urlToRedirect;
   }
 
-  // public startFlow(): string {
-  //   var url = "https://dev.api.vidchain.net/oauth2/auth?";
-  //   const nonce = utils.randomString(24);
-  //   const state = utils.randomString(24);
-
-  //   const parameters: initiateFlow = {
-  //       audience: "",
-  //       client_id: "barcelona-city-demo",
-  //       max_age: 0,
-  //       nonce: nonce,
-  //       prompt: "",
-  //       redirect_uri: 'http://127.0.0.1:3022/demo/callback',
-  //       response_type: "code",
-  //       scope: "openid+offline",
-  //       state: state,
-  //   }
-  //   url = url + `audience=${parameters.audience}&`+
-  //   `client_id=${parameters.client_id}&`+
-  //   `max_age=${parameters.max_age}&`+
-  //   `nonce=${parameters.nonce}&`+
-  //   `prompt=${parameters.prompt}&`+
-  //   `redirect_uri=${parameters.redirect_uri}&`+
-  //   `response_type=${parameters.response_type}&`+
-  //   `scope=${parameters.scope}&`+
-  //   `state=${parameters.state}`;
-
-  //   console.log(url);
-
-  //   return url;
-  // }
-
   render() {
-    const {showQR, contentQR} = this.state;
-    console.log(showQR);
     return (
     <div>
-
     <Official></Official>
     <Header></Header>
     <div className= "content">

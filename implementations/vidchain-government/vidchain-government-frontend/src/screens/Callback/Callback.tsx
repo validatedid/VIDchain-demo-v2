@@ -4,11 +4,6 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Official from '../../components/Official/Official';
 import { Button, Form, Alert, Row,InputGroup, Col } from "react-bootstrap";
-import {ICredentialData} from "../../interfaces/ICredentialData";
-import axios from 'axios'
-import * as config from '../../config';
-import { Link } from "react-router-dom";
-import io from 'socket.io-client'
 import * as utils from "../../utils/utils";
 import { OpenIDClient } from '../../libs/openid-connect/client';
 import queryString from "query-string";
@@ -76,32 +71,8 @@ class Callback extends Component<Props,State> {
 		this.checkIfSignInOrSignUp();
 	}
 
-	async getTokens(){
-		var client = OpenIDClient.getInstance().getClient();
-		let token = await client.checkToken({
-			scopes: {
-				request: ["openid", "offline"],
-				require: ["openid", "offline"]
-      		}
-		});
-		console.log(token);
-		if (token !== null) {
-			console.log("I got the token: ", token)
-			this.setState({
-				access_token: token.access_token,
-				refresh_token: token.refresh_token,
-				id_token: token.id_token,
-				expires: token.expires
-			});
-		}
-	}
-
 	async checkIfSignInOrSignUp(){
 		const userDID = utils.getUserDid(this.state.id_token);
-		// console.log(userDID);
-		//Check if User exists and go to Registration of Profile
-		//const user = await this.state.userRedis.get(userDID);
-		//console.log(user);
 		//Check in localstorage if user is registered
 		var user = localStorage.getItem(userDID);
 		if(user !== null && user!== ""){

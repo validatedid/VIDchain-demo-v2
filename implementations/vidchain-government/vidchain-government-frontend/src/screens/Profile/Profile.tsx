@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './Profile.css';
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Official from '../../components/Official/Official';
 import {ICredentialData} from "../../interfaces/ICredentialData";
-import * as transform from "../../utils/StringTransformer";
+import * as utils from "../../utils/utils";
+
 interface Props {
 	user: string;
 	location: any;
@@ -23,12 +23,10 @@ class Profile extends Component<Props,State> {
 		}
 	}
   componentDidMount(){
-	  console.log(this.props.location.state);
 	if(this.props.location.state){
-		
 		var user: ICredentialData = JSON.parse(this.props.location.state.user);
 		this.setState ({
-			user: user
+			user: user,
 		});
 	}
   }
@@ -53,7 +51,7 @@ class Profile extends Component<Props,State> {
 					<h3>My Profile</h3>
 					<div className="form-row">
 						<h4>DID:  </h4>
-						<p className= "welcome">{transform.replaceDID(user.id)}</p>
+						<p className= "welcome">{user.id}</p>
 					</div>
 					<div className="form-row">
 						<h4>Name:  </h4>
