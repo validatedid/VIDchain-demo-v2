@@ -13,7 +13,9 @@ const assertion = "ewogICAgImlzcyI6ICJDaXR5IG9mIEJhcmNlbG9uYSIsCiAgICAiYXVkIjogI
 const grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 const scope = "vidchain profile test entity";
 
-const CLIENT_ID = "barcelona-city-demo2";
+// const CLIENT_ID = "barcelona-city-demo2";
+const CLIENT_ID = "your_city";
+const CLIENT_NAME = "Your City";
 const CLIENT_SECRET = "secret";
 
 // const BACKEND_URL= process.env.REACT_APP_BACKEND_URL || "http://localhost:3021"
