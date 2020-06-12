@@ -103,7 +103,7 @@ class Callback extends Component<Props,State> {
 		//const user = await this.state.userRedis.get(userDID);
 		//console.log(user);
 		//Check in localstorage if user is registered
-		var user = localStorage.get(userDID);
+		var user = localStorage.getItem(userDID);
 		if(user !== null && user!== ""){
 			//Go to Profile
 			this.setState({
@@ -130,7 +130,7 @@ class Callback extends Component<Props,State> {
 	goToProfile(){
 		const { history } = this.props;
 		const { access_token,refresh_token,id_token } = this.state;
-		var user = localStorage.get(id_token);
+		var user = localStorage.getItem(id_token);
 		this.props.history.push(
 			{
 			  pathname: '/profile',
