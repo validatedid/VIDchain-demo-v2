@@ -42,7 +42,7 @@ class Profile extends Component<Props,State> {
     <div>
     <Official></Official>
     <Header></Header>
-	<h4>Welcome to the electronic site of the city of Barcelona</h4>
+	<h4 className= "welcome">Welcome to the electronic site of you city.</h4>
     <div className= "content">
         <div className="wrapper">
 			<div className="inner">
@@ -53,23 +53,23 @@ class Profile extends Component<Props,State> {
 					<h3>My Profile</h3>
 					<div className="form-row">
 						<h4>DID</h4>
-						<p>{transform.replaceDID(user.id)}</p>
+						<p className= "welcome">{transform.replaceDID(user.id)}</p>
 					</div>
 					<div className="form-row">
 						<h4>Name</h4>
-						<p>{user.firstName}</p>
+						<p className= "welcome">{user.firstName}</p>
 					</div>
 					<div className="form-row">
 						<h4>Surname</h4>
-						<p>{user.lastName}</p>
+						<p className= "welcome">{user.lastName}</p>
 					</div>
 					<div className="form-row">
 						<h4>Date Of Birth</h4>
-						<p>{user.dateOfBirth}</p>
+						<p className= "welcome">{user.dateOfBirth}</p>
 					</div>
 					<div className="form-row">
 						<h4>Place Of Birth</h4>
-						<p>{user.placeOfBirth}</p>
+						<p className= "welcome">{user.placeOfBirth}</p>
 					</div>
 					<div className="form-row">
 						<h4>Current Address</h4>
@@ -77,15 +77,15 @@ class Profile extends Component<Props,State> {
 					</div>
 					<div className="form-row">
 						<h4>City</h4>
-						<p>{user.city}</p>
+						<p className= "welcome">{user.city}</p>
 					</div>
 					<div className="form-row">
 						<h4>State</h4>
-						<p>{user.state}</p>
+						<p className= "welcome">{user.state}</p>
 					</div>
 					<div className="form-row">
 						<h4>Zip</h4>
-						<p>{user.zip}</p>
+						<p className= "welcome">{user.zip}</p>
 					</div>
 					
 					{/* <button className="custom-button">Claim your credential

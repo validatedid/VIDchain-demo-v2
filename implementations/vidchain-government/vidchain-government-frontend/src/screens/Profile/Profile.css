@@ -6,6 +6,9 @@
   
   p, h1, h2, h3, h4, h5, h6, ul {
     margin: 0; }
+  .welcome {
+    margin-left: 2%;
+  }
   
   img {
     max-width: 100%; }
@@ -33,7 +36,6 @@
   .wrapper {
     min-height: 100vh;
     display: flex;
-    /* background: url("../../assets/images/passport.jpg") no-repeat center center; */
     background-size: cover; }
   
   .inner {

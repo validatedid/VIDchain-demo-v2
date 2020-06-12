@@ -198,7 +198,7 @@ class Registration extends Component<Props,State> {
 		<Toast show={error} onClose={() => this.toggleClose()}>
           <Toast.Header>
             <strong className="mr-auto">Error</strong>
-            <small>City of Barcelona</small>
+            <small>Your City</small>
           </Toast.Header>
           <Toast.Body>Something wrong when generation the credential!</Toast.Body>
         </Toast>

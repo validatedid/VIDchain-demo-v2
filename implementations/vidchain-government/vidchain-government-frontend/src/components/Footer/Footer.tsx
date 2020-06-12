@@ -23,9 +23,9 @@ class Footer extends Component {
         <div className="row">
           <div className="col-sm-6">
             <div className="media footer-media">
-              <img className="align-self-center mr-3" src={require("../../assets/images/logo_barcelona.svg")}  alt="City of Barcelona" />
+              <img className="align-self-center mr-3" src={require("../../assets/images/logoCity.png")}  alt="City" />
               <div className="media-body align-self-center">
-                <h3 className="mt-0">City of Barcelona</h3>
+                <h3 className="mt-0">The official website of Your City</h3>
               </div>
               </div>
           </div>
@@ -40,7 +40,7 @@ class Footer extends Component {
                   <h4>Contact Info</h4>
               </div>
               <div className="footer-contact-links">
-                  <a href="#">info@barcelona.gov</a>
+                  <a href="#">info@city.gov</a>
                   <a href="#">(312)-774-2828</a>
               </div>
             </div>

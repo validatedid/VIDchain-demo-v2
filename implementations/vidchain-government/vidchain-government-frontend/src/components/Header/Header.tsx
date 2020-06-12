@@ -13,8 +13,8 @@ class Header extends Component {
           <div className="cds-logo" id="logo">
             <em className="cds-logo-text">
               <a href="/design-system-site/" title="Home">
-                <img src={require("../../assets/images/logo_barcelona.svg")} alt="Logo of the City of Barcelona" />
-                <h1 className="cds-header-title">Barcelona</h1>
+                <img src={require("../../assets/images/logoCity.png")} alt="Logo of the City" />
+                <h1 className="cds-header-title">Your City Website</h1>
               </a>
             </em>
           </div>
@@ -37,8 +37,8 @@ class Header extends Component {
                     <div className="col-md-6">
                       <ul>							 					
                       <li>
-                      <a title="Affordable Barcelona" href="#">Affordable Barcelona</a>
-                      <a title="Barcelona Census 2020"  href="#">Barcelona Census 2020</a>
+                      <a title="Affordable Barcelona" href="#">Affordable City</a>
+                      <a title="Barcelona Census 2020"  href="#">City Census 2020</a>
                       <a title="Consumer Protection"  href="#">Consumer Protection</a>
                       <a title="Education"  href="#">Education</a>
                       <a title="Environment"  href="#">Environment</a>
@@ -60,7 +60,7 @@ class Header extends Component {
                       <a title="Municipal Marketing"  href="#">Municipal Marketing</a>
                       <a title="Our City. Our Safety."  href="#">Our City. Our Safety.</a>
                       <a title="Safety"  href="#">Safety</a>
-                      <a title="Sustain Chicago" target="_blank"  href="#">Sustain Barcelona</a>
+                      <a title="Sustain Chicago" target="_blank"  href="#">Sustain City</a>
                       <a title="Taxes"  href="#">Taxes</a>
                       <a title="Technology"  href="#">Technology</a>
                       <a title="Transparency"  href="#">Transparency</a>
@@ -87,7 +87,7 @@ class Header extends Component {
                     <span>About</span>
                   </button>
                   <ul id="nav-about" className="cds-nav-submenu" aria-hidden="true">
-                      <li><a title="Chicago History"  href="#">Barcelona History</a></li>
+                      <li><a title="Chicago History"  href="#">City History</a></li>
                       <li><a title="Facts &amp; Statistics"  href="#">Facts &amp; Statistics</a></li>
                       <li><a title="Attractions"  href="#"target="_blank">Attractions</a></li>       
                   </ul>
