@@ -14,6 +14,7 @@ interface Props {
 interface State {
 	user: ICredentialData;
 }
+const redIcon = "#ff0000";
 class Profile extends Component<Props,State> {
 
 	constructor(props:any) {
@@ -30,7 +31,7 @@ class Profile extends Component<Props,State> {
 		});
 	}
   }
-  loginWithVIDChain(){
+  claimVP(){
     
   }
 
@@ -40,15 +41,16 @@ class Profile extends Component<Props,State> {
     <div>
     <Official></Official>
     <Header></Header>
-	<h4 className= "welcome">Welcome to the electronic site of you city.</h4>
+	<h1 className= "welcome">Welcome to the electronic site of you city.</h1>
+	<h4 className= "welcome">You can use your eID Verifiable Credential to access to the different services the city offers.</h4>
     <div className= "content">
         <div className="wrapper">
 			<div className="inner">
 				<div className="image-holder">
-					<img src={require("../../assets/images/profile_image.png")} alt=""/>
+					<img src={require("../../assets/images/card.png")} alt=""/>
 				</div>
 				<form action="">
-					<h3>My Profile</h3>
+					<h3 className="eID-text">eID Verifiable Credential</h3>
 					<div className="form-row">
 						<h4>DID:  </h4>
 						<p className= "welcome">{user.id}</p>
@@ -92,7 +94,22 @@ class Profile extends Component<Props,State> {
 				</form>
 				
 			</div>
+			<h1>Services</h1>
+			<div className="services">
+				{/* <div className="image-holder">
+					<img src={require("../../assets/images/bicing.svg")} alt=""/>
+				</div> */}
+				<div className="service">
+					<img src={require("../../assets/images/bicing.svg")} className="service-img" alt=""/>
+					<h1>Get your Bicing Card</h1>
+					<h5 className="eID-text">You need to have a eID Verifiable Credential to get the bicing card and start using the bicycle sharing system of Your City.</h5>
+					<button className="custom-button" onClick={() => this.claimVP()}><b>Claim your Card</b>
+					</button>
+				</div>
+				
+			</div>
 		</div>
+
     </div>
     <div className="footer">
       <Footer></Footer>
