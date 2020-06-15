@@ -1,36 +1,41 @@
-import { Injectable } from '@nestjs/common';
-import {ValidateResponse, Signature, User} from "../interfaces/dtos"
-import * as config from '../config';
-import axios from 'axios';
-import { Logger } from '@nestjs/common';
+import axios from "axios";
+import * as config from "../config";
+import {Presentation} from "../interfaces/dtos";
 
-export class VidchainBackend {
-  private logger: Logger = new Logger('VidchainBackend');
-  constructor() {
+async function getAuthzToken() {
+    const body = {
+        grantType: config.grantType,
+        assertion: config.assertion,
+        scope: config.scope,
+      };
+    try{
+        const response = await axios.post(`${config.API_URL}/sessions`, body);
+        if (response.status !== 200 && response.status !== 201) {
+            return "Error";
+        }
+        return response.data.accessToken;
+    }
+    catch(error){
+        return "Error";
+    }
+} 
 
-  }
-
-  async validateJWTInBackend(signature:Signature): Promise<string> {
-    var bearerToken = await this.establishConnection();
+async function requestVP (token: string, presentation: Presentation){
     let authorization = {
         headers: {
-          Authorization: "Bearer " + bearerToken
+          Authorization: "Bearer " + token
         }
-      };
-    var response = await this.validateJWTInVidChain(authorization,signature);
-    return response;
-  }
-
-  private async establishConnection(): Promise<string>{
-    let data = {
-        enterpriseName: config.Name,
-        nonce: config.nonce
     };
-    const response = await axios.post(config.API_URL + "token", data);
-    return response.data.jwt;
-  }
-  private async validateJWTInVidChain(authorization,signature){
-      const response = await axios.post(config.API_URL + "signature/validation", signature, authorization);
-      return response.data;
-  }
+    try{
+        const response = await axios.post(`${config.API_URL}/verifiable-presentations-requests`, presentation, authorization);
+        if (response.status !== 200 && response.status !== 201) {
+            return "Error";
+        }
+        return response.data;
+    }
+    catch(error){
+        return "Error";
+    }
 }
+
+export { getAuthzToken, requestVP };

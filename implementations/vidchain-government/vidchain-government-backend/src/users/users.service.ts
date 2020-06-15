@@ -17,6 +17,7 @@ export class UsersService {
     async createUser(user: User): Promise<any> {
         try {
             await this.userRedis.set(user.id, JSON.stringify(user));
+            this.logger.debug("Successfully user creation");
             return "Successfully user creation";
         }
         catch (e) {

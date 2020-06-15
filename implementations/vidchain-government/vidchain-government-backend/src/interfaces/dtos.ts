@@ -17,3 +17,9 @@ export interface User {
     zip: string
     gender: string
 }
+
+export interface Presentation {
+    target: string, 
+    name?: string,
+    type: string[][]
+}
