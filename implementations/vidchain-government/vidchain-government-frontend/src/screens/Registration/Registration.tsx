@@ -4,7 +4,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Official from '../../components/Official/Official';
 import { Button, Form, Alert, Row,InputGroup, Col, Toast } from "react-bootstrap";
-import {ICredentialData} from "../../interfaces/ICredentialData";
+import {ICredentialData} from "../../interfaces/dtos";
 import * as utils from "../../utils/utils";
 import * as vidchain from "../../apis/vidchain";
 interface Props {

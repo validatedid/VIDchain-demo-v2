@@ -11,3 +11,9 @@ export interface ICredentialData {
     zip: string
     gender: string
 }
+
+export interface Presentation {
+    target: string, 
+    name?: string,
+    type: string[][]
+}

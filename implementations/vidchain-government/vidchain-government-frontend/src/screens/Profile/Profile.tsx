@@ -3,8 +3,11 @@ import './Profile.css';
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Official from '../../components/Official/Official';
-import {ICredentialData} from "../../interfaces/ICredentialData";
+import {ICredentialData, Presentation} from "../../interfaces/dtos";
+import { Toast } from "react-bootstrap";
+import * as vidchain from "../../apis/vidchain";
 import * as utils from "../../utils/utils";
+import { userInfo } from 'os';
 
 interface Props {
 	user: string;
@@ -13,6 +16,7 @@ interface Props {
   
 interface State {
 	user: ICredentialData;
+	error: boolean;
 }
 const redIcon = "#ff0000";
 class Profile extends Component<Props,State> {
@@ -20,7 +24,8 @@ class Profile extends Component<Props,State> {
 	constructor(props:any) {
 		super(props);
 		this.state = {
-			user: {} as ICredentialData
+			user: {} as ICredentialData,
+			error: false
 		}
 	}
   componentDidMount(){
@@ -31,18 +36,51 @@ class Profile extends Component<Props,State> {
 		});
 	}
   }
-  claimVP(){
-    
+  async claimVP(){
+    const presentation: Presentation = {
+		target: this.state.user.id,
+		name: "Bicing",
+		type: [
+			[
+				"VerifiableCredential",
+				"VerifiableIdCredential"
+			]
+		],
+	}
+	const token = await vidchain.getAuthzToken();
+	const response = await vidchain.requestVP(token, presentation);
+	//Check response
+	if(response !== "Error"){
+		console.log("done");
+	}
+	else{
+		this.setState ({
+			error: false
+		})
+	}
   }
 
+  toggleClose (){
+	this.setState ({
+		error: false
+	})
+}
+
   render() {
-	const { user} = this.state;  
+	const { user, error} = this.state;  
     return (
     <div>
     <Official></Official>
     <Header></Header>
 	<h1 className= "welcome">Welcome to the electronic site of you city.</h1>
 	<h4 className= "welcome">You can use your eID Verifiable Credential to access to the different services the city offers.</h4>
+	<Toast show={error} onClose={() => this.toggleClose()}>
+          <Toast.Header>
+            <strong className="mr-auto">Error</strong>
+            <small>Your City</small>
+          </Toast.Header>
+          <Toast.Body>Something wrong when generation the credential!</Toast.Body>
+    </Toast>
     <div className= "content">
         <div className="wrapper">
 			<div className="inner">

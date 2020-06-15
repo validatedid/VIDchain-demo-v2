@@ -5,12 +5,13 @@ const BASE_URL = process.env.BASE_URL || "http://localhost:3021";
 
 //Legal Entity
 const Entity = {
-  "iss": "Your City",
+  "iss": "Your City - Test",
   "aud": "vidchain-api",
-  "nonce": "z-0427dc2515b1"
+  "nonce": "z-0427dc2515b1",
+  "callbackUrl": "http://localhost:3021/presentation/validation"
 };
 //Entity in Base-64
-const assertion = "ewogICAgImlzcyI6ICJZb3VyIENpdHkiLAogICAgImF1ZCI6ICJ2aWRjaGFpbi1hcGkiLAogICAgIm5vbmNlIjogInotMDQyN2RjMjUxNWIxIgp9";
+const assertion = "ewogICAgImlzcyI6ICJZb3VyIENpdHkgLSBUZXN0IiwKICAgICJhdWQiOiAidmlkY2hhaW4tYXBpIiwKICAgICJub25jZSI6ICJ6LTA0MjdkYzI1MTViMSIsCiAgICAiY2FsbGJhY2tVcmwiOiAiaHR0cDovL2xvY2FsaG9zdDozMDIxL3ByZXNlbnRhdGlvbi92YWxpZGF0aW9uIgogIH0=";
 const grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 const scope = "vidchain profile test entity";
 
