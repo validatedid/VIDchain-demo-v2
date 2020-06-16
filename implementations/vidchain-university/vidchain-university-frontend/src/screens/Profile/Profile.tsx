@@ -60,35 +60,6 @@ class Profile extends Component<Props,State> {
     });
   }
 
-  submit(){
-		this.generateCredential();
-  }
-  async generateCredential(){
-		let authorization = {
-			headers: {
-			  Authorization: "Bearer " + this.state.jwt
-			}
-		};
-    let data = fullCredential;
-    data.credentialSubject.id = this.state.did;
-    data.credentialSubject.learningActivity.endedAtTime = this.state.today;
-    console.log(data);
-		const response = await axios.post(config.API_URL + "educreds/", data, authorization);
-		//Check response
-		console.log(response);
-		this.sendUserToServer(data);
-		this.setState ({
-			successGeneration: true
-		})
-
-  };
-  
-  sendUserToServer(credential: any){
-		const socket = io(config.BACKEND_URL);
-		socket.emit('registration', JSON.stringify(credential));
-	}
-
-
   render() {
     const { did,today, successGeneration} = this.state;
     return (
@@ -148,7 +119,7 @@ class Profile extends Component<Props,State> {
             <p style={{color: "#00cc00"}}> Open your VIDchain App</p>
           </div>
          }
-        <Button disabled={successGeneration} type="button" className="collect-button" onClick={() =>this.submit()}>Collect the eID in my VIDchain Wallet</Button>
+        <Button disabled={successGeneration} type="button" className="collect-button">Collect the eID in my VIDchain Wallet</Button>
 				</form>
 				
 			</div>
