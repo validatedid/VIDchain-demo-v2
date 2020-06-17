@@ -38,4 +38,22 @@ async function requestVP (token: string, presentation: Presentation){
     }
 }
 
-export { getAuthzToken, requestVP };
+async function retrievePresentation (token: string, url: string){
+    let authorization = {
+        headers: {
+          Authorization: "Bearer " + token
+        }
+    };
+    try{
+        const response = await axios.get(url,authorization);
+        if (response.status !== 200 && response.status !== 201) {
+            return "Error";
+        }
+        return response.data;
+    }
+    catch(error){
+        return "Error";
+    }
+}
+
+export { getAuthzToken, requestVP, retrievePresentation };

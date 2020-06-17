@@ -23,3 +23,8 @@ export interface Presentation {
     name?: string,
     type: string[][]
 }
+
+export interface MsgPresentationReady {
+    message: string, 
+    url: string
+}

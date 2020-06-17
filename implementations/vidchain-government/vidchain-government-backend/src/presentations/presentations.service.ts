@@ -1,6 +1,6 @@
 import { Injectable, Logger, HttpStatus, HttpException, Body } from '@nestjs/common';
 import * as vidchainBackend from "../api/vidchainBackend";
-import { Presentation } from '../interfaces/dtos';
+import { Presentation, MsgPresentationReady } from '../interfaces/dtos';
 
 @Injectable()
 export class PresentationsService {
@@ -46,10 +46,20 @@ export class PresentationsService {
     //     }
     // }
 
-    async validatePresentation(body: Presentation): Promise<any> {
-        this.logger.debug("Body: "+ body);
-        return "Hello World"
+    async validatePresentation(body: MsgPresentationReady): Promise<any> {
+        this.logger.debug("post presentation");
+        this.logger.debug(JSON.stringify(body));
+        const token = await vidchainBackend.getAuthzToken();
+        const presentation = await vidchainBackend.retrievePresentation(token, body.url);
+        this.logger.debug("presentation");
+        this.logger.debug(JSON.stringify(presentation));
+        //Once the presentation is received, verify it
+        //And can create a Verifiable Credential
     }
+
+
+
+
 
     
 }
