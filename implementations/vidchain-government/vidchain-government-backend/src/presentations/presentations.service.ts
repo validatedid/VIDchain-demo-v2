@@ -1,6 +1,7 @@
 import { Injectable, Logger, HttpStatus, HttpException, Body } from '@nestjs/common';
 import * as vidchainBackend from "../api/vidchainBackend";
-import { Presentation, MsgPresentationReady } from '../interfaces/dtos';
+import { VerifiablePresentation, Presentation, MsgPresentationReady } from '../interfaces/dtos';
+import { parseJwt, strB64dec } from "../utils/Parser";
 
 @Injectable()
 export class PresentationsService {
@@ -47,14 +48,19 @@ export class PresentationsService {
     // }
 
     async validatePresentation(body: MsgPresentationReady): Promise<any> {
-        this.logger.debug("post presentation");
-        this.logger.debug(JSON.stringify(body));
+        this.logger.debug("Presentation ready");
         const token = await vidchainBackend.getAuthzToken();
-        const presentation = await vidchainBackend.retrievePresentation(token, body.url);
-        this.logger.debug("presentation");
-        this.logger.debug(JSON.stringify(presentation));
-        //Once the presentation is received, verify it
-        //And can create a Verifiable Credential
+        const presentation: Presentation = await vidchainBackend.retrievePresentation(token, body.url);
+        this.logger.debug("Presentation retrieved: "+ JSON.stringify(presentation));
+        const dataDecoded = strB64dec(presentation.data.base64);
+        this.logger.debug("Data decoded: "+ dataDecoded);
+        const validation: boolean = await vidchainBackend.validateVP(token, dataDecoded);
+        this.logger.debug("Validation of VP: "+ validation);
+        if(validation){
+            //And can create a Verifiable Credential
+        }
+
+        
     }
 
 

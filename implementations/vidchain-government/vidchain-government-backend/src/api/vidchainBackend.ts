@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as config from "../config";
-import {Presentation} from "../interfaces/dtos";
+import {RequestPresentation, VerifiablePresentation} from "../interfaces/dtos";
 
 async function getAuthzToken() {
     const body = {
@@ -20,7 +20,7 @@ async function getAuthzToken() {
     }
 } 
 
-async function requestVP (token: string, presentation: Presentation){
+async function requestVP (token: string, presentation: RequestPresentation){
     let authorization = {
         headers: {
           Authorization: "Bearer " + token
@@ -35,6 +35,27 @@ async function requestVP (token: string, presentation: Presentation){
     }
     catch(error){
         return "Error";
+    }
+}
+
+async function validateVP (token: string, presentation: VerifiablePresentation): Promise<boolean>{
+    let authorization = {
+        headers: {
+          Authorization: "Bearer " + token
+        }
+    };
+    try{
+        console.log(presentation);
+        const response = await axios.post(`${config.API_URL}verifiable-presentation-validations`, presentation, authorization);
+        console.log(response.status);
+        if (response.status !== 204) {
+            return false;
+        }
+        return true;
+    }
+    catch(error){
+        
+        return false;
     }
 }
 
@@ -56,4 +77,4 @@ async function retrievePresentation (token: string, url: string){
     }
 }
 
-export { getAuthzToken, requestVP, retrievePresentation };
+export { getAuthzToken, requestVP, retrievePresentation, validateVP };

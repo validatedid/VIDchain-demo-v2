@@ -1,7 +1,7 @@
 import { Controller, Post, Get, Body, Res, HttpStatus, Param, Logger} from '@nestjs/common';
 import { Response } from "express";
 import { PresentationsService } from "./presentations.service";
-import { Presentation, MsgPresentationReady } from '../interfaces/dtos'
+import { MsgPresentationReady } from '../interfaces/dtos'
 
 @Controller('presentation')
 export class PresentationsController {

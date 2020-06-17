@@ -1,4 +1,5 @@
 var jwtDecode = require('jwt-decode');
+import {decode as atob, encode } from 'base-64';
 /**
  * Parse a JWT token
  */
@@ -11,5 +12,18 @@ function parseJwt(token) {
       return null;
   }
 }
+/**
+ * Decodes a Base64 string in an UTF-8 string format
+ * @param input Base64 encoded string to decode
+ */
+function strB64dec(input) {
+  try {
+    return JSON.parse(atob(input));
+  }
+  catch (error) {
+    return null;
+  }
+}
 
-export { parseJwt };
+
+export { parseJwt, strB64dec };
