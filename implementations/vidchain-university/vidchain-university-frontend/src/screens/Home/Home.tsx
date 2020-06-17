@@ -27,7 +27,7 @@ class Home extends Component<Props, State> {
   async componentDidMount(){
     //Wipe the tokens the library kept in the local Storage
     var client = OpenIDClient.getInstance().getClient();
-    client.wipeTokens()
+    await client.wipeTokens()
   }
 
   async loginWithVIDChain(){

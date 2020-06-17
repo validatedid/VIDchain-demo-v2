@@ -55,7 +55,6 @@ class Callback extends Component<Props,State> {
 				require: ["openid", "offline"]
 			}
 		});
-		console.log(token);
 		if (token !== null) {
 			console.log("I got the token: ", token)
 			this.setState({
