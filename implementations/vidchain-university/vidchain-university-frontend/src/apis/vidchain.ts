@@ -37,5 +37,23 @@ async function generateVerifiableID(token: string, user: ICredentialData){
         return "Error";
     }
 }
+// Refactor one single function
+async function generateVerifiableCredential(token: string, user: ICredentialData){
+    let authorization = {
+        headers: {
+          Authorization: "Bearer " + token
+        }
+    };
+    try{
+        const response = await axios.post(`${config.API_URL}/verifiable-credentials`, user, authorization);
+        if (response.status !== 200 && response.status !== 201) {
+            return "Error";
+        }
+        return response.data;
+    }
+    catch(error){
+        return "Error";
+    }
+}
 
-export { getAuthzToken, generateVerifiableID };
+export { getAuthzToken, generateVerifiableID, generateVerifiableCredential};
