@@ -124,7 +124,6 @@ class Profile extends Component<Props,State> {
 				
 			</div>
 		</div>
-
             </div>
             </div>
             </section>

@@ -4,11 +4,7 @@ import Header from "../../components/Header/Header";
 import Content from "../../components/Content/Content";
 import Footer from "../../components/Footer/Footer";
 import Banner from '../../components/Banner/Banner';
-import { OpenIDClient } from '../../libs/openid-connect/client'
-import {
-  Modal
-} from "react-bootstrap";
-import { Redirect } from "react-router-dom";
+import { OpenIDClient } from '../../libs/openid-connect/client';
 
 interface Props {
 	history?: any;
@@ -16,9 +12,8 @@ interface Props {
   
 interface State {
   jwt: string,
-  showQR: boolean,
-  contentQR: string
 }
+
 
 class Home extends Component<Props, State> {
 
@@ -27,24 +22,25 @@ class Home extends Component<Props, State> {
 
     this.state = {
       jwt: "",
-      showQR: false,
-      contentQR: ""
     }
+  }
+  async componentDidMount(){
+    //Wipe the tokens the library kept in the local Storage
+    var client = OpenIDClient.getInstance().getClient();
+    client.wipeTokens()
   }
 
   async loginWithVIDChain(){
     var client = OpenIDClient.getInstance().getClient();
-    //Wipe the tokens the library kept in the local Storage
-    await client.wipeTokens()
     await client.callback();
-    client.getToken({
+    await client.getToken({
 			scopes: {
 				request: ["openid", "offline"],
 				require: ["openid", "offline"]
       }
     });
   }
-
+  
   render() {
     return (
     <div>
@@ -94,9 +90,7 @@ class Home extends Component<Props, State> {
           
         <Content></Content>  
         <Footer></Footer>  
-        </div>
-
-          
+        </div>   
         <a href="#" className="scrollup"><i className="fa fa-angle-up active"></i></a>
     </div>
 

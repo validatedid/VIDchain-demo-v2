@@ -22,6 +22,7 @@ const API_URL = "https://walletapi-dev.vidchain.net/wallet/";
 const IDENTITY_PROVIDER = process.env.REACT_APP_IDENTITY_PROVIDER || "https://dev.api.vidchain.net";
 const REDIRECT_CALLBACK = process.env.REACT_APP_REDIRECT_CALLBACK || "https://dev.api.vidchain.net/demo/callback";
 
+
 export { 
     assertion,
     grantType,

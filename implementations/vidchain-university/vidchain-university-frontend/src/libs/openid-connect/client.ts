@@ -40,7 +40,4 @@ export class OpenIDClient {
         return this.provider;
     }
 
-    
-
-
   }
