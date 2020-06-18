@@ -21,9 +21,9 @@ const scope = "vidchain profile test entity";
 
 const DID = "did:vid:0xb02d86Cc91724A74674114b00d3952Fb002fcd33";
 
-// const CLIENT_ID = "barcelona-city-demo2";
-const CLIENT_ID = "city-test";
-// const CLIENT_ID = "city";
+
+//const CLIENT_ID = "city-test";
+const CLIENT_ID = "city";
 const CLIENT_NAME = "Your City";
 const CLIENT_SECRET = "secret";
 
