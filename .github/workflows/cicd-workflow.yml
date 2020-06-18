@@ -17,7 +17,7 @@ jobs:
         uses: easingthemes/ssh-deploy@v2.0.8
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_KEY }}
-          ARGS: "-rltgoDzvO" # test with --delete too
+          ARGS: "-rltgoDzvO --delete" # test with --delete too
           SOURCE: ""
           REMOTE_HOST: dev.api.vidchain.net
           REMOTE_USER: root
