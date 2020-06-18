@@ -1,7 +1,7 @@
 import { Injectable, Logger, HttpStatus, HttpException, Body } from '@nestjs/common';
 import * as vidchainBackend from "../api/vidchainBackend";
 import { VerifiablePresentation, Presentation, MsgPresentationReady, CredentialData } from '../interfaces/dtos';
-import { parseJwt, strB64dec } from "../utils/Parser";
+import { parseJwt, strB64dec } from "../utils/Util";
 import * as config from "../config";
 
 @Injectable()
@@ -18,8 +18,7 @@ export class PresentationsService {
             this.logger.debug("Presentation retrieved: "+ JSON.stringify(presentation));
             const dataDecoded = strB64dec(presentation.data.base64);
             this.logger.debug("Data decoded: "+ JSON.stringify(dataDecoded));
-            //const validation: boolean = await vidchainBackend.validateVP(token, dataDecoded);
-            const validation = true;
+            const validation: boolean = await vidchainBackend.validateVP(token, dataDecoded);
             this.logger.debug("Validation of VP: "+ validation);
             if(validation){
                 //And can create a Verifiable Credential
@@ -29,13 +28,13 @@ export class PresentationsService {
                     id: "https://example.com/credential/2390",
                     credentialSubject: {
                         "id": userDID,
-                        "name": "Service: Bicing",
+                        "name": "Bicing Service",
                         "startAt": Math.floor(Date.now() / 1000),
                         "expiresAt": Math.floor(Date.now() / 1000) + Math.floor(31104000) //1 year
                     }
                 }
                 const response = await vidchainBackend.generateVerifiableCredential(token, credential);
-                this.logger.debug("Credential Sent: "+ response);
+                this.logger.debug("Credential created:"+ response);
                 return response;
             }
             else{

@@ -6,7 +6,7 @@ import Redis from 'ioredis';
 export class UsersService {
     private readonly logger = new Logger(UsersService.name);
     private readonly userRedis = new Redis({ 
-        port: 6379, // Redis port
+        port: process.env.REDIS_PORT, // Redis port
         host: process.env.REDIS_URL,
         keyPrefix: "government-user:" });
 

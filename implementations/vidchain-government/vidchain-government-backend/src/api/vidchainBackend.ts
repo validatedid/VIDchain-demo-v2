@@ -1,13 +1,15 @@
 import axios from "axios";
 import * as config from "../config";
 import {RequestPresentation, VerifiablePresentation, CredentialData} from "../interfaces/dtos";
+import { strB64enc } from "../utils/Util";
 
 async function getAuthzToken() {
     const body = {
         grantType: config.grantType,
-        assertion: config.assertion,
+        assertion: strB64enc(config.Entity),
         scope: config.scope,
       };
+      console.log(body);
     try{
         const response = await axios.post(`${config.API_URL}/sessions`, body);
         if (response.status !== 200 && response.status !== 201) {

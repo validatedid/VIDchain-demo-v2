@@ -3,7 +3,7 @@ import { Response } from "express";
 import { PresentationsService } from "./presentations.service";
 import { MsgPresentationReady } from '../interfaces/dtos'
 
-@Controller('presentation')
+@Controller('demo/api/presentation')
 export class PresentationsController {
   private readonly logger = new Logger(PresentationsController.name);
    constructor(private readonly presentationsService: PresentationsService) {}

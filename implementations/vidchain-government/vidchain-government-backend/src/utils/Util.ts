@@ -25,5 +25,18 @@ function strB64dec(input) {
   }
 }
 
+/**
+ * Encoded  a Base64 string in an UTF-8 string format
+ * @param input Base64 encoded string to decode
+ */
+function strB64enc(input) {
+  try {
+    return encode(JSON.stringify(input));
+  }
+  catch (error) {
+    return null;
+  }
+}
 
-export { parseJwt, strB64dec };
+
+export { parseJwt, strB64dec, strB64enc };
