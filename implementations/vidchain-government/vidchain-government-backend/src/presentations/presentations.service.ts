@@ -8,57 +8,65 @@ import * as config from "../config";
 export class PresentationsService {
     private readonly logger = new Logger(PresentationsService.name);
     
-    async validatePresentation(body: MsgPresentationReady): Promise<any> {
+    async handlePresentation(body: MsgPresentationReady): Promise<any> {
         try{
             this.logger.debug("Presentation ready");
             const token = await vidchainBackend.getAuthzToken();
-            this.logger.debug("token: "+ token + "body: "+ body.url);
             const presentation: Presentation = await vidchainBackend.retrievePresentation(token, body.url);
-            const userDID = presentation.name.split(" by ")[1];
             this.logger.debug("Presentation retrieved: "+ JSON.stringify(presentation));
-            const dataDecoded = strB64dec(presentation.data.base64);
-            this.logger.debug("Data decoded: "+ JSON.stringify(dataDecoded));
-            const validation: boolean = await vidchainBackend.validateVP(token, dataDecoded);
-            this.logger.debug("Validation of VP: "+ validation);
+
+            const validation: boolean = await this.validatePresentation(token, presentation);
+
             if(validation){
-                //And can create a Verifiable Credential
-                const credential: CredentialData = {
-                    type: ["VerifiableCredential", "ServiceCredential"],
-                    issuer: config.DID,
-                    id: "https://example.com/credential/2390",
-                    credentialSubject: {
-                        "id": userDID,
-                        "name": "Bicing Service",
-                        "startAt": Math.floor(Date.now() / 1000),
-                        "expiresAt": Math.floor(Date.now() / 1000) + Math.floor(31104000) //1 year
-                    }
-                }
-                const response = await vidchainBackend.generateVerifiableCredential(token, credential);
-                this.logger.debug("Credential created:"+ response);
-                return response;
+               const response = await this.generateCredential(token, presentation);
+               return response;
             }
             else{
-                throw new HttpException(
-                    {
-                        status: HttpStatus.INTERNAL_SERVER_ERROR,
-                        error: "Error while validation the VC",
-                    },
-                    HttpStatus.INTERNAL_SERVER_ERROR
-                );
+                this.throwErrorMessage("Error while validation the VP");
             }
         }
         catch (e) {
-            throw new HttpException(
-                {
-                    status: HttpStatus.INTERNAL_SERVER_ERROR,
-                    error: "Error while creating the VC",
-                },
-                HttpStatus.INTERNAL_SERVER_ERROR
-            );
+            this.throwErrorMessage("Error while creating the VC");
         }
-
-        
     }
+
+    async validatePresentation(token: string, presentation: Presentation){
+        const dataDecoded = strB64dec(presentation.data.base64);
+        this.logger.debug("Data decoded: "+ JSON.stringify(dataDecoded));
+        const validation: boolean = await vidchainBackend.validateVP(token, dataDecoded);
+        this.logger.debug("Validation of VP: "+ validation);
+        return validation;
+    }
+
+    async generateCredential(token: string, presentation: Presentation){
+        const userDID = presentation.name.split(" by ")[1];
+
+         const credential: CredentialData = {
+            type: ["VerifiableCredential", "ServiceCredential"],
+            issuer: config.DID,
+            id: "https://example.com/credential/2390",
+            credentialSubject: {
+                "id": userDID,
+                "name": "Bicing Service",
+                "startAt": Math.floor(Date.now() / 1000),
+                "expiresAt": Math.floor(Date.now() / 1000) + Math.floor(31104000) //1 year
+            }
+        }
+        const response = await vidchainBackend.generateVerifiableCredential(token, credential);
+        this.logger.debug("Credential created:"+ response);
+        return response;
+    }
+
+    throwErrorMessage(message: string){
+        throw new HttpException(
+            {
+                status: HttpStatus.INTERNAL_SERVER_ERROR,
+                error: message,
+            },
+            HttpStatus.INTERNAL_SERVER_ERROR
+        );
+    }
+
 
 
 

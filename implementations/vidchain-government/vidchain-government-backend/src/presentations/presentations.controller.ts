@@ -13,7 +13,7 @@ export class PresentationsController {
     @Body() body: MsgPresentationReady,
     @Res() res: Response
   ): Promise<Response<any>> {
-    const result = await this.presentationsService.validatePresentation(
+    const result = await this.presentationsService.handlePresentation(
       body
     );
 
