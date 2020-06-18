@@ -4,7 +4,6 @@ import Footer from "../../components/Footer/Footer";
 import "./Profile.css";
 import { Button, Form } from "react-bootstrap";
 import * as utils from "../../utils/utils";
-import * as transform from "../../utils/StringTransformer";
 import { ICredentialData } from "../../interfaces/ICredentialData";
 import * as vidchain from "../../apis/vidchain";
 import { ICredentialSubject } from "../../interfaces/ICredentialSubject";
@@ -65,7 +64,7 @@ class Profile extends Component<Props,State> {
   }
   
   async issueCredential(){
-    console.log("POST: /api/v1/verifiable-credentials");
+
     let subject:ICredentialSubject = {
       id: this.state.did,
       firstName: "Mauro",
@@ -79,21 +78,19 @@ class Profile extends Component<Props,State> {
 
     let credentialBody:ICredentialData = {
       type: "['VerifiableCredential','EuropassCredential']",
-      issuer: utils.parseJwt(token).did,
+      issuer: utils.getIssuerDid(token),
       id: this.state.did,
       credentialSubject: subject,
     };
 
-		const response = await vidchain.generateVerifiableCredential(token, credentialBody);
-		//Check response
+    const response = await vidchain.generateVerifiableCredential(token, credentialBody);
 		if(response !== "Error"){
 			this.setState ({
 				successGeneration: true
 			})
-		}
-		else{
+		} else{
 			this.setState ({
-				error: false
+				error: true
 			})
 		}
     

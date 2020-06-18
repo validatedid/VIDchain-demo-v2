@@ -21,31 +21,21 @@ async function getAuthzToken() {
 } 
 
 async function generateVerifiableID(token: string, user: ICredentialData){
-    let authorization = {
-        headers: {
-          Authorization: "Bearer " + token
-        }
-    };
-    try{
-        const response = await axios.post(`${config.API_URL}/verifiable-ids`, user, authorization);
-        if (response.status !== 200 && response.status !== 201) {
-            return "Error";
-        }
-        return response.data;
-    }
-    catch(error){
-        return "Error";
-    }
+    return requestCredential(token, user, '/verifiable-ids');
 }
-// Refactor one single function
+
 async function generateVerifiableCredential(token: string, user: ICredentialData){
+    return requestCredential(token, user, '/verifiable-credentials');
+}
+
+async function requestCredential(token: string, user: ICredentialData, endpoint: string){
     let authorization = {
         headers: {
           Authorization: "Bearer " + token
         }
     };
     try{
-        const response = await axios.post(`${config.API_URL}/verifiable-credentials`, user, authorization);
+        const response = await axios.post(config.API_URL.concat(endpoint), user, authorization);
         if (response.status !== 200 && response.status !== 201) {
             return "Error";
         }

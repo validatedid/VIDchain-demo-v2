@@ -31,7 +31,6 @@ export class OpenIDClient {
         return this._instance || (this._instance = new this());
     };
 
-   
     public getClient(): any{
         return this.client;
     }

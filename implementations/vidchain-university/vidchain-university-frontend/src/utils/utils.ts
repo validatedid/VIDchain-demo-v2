@@ -34,14 +34,15 @@ function parseJwt(token: string) {
   }
   
   function getUserDid( jwt: string ): string {
-    console.log("getUserDID");
-    console.log(jwt);
     return parseJwt(jwt).sub;
   }
   
+  function getIssuerDid ( jwt: string): string {
+    return parseJwt(jwt).did;
+  }
 
 export {
     randomString,
     getUserDid,
-    parseJwt
+    getIssuerDid
   };
