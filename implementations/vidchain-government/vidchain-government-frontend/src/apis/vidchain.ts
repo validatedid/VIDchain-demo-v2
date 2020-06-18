@@ -1,11 +1,12 @@
 import axios from "axios";
 import * as config from "../config";
 import {ICredentialData, Presentation} from "../interfaces/dtos"
+import { strB64enc } from "../utils/utils";
 
 async function getAuthzToken() {
     const body = {
         grantType: config.grantType,
-        assertion: config.assertion,
+        assertion: strB64enc(config.Entity),
         scope: config.scope,
       };
     try{

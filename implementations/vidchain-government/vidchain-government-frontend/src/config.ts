@@ -2,15 +2,20 @@ const dotenv = require('dotenv')
 // importing .env variables
 dotenv.config();
 
+const API_URL = "https://dev.api.vidchain.net/api/v1/";
+const IDENTITY_PROVIDER = process.env.REACT_APP_IDENTITY_PROVIDER || "https://dev.api.vidchain.net";
+
+const REDIRECT_CALLBACK = process.env.REACT_APP_REDIRECT_CALLBACK || "https://dev.api.vidchain.net/demo/callback";
+const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3021/demo/api";
+
 //Legal Entity
 const Entity = {
   "iss": "Your City - Test",
   "aud": "vidchain-api",
   "nonce": "z-0427dc2515b1",
-  "callbackUrl": "https://1dac7b01be34.ngrok.io/presentation/validation"
+  "callbackUrl": BACKEND_URL + "/presentation/validation"
 };
-//Entity in Base-64
-const assertion = "ewogICJpc3MiOiAiWW91ciBDaXR5IC0gVGVzdCIsCiAgImF1ZCI6ICJ2aWRjaGFpbi1hcGkiLAogICJub25jZSI6ICJ6LTA0MjdkYzI1MTViMSIsCiAgImNhbGxiYWNrVXJsIjogImh0dHBzOi8vMWRhYzdiMDFiZTM0Lm5ncm9rLmlvL3ByZXNlbnRhdGlvbi92YWxpZGF0aW9uIgp9";
+
 const grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 const scope = "vidchain profile test entity";
 
@@ -22,16 +27,10 @@ const CLIENT_ID = "city-test";
 const CLIENT_NAME = "Your City";
 const CLIENT_SECRET = "secret";
 
-// const BACKEND_URL= process.env.REACT_APP_BACKEND_URL || "http://localhost:3021"
-const API_URL = "https://dev.api.vidchain.net/api/v1/";
-const IDENTITY_PROVIDER = process.env.REACT_APP_IDENTITY_PROVIDER || "https://dev.api.vidchain.net";
-
-const REDIRECT_CALLBACK = process.env.REACT_APP_REDIRECT_CALLBACK || "https://dev.api.vidchain.net/demo/callback";
-const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:3021";
 
 
 export { 
-    assertion,
+    Entity,
     grantType,
     scope,
     API_URL,

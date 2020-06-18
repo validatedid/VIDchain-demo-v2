@@ -1,3 +1,4 @@
+import {decode as atob, encode } from 'base-64';
 import {IDTokenPayload} from '../interfaces/ITokens'
 
 function randomString (length: number) {
@@ -40,9 +41,37 @@ function parseJwt(token: string) {
     console.log(jwt);
     return parseJwt(jwt).sub;
   }
+
+/**
+ * Decodes a Base64 string in an UTF-8 string format
+ * @param input Base64 encoded string to decode
+ */
+function strB64dec(input: any) {
+  try {
+    return JSON.parse(atob(input));
+  }
+  catch (error) {
+    return null;
+  }
+}
+
+/**
+ * Encoded  a Base64 string in an UTF-8 string format
+ * @param input Base64 encoded string to decode
+ */
+function strB64enc(input: any) {
+  try {
+    return encode(JSON.stringify(input));
+  }
+  catch (error) {
+    return null;
+  }
+}
   
 
 export {
     randomString,
-    getUserDid
+    getUserDid,
+    strB64dec, 
+    strB64enc
   };

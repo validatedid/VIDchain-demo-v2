@@ -17,6 +17,7 @@ interface Props {
 interface State {
 	user: ICredentialData;
 	error: boolean;
+	bicingCompleted: boolean;
 }
 const redIcon = "#ff0000";
 class Profile extends Component<Props,State> {
@@ -25,7 +26,8 @@ class Profile extends Component<Props,State> {
 		super(props);
 		this.state = {
 			user: {} as ICredentialData,
-			error: false
+			error: false,
+			bicingCompleted: false,
 		}
 	}
   componentDidMount(){
@@ -36,6 +38,7 @@ class Profile extends Component<Props,State> {
 		});
 	}
   }
+
   async claimVP(){
     const presentation: Presentation = {
 		target: this.state.user.id,
@@ -49,13 +52,16 @@ class Profile extends Component<Props,State> {
 	}
 	const token = await vidchain.getAuthzToken();
 	const response = await vidchain.requestVP(token, presentation);
+	console.log(response)
 	//Check response
 	if(response !== "Error"){
-		console.log("done");
+		this.setState ({
+			bicingCompleted: true
+		})
 	}
 	else{
 		this.setState ({
-			error: false
+			error: true
 		})
 	}
   }
@@ -67,7 +73,7 @@ class Profile extends Component<Props,State> {
 }
 
   render() {
-	const { user, error} = this.state;  
+	const { user, error, bicingCompleted} = this.state;  
     return (
     <div>
     <Official></Official>
@@ -125,24 +131,23 @@ class Profile extends Component<Props,State> {
 						<h4>Zip: </h4>
 						<p className= "welcome">{user.zip}</p>
 					</div>
-					
-					{/* <button className="custom-button">Claim your credential
-						<i className="zmdi zmdi-long-arrow-right"></i>
-					</button> */}
 				</form>
 				
 			</div>
 			<h1>Services</h1>
 			<div className="services">
-				{/* <div className="image-holder">
-					<img src={require("../../assets/images/bicing.svg")} alt=""/>
-				</div> */}
 				<div className="service">
 					<img src={require("../../assets/images/bicing.svg")} className="service-img" alt=""/>
 					<h1>Get your Bicing Card</h1>
 					<h5 className="eID-text">You need to have a eID Verifiable Credential to get the bicing card and start using the bicycle sharing system of Your City.</h5>
-					<button className="custom-button" onClick={() => this.claimVP()}><b>Claim your Card</b>
-					</button>
+					{bicingCompleted &&
+						<h4>Check you mobile wallet</h4>
+					}
+					{!bicingCompleted &&
+						<button className="custom-button" onClick={() => this.claimVP()}>
+							<b>Claim your Card</b>
+						</button>
+					}
 				</div>
 				
 			</div>
