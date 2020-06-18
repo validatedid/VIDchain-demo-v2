@@ -105,7 +105,7 @@ class Registration extends Component<Props,State> {
 		}
 		else{
 			this.setState ({
-				error: false
+				error: true
 			})
 		}
 

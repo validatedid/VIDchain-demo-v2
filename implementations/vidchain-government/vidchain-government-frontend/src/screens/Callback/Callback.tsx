@@ -82,7 +82,7 @@ class Callback extends Component<Props,State> {
 			//Go to Profile
 			this.setState({
 				signUp: false,
-				user: user
+				user: JSON.stringify(user)
 			});
 			
 		}	
