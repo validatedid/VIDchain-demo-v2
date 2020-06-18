@@ -42,5 +42,6 @@ function parseJwt(token: string) {
 
 export {
     randomString,
-    getUserDid
+    getUserDid,
+    parseJwt
   };

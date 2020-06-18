@@ -75,14 +75,15 @@ class Profile extends Component<Props,State> {
       date: "Jan 2018",
     };
 
+    const token = await vidchain.getAuthzToken();
+
     let credentialBody:ICredentialData = {
       type: "['VerifiableCredential','EuropassCredential']",
-      issuer: "did:vid:0x959bA0F25C5f007111952ec1811efcBC999eb8eD",
+      issuer: utils.parseJwt(token).did,
       id: this.state.did,
       credentialSubject: subject,
     };
 
-    const token = await vidchain.getAuthzToken();
 		const response = await vidchain.generateVerifiableCredential(token, credentialBody);
 		//Check response
 		if(response !== "Error"){
