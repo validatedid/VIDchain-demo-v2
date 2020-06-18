@@ -1,6 +1,6 @@
 const PORT = process.env.PORT || 3021
 const API_URL = "https://dev.api.vidchain.net/api/v1/";
-const BASE_URL = process.env.BASE_URL || "http://localhost:3021/demo/api";
+const BASE_URL = process.env.BASE_URL || "https://dev.api.vidchain.net/demo/api";
 
 //Legal Entity
 const Entity = {
