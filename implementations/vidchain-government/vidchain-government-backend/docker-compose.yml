@@ -15,7 +15,7 @@ services:
     environment:
       - REDIS_URL=redis
       - REDIS_PORT=6379
-      - BASE_URL=https://dev.api.vidchain.net/demo-api
+      - BASE_URL=https://dev.api.vidchain.net/backend-demo
       - PORT=3021
 
 networks:
