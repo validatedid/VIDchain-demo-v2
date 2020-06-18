@@ -7,9 +7,9 @@ export var fullCredential:any = {
       "EuropassCredential"
     ],
     "issuer": {
-      "id": config.DID,
+      //"id": config.DID,
       "organization": {
-        "id": config.DID,
+        //"id": config.DID,
         "legalIdentifier": "ESB90243601",
         "vatIdentifier": "ESB90243601",
         "identifier": "agentIdentifier1",
