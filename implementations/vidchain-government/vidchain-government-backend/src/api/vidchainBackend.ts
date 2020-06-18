@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as config from "../config";
-import {RequestPresentation, VerifiablePresentation} from "../interfaces/dtos";
+import {RequestPresentation, VerifiablePresentation, CredentialData} from "../interfaces/dtos";
 
 async function getAuthzToken() {
     const body = {
@@ -77,4 +77,23 @@ async function retrievePresentation (token: string, url: string){
     }
 }
 
-export { getAuthzToken, requestVP, retrievePresentation, validateVP };
+async function generateVerifiableCredential(token: string, data: CredentialData){
+    let authorization = {
+        headers: {
+          Authorization: "Bearer " + token
+        }
+    };
+    try{
+        const response = await axios.post(`${config.API_URL}/verifiable-credentials`, data, authorization);
+        if (response.status !== 200 && response.status !== 201) {
+            return "Error";
+        }
+        return response.data;
+    }
+    catch(error){
+        console.log(error);
+        return "Error";
+    }
+}
+
+export { getAuthzToken, requestVP, retrievePresentation, validateVP,generateVerifiableCredential };

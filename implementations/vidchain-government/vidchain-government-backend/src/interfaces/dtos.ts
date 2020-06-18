@@ -59,3 +59,11 @@ export interface Proof {
     jws: string;
     [x: string]: string;
   }
+
+  export interface CredentialData {
+    type: string[]
+    issuer: string
+    id: string
+    credentialSubject: any
+}
+
