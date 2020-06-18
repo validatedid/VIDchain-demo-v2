@@ -7,6 +7,7 @@ import { Button, Form, Alert, Row,InputGroup, Col } from "react-bootstrap";
 import * as utils from "../../utils/utils";
 import { OpenIDClient } from '../../libs/openid-connect/client';
 import queryString from "query-string";
+import * as governmentBackend from "../../apis/governmentBackend";
 // @ts-ignore
 import {JSO, Popup} from 'jso'
 
@@ -22,7 +23,8 @@ interface State {
 	id_token: string,
 	expires: number,
 	signUp: boolean,
-	callback: boolean
+	callback: boolean,
+	user: any
 }
 
 class Callback extends Component<Props,State> {
@@ -37,7 +39,8 @@ class Callback extends Component<Props,State> {
 			id_token: '',
 			expires: 0,
 			signUp: true,
-			callback: true
+			callback: true,
+			user: ""
 		}
 		
 	}
@@ -74,11 +77,12 @@ class Callback extends Component<Props,State> {
 	async checkIfSignInOrSignUp(){
 		const userDID = utils.getUserDid(this.state.id_token);
 		//Check in localstorage if user is registered
-		var user = localStorage.getItem(userDID);
+		var user = await governmentBackend.getUser(userDID);
 		if(user !== null && user!== ""){
 			//Go to Profile
 			this.setState({
-				signUp: false
+				signUp: false,
+				user: user
 			});
 			
 		}	
@@ -100,25 +104,13 @@ class Callback extends Component<Props,State> {
 	}
 	goToProfile(){
 		const { history } = this.props;
-		const { access_token,refresh_token,id_token } = this.state;
-		const userDID = utils.getUserDid(id_token);
-		var user = localStorage.getItem(userDID);
+		var user = this.state.user;
 		this.props.history.push(
 			{
 			  pathname: '/profile',
 			  state: { user: user }
 			}
 		  ); 
-		// history.push(
-		// 	{
-		// 	  pathname: '/profile',
-		// 	  state: { 
-		// 		access_token: access_token,
-		// 		refresh_token: refresh_token,
-		// 		id_token: id_token
-		// 	   }
-		// 	}
-		//   ); 
 	}
 	
 

@@ -4,15 +4,17 @@ dotenv.config();
 
 //Legal Entity
 const Entity = {
-    "iss": "Your City - Test",
-    "aud": "vidchain-api",
-    "nonce": "z-0427dc2515b1",
-    "callbackUrl": "http://localhost:3021/presentation/validation"
-  };
-  //Entity in Base-64
-const assertion = "ewogICAgImlzcyI6ICJZb3VyIENpdHkgLSBUZXN0IiwKICAgICJhdWQiOiAidmlkY2hhaW4tYXBpIiwKICAgICJub25jZSI6ICJ6LTA0MjdkYzI1MTViMSIsCiAgICAiY2FsbGJhY2tVcmwiOiAiaHR0cDovL2xvY2FsaG9zdDozMDIxL3ByZXNlbnRhdGlvbi92YWxpZGF0aW9uIgogIH0=";
+  "iss": "Your City - Test",
+  "aud": "vidchain-api",
+  "nonce": "z-0427dc2515b1",
+  "callbackUrl": "https://1dac7b01be34.ngrok.io/presentation/validation"
+};
+//Entity in Base-64
+const assertion = "ewogICJpc3MiOiAiWW91ciBDaXR5IC0gVGVzdCIsCiAgImF1ZCI6ICJ2aWRjaGFpbi1hcGkiLAogICJub25jZSI6ICJ6LTA0MjdkYzI1MTViMSIsCiAgImNhbGxiYWNrVXJsIjogImh0dHBzOi8vMWRhYzdiMDFiZTM0Lm5ncm9rLmlvL3ByZXNlbnRhdGlvbi92YWxpZGF0aW9uIgp9";
 const grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 const scope = "vidchain profile test entity";
+
+const DID = "did:vid:0xb02d86Cc91724A74674114b00d3952Fb002fcd33";
 
 // const CLIENT_ID = "barcelona-city-demo2";
 const CLIENT_ID = "city-test";
@@ -37,5 +39,6 @@ export {
     REDIRECT_CALLBACK,
     CLIENT_ID,
     CLIENT_SECRET,
-    BACKEND_URL
+    BACKEND_URL,
+    DID
 }
