@@ -16,7 +16,7 @@ services:
       - REACT_APP_REDIRECT_CALLBACK=https://dev.api.vidchain.net/demo/callback
       - REACT_APP_IDENTITY_PROVIDER=https://dev.api.vidchain.net
       - REACT_APP_DEMO=https://dev.api.vidchain.net/demo
-      - REACT_APP_BACKEND_URL=https://dev.api.vidchain.net/demo/api
+      - REACT_APP_BACKEND_URL=https://dev.api.vidchain.net/demo-api
       - PUBLIC_URL=https://dev.api.vidchain.net/demo
 networks:
   hydra_network:
