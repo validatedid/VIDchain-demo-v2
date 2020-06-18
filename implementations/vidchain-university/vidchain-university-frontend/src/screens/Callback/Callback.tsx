@@ -71,12 +71,22 @@ class Callback extends Component<Props,State> {
 	goToProfile(){
 		const { history } = this.props;
 		const { access_token,refresh_token,id_token } = this.state;
-		const userDID = utils.getUserDid(id_token);
-		var user = localStorage.getItem(userDID);
-		this.props.history.push(
+		//const userDID = utils.getUserDid(id_token);
+		//var user = localStorage.getItem(userDID);
+		/*this.props.history.push(
 			{
 			  pathname: '/profile',
 			  state: { user: user }
+			}
+		  ); */
+		  history.push(
+			{
+			  pathname: '/profile',
+			  state: { 
+				access_token: access_token,
+				refresh_token: refresh_token,
+				id_token: id_token
+			   }
 			}
 		  ); 
 	}

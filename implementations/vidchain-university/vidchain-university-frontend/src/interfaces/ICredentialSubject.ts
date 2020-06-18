@@ -1,4 +1,5 @@
 export interface ICredentialSubject {
+    id: string
     firstName: string
     lastName: string
     university: string

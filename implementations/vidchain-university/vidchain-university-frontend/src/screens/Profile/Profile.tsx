@@ -66,21 +66,22 @@ class Profile extends Component<Props,State> {
   
   async issueCredential(){
     console.log("POST: /api/v1/verifiable-credentials");
-
     let subject:ICredentialSubject = {
+      id: this.state.did,
       firstName: "Mauro",
       lastName: "Lucchini",
       university: "UPC",
       degree: "Telecos",
       date: "Jan 2018",
     };
+
     let credentialBody:ICredentialData = {
       type: "['VerifiableCredential','EuropassCredential']",
-      issuer: "me",
+      issuer: "did:vid:0x959bA0F25C5f007111952ec1811efcBC999eb8eD",
       id: this.state.did,
       credentialSubject: subject,
     };
-    
+
     const token = await vidchain.getAuthzToken();
 		const response = await vidchain.generateVerifiableCredential(token, credentialBody);
 		//Check response
