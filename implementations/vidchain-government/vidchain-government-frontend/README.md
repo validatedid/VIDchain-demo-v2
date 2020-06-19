@@ -29,7 +29,7 @@ You can create a production build with:
 ```sh
 npm run build
 ```
-### Run demo-homepage with Docker
+### Run vidchain-demo with Docker
 
 Adapt the variables to your needs in the docker-compose and run:
 
