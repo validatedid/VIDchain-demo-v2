@@ -12,8 +12,7 @@ const Entity = {
 const grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 const scope = "vidchain profile test entity";
 
-//Hardcode university did
-const DID = "did:vid:";
+const DID = "did:vid:0x10624BfA14bB2b1d14b474612539FaCFa36877EA";
 
 export { 
   PORT,

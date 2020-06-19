@@ -1,6 +1,8 @@
 import axios from "axios";
 import * as config from "../config";
-import {ICredentialData} from "../interfaces/ICredentialData"
+import {ICredentialData} from "../interfaces/ICredentialData";
+import {IPresentation} from "../interfaces/IPresentation";
+import { request } from "https";
 
 async function getAuthzToken() {
     const body = {
@@ -21,14 +23,18 @@ async function getAuthzToken() {
 } 
 
 async function generateVerifiableID(token: string, user: ICredentialData){
-    return requestCredential(token, user, '/verifiable-ids');
+    return requestVIDChain(token, user, '/verifiable-ids');
 }
 
 async function generateVerifiableCredential(token: string, user: ICredentialData){
-    return requestCredential(token, user, '/verifiable-credentials');
+    return requestVIDChain(token, user, '/verifiable-credentials');
 }
 
-async function requestCredential(token: string, user: ICredentialData, endpoint: string){
+async function requestVP (token: string, presentation: IPresentation){
+    return requestVIDChain(token, presentation, '/verifiable-presentations-requests');
+}
+
+async function requestVIDChain(token: string, user: any, endpoint: string){
     let authorization = {
         headers: {
           Authorization: "Bearer " + token
@@ -46,4 +52,4 @@ async function requestCredential(token: string, user: ICredentialData, endpoint:
     }
 }
 
-export { getAuthzToken, generateVerifiableID, generateVerifiableCredential};
+export { getAuthzToken, generateVerifiableID, generateVerifiableCredential, requestVP};
