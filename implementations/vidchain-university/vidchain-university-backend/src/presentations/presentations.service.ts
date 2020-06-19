@@ -47,9 +47,9 @@ export class PresentationsService {
             id: "https://example.com/credential/2390",
             credentialSubject: {
                 "id": userDID,
-                "name": "Bicing Service",
-                "startAt": Math.floor(Date.now() / 1000),
-                "expiresAt": Math.floor(Date.now() / 1000) + Math.floor(31104000) //1 year
+                "name": "IT Security degree",
+                "University": "UPC",
+                "starts": "Sept 2020"
             }
         }
         const response = await vidchainBackend.generateVerifiableCredential(token, credential);
