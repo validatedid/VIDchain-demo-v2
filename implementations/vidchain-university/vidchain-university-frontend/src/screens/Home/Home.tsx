@@ -4,23 +4,14 @@ import Header from "../../components/Header/Header";
 import Content from "../../components/Content/Content";
 import Footer from "../../components/Footer/Footer";
 import Banner from '../../components/Banner/Banner';
-import io from 'socket.io-client'
-import axios from 'axios'
-import * as config from '../../config';
-import {
-  Modal
-} from "react-bootstrap";
-import { Redirect } from "react-router-dom";
+import { OpenIDClient } from '../../libs/openid-connect/client';
 
-var QRCode = require('qrcode.react');
 interface Props {
 	history?: any;
 }
   
 interface State {
   jwt: string,
-  showQR: boolean,
-  contentQR: string
 }
 
 
@@ -31,119 +22,32 @@ class Home extends Component<Props, State> {
 
     this.state = {
       jwt: "",
-      showQR: false,
-      contentQR: ""
     }
   }
-
-  componentDidMount(){
-    console.log(process.env.REACT_APP_BACKEND_URL);
-    const socket = io(config.BACKEND_URL)
-    socket.on('login', (msg:any) => {
-      console.log(msg);
-      this.props.history.push(
-        {
-          pathname: '/profile',
-          state: { did: msg, jwt: this.state.jwt }
-        }
-      ); 
-    });
-    socket.on('access', (msg:any) => {
-      console.log(msg);
-      var msgParsed = JSON.parse(msg);
-      this.props.history.push(
-        {
-          pathname: '/profile',
-          state: { did: msgParsed.credentialSubject.id }
-        }
-      ); 
-    });
-    this.startConnection();
-  }
-
-  async startConnection(){
-    var jwt = await this.connectWithBackend();
-    //Check if there is an error
-    this.setState({
-      jwt: jwt
-    });
-  }
-
-  async connectWithBackend(){
-    let data = {
-        enterpriseName: config.Name,
-        nonce: config.nonce
-    };
-    const response = await axios.post(config.API_URL + "token", data);
-    return response.data.jwt;
+  async componentDidMount(){
+    //Wipe the tokens the library kept in the local Storage
+    var client = OpenIDClient.getInstance().getClient();
+    await client.wipeTokens()
   }
 
   async loginWithVIDChain(){
-    var qrCodeContent = await this.generateContent();
-    //Check if there is an error
-    console.log(qrCodeContent);
-    this.setState({
-      contentQR: qrCodeContent,
-      showQR: true
+    var client = OpenIDClient.getInstance().getClient();
+    await client.callback();
+    await client.getToken({
+			scopes: {
+				request: ["openid", "offline"],
+				require: ["openid", "offline"]
+      }
     });
-
-    //this.props.history.push("/registration"); 
   }
-
   
-  async generateContent(){
-    let authorization = {
-      headers: {
-        Authorization: "Bearer " + this.state.jwt
-      }
-    };
-    let data = {
-      issuer: config.DID,
-      payload: {
-        did: config.DID,
-        url: config.BACKEND_URL + "/validate",
-        nonce: this.randomIntFromInterval(100000,999999999)
-      }
-    };
-    const response = await axios.post(config.API_URL + "signature", data, authorization);
-    return response.data.signatureJWS;
-  }
-  private randomIntFromInterval(min: number, max:number) {
-    return Math.floor(Math.random() * (max - min + 1) + min);
-  }
-
-  closeQR(){
-    this.setState({
-      showQR: false,
-      contentQR: ""
-    });
-  }
-
   render() {
-    const {showQR, contentQR} = this.state;
-    console.log(showQR);
     return (
     <div>
-      <Modal animation={false} show={showQR} onHide={() => this.closeQR()} className="modal">
-        <Modal.Header
-          className="ModalHeader"
-          closeButton
-        >
-          <Modal.Title className="ModalTitle">Sign In with VIDchain</Modal.Title>
-        </Modal.Header>
-        <Modal.Body className="ModalBody">
-          <h5> Please  scan the QR code with the VIDchain mobile App </h5><br/>
-          <QRCode value={contentQR} size={300}/>
-        </Modal.Body>
-        <Modal.Footer>
-          
-        </Modal.Footer>
-      </Modal>
     <Header></Header>
     <div className="App">
       <div id="wrapper" className="home-page">
         <Banner></Banner>
-
         <section id="call-to-action-2">
           <div className="container">
             <div className="row">
@@ -186,9 +90,7 @@ class Home extends Component<Props, State> {
           
         <Content></Content>  
         <Footer></Footer>  
-        </div>
-
-          
+        </div>   
         <a href="#" className="scrollup"><i className="fa fa-angle-up active"></i></a>
     </div>
 

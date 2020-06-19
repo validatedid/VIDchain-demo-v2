@@ -3,11 +3,11 @@ import HeaderLogin from "../../components/HeaderLogin/HeaderLogin";
 import Footer from "../../components/Footer/Footer";
 import "./Profile.css";
 import { Button, Form } from "react-bootstrap";
-import * as config from '../../config';
-import {fullCredential} from '../../models/Credential';
-import axios from 'axios'
-import io from 'socket.io-client'
-import * as transform from "../../utils/StringTransformer";
+import * as utils from "../../utils/utils";
+import { ICredentialData } from "../../interfaces/ICredentialData";
+import * as vidchain from "../../apis/vidchain";
+import { ICredentialSubject } from "../../interfaces/ICredentialSubject";
+
 interface Props {
 	did: string;
 	jwt: string;
@@ -16,10 +16,13 @@ interface Props {
 }
 
 interface State {
-	jwt: string,
-	did: string
-  today: string
-	successGeneration: boolean
+	access_token: string,
+	refresh_token: string,
+	id_token: string,
+  did: string,
+  today: string,
+  successGeneration: boolean,
+  error: boolean
 }
 
 class Profile extends Component<Props,State> {
@@ -27,10 +30,13 @@ class Profile extends Component<Props,State> {
   constructor(props:any) {
 		super(props);
 		this.state = {
-			jwt: "",
-			did: "",
+			access_token: "",
+			refresh_token: "",
+			id_token: "",
+      did: "",
       today: "",
-      successGeneration: false
+      successGeneration: false,
+      error: false
 		}
   }
   
@@ -38,14 +44,11 @@ class Profile extends Component<Props,State> {
     this.getCurrentDay();
 		if(this.props.location.state){
 			this.setState ({
-				did: this.props.location.state.did,
-				jwt: this.props.location.state.jwt
+				access_token: this.props.location.state.access_token,
+				refresh_token: this.props.location.state.refresh_token,
+				id_token: this.props.location.state.id_token,
+				did: utils.getUserDid(this.props.location.state.id_token),
       });
-      if(this.props.location.state.jwt === undefined){
-        this.setState ({
-          successGeneration: true
-        })
-      }
 		}	
   }
   
@@ -59,35 +62,39 @@ class Profile extends Component<Props,State> {
       today: dd + '/' + mm + '/' + yyyy
     });
   }
-
-  submit(){
-		this.generateCredential();
-  }
-  async generateCredential(){
-		let authorization = {
-			headers: {
-			  Authorization: "Bearer " + this.state.jwt
-			}
-		};
-    let data = fullCredential;
-    data.credentialSubject.id = this.state.did;
-    data.credentialSubject.learningActivity.endedAtTime = this.state.today;
-    console.log(data);
-		const response = await axios.post(config.API_URL + "educreds/", data, authorization);
-		//Check response
-		console.log(response);
-		this.sendUserToServer(data);
-		this.setState ({
-			successGeneration: true
-		})
-
-  };
   
-  sendUserToServer(credential: any){
-		const socket = io(config.BACKEND_URL);
-		socket.emit('registration', JSON.stringify(credential));
-	}
+  async issueCredential(){
 
+    let subject:ICredentialSubject = {
+      id: this.state.did,
+      firstName: "Mauro",
+      lastName: "Lucchini",
+      university: "UPC",
+      degree: "Telecos",
+      date: "Jan 2018",
+    };
+
+    const token = await vidchain.getAuthzToken();
+
+    let credentialBody:ICredentialData = {
+      type: "['VerifiableCredential','EuropassCredential']",
+      issuer: utils.getIssuerDid(token),
+      id: this.state.did,
+      credentialSubject: subject,
+    };
+
+    const response = await vidchain.generateVerifiableCredential(token, credentialBody);
+		if(response !== "Error"){
+			this.setState ({
+				successGeneration: true
+			})
+		} else{
+			this.setState ({
+				error: true
+			})
+		}
+    
+  }
 
   render() {
     const { did,today, successGeneration} = this.state;
@@ -124,7 +131,7 @@ class Profile extends Component<Props,State> {
 				<form action="">
 					<div className="form-row">
 						<h4>Your Decentralized Indentifier (DID):</h4>
-						<p>{transform.replaceDID(did)}</p>
+						<p>{did}</p>
 					</div><br/>
 					<div className="form-row">
 						<h4>Title</h4>
@@ -148,12 +155,11 @@ class Profile extends Component<Props,State> {
             <p style={{color: "#00cc00"}}> Open your VIDchain App</p>
           </div>
          }
-        <Button disabled={successGeneration} type="button" className="collect-button" onClick={() =>this.submit()}>Collect the eID in my VIDchain Wallet</Button>
+        <Button type="button" className="collect-button" onClick={() =>this.issueCredential()}>Collect the eID in my VIDchain Wallet</Button>
 				</form>
 				
 			</div>
 		</div>
-
             </div>
             </div>
             </section>
