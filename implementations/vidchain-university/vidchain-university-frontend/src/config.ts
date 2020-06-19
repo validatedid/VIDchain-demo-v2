@@ -6,11 +6,12 @@ dotenv.config();
 const Entity = {
     "iss": "YourUniversity",
     "aud": "vidchain-api",
-    "nonce": "z-0427dc2515b1"
+    "nonce": "z-0427dc2515b1",
+    "callbackUrl": "http://aef054a898eb.ngrok.io/backenddemo/presentation/validation"
 };
 
 //Entity in Base-64
-const assertion = "ewogICAgImlzcyI6ICJZb3VyVW5pdmVyc2l0eSIsCiAgICAiYXVkIjogInZpZGNoYWluLWFwaSIsCiAgICAibm9uY2UiOiAiei0wNDI3ZGMyNTE1YjEiCn0=";
+const assertion = "ewogICAgImlzcyI6ICJZb3VyVW5pdmVyc2l0eSIsCiAgICAiYXVkIjogInZpZGNoYWluLWFwaSIsCiAgICAibm9uY2UiOiAiei0wNDI3ZGMyNTE1YjEiLAogICAgImNhbGxiYWNrVXJsIjogImh0dHA6Ly9hZWYwNTRhODk4ZWIubmdyb2suaW8vYmFja2VuZGRlbW8vcHJlc2VudGF0aW9uL3ZhbGlkYXRpb24iCn0=";
 const grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 const scope = "vidchain profile test entity";
 
