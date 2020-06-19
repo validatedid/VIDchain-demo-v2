@@ -4,9 +4,10 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Official from '../../components/Official/Official';
 import { Button, Form, Alert, Row,InputGroup, Col, Toast } from "react-bootstrap";
-import {ICredentialData} from "../../interfaces/ICredentialData";
+import {ICredentialData} from "../../interfaces/dtos";
 import * as utils from "../../utils/utils";
 import * as vidchain from "../../apis/vidchain";
+import * as governmentBackend from "../../apis/governmentBackend";
 interface Props {
 	did: string;
 	code: string;
@@ -30,7 +31,8 @@ interface State {
 	zip: string
 	checkFields: boolean,
 	successGeneration: boolean,
-	error: boolean
+	error: boolean,
+	user: any
 }
 
 class Registration extends Component<Props,State> {
@@ -53,7 +55,8 @@ class Registration extends Component<Props,State> {
 			zip: "",
 			checkFields: false,
 			successGeneration: false,
-			error: false
+			error: false,
+			user: ""
 		}
 	}
 
@@ -98,13 +101,11 @@ class Registration extends Component<Props,State> {
 		const response = await vidchain.generateVerifiableID(token, credentialSubject);
 		//Check response
 		if(response !== "Error"){
-			this.setState ({
-				successGeneration: true
-			})
+			await this.storeUser(credentialSubject);
 		}
 		else{
 			this.setState ({
-				error: false
+				error: true
 			})
 		}
 
@@ -125,22 +126,18 @@ class Registration extends Component<Props,State> {
 		return nonEmptyFields
 	}
 
+	async storeUser( user: ICredentialData){
+		const response = await governmentBackend.storeUser(user);
+		if(response !== "Error"){
+			this.setState ({
+				successGeneration: true,
+				user: JSON.stringify(user)
+			})
+		}
+	}
+
 	continue(){
-		let credentialSubject:ICredentialData = {
-			id: this.state.did,
-			firstName: this.state.firstname,
-			lastName: this.state.lastname,
-			dateOfBirth: this.state.dateOfBirth,
-			placeOfBirth: this.state.placeOfBirth,
-			currentAddress: this.state.currentAddress,
-			city:this.state.city,
-			state: this.state.state,
-			zip: this.state.zip,
-			gender: this.state.gender,
-		};
-		var user = JSON.stringify(credentialSubject);
-		//Store in localstorage (ideally in DB of the city)
-		localStorage.setItem(credentialSubject.id, user);
+		const {user} = this.state;
 		this.props.history.push(
 			{
 			  pathname: '/profile',

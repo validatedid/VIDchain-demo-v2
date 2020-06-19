@@ -27,15 +27,15 @@ class Home extends Component<Props, State> {
     }
   }
   componentDidMount(){
-
+    //Wipe the tokens the library kept in the local Storage
+    var client = OpenIDClient.getInstance().getClient();
+    client.wipeTokens()
   }
 
   async loginWithVIDChain(){
     var client = OpenIDClient.getInstance().getClient();
-    //Wipe the tokens the library kept in the local Storage
-    await client.wipeTokens()
     await client.callback();
-    client.getToken({
+    await client.getToken({
 			scopes: {
 				request: ["openid", "offline"],
 				require: ["openid", "offline"]

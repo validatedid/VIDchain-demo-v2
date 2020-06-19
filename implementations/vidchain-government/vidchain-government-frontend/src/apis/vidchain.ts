@@ -1,11 +1,12 @@
 import axios from "axios";
 import * as config from "../config";
-import {ICredentialData} from "../interfaces/ICredentialData"
+import {ICredentialData, Presentation} from "../interfaces/dtos"
+import { strB64enc } from "../utils/utils";
 
 async function getAuthzToken() {
     const body = {
         grantType: config.grantType,
-        assertion: config.assertion,
+        assertion: strB64enc(config.Entity),
         scope: config.scope,
       };
     try{
@@ -38,4 +39,22 @@ async function generateVerifiableID(token: string, user: ICredentialData){
     }
 }
 
-export { getAuthzToken, generateVerifiableID };
+async function requestVP (token: string, presentation: Presentation){
+    let authorization = {
+        headers: {
+          Authorization: "Bearer " + token
+        }
+    };
+    try{
+        const response = await axios.post(`${config.API_URL}/verifiable-presentations-requests`, presentation, authorization);
+        if (response.status !== 200 && response.status !== 201) {
+            return "Error";
+        }
+        return response.data;
+    }
+    catch(error){
+        return "Error";
+    }
+}
+
+export { getAuthzToken, generateVerifiableID, requestVP };
