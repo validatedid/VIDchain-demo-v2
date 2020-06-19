@@ -89,7 +89,7 @@ class Profile extends Component<Props,State> {
     </Toast>
     <div className= "content">
         <div className="wrapper">
-			<div className="inner">
+			<div className="serviceCard">
 				<div className="image-holder">
 					<img src={require("../../assets/images/card.png")} alt=""/>
 				</div>
