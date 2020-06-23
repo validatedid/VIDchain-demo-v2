@@ -1,17 +1,16 @@
 const PORT = process.env.PORT || 3021
 const API_URL = "https://dev.api.vidchain.net/api/v1/";
-const BASE_URL = process.env.BASE_URL || "http://aef054a898eb.ngrok.io/backenddemo";
+const BASE_URL = process.env.BASE_URL || "http://29f9b2efd7c1.ngrok.io";
 
 //Legal Entity
 const Entity = {
   "iss": "YourUniversity",
   "aud": "vidchain-api",
   "nonce": "z-z-0427dc2515b1",
-  "callbackUrl": BASE_URL+"/presentation/validation"
+  "callbackUrl": BASE_URL+"/backenddemo/presentation/validation"
 };
 const grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 const scope = "vidchain profile test entity";
-
 const DID = "did:vid:0x10624BfA14bB2b1d14b474612539FaCFa36877EA";
 
 export { 

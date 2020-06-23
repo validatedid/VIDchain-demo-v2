@@ -8,6 +8,8 @@ import { ICredentialData } from "../../interfaces/ICredentialData";
 import * as vidchain from "../../apis/vidchain";
 import { ICredentialSubject } from "../../interfaces/ICredentialSubject";
 import { IPresentation } from "../../interfaces/IPresentation";
+import io from 'socket.io-client';
+import * as config from '../../config';
 
 interface Props {
 	did: string;
@@ -24,6 +26,7 @@ interface State {
   today: string,
   successGeneration: boolean,
   enrolement: boolean,
+  credential: boolean,
   error: boolean
 }
 
@@ -39,8 +42,10 @@ class Profile extends Component<Props,State> {
       today: "",
       successGeneration: false,
       enrolement: false,
+      credential: false,
       error: false
-		}
+    }
+    this.initiateSocket();	
   }
   
   componentDidMount(){
@@ -50,9 +55,9 @@ class Profile extends Component<Props,State> {
 				access_token: this.props.location.state.access_token,
 				refresh_token: this.props.location.state.refresh_token,
 				id_token: this.props.location.state.id_token,
-				did: utils.getUserDid(this.props.location.state.id_token),
+        did: utils.getUserDid(this.props.location.state.id_token),
       });
-		}	
+    }
   }
   
   getCurrentDay(){
@@ -66,6 +71,18 @@ class Profile extends Component<Props,State> {
     });
   }
   
+  async initiateSocket(){
+    console.log("initiateSocket(): "+ config.BASE_URL);
+    const socket = io(config.BASE_URL);
+    socket.on('presentation', (msg: any) => {
+      console.log("socket.on('presentation')");
+      console.log(msg);
+      this.setState ({
+				credential: true
+			})
+    });
+  }
+
   async issueCredential(){
 
     let subject:ICredentialSubject = {
@@ -110,7 +127,7 @@ class Profile extends Component<Props,State> {
 			]
 		],
 	}
-	const token = await vidchain.getAuthzToken();
+  const token = await vidchain.getAuthzToken();
 	const response = await vidchain.requestVP(token, presentation);
 	console.log(response)
 	//Check response
@@ -127,7 +144,7 @@ class Profile extends Component<Props,State> {
   
   }
   render() {
-    const { did,today, successGeneration, enrolement} = this.state;
+    const { did,today, successGeneration, enrolement, credential} = this.state;
     return (
       <div>
         <HeaderLogin></HeaderLogin>
@@ -199,8 +216,11 @@ class Profile extends Component<Props,State> {
 					<img src={require("../../assets/images/security.svg")} className="service-img" alt=""/>
 					<h1>Get enrolled to the latest new IT Security degree</h1>
 					<h5 className="eID-text">You will need to have a eID Verifiable Credential to enrol this new brand course and become a security expert.</h5>
-					{enrolement &&
+					{enrolement && !credential &&
 						<h4>Check your mobile wallet</h4>
+					}
+          {credential &&
+						<h2 style={{color: "#00cc00"}}> You could enrol successfully </h2>
 					}
 					{!enrolement &&
 						<button className="custom-button" onClick={() => this.claimVP()}>

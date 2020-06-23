@@ -7,16 +7,14 @@ import * as config from "../config";
 @Injectable()
 export class PresentationsService {
     private readonly logger = new Logger(PresentationsService.name);
-    
+
     async handlePresentation(body: MsgPresentationReady): Promise<any> {
         try{
             this.logger.debug("Presentation ready");
             const token = await vidchainBackend.getAuthzToken();
             const presentation: Presentation = await vidchainBackend.retrievePresentation(token, body.url);
             this.logger.debug("Presentation retrieved: "+ JSON.stringify(presentation));
-
             const validation: boolean = await this.validatePresentation(token, presentation);
-
             if(validation){
                const response = await this.generateCredential(token, presentation);
                return response;
@@ -42,7 +40,7 @@ export class PresentationsService {
         const userDID = presentation.name.split(" by ")[1];
 
          const credential: CredentialData = {
-            type: ["VerifiableCredential", "ServiceCredential"],
+            type: ["VerifiableCredential", "EuropassCredential"],
             issuer: config.DID,
             id: "https://example.com/credential/2390",
             credentialSubject: {
@@ -66,11 +64,5 @@ export class PresentationsService {
             HttpStatus.INTERNAL_SERVER_ERROR
         );
     }
-
-
-
-
-
-
     
 }

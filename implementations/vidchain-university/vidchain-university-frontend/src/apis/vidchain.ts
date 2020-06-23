@@ -2,14 +2,15 @@ import axios from "axios";
 import * as config from "../config";
 import {ICredentialData} from "../interfaces/ICredentialData";
 import {IPresentation} from "../interfaces/IPresentation";
-import { request } from "https";
+import { strB64enc } from "../utils/utils";
+
 
 async function getAuthzToken() {
     const body = {
         grantType: config.grantType,
-        assertion: config.assertion,
+        assertion: strB64enc(config.Entity),
         scope: config.scope,
-      };
+    };
     try{
         const response = await axios.post(`${config.API_URL}/sessions`, body);
         if (response.status !== 200 && response.status !== 201) {
