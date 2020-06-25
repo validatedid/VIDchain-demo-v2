@@ -5,7 +5,7 @@ import { MsgPresentationReady } from '../interfaces/dtos';
 import * as io from 'socket.io-client';
 import * as config from '../config';
 
-@Controller('backenddemo/presentation')
+@Controller('universitybackenddemo/presentation')
 export class PresentationsController {
   private readonly logger = new Logger(PresentationsController.name);
   private readonly socket = io(config.BASE_URL);

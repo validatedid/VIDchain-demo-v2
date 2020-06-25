@@ -9,5 +9,5 @@ services:
     ports:
       - 3023:3023
     environment:
-      - BASE_URL=https://dev.api.vidchain.net
+      - BASE_URL=https://dev.api.vidchain.net/universitybackenddemo
       - PORT=3023
