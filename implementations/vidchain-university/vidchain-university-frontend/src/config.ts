@@ -20,7 +20,7 @@ const Entity = {
 const grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 const scope = "vidchain profile test entity";
 
-const CLIENT_ID = "university-test";
+const CLIENT_ID = "university";
 const CLIENT_NAME = "YourUniversity";
 const CLIENT_SECRET = "secret";
 
