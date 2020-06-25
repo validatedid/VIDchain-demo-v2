@@ -74,7 +74,7 @@ class Profile extends Component<Props,State> {
   async initiateSocket(){
     console.log("initiateSocket(): "+ config.BASE_URL);
     const socket = io('/', {
-      path: '/universitybackenddemo'
+      path: '/universityws'
     });
     socket.on('presentation', (msg: any) => {
       console.log("socket.on('presentation')");

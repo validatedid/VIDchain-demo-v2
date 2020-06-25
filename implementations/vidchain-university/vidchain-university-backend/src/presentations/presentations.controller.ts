@@ -8,7 +8,7 @@ import * as config from '../config';
 @Controller('universitybackenddemo/presentation')
 export class PresentationsController {
   private readonly logger = new Logger(PresentationsController.name);
-  private readonly socket = io(config.BASE_URL);
+  private readonly socket = io('/universityws');
 
   constructor(private readonly presentationsService: PresentationsService) {}
 
