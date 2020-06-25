@@ -77,7 +77,7 @@ class Profile extends Component<Props,State> {
     const socket = io('https://dev.api.vidchain.net', {
       path: '/universitybackenddemo'
     });
-    socket.emit("client working");
+    socket.emit("connectClient","client working");
     socket.on('presentation', (msg: any) => {
       console.log("socket.on('presentation')");
       console.log(msg);
