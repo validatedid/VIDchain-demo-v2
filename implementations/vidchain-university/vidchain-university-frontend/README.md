@@ -6,7 +6,7 @@ By cloning this repository, you can run the university frontend demo locally.
 
 Create your *.env* file copying *.env.example* and update *REACT_APP_BACKEND_URL* parameter with the backend of this demo url (see **vidchain-university-backend**). This parameter must be updated with the enpoint where **vidchain-university-backend** can be found. In *.env.example* the backend is tunneled through ngrok to the localhost running the backend as well.
 
-Once you have cloned this repository and updated the parameter mentioned above, you can run the demo by either running node or building and starting a container.
+Once you have updated the parameter mentioned above, you can run the demo by either running node or building and starting a container.
 
 ### Node
 
