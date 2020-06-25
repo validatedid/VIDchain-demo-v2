@@ -1,15 +1,24 @@
-const PORT = 3023;
-const API_URL = "https://walletapi-dev.vidchain.net/wallet/";
-const CLIENT_URL = "http://localhost:3024";
-const BASE_URL = "http://localhost:3023";
+const PORT = process.env.PORT || 3021
+const API_URL = "https://dev.api.vidchain.net/api/v1/";
+const BASE_URL = process.env.BASE_URL || "https://dev.api.vidchain.net";
 
-const Name = "University of Barcelona";
-const nonce = "barcelona_university";
+//Legal Entity
+const Entity = {
+  "iss": "YourUniversity",
+  "aud": "vidchain-api",
+  "nonce": "z-z-0427dc2515b1",
+  "callbackUrl": BASE_URL+"/backenddemo/presentation/validation"
+};
+const grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer";
+const scope = "vidchain profile test entity";
+const DID = "did:vid:0x10624BfA14bB2b1d14b474612539FaCFa36877EA";
+
 export { 
   PORT,
   API_URL,
-  CLIENT_URL,
   BASE_URL,
-  Name,
-  nonce
+  Entity,
+  grantType,
+  scope,
+  DID
 }

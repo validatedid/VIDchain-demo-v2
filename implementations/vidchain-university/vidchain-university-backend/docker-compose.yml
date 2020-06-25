@@ -1,6 +1,13 @@
-version: "3.2"
+version: "3.7"
 services:
-  redis:
-    image: redis:alpine
+  university-backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: vidchain/university-backend:v0.1
+    container_name:  university-backend
     ports:
-      - 6379:6379
+      - 3023:3023
+    environment:
+      - BASE_URL=https://dev.api.vidchain.net/universitybackenddemo
+      - PORT=3023
