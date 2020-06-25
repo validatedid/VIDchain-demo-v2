@@ -73,7 +73,10 @@ class Profile extends Component<Props,State> {
   
   async initiateSocket(){
     console.log("initiateSocket(): "+ config.BACKEND_URL);
-    const socket = io(config.BACKEND_URL);
+    //const socket = io(config.BACKEND_URL);
+    const socket = io('https://dev.api.vidchain.net', {
+      path: '/universitybackenddemo'
+    });
     socket.emit("client working");
     socket.on('presentation', (msg: any) => {
       console.log("socket.on('presentation')");
