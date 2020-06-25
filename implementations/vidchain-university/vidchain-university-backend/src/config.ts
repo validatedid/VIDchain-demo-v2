@@ -1,13 +1,13 @@
 const PORT = process.env.PORT || 3021
 const API_URL = "https://dev.api.vidchain.net/api/v1/";
-const BASE_URL = process.env.BASE_URL || "https://dev.api.vidchain.net";
+const BASE_URL = process.env.BASE_URL || "https://dev.api.vidchain.net/universitybackenddemo";
 
 //Legal Entity
 const Entity = {
   "iss": "YourUniversity",
   "aud": "vidchain-api",
   "nonce": "z-z-0427dc2515b1",
-  "callbackUrl": BASE_URL+"/universitybackenddemo/presentation/validation"
+  "callbackUrl": BASE_URL+"/presentation/validation"
 };
 const grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 const scope = "vidchain profile test entity";
