@@ -1,0 +1,17 @@
+version: "3.7"
+services:
+  university-frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: vidchain/university-frontend:v0.1
+    container_name:  university-frontend
+    ports:
+      - 3024:3024
+    environment:
+      - REACT_APP_REDIRECT_CALLBACK=https://dev.api.vidchain.net/unidemo/callback
+      - REACT_APP_IDENTITY_PROVIDER=https://dev.api.vidchain.net
+      - REACT_APP_DEMO=https://dev.api.vidchain.net/unidemo
+      - REACT_APP_BACKEND_URL=https://dev.api.vidchain.net/backenddemo
+      - PUBLIC_URL=https://dev.api.vidchain.net/demo
+      

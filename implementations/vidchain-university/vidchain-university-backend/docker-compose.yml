@@ -7,4 +7,7 @@ services:
     image: vidchain/university-backend:v0.1
     container_name:  university-backend
     ports:
-      - 3021:3021
+      - 3023:3023
+    environment:
+      - BASE_URL=https://dev.api.vidchain.net
+      - PORT=3023
