@@ -36,4 +36,9 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect, 
     this.wss.emit('presentation', credential);
   }
 
+  @SubscribeMessage('connectClient')
+  connectClientEvent(@MessageBody() msg: any): void {
+    this.logger.log(`Client connected:    ${msg}`)
+  }
+
 }
