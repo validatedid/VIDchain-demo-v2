@@ -12,7 +12,7 @@ import {
 import { Socket, Server } from 'socket.io';
 import { Logger, BadRequestException } from '@nestjs/common';
 
-@WebSocketGateway({ port: 3023, path: '/universitybackenddemo'})
+@WebSocketGateway({ path: '/universityws', transports: ['websocket']})
 export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit {
   
   @WebSocketServer() wss: Server;
