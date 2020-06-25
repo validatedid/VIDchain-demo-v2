@@ -8,7 +8,7 @@ import * as config from '../config';
 @Controller('universitybackenddemo/presentation')
 export class PresentationsController {
   private readonly logger = new Logger(PresentationsController.name);
-  private readonly socket = io('/', {
+  private readonly socket = io('https://dev.api.vidchain.net', {
     path: '/universityws',
     transports: ['websocket']
   });
