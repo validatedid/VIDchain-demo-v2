@@ -38,7 +38,7 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect, 
 
   @SubscribeMessage('connectClient')
   connectClientEvent(@MessageBody() msg: any): void {
-    this.logger.log(`Client connected:    ${msg}`)
+    this.logger.log(`Websocket frontend connected:    ${msg}`)
   }
 
 }
