@@ -7,7 +7,7 @@ const Entity = {
   "iss": "YourUniversity",
   "aud": "vidchain-api",
   "nonce": "z-z-0427dc2515b1",
-  "callbackUrl": BASE_URL+"/backenddemo/presentation/validation"
+  "callbackUrl": BASE_URL+"/universitybackenddemo/presentation/validation"
 };
 const grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 const scope = "vidchain profile test entity";
