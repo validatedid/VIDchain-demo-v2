@@ -77,7 +77,6 @@ class Profile extends Component<Props,State> {
       path: '/universityws',
       transports: ['websocket']
     });
-    socket.emit("connectClient", "yessss");
     socket.on('presentation', (msg: any) => {
       console.log("socket.on('presentation')");
       console.log(msg);
