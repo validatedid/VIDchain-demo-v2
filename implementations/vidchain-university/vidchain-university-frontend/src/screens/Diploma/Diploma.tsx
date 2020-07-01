@@ -7,9 +7,6 @@ import * as utils from "../../utils/utils";
 import { ICredentialData } from "../../interfaces/ICredentialData";
 import * as vidchain from "../../apis/vidchain";
 import { ICredentialSubject } from "../../interfaces/ICredentialSubject";
-import { IPresentation } from "../../interfaces/IPresentation";
-import io from 'socket.io-client';
-import * as config from '../../config';
 
 interface Props {
 	did: string;
@@ -58,6 +55,8 @@ class Diploma extends Component<Props,State> {
 				refresh_token: this.props.location.state.refresh_token,
 				id_token: this.props.location.state.id_token,
             did: utils.getUserDid(this.props.location.state.id_token),
+            sw: this.props.location.state.sw,
+            bigdata:this.props.location.state.bigdata,
       });
     }
   }
@@ -74,13 +73,19 @@ class Diploma extends Component<Props,State> {
   }
 
  async issueCredential(){
+    let degreeName;
+    
+    if (this.state.sw){
+      degreeName = "Software Engineering Degree";
+    } else {
+      degreeName = "Big Data Degree";
+    }
+
     let subject:ICredentialSubject = {
       id: this.state.did,
-      firstName: "Mauro",
-      lastName: "Lucchini",
-      university: "UPC",
-      degree: "Telecos",
-      date: "Jan 2018",
+      university: "University of Barcelona - Computer Science Department",
+      degree: degreeName,
+      date: this.state.today,
     };
 
     const token = await vidchain.getAuthzToken();
