@@ -40,14 +40,13 @@ export class PresentationsService {
         const userDID = presentation.name.split(" by ")[1];
 
          const credential: CredentialData = {
-            type: ["VerifiableCredential", "EuropassCredential"],
+            type: ["VerifiableCredential", "UniversityStudentCard"],
             issuer: config.DID,
             id: "https://example.com/credential/2390",
             credentialSubject: {
                 "id": userDID,
-                "name": "IT Security degree",
-                "University": "UPC",
-                "starts": "Sept 2020"
+                "name": "University degree",
+                "university": "University of Barcelona - Computer Science Department",
             }
         }
         const response = await vidchainBackend.generateVerifiableCredential(token, credential);
