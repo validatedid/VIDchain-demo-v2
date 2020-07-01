@@ -8,17 +8,6 @@ class HeaderLogin extends Component {
   render() {
     return (
         <div >
-          <div className="topbar">
-          <div className="container">
-            <div className="row">
-              <div className="col-md-12">
-                <p className="pull-left hidden-xs">Barcelona University</p>
-                <p className="pull-right"><i className="fa fa-phone"></i>Tel No. (+001) 123-456-789</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
         <header>
               <div className="navbar navbar-default navbar-static-top">
                   <div className="container">
