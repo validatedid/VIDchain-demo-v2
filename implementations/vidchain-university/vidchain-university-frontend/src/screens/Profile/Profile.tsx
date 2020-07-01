@@ -10,6 +10,7 @@ import { ICredentialSubject } from "../../interfaces/ICredentialSubject";
 import { IPresentation } from "../../interfaces/IPresentation";
 import io from 'socket.io-client';
 import * as config from '../../config';
+import { Redirect } from "react-router-dom";
 
 interface Props {
 	did: string;
@@ -90,39 +91,6 @@ class Profile extends Component<Props,State> {
     });
   }
 
- /* async issueCredential(){
-
-    let subject:ICredentialSubject = {
-      id: this.state.did,
-      firstName: "Mauro",
-      lastName: "Lucchini",
-      university: "UPC",
-      degree: "Telecos",
-      date: "Jan 2018",
-    };
-
-    const token = await vidchain.getAuthzToken();
-
-    let credentialBody:ICredentialData = {
-      type: "['VerifiableCredential','EuropassCredential']",
-      issuer: utils.getIssuerDid(token),
-      id: this.state.did,
-      credentialSubject: subject,
-    };
-
-    const response = await vidchain.generateVerifiableCredential(token, credentialBody);
-		if(response !== "Error"){
-			this.setState ({
-				successGeneration: true
-			})
-		} else{
-			this.setState ({
-				error: true
-			})
-		}
-    
-  }*/
-
   async claimVP(course:string){
     const presentation: IPresentation = {
 		target: this.state.did,
@@ -162,8 +130,35 @@ class Profile extends Component<Props,State> {
   
   }
   
+  getDiploma(){
+   const { history } = this.props;
+   const { access_token,refresh_token,id_token, sw, bigdata } = this.state;
+   history.push(
+      {
+        pathname: '/diploma',
+        state: { 
+         access_token: access_token,
+         refresh_token: refresh_token,
+         id_token: id_token,
+         sw: sw,
+         bigdata: bigdata
+         }
+      }
+     ); 
+}
   render() {
     const { did,today, successGeneration, enrolement, credential, sw, bigdata} = this.state;
+    let swbutton, bdbutton;
+    swbutton = <Button type="button" className="collect-button" onClick={() =>this.claimVP("Software Engineering Degree")}><b>Enrol with VIDchain</b></Button>
+    bdbutton = <Button type="button" className="collect-button" onClick={() =>this.claimVP("Big Data Degree")}><b>Enrol with VIDchain</b></Button>
+
+    if (enrolement && credential) {
+      if(sw){
+         swbutton =  <Button type="button" className="collect-button" onClick={() => this.getDiploma()}><b>Collect your diploma</b></Button>
+      }else{
+         bdbutton =  <Button type="button" className="collect-button" onClick={() => this.getDiploma()}><b>Collect your diploma</b></Button>
+      }
+    } 
     return (
       <div>
    <HeaderLogin></HeaderLogin>
@@ -205,18 +200,18 @@ class Profile extends Component<Props,State> {
                         <br/>
                         <div className="form-row">
                            <h4>Organization</h4>
-                           <p>University Of Barcelona</p>
+                           <p>University of Barcelona - Computer Science Department</p>
                         </div>
                         <br/>
                         {enrolement && !credential && sw &&
                         <div>
-                           <p style={{color: "#00cc00"}}> Open your VIDchain App</p>
+                           <p style={{color: "#00cc00"}}> Check your VIDchain App</p>
                         </div>
                         }
                         {credential && sw &&
-                        <h2 style={{color: "#00cc00"}}> You enroled successfully</h2>
+                        <h2 style={{color: "#00cc00"}}> You have successfully enrolled </h2>
                         }
-                        <Button type="button" className="collect-button" onClick={() =>this.claimVP("Software Engineering Degree")}><b>Enrol with VIDchain</b></Button>
+                        {swbutton}
                      </form>
                      <form action="">
                      </form>
@@ -239,18 +234,18 @@ class Profile extends Component<Props,State> {
                         <br/>
                         <div className="form-row">
                            <h4>Organization</h4>
-                           <p>University Of Barcelona</p>
+                           <p>University of Barcelona - Computer Science Department</p>
                         </div>
                         <br/>
                         {enrolement && !credential && bigdata &&
                         <div>
-                           <p style={{color: "#00cc00"}}> Open your VIDchain App</p>
+                           <p style={{color: "#00cc00"}}> Check your VIDchain App</p>
                         </div>
                         }
-                        {credential && bigdata &&
-                        <h2 style={{color: "#00cc00"}}> You enroled successfully</h2>
+                        {credential && sw &&
+                        <h2 style={{color: "#00cc00"}}> You have successfully enrolled </h2>
                         }
-                        <Button type="button" className="collect-button" onClick={() =>this.claimVP("Big Data Degree")}><b>Enrol with VIDchain</b></Button>
+                        {bdbutton}
                      </form>
                      <form action="">
                      </form>
