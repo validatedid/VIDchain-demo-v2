@@ -91,7 +91,7 @@ class Diploma extends Component<Props,State> {
     const token = await vidchain.getAuthzToken();
 
     let credentialBody:ICredentialData = {
-      type: "['VerifiableCredential','EuropassCredential']",
+      type: ['VerifiableCredential','EuropassCredential'],
       issuer: utils.getIssuerDid(token),
       id: this.state.did,
       credentialSubject: subject,

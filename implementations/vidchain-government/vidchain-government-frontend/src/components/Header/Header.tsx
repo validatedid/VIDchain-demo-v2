@@ -14,7 +14,7 @@ class Header extends Component {
             <em className="cds-logo-text">
               <a href="https://dev.api.vidchain.net/demo/" title="Home">
                 <img src={require("../../assets/images/logoCity.png")} alt="Logo of the City"/>
-                <h1 className="cds-header-title">Your City Website</h1>
+                <h1 className="cds-header-title">&nbsp;&nbsp;&nbsp;Your City Website</h1>
               </a>
             </em>
           </div>

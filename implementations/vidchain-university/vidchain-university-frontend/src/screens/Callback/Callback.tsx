@@ -60,7 +60,7 @@ class Callback extends Component<Props,State> {
 				id_token: token.id_token,
 				expires: token.expires
 			});
-			this.goToProfile()
+			this.goToProfile();
 		}else {
 			console.log("token is null");
 		}		

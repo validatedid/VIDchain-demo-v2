@@ -10,6 +10,7 @@ import queryString from "query-string";
 import * as governmentBackend from "../../apis/governmentBackend";
 // @ts-ignore
 import {JSO, Popup} from 'jso'
+import { Redirect } from 'react-router-dom';
 
 interface Props {
 	history:any;
@@ -72,6 +73,7 @@ class Callback extends Component<Props,State> {
 			});
 		}
 		this.checkIfSignInOrSignUp();
+		this.goToProfile();
 	}
 
 	async checkIfSignInOrSignUp(){
@@ -116,42 +118,13 @@ class Callback extends Component<Props,State> {
 
 
   render() {
-	  const {access_token, refresh_token, id_token, expires, signUp} = this.state;
-    return (
-    <div>
-    <Official></Official>
-	<Header></Header>
-	<div className="page">
-      <main className="main">
-	  	<p>
-        	OAuth2 authorize code flow was performed successfully!
-		</p>
-		<ul>
-			<li><b>Access Token: </b>{access_token}</li>
-			<li><b>Refresh Token: </b> {refresh_token}</li>
-			<li><b>ID Token: </b> {id_token}</li>
-			<li><b>Expires In: </b> {expires}</li>
-		</ul>
-		{ signUp &&
-			<Button type="button" className="register-button" onClick={() =>this.goToRegistration()}>Create the eID in my VIDchain Wallet</Button>
+	const {access_token, refresh_token, id_token, expires, signUp} = this.state;
+    if (access_token != null) {
+			return (<div></div>);
+		} else {
+			return (<Redirect to='/'/>);
 		}
-		{ !signUp &&
-			<Button type="button" className="register-button" onClick={() =>this.goToProfile()}>Go to your Profile</Button>
-		}
-		<p>
-			<a href="https://dev.api.vidchain.net/demo/">Do it again</a>
-		</p>
-	
-	</main>
-	</div>
-	<div className="footer">
-		<Footer></Footer>
-	</div>
-    
-    </div>
-    
-    );
-  }
+   }
 }
 
 export default Callback;
