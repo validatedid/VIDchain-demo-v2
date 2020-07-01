@@ -22,13 +22,13 @@ function App() {
               path="/profile"
               component={Profile}
             />
+            <Route exact
+              path="/diploma"
+              component={Diploma}
+            />
             <Route
               path="/callback"
               component={Callback}
-            />
-            <Route
-              path="/diploma"
-              component={Diploma}
             />
           </Switch>
         </BrowserRouter>
