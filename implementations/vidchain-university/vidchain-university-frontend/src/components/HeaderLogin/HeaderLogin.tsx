@@ -17,7 +17,7 @@ class HeaderLogin extends Component {
                               <span className="icon-bar"></span>
                               <span className="icon-bar"></span>
                           </button>
-                          <a className="navbar-brand" href="#"><img src={require("../../assets/images/logo.png")} alt="logo"/>University of Barcelona</a>
+                          <a className="navbar-brand" href="/universitydemo/"><img src={require("../../assets/images/logo.png")} alt="logo"/>University of Barcelona</a>
                       </div>
                       <div className="navbar-collapse collapse ">
                           <ul className="nav navbar-nav">
