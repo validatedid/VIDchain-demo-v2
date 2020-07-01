@@ -176,7 +176,7 @@ class Diploma extends Component<Props,State> {
                               <p>{today}</p>
                            </div>
                            <br/>
-                           {enrolement && !credential && 
+                           {successGeneration && 
                            <div>
                               <p style={{color: "#00cc00"}}> Check your VIDchain App</p>
                            </div>
