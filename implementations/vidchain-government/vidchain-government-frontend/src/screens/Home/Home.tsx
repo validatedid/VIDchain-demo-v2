@@ -57,10 +57,10 @@ class Home extends Component<Props, State> {
       ); 
   }
 
-  async loadFakeUser(){  
+  async loadFakeUser(){ 
     switch(this.state.name.toLowerCase()) { 
       case "santi" : { 
-        let credentialSubject:ICredentialData = {
+        /*let credentialSubject:ICredentialData = {
           id: "1111111A",
           firstName: "Santi",
           lastName: "Casas",
@@ -71,10 +71,20 @@ class Home extends Component<Props, State> {
           state: "Barcelona",
           zip: "08011",
           gender: "Male",
-        };
-        this.setState ({
+        };*/
+        this.state.user.id = "1111111A";
+        this.state.user.firstName = "Santi";
+        this.state.user.lastName = "Casas";
+        this.state.user.dateOfBirth = "01/01/1990";
+        this.state.user.placeOfBirth = "Barcelona";
+        this.state.user.currentAddress = "C/Arago 179";
+        this.state.user.city ="Barcelona";
+        this.state.user.state = "Barcelona";
+        this.state.user.zip = "08011";
+        this.state.user.gender = "Male";
+        /*this.setState ({
           user: credentialSubject
-        });
+        });*/
         console.log(this.state.user);
         var loaded = true;
          break; 
