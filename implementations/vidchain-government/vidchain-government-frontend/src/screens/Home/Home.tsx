@@ -47,6 +47,8 @@ class Home extends Component<Props, State> {
 
   async login(){  
     const { user } = this.state;
+    console.log("login()");
+    console.log(user);
 		this.props.history.push(
 			{
         pathname: '/profile',
@@ -72,7 +74,8 @@ class Home extends Component<Props, State> {
         };
         this.setState ({
           user: credentialSubject
-        })
+        });
+        console.log(this.state.user);
         var loaded = true;
          break; 
       } 
@@ -89,6 +92,7 @@ class Home extends Component<Props, State> {
           zip: "08011",
           gender: "Male",
         };
+
         this.setState ({
           user: credentialSubject
         })
@@ -140,10 +144,11 @@ class Home extends Component<Props, State> {
       } 
    }
    if (loaded){
+    console.log("loaded!!!");
+    console.log(this.state.user);
     this.login();
    }
 } 
-
 
   render() {
     return (

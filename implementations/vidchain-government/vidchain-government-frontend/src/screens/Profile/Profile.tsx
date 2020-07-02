@@ -77,8 +77,7 @@ class Profile extends Component<Props,State> {
     <div>
     <Official></Official>
     <Header></Header>
-	<h1 className= "welcome">Welcome to the electronic site of you city.</h1>
-	<h4 className= "welcome">You can use your eID Verifiable Credential to access to the different services the city offers.</h4>
+	<h1 className= "welcome">Welcome to the electronic site of your city</h1>
 	<Toast show={error} onClose={() => this.toggleClose()}>
           <Toast.Header>
             <strong className="mr-auto">Error</strong>
@@ -93,11 +92,7 @@ class Profile extends Component<Props,State> {
 					<img src={require("../../assets/images/card.png")} alt=""/>
 				</div>
 				<form action="">
-					<h3 className="eID-text">eID Verifiable Credential</h3>
-					<div className="form-row">
-						<h4>DID:  </h4>
-						<p className= "welcome">{user.id}</p>
-					</div>
+					<h3 className="eID-text">Your profile</h3>
 					<div className="form-row">
 						<h4>Name:  </h4>
 						<p className= "welcome">{user.firstName}</p>

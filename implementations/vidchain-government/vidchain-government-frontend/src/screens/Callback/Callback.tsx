@@ -24,7 +24,6 @@ interface State {
 
 class Callback extends Component<Props,State> {
 	
-
 	constructor(props:any) {
 		super(props);
 
