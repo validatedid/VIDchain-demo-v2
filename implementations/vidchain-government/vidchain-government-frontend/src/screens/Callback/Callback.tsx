@@ -79,12 +79,10 @@ class Callback extends Component<Props,State> {
 				signUp: false,
 				user: JSON.stringify(user)
 			});
-			
 		}	
 	}
 
 	goToProfile(){
-		const { history } = this.props;
 		const { access_token,refresh_token,id_token,user } = this.state;
 		this.props.history.push(
 			{

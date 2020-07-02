@@ -6,8 +6,6 @@ import Official from '../../components/Official/Official';
 import {ICredentialData, Presentation} from "../../interfaces/dtos";
 import { Toast } from "react-bootstrap";
 import * as vidchain from "../../apis/vidchain";
-import * as utils from "../../utils/utils";
-import { userInfo } from 'os';
 
 interface Props {
 	user: string;
@@ -19,9 +17,10 @@ interface State {
 	error: boolean;
 	bicingCompleted: boolean;
 }
-const redIcon = "#ff0000";
-class Profile extends Component<Props,State> {
 
+const redIcon = "#ff0000";
+
+class Profile extends Component<Props,State> {
 	constructor(props:any) {
 		super(props);
 		this.state = {

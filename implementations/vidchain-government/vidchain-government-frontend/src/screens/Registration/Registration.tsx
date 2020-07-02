@@ -8,6 +8,7 @@ import {ICredentialData} from "../../interfaces/dtos";
 import * as utils from "../../utils/utils";
 import * as vidchain from "../../apis/vidchain";
 import * as governmentBackend from "../../apis/governmentBackend";
+
 interface Props {
 	did: string;
 	code: string;
