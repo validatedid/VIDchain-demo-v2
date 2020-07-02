@@ -62,24 +62,10 @@ class Callback extends Component<Props,State> {
 				access_token: token.access_token,
 				refresh_token: token.refresh_token,
 				id_token: token.id_token,
-				expires: token.expires
+				expires: token.expires,
 			});
-			this.checkIfSignInOrSignUp();
 			this.goToProfile();
 		}
-	}
-
-	async checkIfSignInOrSignUp(){
-		const userDID = utils.getUserDid(this.state.id_token);
-		//Check in localstorage if user is registered
-		var user = await governmentBackend.getUser(userDID);
-		if(user !== null && user!== ""){
-			//Go to Profile
-			this.setState({
-				signUp: false,
-				user: JSON.stringify(user)
-			});
-		}	
 	}
 
 	goToProfile(){
@@ -92,7 +78,6 @@ class Callback extends Component<Props,State> {
 				access_token: access_token,
 				refresh_token: refresh_token,
 				id_token: id_token,
-				user: user
 			 }
 			}
 		  ); 

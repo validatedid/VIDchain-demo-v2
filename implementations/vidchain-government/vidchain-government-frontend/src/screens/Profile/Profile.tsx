@@ -30,7 +30,7 @@ class Profile extends Component<Props,State> {
 		}
 	}
   componentDidMount(){
-	if(this.props.location.state){
+	if(this.props.location.state.user){
 		var user: ICredentialData = JSON.parse(this.props.location.state.user);
 		this.setState ({
 			user: user,
