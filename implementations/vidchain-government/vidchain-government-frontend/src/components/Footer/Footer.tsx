@@ -8,16 +8,6 @@ class Footer extends Component {
   render() {
     return (
         <footer className="mt-4">
-      <div className="footer-primary">
-        <div className="footer-primary-nav container" role="navigation">
-          <a href="#">Home</a>
-          <a href="#">Disclaimer</a>
-          <a href="#">Privacy Policy</a>
-          <a href="#">Web Standards</a>
-          <a href="#">Site Credits</a>
-          <a href="#">Site Map</a>      
-        </div>
-      </div>
       <div className="footer-main">
       <div className="container">
         <div className="row">

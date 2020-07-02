@@ -1,15 +1,9 @@
 import React, { Component,Fragment } from 'react';
 import './Callback.css';
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
-import Official from '../../components/Official/Official';
-import { Button, Form, Alert, Row,InputGroup, Col } from "react-bootstrap";
 import * as utils from "../../utils/utils";
 import { OpenIDClient } from '../../libs/openid-connect/client';
 import queryString from "query-string";
 import * as governmentBackend from "../../apis/governmentBackend";
-// @ts-ignore
-import {JSO, Popup} from 'jso'
 import { Redirect } from 'react-router-dom';
 
 interface Props {
@@ -48,7 +42,6 @@ class Callback extends Component<Props,State> {
 
 	async componentDidMount(){
 		const { location,history, match } = this.props;
-		const params = queryString.parse(location.search);
 		var client = OpenIDClient.getInstance().getClient();
 		try{
 			await client.callback();
@@ -90,27 +83,18 @@ class Callback extends Component<Props,State> {
 		}	
 	}
 
-	goToRegistration(){
-		const { history } = this.props;
-		const { access_token,refresh_token,id_token } = this.state;
-		history.push(
-			{
-			  pathname: '/registration',
-			  state: { 
-				access_token: access_token,
-				refresh_token: refresh_token,
-				id_token: id_token
-			   }
-			}
-		  ); 
-	}
 	goToProfile(){
 		const { history } = this.props;
-		var user = this.state.user;
+		const { access_token,refresh_token,id_token,user } = this.state;
 		this.props.history.push(
 			{
 			  pathname: '/profile',
-			  state: { user: user }
+			  state: { 
+				access_token: access_token,
+				refresh_token: refresh_token,
+				id_token: id_token,
+				user: user
+			 }
 			}
 		  ); 
 	}
