@@ -16,7 +16,7 @@ interface Props {
 interface State {
 	did: string;
 	bicingCompleted: boolean;
-	hasVerifibleId: boolean;
+	credential: boolean;
 	error: boolean
 }
 
@@ -26,13 +26,15 @@ class Services extends Component<Props,State> {
 		this.state = {
 			did: "",
 			bicingCompleted: false,
-			hasVerifibleId: false,
+			credential: false,
 			error: false
 		}
-		this.initiateSocket();	
+		
 	}
-
-  componentDidMount(){}
+	
+  componentDidMount(){
+	this.initiateSocket();	
+  }
 
   async claimVP(){
 	let sessionDid = sessionStorage.getItem('id') || "";
@@ -78,7 +80,7 @@ class Services extends Component<Props,State> {
   }
 
   render() {
-	const { did, error, bicingCompleted} = this.state;
+	const { did, error, bicingCompleted, credential} = this.state;
 
 		return (
 			<div>
@@ -97,13 +99,16 @@ class Services extends Component<Props,State> {
 							<br></br>
 							<h5 className="eID-text">Get your Bicing card and start using the bicycle sharing system of Your City. </h5>
 							<h5 className="eID-text">You have to provide a presentation of your verifiable credential in order to use this service.</h5>
-							{bicingCompleted &&
+							{bicingCompleted && 
 								<h4>Check you mobile wallet</h4>
 							}
 							{!bicingCompleted &&
 								<button className="custom-button" onClick={() => this.claimVP()}>
 									<b>Claim your Card</b>
 								</button>
+							}
+							{credential && 
+								<h4>You are ready to go!</h4>
 							}
 						</div>
 					</div>
