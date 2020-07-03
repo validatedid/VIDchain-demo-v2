@@ -60,7 +60,16 @@ class Profile extends Component<Props,State> {
 	this.setState({
 		user: storedUser
 	});
-		
+	sessionStorage.setItem('id', this.state.user.id);
+    sessionStorage.setItem('firstName', this.state.user.firstName);
+    sessionStorage.setItem('lastName', this.state.user.lastName);
+    sessionStorage.setItem('dateOfBirth', this.state.user.dateOfBirth);
+    sessionStorage.setItem('placeOfBirth', this.state.user.placeOfBirth);
+    sessionStorage.setItem('currentAddress', this.state.user.currentAddress);
+    sessionStorage.setItem('city', this.state.user.city);
+    sessionStorage.setItem('state', this.state.user.state);
+    sessionStorage.setItem('zip', this.state.user.zip);
+    sessionStorage.setItem('gender', this.state.user.gender);
   }
 
   async retrieveInfo(){
@@ -111,9 +120,6 @@ class Profile extends Component<Props,State> {
 	if(await governmentBackend.getUser(this.state.did)==""){
 		await governmentBackend.storeUser(credentialSubject); 
 	}
-	console.log("Need to check if exists already...")
-	console.log("Check governtmentBackend.getUser(this.state.did):")
-	console.log(governmentBackend.getUser(this.state.did))
   }
 
   async claimVP(){
@@ -150,112 +156,114 @@ class Profile extends Component<Props,State> {
   }
 
   render() {
-	const { did, error, bicingCompleted, hasDid, hasVerifibleId} = this.state;  
-    return (
-    <div>
-    <Official></Official>
-    <Header></Header>
-	<Toast show={error} onClose={() => this.toggleClose()}>
-          <Toast.Header>
-            <strong className="mr-auto">Error</strong>
-            <small>Your City</small>
-          </Toast.Header>
-          <Toast.Body>Something wrong when generation the credential!</Toast.Body>
-    </Toast>
-    <div className= "content">
-        <div className="wrapper">
-		<div className="serviceCard">
-				<div className="image-holder">
-					<img src={require("../../assets/images/card.png")} alt=""/>
-				</div>
-				<form action="">
-					<h3 className="eID-text">Your profile</h3>
-					{!hasDid &&
-						<div className="form-row">
-						<h4>DID:  </h4>
-						<p className= "welcome"> <i>You do not have associated your did yet.</i></p>
-						</div>
-  					}
-					{hasDid &&
-						<div className="form-row">
-						<h4>DID:  </h4>
-						<p className= "welcome">&nbsp;{did}</p>
-						</div>
-  					}
-					<div className="form-row">
-						<h4>Name:  </h4>
-						<p className= "welcome">&nbsp;{this.state.user.firstName}</p>
-					</div>
-					<div className="form-row">
-						<h4>Surname:  </h4>
-						<p className= "welcome">&nbsp;{this.state.user.lastName}</p>
-					</div>
-					<div className="form-row">
-						<h4>Date Of Birth:  </h4>
-						<p className= "welcome">&nbsp;{this.state.user.dateOfBirth}</p>
-					</div>
-					<div className="form-row">
-						<h4>Place Of Birth:  </h4>
-						<p className= "welcome">&nbsp;{this.state.user.placeOfBirth}</p>
-					</div>
-					<div className="form-row">
-						<h4>Current Address:  </h4>
-						<p>&nbsp;{this.state.user.currentAddress}</p>
-					</div>
-					<div className="form-row">
-						<h4>City: </h4>
-						<p className= "welcome">&nbsp;{this.state.user.city}</p>
-					</div>
-					<div className="form-row">
-						<h4>State: </h4>
-						<p className= "welcome">&nbsp;{this.state.user.state}</p>
-					</div>
-					<div className="form-row">
-						<h4>Zip: </h4>
-						<p className= "welcome">&nbsp;{this.state.user.zip}</p>
-					</div>
-					{hasDid && !hasVerifibleId &&
-					<Button type="button" className="collect-button" onClick={() =>this.generateCredential()}>Collect the eID in your VIDchain Wallet</Button>
-					}
-				</form>
-			</div>
-			{!hasDid &&
-				<div className="services">
-				<div className="service">
-					<br/>
-					<h5 className="eID-text">Link your VIDchain wallet to your account</h5>
-						<button className="custom-button" onClick={() => this.loginWithVIDChain()}>
-							<b>Authenticate with VIDchain</b>
-						</button>
-				</div>
-				</div>
-			}
-			{hasDid && hasVerifibleId &&
-			<div className="serviceCard">
-			<div className="service">
-					<img src={require("../../assets/images/bicing.svg")} className="service-img" alt=""/>
-					<h1>Your profile</h1>
-					<h5 className="eID-text">Once you have your Verifiable ID (eID) in your mobile, you are ready to get your Bicing card and start using the bicycle sharing system of Your City.</h5>
-					{bicingCompleted && hasDid && hasVerifibleId &&
-						<h4>Check you mobile wallet</h4>
-					}
-					{!bicingCompleted && hasDid && hasVerifibleId &&
-						<button className="custom-button" onClick={() => this.claimVP()}>
-							<b>Claim your Card</b>
-						</button>
-					}
-				</div>
-			</div>
-			}
-		</div>
+	const { did, error, bicingCompleted, hasDid, hasVerifibleId} = this.state;
 
-    </div>
-    <div className="footer">
-      <Footer></Footer>
-    </div>
-    </div>
+		return (
+			<div>
+			<Official></Official>
+			<Header></Header>
+			<Toast show={error} onClose={() => this.toggleClose()}>
+				  <Toast.Header>
+					<strong className="mr-auto">Error</strong>
+					<small>Your City</small>
+				  </Toast.Header>
+				  <Toast.Body>Something wrong when generation the credential!</Toast.Body>
+			</Toast>
+			<div className= "content">
+				<div className="wrapper">
+				<div className="serviceCard">
+						<div className="image-holder">
+							<img src={require("../../assets/images/card.png")} alt=""/>
+						</div>
+						<form action="">
+							<h3 className="eID-text">Your profile</h3>
+							{!hasDid &&
+								<div className="form-row">
+								<h4>DID:  </h4>
+								<p className= "welcome"> <i>You do not have associated your did yet.</i></p>
+								</div>
+							  }
+							{hasDid &&
+								<div className="form-row">
+								<h4>DID:  </h4>
+								<p className= "welcome">&nbsp;{did}</p>
+								</div>
+							  }
+							<div className="form-row">
+								<h4>Name:  </h4>
+								<p className= "welcome">&nbsp;{sessionStorage.getItem('firstName')}</p>
+							</div>
+							<div className="form-row">
+								<h4>Surname:  </h4>
+								<p className= "welcome">&nbsp;{sessionStorage.getItem('lastName')}</p>
+							</div>
+							<div className="form-row">
+								<h4>Date Of Birth:  </h4>
+								<p className= "welcome">&nbsp;{sessionStorage.getItem('dateOfBirth')}</p>
+							</div>
+							<div className="form-row">
+								<h4>Place Of Birth:  </h4>
+								<p className= "welcome">&nbsp;{sessionStorage.getItem('placeOfBirth')}</p>
+							</div>
+							<div className="form-row">
+								<h4>Current Address:  </h4>
+								<p>&nbsp;{sessionStorage.getItem('currentAddress')}</p>
+							</div>
+							<div className="form-row">
+								<h4>City: </h4>
+								<p className= "welcome">&nbsp;{sessionStorage.getItem('city')}</p>
+							</div>
+							<div className="form-row">
+								<h4>State: </h4>
+								<p className= "welcome">&nbsp;{sessionStorage.getItem('state')}</p>
+							</div>
+							<div className="form-row">
+								<h4>Zip: </h4>
+								<p className= "welcome">&nbsp;{sessionStorage.getItem('zip')}</p>
+							</div>
+							{hasDid && !hasVerifibleId &&
+							<Button type="button" className="collect-button" onClick={() =>this.generateCredential()}>Collect the eID in your VIDchain Wallet</Button>
+							}
+						</form>
+					</div>
+					{!hasDid &&
+						<div className="services">
+						<div className="service">
+							<br/>
+							<h5 className="eID-text">Link your VIDchain wallet to your account</h5>
+								<button className="custom-button" onClick={() => this.loginWithVIDChain()}>
+									<b>Authenticate with VIDchain</b>
+								</button>
+						</div>
+						</div>
+					}
+					{hasDid && hasVerifibleId &&
+					<div className="serviceCard">
+					<div className="service">
+							<img src={require("../../assets/images/bicing.svg")} className="service-img" alt=""/>
+							<h1>Your profile</h1>
+							<h5 className="eID-text">Once you have your Verifiable ID (eID) in your mobile, you are ready to get your Bicing card and start using the bicycle sharing system of Your City.</h5>
+							{bicingCompleted && hasDid && hasVerifibleId &&
+								<h4>Check you mobile wallet</h4>
+							}
+							{!bicingCompleted && hasDid && hasVerifibleId &&
+								<button className="custom-button" onClick={() => this.claimVP()}>
+									<b>Claim your Card</b>
+								</button>
+							}
+						</div>
+					</div>
+					}
+				</div>
+		
+			</div>
+			<div className="footer">
+			  <Footer></Footer>
+			</div>
+			</div>
+			);
+	 
     
-    );
   }
 }
 
