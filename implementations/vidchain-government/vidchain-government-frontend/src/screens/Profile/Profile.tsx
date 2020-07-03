@@ -47,7 +47,7 @@ class Profile extends Component<Props,State> {
 			hasDid: true
 		});
 		if(this.state.user.firstName==""){ //Only if you do not hold this information, retrieve from database
-			this.retrieveUserDataBase(this.state.did);			
+			this.retrieveUserDataBase(utils.getUserDid(this.props.location.state.id_token));			
 		}
 	}
 	
