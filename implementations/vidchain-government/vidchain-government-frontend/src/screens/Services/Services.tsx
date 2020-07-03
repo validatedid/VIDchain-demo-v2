@@ -5,6 +5,7 @@ import Footer from "../../components/Footer/Footer";
 import Official from '../../components/Official/Official';
 import {Presentation} from "../../interfaces/dtos";
 import * as vidchain from "../../apis/vidchain";
+import * as config from '../../config';
 
 interface Props {
 	user: string;
@@ -28,6 +29,7 @@ class Services extends Component<Props,State> {
 			hasVerifibleId: false,
 			error: false
 		}
+		this.initiateSocket();	
 	}
 
   componentDidMount(){}
@@ -58,6 +60,21 @@ class Services extends Component<Props,State> {
 			error: true
 		})
 	}
+  }
+
+  async initiateSocket(){
+    console.log("initiateSocket(): "+ config.BACKEND_URL);
+    const socket = io('/', {
+      path: '/governmentws',
+      transports: ['websocket']
+    });
+    socket.on('presentation', (msg: any) => {
+      console.log("socket.on('presentation')");
+      console.log(msg);
+      this.setState ({
+				credential: true
+			})
+    });
   }
 
   render() {

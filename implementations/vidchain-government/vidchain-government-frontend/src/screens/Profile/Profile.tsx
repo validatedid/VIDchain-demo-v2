@@ -9,7 +9,7 @@ import * as vidchain from "../../apis/vidchain";
 import { OpenIDClient } from '../../libs/openid-connect/client';
 import * as utils from "../../utils/utils";
 import * as governmentBackend from "../../apis/governmentBackend";
-import { DID } from '../../config';
+
 
 interface Props {
 	user: string;

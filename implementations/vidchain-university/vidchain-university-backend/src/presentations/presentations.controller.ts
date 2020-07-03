@@ -3,7 +3,6 @@ import { Response } from "express";
 import { PresentationsService } from "./presentations.service";
 import { MsgPresentationReady } from '../interfaces/dtos';
 import * as io from 'socket.io-client';
-import * as config from '../config';
 
 @Controller('universitybackenddemo/presentation')
 export class PresentationsController {
