@@ -184,35 +184,35 @@ class Profile extends Component<Props,State> {
   					}
 					<div className="form-row">
 						<h4>Name:  </h4>
-						<p className= "welcome">&nbsp;{sessionStorage.getItem('firstName')}</p>
+						<p className= "welcome">&nbsp;{this.state.user.firstName}</p>
 					</div>
 					<div className="form-row">
 						<h4>Surname:  </h4>
-						<p className= "welcome">&nbsp;{sessionStorage.getItem('lastName')}</p>
+						<p className= "welcome">&nbsp;{this.state.user.lastName}</p>
 					</div>
 					<div className="form-row">
 						<h4>Date Of Birth:  </h4>
-						<p className= "welcome">&nbsp;{sessionStorage.getItem('dateOfBirth')}</p>
+						<p className= "welcome">&nbsp;{this.state.user.dateOfBirth}</p>
 					</div>
 					<div className="form-row">
 						<h4>Place Of Birth:  </h4>
-						<p className= "welcome">&nbsp;{sessionStorage.getItem('placeOfBirth')}</p>
+						<p className= "welcome">&nbsp;{this.state.user.placeOfBirth}</p>
 					</div>
 					<div className="form-row">
 						<h4>Current Address:  </h4>
-						<p>&nbsp;{sessionStorage.getItem('currentAddress')}</p>
+						<p>&nbsp;{this.state.user.currentAddress}</p>
 					</div>
 					<div className="form-row">
 						<h4>City: </h4>
-						<p className= "welcome">&nbsp;{sessionStorage.getItem('city')}</p>
+						<p className= "welcome">&nbsp;{this.state.user.city}</p>
 					</div>
 					<div className="form-row">
 						<h4>State: </h4>
-						<p className= "welcome">&nbsp;{sessionStorage.getItem('state')}</p>
+						<p className= "welcome">&nbsp;{this.state.user.state}</p>
 					</div>
 					<div className="form-row">
 						<h4>Zip: </h4>
-						<p className= "welcome">&nbsp;{sessionStorage.getItem('zip')}</p>
+						<p className= "welcome">&nbsp;{this.state.user.zip}</p>
 					</div>
 					{hasDid && !hasVerifibleId &&
 					<Button type="button" className="collect-button" onClick={() =>this.generateCredential()}>Collect the eID in your VIDchain Wallet</Button>
