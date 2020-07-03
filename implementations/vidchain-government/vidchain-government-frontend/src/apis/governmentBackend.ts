@@ -6,8 +6,6 @@ async function getUser (did: string){
     try{
         let path = `${config.BACKEND_URL}/users/`; 
         let endpoint = path.concat(did);
-        console.log("axios getUser enpoint");
-        console.log(endpoint);
         const response = await axios.get(endpoint);
         if (response.status !== 200 && response.status !== 201) {
             return "Error";

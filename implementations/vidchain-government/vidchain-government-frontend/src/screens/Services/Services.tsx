@@ -5,7 +5,7 @@ import Footer from "../../components/Footer/Footer";
 import Official from '../../components/Official/Official';
 import {Presentation} from "../../interfaces/dtos";
 import * as vidchain from "../../apis/vidchain";
-import * as config from '../../config';
+import io from 'socket.io-client';
 
 interface Props {
 	user: string;
@@ -29,11 +29,10 @@ class Services extends Component<Props,State> {
 			credential: false,
 			error: false
 		}
-		
+		this.initiateSocket();
 	}
-	
+
   componentDidMount(){
-	this.initiateSocket();	
   }
 
   async claimVP(){
@@ -65,7 +64,6 @@ class Services extends Component<Props,State> {
   }
 
   async initiateSocket(){
-    console.log("initiateSocket(): "+ config.BACKEND_URL);
     const socket = io('/', {
       path: '/governmentws',
       transports: ['websocket']

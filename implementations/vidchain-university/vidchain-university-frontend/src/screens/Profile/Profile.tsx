@@ -77,7 +77,6 @@ class Profile extends Component<Props,State> {
   }
   
   async initiateSocket(){
-    console.log("initiateSocket(): "+ config.BASE_URL);
     const socket = io('/', {
       path: '/universityws',
       transports: ['websocket']
