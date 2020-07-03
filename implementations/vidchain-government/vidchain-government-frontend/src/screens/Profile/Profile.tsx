@@ -56,7 +56,7 @@ class Profile extends Component<Props,State> {
   }
 
   async retrieveUserDataBase(did: string){
-	let storedUser = await governmentBackend.getUser(this.state.did);
+	let storedUser = await governmentBackend.getUser(did);
 	this.setState({
 		user: storedUser
 	});

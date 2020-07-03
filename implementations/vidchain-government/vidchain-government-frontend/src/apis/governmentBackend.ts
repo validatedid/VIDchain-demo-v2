@@ -4,7 +4,8 @@ import {ICredentialData} from "../interfaces/dtos"
 
 async function getUser (did: string){
     try{
-        const response = await axios.get(`${config.BACKEND_URL}/users/${did}`);
+        let endpoint = `${config.BACKEND_URL}/users/`; 
+        const response = await axios.get(endpoint.concat(did));
         if (response.status !== 200 && response.status !== 201) {
             return "Error";
         }
