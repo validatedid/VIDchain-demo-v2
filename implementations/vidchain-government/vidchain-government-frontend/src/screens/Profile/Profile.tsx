@@ -8,7 +8,7 @@ import { Toast, Button } from "react-bootstrap";
 import * as vidchain from "../../apis/vidchain";
 import { OpenIDClient } from '../../libs/openid-connect/client';
 import * as utils from "../../utils/utils";
-
+import * as governmentBackend from "../../apis/governmentBackend";
 
 interface Props {
 	user: string;
@@ -40,21 +40,43 @@ class Profile extends Component<Props,State> {
 		}
 	}
   componentDidMount(){
-	if(this.props.location.state.user){
-		var user: ICredentialData = JSON.parse(this.props.location.state.user);
-		this.setState ({
-			user: user
-		});
-	}
+	this.retrieveInfo();
 	if (this.props.location.state.id_token != null){
 		this.setState ({
 			did: utils.getUserDid(this.props.location.state.id_token),
 			hasDid: true
 		});
+		if(this.state.user.firstName==""){ //Only if you do not hold this information, retrieve from database
+			/*let storedUser = governmentBackend.getUser(this.state.did) || {};
+			this.setState({
+				user: storedUser
+			});*/
+			console.log("Need to load info...")
+			console.log("Test governmentBackend.getUser(this.state.did):");
+			console.log(governmentBackend.getUser(this.state.did));
+		}
 	}
-
+	
 	var client = OpenIDClient.getInstance().getClient();
     client.wipeTokens()
+  }
+
+  async checkUserDatabase(did: string){
+	
+	let storedUser = governmentBackend.getUser(this.state.did)
+		
+  }
+
+  async retrieveInfo(){
+	this.state.user.firstName = sessionStorage.getItem('firstName') || "";
+	this.state.user.lastName = sessionStorage.getItem('lastName') || "";
+	this.state.user.dateOfBirth = sessionStorage.getItem('dateOfBirth') || "";
+	this.state.user.placeOfBirth = sessionStorage.getItem('placeOfBirth') || "";
+	this.state.user.currentAddress = sessionStorage.getItem('currentAddress') || "";
+	this.state.user.city = sessionStorage.getItem('city') || "";
+	this.state.user.state = sessionStorage.getItem('state') || "";
+	this.state.user.zip = sessionStorage.getItem('zip') || "";
+	this.state.user.gender = sessionStorage.getItem('gender') || "";
   }
 
   async loginWithVIDChain(){
@@ -66,6 +88,36 @@ class Profile extends Component<Props,State> {
 				require: ["openid", "offline"]
       }
     });
+  }
+  
+  async generateCredential(){
+	//await this.retrieveInfo();
+	let credentialSubject:ICredentialData = {
+		id: this.state.did,
+		firstName: this.state.user.firstName,
+		lastName: this.state.user.lastName,
+		dateOfBirth: this.state.user.dateOfBirth,
+		placeOfBirth: this.state.user.placeOfBirth,
+		currentAddress: this.state.user.currentAddress,
+		city:this.state.user.city,
+		state: this.state.user.state,
+		zip: this.state.user.zip,
+		gender: this.state.user.gender,
+	};
+	console.log(credentialSubject);
+	const token = await vidchain.getAuthzToken();
+	const response = await vidchain.generateVerifiableID(token, credentialSubject);
+	console.log(response);
+	this.setState({
+		hasVerifibleId: true
+	});
+	//Store this information in the database for future logins only if it has not been stored yet
+	//if(governmentBackend.getUser(this.state.did)==null){
+		//await governmentBackend.storeUser(credentialSubject); 
+	//}
+	console.log("Need to check if exists already...")
+	console.log("Check governtmentBackend.getUser(this.state.did):")
+	console.log(governmentBackend.getUser(this.state.did))
   }
 
   async claimVP(){
@@ -93,40 +145,6 @@ class Profile extends Component<Props,State> {
 			error: true
 		})
 	}
-  }
-  async retrieveInfo(){
-	this.state.user.firstName = sessionStorage.getItem('firstName') || "";
-	this.state.user.lastName = sessionStorage.getItem('lastName') || "";
-	this.state.user.dateOfBirth = sessionStorage.getItem('dateOfBirth') || "";
-	this.state.user.placeOfBirth = sessionStorage.getItem('placeOfBirth') || "";
-	this.state.user.currentAddress = sessionStorage.getItem('currentAddress') || "";
-	this.state.user.city = sessionStorage.getItem('city') || "";
-	this.state.user.state = sessionStorage.getItem('state') || "";
-	this.state.user.zip = sessionStorage.getItem('zip') || "";
-	this.state.user.gender = sessionStorage.getItem('gender') || "";
-  }
-
-  async generateCredential(){
-	await this.retrieveInfo();
-	let credentialSubject:ICredentialData = {
-		id: this.state.did,
-		firstName: this.state.user.firstName,
-		lastName: this.state.user.lastName,
-		dateOfBirth: this.state.user.dateOfBirth,
-		placeOfBirth: this.state.user.placeOfBirth,
-		currentAddress: this.state.user.currentAddress,
-		city:this.state.user.city,
-		state: this.state.user.state,
-		zip: this.state.user.zip,
-		gender: this.state.user.gender,
-	};
-	console.log(credentialSubject);
-	const token = await vidchain.getAuthzToken();
-	const response = await vidchain.generateVerifiableID(token, credentialSubject);
-	console.log(response);
-	this.setState({
-		hasVerifibleId: true
-	});
   }
 
   toggleClose (){
