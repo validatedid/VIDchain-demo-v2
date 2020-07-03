@@ -47,13 +47,7 @@ class Profile extends Component<Props,State> {
 			hasDid: true
 		});
 		if(this.state.user.firstName==""){ //Only if you do not hold this information, retrieve from database
-			/*let storedUser = governmentBackend.getUser(this.state.did) || {};
-			this.setState({
-				user: storedUser
-			});*/
-			console.log("Need to load info...")
-			console.log("Test governmentBackend.getUser(this.state.did):");
-			console.log(governmentBackend.getUser(this.state.did));
+			this.retrieveUserDataBase(this.state.did);			
 		}
 	}
 	
@@ -61,9 +55,11 @@ class Profile extends Component<Props,State> {
     client.wipeTokens()
   }
 
-  async checkUserDatabase(did: string){
-	
-	let storedUser = governmentBackend.getUser(this.state.did)
+  async retrieveUserDataBase(did: string){
+	let storedUser = await governmentBackend.getUser(this.state.did);
+	this.setState({
+		user: storedUser
+	});
 		
   }
 
@@ -112,9 +108,9 @@ class Profile extends Component<Props,State> {
 		hasVerifibleId: true
 	});
 	//Store this information in the database for future logins only if it has not been stored yet
-	//if(governmentBackend.getUser(this.state.did)==null){
-		//await governmentBackend.storeUser(credentialSubject); 
-	//}
+	if(await governmentBackend.getUser(this.state.did)==""){
+		await governmentBackend.storeUser(credentialSubject); 
+	}
 	console.log("Need to check if exists already...")
 	console.log("Check governtmentBackend.getUser(this.state.did):")
 	console.log(governmentBackend.getUser(this.state.did))
