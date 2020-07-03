@@ -9,10 +9,12 @@ import * as vidchain from "../../apis/vidchain";
 import { OpenIDClient } from '../../libs/openid-connect/client';
 import * as utils from "../../utils/utils";
 import * as governmentBackend from "../../apis/governmentBackend";
+import { DID } from '../../config';
 
 interface Props {
 	user: string;
 	location: any;
+	history?: any;
 }
   
 interface State {
@@ -24,8 +26,6 @@ interface State {
 	hasVerifibleId: boolean;
 
 }
-
-const redIcon = "#ff0000";
 
 class Profile extends Component<Props,State> {
 	constructor(props:any) {
@@ -39,18 +39,19 @@ class Profile extends Component<Props,State> {
 			hasVerifibleId: false
 		}
 	}
-  componentDidMount(){
+  
+componentDidMount(){
 	this.retrieveInfo();
 	if (this.props.location.state.id_token != null){
 		this.setState ({
 			did: utils.getUserDid(this.props.location.state.id_token),
 			hasDid: true
 		});
+		sessionStorage.setItem('id', utils.getUserDid(this.props.location.state.id_token));
 		if(this.state.user.firstName==""){ //Only if you do not hold this information, retrieve from database
 			this.retrieveUserDataBase(utils.getUserDid(this.props.location.state.id_token));			
 		}
-	}
-	
+	}	
 	var client = OpenIDClient.getInstance().getClient();
     client.wipeTokens()
   }
@@ -60,7 +61,6 @@ class Profile extends Component<Props,State> {
 	this.setState({
 		user: storedUser
 	});
-	sessionStorage.setItem('id', this.state.user.id);
     sessionStorage.setItem('firstName', this.state.user.firstName);
     sessionStorage.setItem('lastName', this.state.user.lastName);
     sessionStorage.setItem('dateOfBirth', this.state.user.dateOfBirth);
@@ -122,7 +122,7 @@ class Profile extends Component<Props,State> {
 	}
   }
 
-  async claimVP(){
+  /*async claimVP(){
     const presentation: Presentation = {
 		target: this.state.did,
 		name: "Bicing",
@@ -147,28 +147,22 @@ class Profile extends Component<Props,State> {
 			error: true
 		})
 	}
+  }*/
+ 
+  async goToServices(){  
+	sessionStorage.setItem('did', utils.getUserDid(this.props.location.state.id_token));
+		this.props.history.push(
+			{
+				pathname: '/services',
+			}
+      ); 
   }
-
-  toggleClose (){
-	this.setState ({
-		error: false
-	})
-  }
-
   render() {
 	const { did, error, bicingCompleted, hasDid, hasVerifibleId} = this.state;
-
 		return (
 			<div>
 			<Official></Official>
 			<Header></Header>
-			<Toast show={error} onClose={() => this.toggleClose()}>
-				  <Toast.Header>
-					<strong className="mr-auto">Error</strong>
-					<small>Your City</small>
-				  </Toast.Header>
-				  <Toast.Body>Something wrong when generation the credential!</Toast.Body>
-			</Toast>
 			<div className= "content">
 				<div className="wrapper">
 				<div className="serviceCard">
@@ -238,19 +232,13 @@ class Profile extends Component<Props,State> {
 						</div>
 					}
 					{hasDid && hasVerifibleId &&
-					<div className="serviceCard">
+					<div className="services">
 					<div className="service">
-							<img src={require("../../assets/images/bicing.svg")} className="service-img" alt=""/>
-							<h1>Your profile</h1>
-							<h5 className="eID-text">Once you have your Verifiable ID (eID) in your mobile, you are ready to get your Bicing card and start using the bicycle sharing system of Your City.</h5>
-							{bicingCompleted && hasDid && hasVerifibleId &&
-								<h4>Check you mobile wallet</h4>
-							}
-							{!bicingCompleted && hasDid && hasVerifibleId &&
-								<button className="custom-button" onClick={() => this.claimVP()}>
-									<b>Claim your Card</b>
+							<br/>
+							<h5 className="eID-text">Now that you have your Verifiable ID (eID), you are ready to use it for using our city services. get your Bicing card and start using the bicycle sharing system of Your City.</h5>
+								<button className="custom-button" onClick={() => this.goToServices()}>
+									<b>Check our service catalog</b>
 								</button>
-							}
 						</div>
 					</div>
 					}

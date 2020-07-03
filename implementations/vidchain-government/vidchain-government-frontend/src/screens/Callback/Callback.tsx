@@ -26,7 +26,6 @@ class Callback extends Component<Props,State> {
 	
 	constructor(props:any) {
 		super(props);
-
 		this.state = {
 			access_token: '',
 			refresh_token: '',

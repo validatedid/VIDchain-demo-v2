@@ -5,6 +5,7 @@ import { withRouter } from "react-router";
 import Home from "./screens/Home/Home";
 import Profile from "./screens/Profile/Profile";
 import Registration from "./screens/Registration/Registration";
+import Services from "./screens/Services/Services";
 import Callback from "./screens/Callback/Callback";
 const dotenv = require('dotenv')
 // importing .env variables
@@ -26,6 +27,10 @@ function App() {
             <Route exact
               path="/profile"
               component={Profile}
+            />
+            <Route exact
+              path="/services"
+              component={Services}
             />
             <Route
               path="/callback"

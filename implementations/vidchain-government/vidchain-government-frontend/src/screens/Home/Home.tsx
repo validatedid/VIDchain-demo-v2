@@ -49,8 +49,6 @@ class Home extends Component<Props, State> {
 
   async login(){  
     const { user } = this.state;
-    console.log("login()");
-    console.log(user);
 		this.props.history.push(
 			{
         pathname: '/profile',
@@ -62,7 +60,6 @@ class Home extends Component<Props, State> {
   async loadFakeUser(){ 
     switch(this.state.name.toLowerCase()) { 
       case "santi" : { 
-        this.state.user.id = "1111111A";
         this.state.user.firstName = "Santi";
         this.state.user.lastName = "Casas";
         this.state.user.dateOfBirth = "01/01/1990";
@@ -76,7 +73,6 @@ class Home extends Component<Props, State> {
         break; 
       } 
       case "ivan" : { 
-        this.state.user.id = "2222222B";
         this.state.user.firstName = "Ivan";
         this.state.user.lastName = "Basart";
         this.state.user.dateOfBirth = "01/01/1990";
@@ -90,7 +86,6 @@ class Home extends Component<Props, State> {
         break; 
       } 
       case "xavi" : { 
-        this.state.user.id = "333333C";
         this.state.user.firstName = "Xavi";
         this.state.user.lastName = "Vila";
         this.state.user.dateOfBirth = "01/01/1990";
@@ -104,7 +99,6 @@ class Home extends Component<Props, State> {
         break; 
       } 
       case "albert" : { 
-        this.state.user.id = "4444444C";
         this.state.user.firstName = "Albert";
         this.state.user.lastName = "Solana";
         this.state.user.dateOfBirth = "01/01/1990";
