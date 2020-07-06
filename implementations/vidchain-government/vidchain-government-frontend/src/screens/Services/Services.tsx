@@ -16,6 +16,7 @@ interface Props {
 interface State {
 	did: string;
 	bicingCompleted: boolean;
+	libraryCompleted: boolean;
 	credential: boolean;
 	error: boolean
 }
@@ -26,6 +27,7 @@ class Services extends Component<Props,State> {
 		this.state = {
 			did: "",
 			bicingCompleted: false,
+			libraryCompleted: false,
 			credential: false,
 			error: false
 		}
@@ -52,9 +54,16 @@ class Services extends Component<Props,State> {
 	console.log(response)
 	//Check response
 	if(response !== "Error"){
-		this.setState ({
-			bicingCompleted: true
-		})
+		if (card == "Bicing"){
+			this.setState ({
+				bicingCompleted: true
+			})
+		}else{
+			this.setState ({
+				libraryCompleted: true
+			})
+		}
+		
 	}
 	else{
 		this.setState ({
@@ -78,7 +87,7 @@ class Services extends Component<Props,State> {
   }
 
   render() {
-	const { did, error, bicingCompleted, credential} = this.state;
+	const { did, error, bicingCompleted, libraryCompleted, credential} = this.state;
 
 		return (
 			<div>
@@ -87,7 +96,7 @@ class Services extends Component<Props,State> {
 			<div className= "content">
 			<div className="container">
 			<div className="row">
-				<div className="wrapper">
+				<div className="services-wrapper">
 					<div className="services">
 					<div className="service">
 							<h1>Ride the city</h1>
@@ -109,13 +118,13 @@ class Services extends Component<Props,State> {
 									<b>Claim your Bicing Card</b>
 								</button>
 							}
-							{credential && 
+							{bicingCompleted && credential && 
 								<h2 style={{color: "#00cc00"}}>You are ready to go!</h2>
 							}
 						</div>
 					</div>	
 				</div>
-				<div className="wrapper">
+				<div className="services-wrapper">
 					<div className="services">
 					<div className="service">
 							<h1>Discover the council library</h1>
@@ -128,20 +137,20 @@ class Services extends Component<Props,State> {
 							<h5 className="eID-text">Get your Library card and discover the library books and ebooks offer.</h5>
 							<h5 className="eID-text"><i>Remember you have to provide a presentation of your verifiable credential in order to use this service.</i></h5>
 							<br></br>
-							{bicingCompleted && !credential &&
+							{libraryCompleted && !credential &&
 								<h4>Check your mobile wallet</h4>
 							}
-							{!bicingCompleted && !credential &&
+							{!libraryCompleted && !credential &&
 								<button className="custom-button" onClick={() => this.claimVP("Library")}>
 									<b>Claim your Library Card</b>
 								</button>
 							}
-							{credential && 
+							{libraryCompleted && credential && 
 								<h2 style={{color: "#00cc00"}}>You are ready to go!</h2>
 							}
 						</div>
 					</div>
-					
+					<br></br><br></br><br></br><br></br><br></br>
 				</div>
 			</div>
 			</div>

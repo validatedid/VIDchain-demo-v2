@@ -33,12 +33,15 @@
   :focus {
     outline: none; }
   
-  .wrapper {
+  .services-wrapper {
+    margin-top:  30px;
     min-height: 10vh;
     display: flex;
     background-size: cover; 
     flex-flow: column;
     margin-bottom: 5%;
+    margin-left: auto;
+    margin-right: auto
   }
   
   .serviceCard {
