@@ -40,14 +40,14 @@ export class PresentationsService {
 
     async generateCredential(token: string, presentation: Presentation){
         const userDID = presentation.name.split(" by ")[1];
-        const serviceName = presentation.name.split(" by ")[2];
+        this.logger.debug(presentation);
          const credential: CredentialData = {
             type: ["VerifiableCredential", "ServiceCredential"],
             issuer: config.DID,
             id: "https://example.com/credential/2390",
             credentialSubject: {
                 "id": userDID,
-                "name": serviceName,
+                "name": "Card",
                 "startAt": Math.floor(Date.now() / 1000),
                 "expiresAt": Math.floor(Date.now() / 1000) + Math.floor(31104000) //1 year
             }

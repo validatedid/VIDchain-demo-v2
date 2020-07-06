@@ -135,6 +135,7 @@ class Services extends Component<Props,State> {
 							<br></br>
 							<br></br>
 							<h5 className="eID-text">Get your Library card and discover the library books and ebooks offer.</h5>
+							<br></br>
 							<h5 className="eID-text"><i>Remember you have to provide a presentation of your verifiable credential in order to use this service.</i></h5>
 							<br></br>
 							{libraryCompleted && !credential &&

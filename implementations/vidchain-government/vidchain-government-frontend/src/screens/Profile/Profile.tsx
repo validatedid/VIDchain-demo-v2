@@ -235,7 +235,7 @@ componentDidMount(){
 					<div className="services">
 					<div className="service">
 							<br/>
-							<h5 className="eID-text">Now that you have your Verifiable ID (eID), you are ready to use it for using our city services. get your Bicing card and start using the bicycle sharing system of Your City.</h5>
+							<h5 className="eID-text">Now that you have your Verifiable ID (eID), you are ready to use it for using our city services. Get your Bicing card and start using the bicycle sharing system of Your City.</h5>
 								<button className="custom-button" onClick={() => this.goToServices()}>
 									<b>Check our service catalog</b>
 								</button>
