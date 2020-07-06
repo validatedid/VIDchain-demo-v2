@@ -37,14 +37,16 @@ export class PresentationsService {
     }
 
     async generateCredential(token: string, presentation: Presentation){
+        const serviceName = presentation.name.split(": Verifiable")[0];
         const userDID = presentation.name.split(" by ")[1];
+
          const credential: CredentialData = {
             type: ["VerifiableCredential", "UniversityStudentCard"],
             issuer: config.DID,
             id: "https://example.com/credential/2390",
             credentialSubject: {
                 "id": userDID,
-                "name": "University degree",
+                "name": serviceName.replace(": Verifiable",""),
                 "university": "University of Barcelona - Computer Science Department",
             }
         }
