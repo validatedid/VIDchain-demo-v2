@@ -35,11 +35,11 @@ class Services extends Component<Props,State> {
   componentDidMount(){
   }
 
-  async claimVP(){
+  async claimVP(card:string){
 	let sessionDid = sessionStorage.getItem('id') || "";
     const presentation: Presentation = {
 		target: sessionDid,
-		name: "Bicing",
+		name: card,
 		type: [
 			[
 				"VerifiableCredential",
@@ -85,8 +85,10 @@ class Services extends Component<Props,State> {
 			<Official></Official>
 			<Header></Header>
 			<div className= "content">
+			<div className="container">
+			<div className="row">
 				<div className="wrapper">
-					<div className="serviceCard">
+					<div className="services">
 					<div className="service">
 							<h1>Ride the city</h1>
 							<br></br>
@@ -96,22 +98,54 @@ class Services extends Component<Props,State> {
 							<br></br>
 							<br></br>
 							<h5 className="eID-text">Get your Bicing card and start using the bicycle sharing system of Your City. </h5>
-							<h5 className="eID-text">You have to provide a presentation of your verifiable credential in order to use this service.</h5>
-							{bicingCompleted && 
-								<h4>Check you mobile wallet</h4>
+							<br></br>
+							<h5 className="eID-text"><i>Remember you have to provide a presentation of your verifiable credential in order to use this service.</i></h5>
+							<br></br>
+							{bicingCompleted && !credential &&
+								<h4>Check your mobile wallet</h4>
 							}
-							{!bicingCompleted &&
-								<button className="custom-button" onClick={() => this.claimVP()}>
-									<b>Claim your Card</b>
+							{!bicingCompleted && !credential &&
+								<button className="custom-button" onClick={() => this.claimVP("Bicing")}>
+									<b>Claim your Bicing Card</b>
 								</button>
 							}
 							{credential && 
-								<h4>You are ready to go!</h4>
+								<h2 style={{color: "#00cc00"}}>You are ready to go!</h2>
+							}
+						</div>
+					</div>	
+				</div>
+				<div className="wrapper">
+					<div className="services">
+					<div className="service">
+							<h1>Discover the council library</h1>
+							<br></br>
+							<br></br>
+							<img src={require("../../assets/images/library.png")} className="service-img" alt="/"/>
+							<br></br>
+							<br></br>
+							<br></br>
+							<h5 className="eID-text">Get your Library card and discover the library books and ebooks offer.</h5>
+							<h5 className="eID-text"><i>Remember you have to provide a presentation of your verifiable credential in order to use this service.</i></h5>
+							<br></br>
+							{bicingCompleted && !credential &&
+								<h4>Check your mobile wallet</h4>
+							}
+							{!bicingCompleted && !credential &&
+								<button className="custom-button" onClick={() => this.claimVP("Library")}>
+									<b>Claim your Library Card</b>
+								</button>
+							}
+							{credential && 
+								<h2 style={{color: "#00cc00"}}>You are ready to go!</h2>
 							}
 						</div>
 					</div>
+					
 				</div>
-				</div>
+			</div>
+			</div>
+			</div>
 			<div className="footer">
 			  <Footer></Footer>
 			</div>

@@ -4,13 +4,9 @@ import Footer from "../../components/Footer/Footer";
 import "./Profile.css";
 import { Button, Form } from "react-bootstrap";
 import * as utils from "../../utils/utils";
-import { ICredentialData } from "../../interfaces/ICredentialData";
 import * as vidchain from "../../apis/vidchain";
-import { ICredentialSubject } from "../../interfaces/ICredentialSubject";
 import { IPresentation } from "../../interfaces/IPresentation";
 import io from 'socket.io-client';
-import * as config from '../../config';
-import { Redirect } from "react-router-dom";
 
 interface Props {
 	did: string;
@@ -207,7 +203,7 @@ class Profile extends Component<Props,State> {
                            <p style={{color: "#00cc00"}}> Check your VIDchain App</p>
                         </div>
                         }
-                        {credential && sw &&
+                        {credential && sw && 
                         <h2 style={{color: "#00cc00"}}> You have successfully enrolled </h2>
                         }
                         {swbutton}
@@ -241,7 +237,7 @@ class Profile extends Component<Props,State> {
                            <p style={{color: "#00cc00"}}> Check your VIDchain App</p>
                         </div>
                         }
-                        {credential && sw &&
+                        {credential && bigdata &&
                         <h2 style={{color: "#00cc00"}}> You have successfully enrolled </h2>
                         }
                         {bdbutton}

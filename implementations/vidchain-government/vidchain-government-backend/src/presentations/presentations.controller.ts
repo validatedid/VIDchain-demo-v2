@@ -1,7 +1,7 @@
 import { Controller, Post, Get, Body, Res, HttpStatus, Param, Logger} from '@nestjs/common';
 import { Response } from "express";
 import { PresentationsService } from "./presentations.service";
-import { MsgPresentationReady } from '../interfaces/dtos'
+import { MsgPresentationReady } from '../interfaces/dtos';
 import * as io from 'socket.io-client';
 
 @Controller('backenddemo/presentation')

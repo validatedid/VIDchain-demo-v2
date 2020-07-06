@@ -34,11 +34,11 @@
     outline: none; }
   
   .wrapper {
-    min-height: 100vh;
+    min-height: 10vh;
     display: flex;
     background-size: cover; 
     flex-flow: column;
-    margin-bottom: 15%;
+    margin-bottom: 5%;
   }
   
   .serviceCard {
