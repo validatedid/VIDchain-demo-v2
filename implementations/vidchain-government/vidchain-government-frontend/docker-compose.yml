@@ -13,11 +13,11 @@ services:
     ports:
       - 3022:3022
     environment:
-      - REACT_APP_REDIRECT_CALLBACK=https://dev.api.vidchain.net/demo/callback
+      - REACT_APP_REDIRECT_CALLBACK=https://dev.api.vidchain.net/demo/government/callback
       - REACT_APP_IDENTITY_PROVIDER=https://dev.api.vidchain.net
-      - REACT_APP_DEMO=https://dev.api.vidchain.net/demo
-      - REACT_APP_BACKEND_URL=https://dev.api.vidchain.net/backenddemo
-      - PUBLIC_URL=https://dev.api.vidchain.net/demo
+      - REACT_APP_DEMO=https://dev.api.vidchain.net/demo/government
+      - REACT_APP_BACKEND_URL=https://dev.api.vidchain.net/demo/governmentbackend
+      - PUBLIC_URL=https://dev.api.vidchain.net/demo/government
 networks:
   hydra_network:
     driver: bridge

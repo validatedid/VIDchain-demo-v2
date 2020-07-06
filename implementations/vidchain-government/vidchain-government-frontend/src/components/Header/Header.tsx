@@ -12,7 +12,7 @@ class Header extends Component {
           <button className="cds-menu-btn">MENU</button>
           <div className="cds-logo" id="logo">
             <em className="cds-logo-text">
-              <a href="/demo" title="Home">
+              <a href="//demo/government" title="Home">
                 <img src={require("../../assets/images/logoCity.png")} alt="Logo of the City"/>
                 <h1 className="cds-header-title">&nbsp;&nbsp;&nbsp;Your City Website</h1>
               </a>
@@ -27,7 +27,7 @@ class Header extends Component {
               </button>
               <ul className="cds-nav-primary cds-accordion">
                 <li>
-                  <a className="cds-nav-link" href="/demo"><span>Home</span></a>
+                  <a className="cds-nav-link" href="//demo/government"><span>Home</span></a>
                 </li>
                 <li>
                   <button className="cds-accordion-button cds-nav-link" aria-expanded="false" aria-controls="nav-pi">

@@ -22,7 +22,7 @@ Run the development server:
 npm run start
 ```
 
-This command starts the web app at http://localhost:3022/demo
+This command starts the web app at http://localhost:3022/demo/govenrment
 
 You can create a production build with:
 
@@ -36,4 +36,4 @@ Adapt the variables to your needs in the docker-compose and run:
 ```sh
 docker-compose up --build
 ```
-You can now open http://localhost:3022/demo
+You can now open http://localhost:3022/demo/govenrment

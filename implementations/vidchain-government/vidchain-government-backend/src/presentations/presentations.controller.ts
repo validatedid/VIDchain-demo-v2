@@ -4,7 +4,7 @@ import { PresentationsService } from "./presentations.service";
 import { MsgPresentationReady } from '../interfaces/dtos';
 import * as io from 'socket.io-client';
 
-@Controller('backenddemo/presentation')
+@Controller('demo/governmentbackend/presentation')
 export class PresentationsController {
   private readonly logger = new Logger(PresentationsController.name);
   private readonly socket = io('https://dev.api.vidchain.net', {
