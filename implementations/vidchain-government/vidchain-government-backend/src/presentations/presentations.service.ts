@@ -47,7 +47,7 @@ export class PresentationsService {
             id: "https://example.com/credential/2390",
             credentialSubject: {
                 "id": userDID,
-                "name": "Bicing Service",
+                "name": serviceName,
                 "startAt": Math.floor(Date.now() / 1000),
                 "expiresAt": Math.floor(Date.now() / 1000) + Math.floor(31104000) //1 year
             }
