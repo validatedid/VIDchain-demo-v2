@@ -45,7 +45,7 @@ class Services extends Component<Props,State> {
 		type: [
 			[
 				"VerifiableCredential",
-				"VerifiablhasDidCredential"
+				"VerifiableIdCredential"
 			]
 		],
 	}

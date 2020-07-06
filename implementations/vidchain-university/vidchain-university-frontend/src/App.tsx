@@ -8,7 +8,7 @@ import Diploma from "./screens/Diploma/Diploma";
 const dotenv = require('dotenv')
 // importing .env variables
 
-const publicUrl = process.env.REACT_APP_DEMO || "http://localhost:3024/universitydemo";
+const publicUrl = process.env.REACT_APP_DEMO || "http://localhost:3024/demo/university";
 const basename = publicUrl ? new URL(publicUrl).pathname : "";
 
 function App() {

@@ -40,7 +40,6 @@ export class PresentationsService {
 
     async generateCredential(token: string, presentation: Presentation){
         const userDID = presentation.name.split(" by ")[1];
-        this.logger.debug(presentation);
          const credential: CredentialData = {
             type: ["VerifiableCredential", "ServiceCredential"],
             issuer: config.DID,
