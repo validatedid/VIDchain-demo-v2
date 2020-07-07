@@ -42,7 +42,7 @@ export class PresentationsService {
         const serviceName = presentation.name.split(": Verifiable")[0];
         const userDID = presentation.name.split(" by ")[1];
          const credential: CredentialData = {
-            type: ["VerifiableCredential", "ServiceCredential", serviceName.replace(": Verifiable","")],
+            type: ["VerifiableCredential", "ServiceCredential"],
             issuer: config.DID,
             id: "https://example.com/credential/2390",
             credentialSubject: {
