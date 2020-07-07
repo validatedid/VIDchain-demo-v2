@@ -63,7 +63,6 @@ class Services extends Component<Props,State> {
 				libraryCompleted: true
 			})
 		}
-		
 	}
 	else{
 		this.setState ({
@@ -87,8 +86,7 @@ class Services extends Component<Props,State> {
   }
 
   render() {
-	const { did, error, bicingCompleted, libraryCompleted, credential} = this.state;
-
+	const { bicingCompleted, libraryCompleted, credential} = this.state;
 		return (
 			<div>
 			<Official></Official>
@@ -113,11 +111,10 @@ class Services extends Component<Props,State> {
 							{bicingCompleted && !credential &&
 								<h4>Check your mobile wallet</h4>
 							}
-							{!bicingCompleted && !credential &&
+							{!bicingCompleted &&
 								<button className="custom-button" onClick={() => this.claimVP("Bicing")}>
 									<b>Claim your Bicing Card</b>
-								</button>
-							}
+								</button>							}
 							{bicingCompleted && credential && 
 								<h2 style={{color: "#00cc00"}}>You are ready to go!</h2>
 							}
@@ -141,11 +138,10 @@ class Services extends Component<Props,State> {
 							{libraryCompleted && !credential &&
 								<h4>Check your mobile wallet</h4>
 							}
-							{!libraryCompleted && !credential &&
+							{!libraryCompleted &&
 								<button className="custom-button" onClick={() => this.claimVP("Library")}>
 									<b>Claim your Library Card</b>
-								</button>
-							}
+								</button>							}
 							{libraryCompleted && credential && 
 								<h2 style={{color: "#00cc00"}}>You are ready to go!</h2>
 							}

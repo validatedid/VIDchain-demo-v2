@@ -130,7 +130,7 @@ class Diploma extends Component<Props,State> {
                <div className="row">
                   <div className="col-md-12">
                      <div className="about-logo">
-                        <h3>Congratulations for your achievenments!</h3>
+                        <h3>Congratulations for your achievements!</h3>
                         <p>Here you can request your eDiploma credential.</p>
                      </div>
                   </div>
