@@ -47,15 +47,16 @@ componentDidMount(){
 			did: utils.getUserDid(this.props.location.state.id_token),
 			hasDid: true
 		});
-		sessionStorage.setItem('id', utils.getUserDid(this.props.location.state.id_token));
-		if(this.state.user.firstName==""){ //Only if you do not hold this information, retrieve from database
-			this.retrieveUserDataBase(utils.getUserDid(this.props.location.state.id_token));			
-		}
-		if(sessionStorage.getItem('hasVerifiableId')!=null){
+		if(sessionStorage.getItem('id')==utils.getUserDid(this.props.location.state.id_token) && sessionStorage.getItem('hasVerifiableId')!=null){
 			this.setState ({
 				hasVerifiableId: true
 			});
 		}
+		sessionStorage.setItem('id', utils.getUserDid(this.props.location.state.id_token));
+		if(this.state.user.firstName==""){ //Only if you do not hold this information, retrieve from database
+			this.retrieveUserDataBase(utils.getUserDid(this.props.location.state.id_token));			
+		}
+		
 	}	
 	var client = OpenIDClient.getInstance().getClient();
     client.wipeTokens()
