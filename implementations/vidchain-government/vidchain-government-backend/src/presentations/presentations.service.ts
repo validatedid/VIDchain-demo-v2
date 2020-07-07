@@ -65,6 +65,5 @@ export class PresentationsService {
             },
             HttpStatus.INTERNAL_SERVER_ERROR
         );
-    }
-    
+    }    
 }

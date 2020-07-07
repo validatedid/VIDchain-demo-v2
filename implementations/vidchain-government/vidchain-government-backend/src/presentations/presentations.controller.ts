@@ -22,6 +22,17 @@ export class PresentationsController {
     const result = await this.presentationsService.handlePresentation(
       body
     );
+    console.log("result");
+    console.log(result);
+    console.log("JSON.parse(result)");
+    console.log(JSON.parse(result));
+    console.log("JSON.stringify(result)");
+    console.log(JSON.stringify(result));
+    console.log("body");
+    console.log(body);
+    console.log("JSON.stringify(body)");
+    console.log(JSON.stringify(body));
+
     this.socket.emit('presentationReady', result);
     return res.status(HttpStatus.CREATED).send(result);
   }
