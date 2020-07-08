@@ -133,7 +133,7 @@ componentDidMount(){
   } */
 
   render() {
-	const { did, firstName, lastName, dateOfBirth, placeOfBirth, currentAddress, city, state, zip, gender, largeFamily, hasVerifiableId} = this.state;
+	const { did, firstName, lastName, dateOfBirth, placeOfBirth, currentAddress, city, state, zip, largeFamily, hasVerifiableId} = this.state;
 		return (
 				<div>
 					<Official></Official>
