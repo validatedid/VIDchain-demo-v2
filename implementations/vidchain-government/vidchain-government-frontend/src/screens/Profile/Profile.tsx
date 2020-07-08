@@ -98,7 +98,7 @@ componentDidMount(){
 		case "largeFamily" : { 
 			const credential: CredentialData = {
 				type: ["VerifiableCredential", "LargeFamilyCard"],
-				issuer: "Your City",
+				issuer: "Your City", // may get a did
 				id: "https://example.com/credential/2390",
 				credentialSubject: {
 					"id": this.state.did,

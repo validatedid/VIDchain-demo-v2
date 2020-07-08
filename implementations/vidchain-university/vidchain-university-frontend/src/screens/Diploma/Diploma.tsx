@@ -85,7 +85,6 @@ class Diploma extends Component<Props,State> {
       id: this.state.did,
       university: "University of Barcelona - Computer Science Department",
       degree: degreeName,
-      date: this.state.today,
     };
 
     const token = await vidchain.getAuthzToken();
