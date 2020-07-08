@@ -206,7 +206,7 @@ componentDidMount(){
 							<br/>
 							<h5 className="eID-text">Link your VIDchain wallet to your account</h5>
 								<button className="custom-button" onClick={() => this.loginWithVIDChain()}>
-									<b>Authenticate with VIDchain</b>
+									<b>Get your Verifiable ID</b>
 								</button>
 						</div>
 						</div>
