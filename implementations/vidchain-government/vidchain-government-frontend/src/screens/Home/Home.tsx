@@ -57,7 +57,8 @@ class Home extends Component<Props, State> {
       ); 
   }
 
-  async loadFakeUser(){ 
+  async loadFakeUser(){ // Currently disabled
+    /*
     switch(this.state.name.toLowerCase()) { 
       case "santi" : { 
         this.state.user.firstName = "Santi";
@@ -131,7 +132,7 @@ class Home extends Component<Props, State> {
     sessionStorage.setItem('zip', this.state.user.zip);
     sessionStorage.setItem('gender', this.state.user.gender);
     this.login();
-   }
+   }*/
 } 
 
   render() {
