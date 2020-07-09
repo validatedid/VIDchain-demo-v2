@@ -45,9 +45,11 @@ export class PresentationsService {
         const dataDecoded = strB64dec(presentation.data.base64);
         this.logger.debug("Data decoded: " + JSON.stringify(dataDecoded));
         let JSONdata = JSON.parse(JSON.stringify(dataDecoded))
-        this.logger.debug("Type of credential:" + JSONdata.type);
+        let credentialType = parseJwt(strB64dec(JSONdata.verifiableCredential));
+        this.logger.debug("Type of credential requested:" + this.credentialTypeRequested);
+        this.logger.debug("Type of credential provided:" + credentialType.type);
         let validation = false;
-        if(JSONdata.type==this.credentialTypeRequested){
+        if(credentialType==this.credentialTypeRequested){
             validation = await vidchainBackend.validateVP(token, dataDecoded);
             this.logger.debug("Validation of VP: " + validation);
         }else{
