@@ -7,6 +7,7 @@ import * as config from "../config";
 @Injectable()
 export class PresentationsService {
     private readonly logger = new Logger(PresentationsService.name);
+    private credentialTypeRequested;
     
     async handlePresentation(body: MsgPresentationReady): Promise<any> {
         try{
@@ -30,11 +31,28 @@ export class PresentationsService {
         }
     }
 
+    async handleRequest(body: MsgPresentationReady): Promise<any> {
+        this.logger.debug("handling vp request...");
+        this.logger.debug(JSON.parse(JSON.stringify(body)).type);
+        this.credentialTypeRequested = JSON.parse(JSON.stringify(body)).type;
+        const token = await vidchainBackend.getAuthzToken();
+        const response = await vidchainBackend.requestVP(token, JSON.parse(JSON.stringify(body)));
+        this.logger.debug("requestVP response:");
+        this.logger.debug(response);
+    }
+
     async validatePresentation(token: string, presentation: Presentation){
         const dataDecoded = strB64dec(presentation.data.base64);
-        this.logger.debug("Data decoded: "+ JSON.stringify(dataDecoded));
-        const validation: boolean = await vidchainBackend.validateVP(token, dataDecoded);
-        this.logger.debug("Validation of VP: "+ validation);
+        this.logger.debug("Data decoded: " + JSON.stringify(dataDecoded));
+        let JSONdata = JSON.parse(JSON.stringify(dataDecoded))
+        this.logger.debug("Type of credential:" + JSONdata.type);
+        let validation = false;
+        if(JSONdata.type==this.credentialTypeRequested){
+            validation = await vidchainBackend.validateVP(token, dataDecoded);
+            this.logger.debug("Validation of VP: " + validation);
+        }else{
+            this.logger.debug("The credential presented is a different kind from requested.")
+        }
         return validation;
     }
 

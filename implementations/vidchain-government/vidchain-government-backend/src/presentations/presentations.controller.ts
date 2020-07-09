@@ -31,5 +31,16 @@ export class PresentationsController {
     return res.status(HttpStatus.CREATED).send(result);
   }
 
+  @Post("request")
+  async requestPresentation(
+    @Body() body: MsgPresentationReady,
+    @Res() res: Response,
+  ): Promise<Response<any>> {
+    const result = await this.presentationsService.handleRequest(
+      body
+    );
+    return res.status(HttpStatus.CREATED).send(result);
+  }
+
 
 }

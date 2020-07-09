@@ -1,13 +1,15 @@
 import React, { Component,Fragment } from 'react';
 import './Callback.css';
-import * as utils from "../../utils/utils";
 import { OpenIDClient } from '../../libs/openid-connect/client';
 import { Redirect } from 'react-router-dom';
 import Official from '../../components/Official/Official';
 import Header from '../../components/Header/Header';
-import { Presentation, verifiableKYC } from '../../interfaces/dtos';
-import * as vidchain from '../../apis/vidchain';
 import io from 'socket.io-client';
+import Footer from '../../components/Footer/Footer';
+import * as governmentBackend from '../../apis/governmentBackend';
+import * as utils from "../../utils/utils";
+import { verifiableKYC } from '../../interfaces/dtos';
+
 
 
 interface Props {
@@ -65,7 +67,7 @@ class Callback extends Component<Props,State> {
 			});
 		}
 		this.initiateSocket();
-		this.claimVP();
+		governmentBackend.claimVP(utils.getUserDid(this.state.id_token));
 	}
 
 	async initiateSocket(){
@@ -99,30 +101,6 @@ class Callback extends Component<Props,State> {
 		});
 	}
 
-	async claimVP(){	
-		const presentation: Presentation = {
-			target: utils.getUserDid(this.state.id_token),
-			name: "verifiableKYC",
-			type: [
-				[
-					"VerifiableCredential",
-					"VidKycCredential"
-				]
-			],
-		}
-		const token = await vidchain.getAuthzToken();
-		const response = await vidchain.requestVP(token, presentation);
-		console.log("Check the parameters that will have to be parsed!");
-		console.log(response);
-		if(response == "Error"){
-			this.setState ({
-				error: true
-			})
-		}else{
-			
-		}
-	  }
-
 	goToProfile(){
 		const { history } = this.props;
 		const { access_token, refresh_token, id_token, verifiableKYC } = this.state;
@@ -152,10 +130,15 @@ class Callback extends Component<Props,State> {
 									<br></br>
 									<br></br>
 									<br></br>
+									<br></br>
+									<br></br>
 									<h2>Waiting to receive your credential presentation...</h2>
 									<p>Once you present your verifiableID you will be automatically redirected to your profile.</p>				
 								</div>
 							</div>
+							<div className="footer">
+						<Footer></Footer>
+						</div>
 					</div>);
 		} else {
 			return (<Redirect to='/'/>);
