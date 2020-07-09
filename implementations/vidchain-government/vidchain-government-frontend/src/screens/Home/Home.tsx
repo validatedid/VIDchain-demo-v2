@@ -15,7 +15,6 @@ interface Props {
 interface State {
   name: string,
   jwt: string,
-  user: ICredentialData,
   error: boolean,
 }
 
@@ -26,10 +25,10 @@ class Home extends Component<Props, State> {
     this.state = {
       name: "",
       jwt: "",
-      user: {} as ICredentialData,
       error: false
     }
   }
+
   componentDidMount(){
     //Wipe the tokens the library kept in the local Storage
     var client = OpenIDClient.getInstance().getClient();
@@ -47,14 +46,15 @@ class Home extends Component<Props, State> {
     });
   }
 
-  async login(){  
-    const { user } = this.state;
+  async login(){  // Currently disabled
+  /*  
 		this.props.history.push(
 			{
         pathname: '/profile',
         state: { user: JSON.stringify(user) }
 			}
       ); 
+  */
   }
 
   async loadFakeUser(){ // Currently disabled

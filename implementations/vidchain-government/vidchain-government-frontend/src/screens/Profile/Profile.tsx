@@ -98,7 +98,7 @@ componentDidMount(){
 		case "largeFamily" : { 
 			const credential: CredentialData = {
 				type: ["VerifiableCredential", "LargeFamilyCard"],
-				issuer: "Your City", // may get a did
+				issuer: "did:vid:0xfB5390914b110BEB6c0B250CB59b23E156B68e29", 
 				id: "https://example.com/credential/2390",
 				credentialSubject: {
 					"id": this.state.did,
@@ -218,6 +218,7 @@ componentDidMount(){
 				</div>
 			);
   }
+
 }
 
 export default Profile;
