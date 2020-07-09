@@ -47,7 +47,7 @@ export class PresentationsService {
         let JSONdata = JSON.parse(JSON.stringify(dataDecoded))
         let credentialType = parseJwt(strB64dec(JSONdata.verifiableCredential));
         this.logger.debug("Type of credential requested:" + this.credentialTypeRequested);
-        this.logger.debug("Type of credential provided:" + credentialType.type);
+        this.logger.debug("Type of credential provided:" + credentialType);
         let validation = false;
         if(credentialType==this.credentialTypeRequested){
             validation = await vidchainBackend.validateVP(token, dataDecoded);
