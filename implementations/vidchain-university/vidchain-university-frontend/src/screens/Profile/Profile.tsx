@@ -32,6 +32,7 @@ interface State {
    zip: string;
    gender: string;
    largeFamily: boolean,
+   discountRequested: boolean,
    error: boolean
 }
 
@@ -54,6 +55,7 @@ class Profile extends Component<Props,State> {
          zip: "",
          gender: "",
          largeFamily: false,
+         discountRequested: false,
          error: false		
 		}
     this.initiateSocket();	
@@ -114,6 +116,9 @@ class Profile extends Component<Props,State> {
   }
 
   async claimVP(){
+   this.setState({
+      discountRequested: true
+   });
     const presentation: IPresentation = {
 		target: this.state.did,
 		name: "Large Family Card",
@@ -147,7 +152,7 @@ class Profile extends Component<Props,State> {
 }*/
 
   render() {
-    const { did, firstName, lastName, dateOfBirth, placeOfBirth, currentAddress, city, state, zip, largeFamily} = this.state;
+    const { did, firstName, lastName, dateOfBirth, placeOfBirth, currentAddress, city, state, zip, largeFamily, discountRequested} = this.state;
       return (
          <div>
             <HeaderLogin></HeaderLogin>
@@ -259,8 +264,11 @@ class Profile extends Component<Props,State> {
                                     <p><b>Present your Large Family Card Credential</b> issued by your city council.</p>
                                  </div>
                                  <br/>
-                                 {!largeFamily &&
+                                 {!largeFamily && !discountRequested &&
                                     <Button type="button" className="collect-button" onClick={() =>this.claimVP()}><b>Apply for a discount</b></Button>
+                                 }
+                                 {!largeFamily && discountRequested &&
+                                 <h3 style={{color: "#EA7960"}}> Pending to receive Large Family Credential... </h3>
                                  }
                                  {largeFamily &&
                                  <h2 style={{color: "#00cc00"}}> Accepted request. Discount applied. </h2>
