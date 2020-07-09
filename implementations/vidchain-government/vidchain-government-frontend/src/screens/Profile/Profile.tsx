@@ -183,7 +183,7 @@ componentDidMount(){
 									<p className= "welcome">&nbsp;{zip}</p>
 								</div>
 								{!hasVerifiableId &&
-								<Button type="button" className="collect-button" onClick={() =>this.generateCredential("verifiableId")}>Get your Verifiable ID</Button>
+								<Button type="button" className="collect-button" onClick={() =>this.generateCredential("verifiableId")}>Get official government ID</Button>
 								}
 								</form>
 							</div>
