@@ -1,8 +1,9 @@
-import { Injectable, Logger, HttpStatus, HttpException, Body } from '@nestjs/common';
+import { Injectable, Logger, HttpStatus, HttpException } from '@nestjs/common';
 import * as vidchainBackend from "../api/vidchainBackend";
-import { VerifiablePresentation, Presentation, MsgPresentationReady, CredentialData } from '../interfaces/dtos';
-import { parseJwt, strB64dec } from "../utils/Util";
+import { Presentation, MsgPresentationReady, CredentialData } from '../interfaces/dtos';
+import { decodeJWT, strB64dec } from "../utils/Util";
 import * as config from "../config";
+
 
 @Injectable()
 export class PresentationsService {
@@ -43,13 +44,19 @@ export class PresentationsService {
 
     async validatePresentation(token: string, presentation: Presentation){
         const dataDecoded = strB64dec(presentation.data.base64);
-        this.logger.debug("Data decoded: " + JSON.stringify(dataDecoded));
-        let JSONdata = JSON.parse(JSON.stringify(dataDecoded))
-        let credentialType = parseJwt(strB64dec(JSONdata.verifiableCredential));
-        this.logger.debug("Type of credential requested:" + this.credentialTypeRequested);
+        let JSONdata = JSON.parse(JSON.stringify(dataDecoded));
+        let jwtObject = JSON.stringify(JSONdata.verifiableCredential);
+        jwtObject = jwtObject.substring(
+            jwtObject.lastIndexOf("[") + 1, 
+            jwtObject.lastIndexOf("]")
+        );
+        jwtObject = jwtObject.substring(1, jwtObject.length - 1);
+        let jwt = await decodeJWT(jwtObject);
+        let credentialType = JSON.stringify(jwt.vc.type);
         this.logger.debug("Type of credential provided:" + credentialType);
+        this.logger.debug("Type of credential requested:" + JSON.stringify(this.credentialTypeRequested[0]));
         let validation = false;
-        if(credentialType==this.credentialTypeRequested){
+        if(credentialType==JSON.stringify(this.credentialTypeRequested[0])){
             validation = await vidchainBackend.validateVP(token, dataDecoded);
             this.logger.debug("Validation of VP: " + validation);
         }else{
