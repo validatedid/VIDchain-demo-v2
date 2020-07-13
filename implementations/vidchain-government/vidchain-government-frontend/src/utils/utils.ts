@@ -1,5 +1,6 @@
 import {decode as atob, encode } from 'base-64';
-import {IDTokenPayload} from '../interfaces/ITokens'
+const jwtDecode = require('jwt-decode');
+
 
 function randomString (length: number) {
     var text = "";
@@ -67,11 +68,21 @@ function strB64enc(input: any) {
     return null;
   }
 }
-  
+
+function decodeJWT(token: any) {
+  try{
+    var tok = jwtDecode(token)
+    return tok;
+  }
+  catch(Error){
+      return Error;
+  }
+}
 
 export {
     randomString,
     getUserDid,
     strB64dec, 
-    strB64enc
+    strB64enc,
+    decodeJWT
   };

@@ -9,6 +9,7 @@ import * as config from "../config";
 export class PresentationsService {
     private readonly logger = new Logger(PresentationsService.name);
     private credentialTypeRequested;
+    public Presentation;
     
     async handlePresentation(body: MsgPresentationReady): Promise<any> {
         try{
@@ -18,14 +19,18 @@ export class PresentationsService {
             this.logger.debug("Presentation retrieved: "+ JSON.stringify(presentation));
 
             const validation: boolean = await this.validatePresentation(token, presentation);
-
-            if(validation){
+            if (validation){
+                return presentation;
+            }
+            return validation;
+            //The generation of a credential is not necessary in this scenario
+            /*if(validation){
                const response = await this.generateCredential(token, presentation);
                return response;
             }
             else{
                 this.throwErrorMessage("Error while validation the VP");
-            }
+            }*/
         }
         catch (e) {
             this.throwErrorMessage("Error while creating the VC");
@@ -42,8 +47,24 @@ export class PresentationsService {
         this.logger.debug(response);
     }
 
+    
     async validatePresentation(token: string, presentation: Presentation){
         const dataDecoded = strB64dec(presentation.data.base64);
+        this.logger.debug("Data decoded: "+ JSON.stringify(dataDecoded));
+        let validation = false;
+        // TESTING: avoid checking the credential type here so we can authenticate presenting any type of credential
+        // let credentialType = await this.validateCredentialType(dataDecoded);
+        let credentialType = true;
+        if(credentialType){
+            validation = await vidchainBackend.validateVP(token, dataDecoded);
+            this.logger.debug("Validation of VP: "+ validation);
+        }
+        return validation;
+    }
+    
+    //This validation is done as an extra layer of security (May be removed)
+    //This should be checked by VIDChain API (TODO) + the app should only present the kind of credential requested as an option
+    async validateCredentialType(dataDecoded: any){
         let JSONdata = JSON.parse(JSON.stringify(dataDecoded));
         let jwtObject = JSON.stringify(JSONdata.verifiableCredential);
         jwtObject = jwtObject.substring(
@@ -55,14 +76,14 @@ export class PresentationsService {
         let credentialType = JSON.stringify(jwt.vc.type);
         this.logger.debug("Type of credential provided:" + credentialType);
         this.logger.debug("Type of credential requested:" + JSON.stringify(this.credentialTypeRequested[0]));
-        let validation = false;
+        let typeValidation = false;
         if(credentialType==JSON.stringify(this.credentialTypeRequested[0])){
-            validation = await vidchainBackend.validateVP(token, dataDecoded);
-            this.logger.debug("Validation of VP: " + validation);
+            this.logger.debug("Good! The credential presented is the same as requested.")
+            typeValidation = true; 
         }else{
             this.logger.debug("The credential presented is a different kind from requested.")
         }
-        return validation;
+        return typeValidation;
     }
 
     async generateCredential(token: string, presentation: Presentation){

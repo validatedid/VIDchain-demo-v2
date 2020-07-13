@@ -3,7 +3,7 @@ import './Profile.css';
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Official from '../../components/Official/Official';
-import {ICredentialData, CredentialData } from "../../interfaces/dtos";
+import {ICredentialData, CredentialData, verifiableKYC } from "../../interfaces/dtos";
 import { Button } from "react-bootstrap";
 import * as vidchain from "../../apis/vidchain";
 import { OpenIDClient } from '../../libs/openid-connect/client';
@@ -24,11 +24,12 @@ interface State {
 	firstName: string;
 	lastName: string;
 	dateOfBirth: string;
+	documentNumber: string;
+	documentType: string;
+	nationality: string;
+	stateIssuer: string;
+	dateOfExpiry: string;
 	placeOfBirth: string;
-	currentAddress: string;
-	city: string;
-	state: string;
-	zip: string;
 	gender: string;
 }
 
@@ -41,13 +42,14 @@ class Profile extends Component<Props,State> {
 			largeFamily: false,
 			did: "",
 			firstName: "",
-	        lastName: "",
+			lastName: "",
 			dateOfBirth: "",
+			documentNumber: "",
+			documentType: "",
+			nationality: "",
+			stateIssuer: "",
+			dateOfExpiry: "",
 			placeOfBirth: "",
-			currentAddress: "",
-			city: "",
-			state: "",
-			zip: "",
 			gender: "",
 			hasVerifiableId: false,		
 		}
@@ -56,17 +58,18 @@ class Profile extends Component<Props,State> {
 componentDidMount(){
 	this.setState ({
 		did: utils.getUserDid(this.props.location.state.id_token),
-		//TODO: Remove hardcoded and retrieve attributes from presentation	
-		firstName: "Mauro",
-		lastName: "Lucchini",
-		dateOfBirth: "05/02/1993",
-		placeOfBirth: "Barcelona",
-		currentAddress: "Pitfield 64",
-		city: "El Masnou",
-		state: "Barcelona",
-		zip: "08320",
-		gender: "Male",
+		firstName: this.props.location.state.verifiableKYC.name,
+		lastName: this.props.location.state.verifiableKYC.surname,
+		dateOfBirth: this.props.location.state.verifiableKYC.dateOfBirth,
+		placeOfBirth: this.props.location.state.verifiableKYC.placeOfBirth,
+		documentNumber: this.props.location.state.verifiableKYC.documentNumber,
+		documentType: this.props.location.state.verifiableKYC.documentType,
+		nationality: this.props.location.state.verifiableKYC.nationality,
+		stateIssuer: this.props.location.state.verifiableKYC.stateIssuer,
+		dateOfExpiry: this.props.location.state.verifiableKYC.dateOfExpiry,
+		gender: this.props.location.state.verifiableKYC.sex,
 	});
+
 	var client = OpenIDClient.getInstance().getClient();
     client.wipeTokens()
   }
@@ -81,11 +84,13 @@ componentDidMount(){
 				lastName: this.state.lastName,
 				dateOfBirth: this.state.dateOfBirth,
 				placeOfBirth: this.state.placeOfBirth,
-				currentAddress: this.state.currentAddress,
-				city:this.state.city,
-				state: this.state.state,
-				zip: this.state.zip,
 				gender: this.state.gender,
+				// When testing with DNI, these values were not provided
+				currentAddress: "Not provided", 
+				city: "Not provided", 
+				state: "Not provided", 
+				zip: "Not provided",
+				
 			};		
 			const response = await vidchain.generateVerifiableID(token, credentialSubject);
 			console.log(response);
@@ -133,7 +138,7 @@ componentDidMount(){
   } */
 
   render() {
-	const { did, firstName, lastName, dateOfBirth, placeOfBirth, currentAddress, city, state, zip, largeFamily, hasVerifiableId} = this.state;
+	const { did, firstName, lastName, dateOfBirth, documentNumber, documentType, nationality, stateIssuer, dateOfExpiry, largeFamily, hasVerifiableId} = this.state;
 		return (
 				<div>
 					<Official></Official>
@@ -163,24 +168,24 @@ componentDidMount(){
 									<p className= "welcome">&nbsp;{dateOfBirth}</p>
 								</div>
 								<div className="form-row">
-									<h4>Place Of Birth:  </h4>
-									<p className= "welcome">&nbsp;{placeOfBirth}</p>
+									<h4>Document number:  </h4>
+									<p className= "welcome">&nbsp;{documentNumber}</p>
 								</div>
 								<div className="form-row">
-									<h4>Current Address:  </h4>
-									<p>&nbsp;{currentAddress}</p>
+									<h4>Document type:  </h4>
+									<p>&nbsp;{documentType}</p>
 								</div>
 								<div className="form-row">
-									<h4>City: </h4>
-									<p className= "welcome">&nbsp;{city}</p>
+									<h4>Nationality: </h4>
+									<p className= "welcome">&nbsp;{nationality}</p>
 								</div>
 								<div className="form-row">
-									<h4>State: </h4>
-									<p className= "welcome">&nbsp;{state}</p>
+									<h4>State Issuer: </h4>
+									<p className= "welcome">&nbsp;{stateIssuer}</p>
 								</div>
 								<div className="form-row">
-									<h4>Zip: </h4>
-									<p className= "welcome">&nbsp;{zip}</p>
+									<h4>Date of expiry: </h4>
+									<p className= "welcome">&nbsp;{dateOfExpiry}</p>
 								</div>
 								{!hasVerifiableId &&
 								<Button type="button" className="collect-button" onClick={() =>this.generateCredential("verifiableId")}>Get official government ID</Button>

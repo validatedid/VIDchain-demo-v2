@@ -19,6 +19,7 @@
     "dotenv": "^8.2.0",
     "history": "^4.10.1",
     "jso": "^4.1.1",
+    "jwt-decode": "^2.2.0",
     "qrcode.react": "^1.0.0",
     "query-string": "^6.13.0",
     "react": "^16.13.1",

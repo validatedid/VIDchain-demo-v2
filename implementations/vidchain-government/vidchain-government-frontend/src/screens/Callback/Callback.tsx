@@ -11,7 +11,6 @@ import * as utils from "../../utils/utils";
 import { verifiableKYC } from '../../interfaces/dtos';
 
 
-
 interface Props {
 	history:any;
 	location: any;
@@ -71,33 +70,39 @@ class Callback extends Component<Props,State> {
 	}
 
 	async initiateSocket(){
+		//const socket = io('https://fd4b7eb1114c.ngrok.io'
 		const socket = io('/', {
 		  path: '/governmentws',
 		  transports: ['websocket']
 		});
+
 		socket.on('presentation', (msg: any) => {
-		console.log("socket.on('presentation')");
-		console.log(msg);
-		  // Agafar els atributs de la presentació
-			/*this.setState({
-				verifiableKYC: verifiableKYC = {
-					id: string;
-					documentNumber: string; 
-					documentType: string;
-					name: string;
-					surname: string;
-					fullName: string; 
-					nationality: string;
-					stateIssuer: string;
-					issuingAuthority: string;
-					dateOfExpiry: string;
-					dateOfBirth: string;
-					placeOfBirth: string;
-					sex: string;
-					personalNumber: string;
-				}	
-			});*/
-		  this.goToProfile();
+			console.log("socket presentation notification!");
+
+			let presentation = JSON.parse(JSON.stringify(utils.strB64dec(msg.data.base64)));
+			let details = JSON.stringify(utils.decodeJWT(presentation.verifiableCredential[0]));
+			let detailsJSON = JSON.parse(details);
+			// This information is now only used to retrieve the user info 
+			// Whereas in a real scenario, the backend would take some of these attributes to map the information registered in the system's database (check) and authenticate the user
+			this.setState({
+				verifiableKYC: {
+					id: detailsJSON.vc.credentialSubject.id,
+					documentNumber: detailsJSON.vc.credentialSubject.documentNumber,
+					documentType: detailsJSON.vc.credentialSubject.documentType,
+					name: detailsJSON.vc.credentialSubject.name,
+					surname: detailsJSON.vc.credentialSubject.surname,
+					fullName: detailsJSON.vc.credentialSubject.fullName, 
+					nationality: detailsJSON.vc.credentialSubject.nationality,
+					stateIssuer: detailsJSON.vc.credentialSubject.stateIssuer,
+					issuingAuthority: detailsJSON.vc.credentialSubject.issuingAuthority,
+					dateOfExpiry: detailsJSON.vc.credentialSubject.dateOfExpiry,
+					dateOfBirth: detailsJSON.vc.credentialSubject.dateOfBirth,
+					placeOfBirth: detailsJSON.vc.credentialSubject.placeOfBirth,
+					sex: detailsJSON.vc.credentialSubject.sex,
+					personalNumber: detailsJSON.vc.credentialSubject.personalNumber,
+					}	
+				});
+			this.goToProfile();
 		});
 	}
 
