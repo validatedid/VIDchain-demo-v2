@@ -1,20 +1,26 @@
-import { Controller, Post, Get, Body, Res, HttpStatus, Param} from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Get,
+  Body,
+  Res,
+  HttpStatus,
+  Param,
+} from "@nestjs/common";
 import { Response } from "express";
 import { UsersService } from "./users.service";
-import { User } from '../interfaces/dtos'
+import { User } from "../interfaces/dtos";
 
-@Controller('demo/governmentbackend/users')
+@Controller("demo/governmentbackend/users")
 export class UsersController {
-    constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) {}
 
   @Post("")
   async register(
     @Body() body: User,
     @Res() res: Response
   ): Promise<Response<any>> {
-    const result = await this.usersService.createUser(
-      body
-    );
+    const result = await this.usersService.createUser(body);
 
     return res.status(HttpStatus.CREATED).send(result);
   }
@@ -24,5 +30,4 @@ export class UsersController {
     const result = await this.usersService.getUser(params.did);
     return res.status(HttpStatus.OK).send(result);
   }
-
 }
