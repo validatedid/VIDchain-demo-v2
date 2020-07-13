@@ -12,7 +12,6 @@ import * as config from "../config";
 export class PresentationsService {
   private readonly logger = new Logger(PresentationsService.name);
   private credentialTypeRequested;
-  public Presentation;
 
   async handlePresentation(body: MsgPresentationReady): Promise<any> {
     try {

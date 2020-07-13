@@ -1,19 +1,6 @@
 import axios from "axios";
 import * as config from "../config";
-import {ICredentialData} from "../interfaces/dtos"
 import { Presentation } from '../interfaces/dtos';
-
-
-
-async function getUser (did: string){
-    let path = `${config.BACKEND_URL}/users/`; 
-    let endpoint = path.concat(did);
-    return getRequest(endpoint);
-}
-
-async function storeUser(user: ICredentialData){
-    return postRequest(`${config.BACKEND_URL}/users`, user);
-}
 
 async function claimVP(target: string){
     const presentation: Presentation = {
@@ -57,4 +44,4 @@ async function postRequest(endpoint: string, body: any){
 }
 
 
-export { getUser, storeUser, claimVP, getRequest, postRequest };
+export { claimVP, getRequest, postRequest };

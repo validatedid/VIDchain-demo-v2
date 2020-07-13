@@ -3,7 +3,7 @@ import './Profile.css';
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Official from '../../components/Official/Official';
-import {ICredentialData, CredentialData, verifiableKYC } from "../../interfaces/dtos";
+import {ICredentialData, CredentialData } from "../../interfaces/dtos";
 import { Button } from "react-bootstrap";
 import * as vidchain from "../../apis/vidchain";
 import { OpenIDClient } from '../../libs/openid-connect/client';

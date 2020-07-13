@@ -6,6 +6,7 @@ const API_URL = "https://dev.api.vidchain.net/api/v1";
 const IDENTITY_PROVIDER = process.env.REACT_APP_IDENTITY_PROVIDER || "https://dev.api.vidchain.net";
 const REDIRECT_CALLBACK = process.env.REACT_APP_REDIRECT_CALLBACK || "https://dev.api.vidchain.net/demo/university/callback";
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "https://dev.api.vidchain.net/demo/universitybackend";
+//const BACKEND_URL = "https://b221a7a09da0.ngrok.io/demo/universitybackend";
 const BASE_URL = process.env.BASE_URL || "https://dev.api.vidchain.net/";
 
 //Legal Entity

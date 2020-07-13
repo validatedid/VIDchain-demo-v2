@@ -23,14 +23,15 @@ interface State {
    id_token: string,
    did: string,
    firstName: string;
-   lastName: string;
-   dateOfBirth: string;
-   placeOfBirth: string;
-   currentAddress: string;
-   city: string;
-   state: string;
-   zip: string;
-   gender: string;
+	lastName: string;
+	dateOfBirth: string;
+	documentNumber: string;
+	documentType: string;
+	nationality: string;
+	stateIssuer: string;
+	dateOfExpiry: string;
+	placeOfBirth: string;
+	gender: string;
    largeFamily: boolean,
    discountRequested: boolean,
    error: boolean
@@ -46,13 +47,14 @@ class Profile extends Component<Props,State> {
          id_token: "",
          did: utils.getUserDid(this.props.location.state.id_token),
          firstName: "",
-         lastName: "",
-         dateOfBirth: "",
-         placeOfBirth: "",
-         currentAddress: "",
-         city: "",
-         state: "",
-         zip: "",
+			lastName: "",
+			dateOfBirth: "",
+			documentNumber: "",
+			documentType: "",
+			nationality: "",
+			stateIssuer: "",
+			dateOfExpiry: "",
+			placeOfBirth: "",
          gender: "",
          largeFamily: false,
          discountRequested: false,
@@ -68,22 +70,23 @@ class Profile extends Component<Props,State> {
             refresh_token: this.props.location.state.refresh_token,
             id_token: this.props.location.state.id_token,
             did: utils.getUserDid(this.props.location.state.id_token),
-            //TODO: Remove hardcoded and retrieve attributes from presentation	
-            firstName: "Mauro",
-            lastName: "Lucchini",
-            dateOfBirth: "05/02/1993",
-            placeOfBirth: "Barcelona",
-            currentAddress: "Pitfield 64",
-            city: "El Masnou",
-            state: "Barcelona",
-            zip: "08320",
-            gender: "Male",
+            firstName: this.props.location.state.verifiableKYC.name,
+		      lastName: this.props.location.state.verifiableKYC.surname,
+		      dateOfBirth: this.props.location.state.verifiableKYC.dateOfBirth,
+		      placeOfBirth: this.props.location.state.verifiableKYC.placeOfBirth,
+		      documentNumber: this.props.location.state.verifiableKYC.documentNumber,
+		      documentType: this.props.location.state.verifiableKYC.documentType,
+		      nationality: this.props.location.state.verifiableKYC.nationality,
+		      stateIssuer: this.props.location.state.verifiableKYC.stateIssuer,
+		      dateOfExpiry: this.props.location.state.verifiableKYC.dateOfExpiry,
+		      gender: this.props.location.state.verifiableKYC.sex,
          });
     }
   }
   
   async initiateSocket(){
-    const socket = io('/', {
+   //const socket = io('https://b221a7a09da0.ngrok.io', {
+   const socket = io('/', {
       path: '/universityws',
       transports: ['websocket']
     });
@@ -97,23 +100,23 @@ class Profile extends Component<Props,State> {
   }
 
   async generateCredential(){
-   const token = await vidchain.getAuthzToken();
+      const token = await vidchain.getAuthzToken();
 
-   let subject:ICredentialSubject = {
-      id: this.state.did,
-      university: "University of Barcelona - Computer Science Department",
-      degree: "Bachelor in Software Engineering",
-   };
+      let subject:ICredentialSubject = {
+         id: this.state.did,
+         university: "University of Barcelona - Computer Science Department",
+         degree: "Bachelor in Software Engineering",
+      };
 
-   let credential:ICredentialData = {
-      type: ["VerifiableCredential", "UniversityStudentCard"],
-      issuer: utils.getIssuerDid(token),
-      id: this.state.did,
-      credentialSubject: subject,
-   };
-
-  const response = await vidchain.generateVerifiableCredential(token, credential);
-  }
+      let credential:ICredentialData = {
+         type: ["VerifiableCredential", "UniversityStudentCard"],
+         issuer: utils.getIssuerDid(token),
+         id: this.state.did,
+         credentialSubject: subject,
+      };
+      const response = await vidchain.generateVerifiableCredential(token, credential);
+      console.log("generateVerifiableCredential: "+response);
+   }
 
   async claimVP(){
    this.setState({
@@ -131,7 +134,8 @@ class Profile extends Component<Props,State> {
    }
    const token = await vidchain.getAuthzToken();
    const response = await vidchain.requestVP(token, presentation);
-  }
+   console.log("requestVP: "+response);
+   }
 
 // Diploma is no longer used
 /* getDiploma(){
@@ -152,7 +156,7 @@ class Profile extends Component<Props,State> {
 }*/
 
   render() {
-    const { did, firstName, lastName, dateOfBirth, placeOfBirth, currentAddress, city, state, zip, largeFamily, discountRequested} = this.state;
+    const { did, firstName, lastName, dateOfBirth, placeOfBirth, documentNumber, documentType, nationality, largeFamily, discountRequested} = this.state;
       return (
          <div>
             <HeaderLogin></HeaderLogin>
@@ -226,7 +230,7 @@ class Profile extends Component<Props,State> {
                                     <p>{did}</p>
                                  </div>
                                  <div className="form-row">
-                                    <h4>Full name:</h4>
+                                    <h4>Name:</h4>
                                     <p>{firstName}&nbsp;{lastName}</p>
                                  </div>
                                  <div className="form-row">
@@ -234,8 +238,12 @@ class Profile extends Component<Props,State> {
                                     <p>{dateOfBirth}&nbsp;-&nbsp;{placeOfBirth}</p>
                                  </div>
                                  <div className="form-row">
-                                    <h4>Address:</h4>
-                                    <p>{currentAddress},&nbsp;{city}&nbsp;-&nbsp;{state}&nbsp;({zip})</p>
+                                    <h4>Nationality:</h4>
+                                    <p>{nationality}</p>
+                                 </div>
+                                 <div className="form-row">
+                                    <h4>Document:</h4>
+                                    <p>{documentType}:&nbsp;{documentNumber}</p>
                                  </div>
                                  <Button type="button" className="collect-button" onClick={() =>this.generateCredential()}><b>Get student card credential</b></Button>
                               </form>

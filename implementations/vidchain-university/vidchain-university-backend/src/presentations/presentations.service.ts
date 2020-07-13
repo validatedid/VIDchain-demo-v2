@@ -1,12 +1,14 @@
-import { Injectable, Logger, HttpStatus, HttpException, Body } from '@nestjs/common';
+import { Injectable, Logger, HttpStatus, HttpException } from '@nestjs/common';
 import * as vidchainBackend from "../api/vidchainBackend";
-import { VerifiablePresentation, Presentation, MsgPresentationReady, CredentialData } from '../interfaces/dtos';
-import { parseJwt, strB64dec } from "../utils/Util";
+import { Presentation, MsgPresentationReady, CredentialData } from '../interfaces/dtos';
 import * as config from "../config";
+import { decodeJWT, strB64dec } from "../utils/Util";
+
 
 @Injectable()
 export class PresentationsService {
     private readonly logger = new Logger(PresentationsService.name);
+    private credentialTypeRequested;
 
     async handlePresentation(body: MsgPresentationReady): Promise<any> {
         try{
@@ -14,26 +16,84 @@ export class PresentationsService {
             const token = await vidchainBackend.getAuthzToken();
             const presentation: Presentation = await vidchainBackend.retrievePresentation(token, body.url);
             this.logger.debug("Presentation retrieved: "+ JSON.stringify(presentation));
-            const validation: boolean = await this.validatePresentation(token, presentation);
-            if(validation){
+            const validation: boolean = await this.validatePresentation(
+                token,
+                presentation
+              );
+              if (validation) {
+                return presentation;
+              }
+              return validation;
+            // TODO: Handle when a credential has to be provided after presentation validation
+            /*if(validation){
                const response = await this.generateCredential(token, presentation);
                return response;
             }
             else{
                 this.throwErrorMessage("Error while validation the VP");
-            }
+            }*/
         }
         catch (e) {
             this.throwErrorMessage("Error while creating the VC");
         }
     }
 
+    async handleRequest(body: MsgPresentationReady): Promise<any> {
+        this.logger.debug("handling vp request...");
+        this.logger.debug(JSON.parse(JSON.stringify(body)).type);
+        this.credentialTypeRequested = JSON.parse(JSON.stringify(body)).type;
+        const token = await vidchainBackend.getAuthzToken();
+        const response = await vidchainBackend.requestVP(
+          token,
+          JSON.parse(JSON.stringify(body))
+        );
+        this.logger.debug("requestVP response:");
+        this.logger.debug(response);
+      }
+
     async validatePresentation(token: string, presentation: Presentation){
         const dataDecoded = strB64dec(presentation.data.base64);
-        this.logger.debug("Data decoded: "+ JSON.stringify(dataDecoded));
-        const validation: boolean = await vidchainBackend.validateVP(token, dataDecoded);
-        this.logger.debug("Validation of VP: "+ validation);
+        this.logger.debug("Data decoded: " + JSON.stringify(dataDecoded));
+        let validation = false;
+        // TESTING: avoid checking the credential type here so we can authenticate presenting any type of credential
+        // let credentialType = await this.validateCredentialType(dataDecoded);
+        const credentialType = true;
+        if (credentialType) {
+          validation = await vidchainBackend.validateVP(token, dataDecoded);
+          this.logger.debug("Validation of VP: " + validation);
+        }
         return validation;
+    }
+
+    //This validation is done as an extra layer of security (May be removed)
+    //This should be checked by VIDChain API (TODO) + the app should only present the kind of credential requested as an option
+    async validateCredentialType(dataDecoded: any) {
+        const JSONdata = JSON.parse(JSON.stringify(dataDecoded));
+        let jwtObject = JSON.stringify(JSONdata.verifiableCredential);
+        jwtObject = jwtObject.substring(
+        jwtObject.lastIndexOf("[") + 1,
+        jwtObject.lastIndexOf("]")
+        );
+        jwtObject = jwtObject.substring(1, jwtObject.length - 1);
+        const jwt = await decodeJWT(jwtObject);
+        const credentialType = JSON.stringify(jwt.vc.type);
+        this.logger.debug("Type of credential provided:" + credentialType);
+        this.logger.debug(
+        "Type of credential requested:" +
+            JSON.stringify(this.credentialTypeRequested[0])
+        );
+        let typeValidation = false;
+        if (credentialType === JSON.stringify(this.credentialTypeRequested[0])) {
+        this.logger.debug(
+            "Good! The credential presented is the same as requested."
+        );
+        typeValidation = true;
+        } else {
+        this.logger.debug(
+            "The credential presented is a different kind from requested."
+        );
+        }
+        return typeValidation;
     }
 
     async generateCredential(token: string, presentation: Presentation){

@@ -1,12 +1,21 @@
-var jwtDecode = require('jwt-decode');
+import * as jwtDecode from "jwt-decode";
 import {decode as atob, encode } from 'base-64';
+
+function decodeJWT(token) {
+  try {
+    const tok = jwtDecode(token);
+    return tok;
+  } catch (Error) {
+    return Error;
+  }
+}
 
 /**
  * Parse a JWT token
  */
 function parseJwt(token) {
   try{
-    var tok = jwtDecode(token)
+    const tok = jwtDecode(token)
     return tok;
   }
   catch(Error){
@@ -40,5 +49,4 @@ function strB64enc(input) {
   }
 }
 
-
-export { parseJwt, strB64dec, strB64enc };
+export { decodeJWT, parseJwt, strB64dec, strB64enc };

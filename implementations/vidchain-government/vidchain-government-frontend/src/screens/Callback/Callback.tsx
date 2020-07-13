@@ -1,4 +1,4 @@
-import React, { Component,Fragment } from 'react';
+import React, { Component } from 'react';
 import './Callback.css';
 import { OpenIDClient } from '../../libs/openid-connect/client';
 import { Redirect } from 'react-router-dom';
@@ -42,7 +42,6 @@ class Callback extends Component<Props,State> {
 
 	async componentDidMount(){
 		var client = OpenIDClient.getInstance().getClient();
-
 		try{
 			await client.callback();
 		}
@@ -107,7 +106,6 @@ class Callback extends Component<Props,State> {
 	}
 
 	goToProfile(){
-		const { history } = this.props;
 		const { access_token, refresh_token, id_token, verifiableKYC } = this.state;
 		this.props.history.push(
 			{
