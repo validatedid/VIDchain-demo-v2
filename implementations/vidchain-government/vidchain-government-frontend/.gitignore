@@ -11,6 +11,9 @@
 # production
 /build
 
+# OS
+.DS_Store
+
 #env
 .env
 
