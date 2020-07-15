@@ -31,6 +31,10 @@ interface State {
 	dateOfExpiry: string;
 	placeOfBirth: string;
 	gender: string;
+	currentAddress: string; 
+	city: string; 
+	state: string;
+	zip: string;
 }
 
 class Profile extends Component<Props,State> {
@@ -51,23 +55,31 @@ class Profile extends Component<Props,State> {
 			dateOfExpiry: "",
 			placeOfBirth: "",
 			gender: "",
+			currentAddress: "", 
+			city: "",
+			state: "",
+			zip: "",
 			hasVerifiableId: false,		
 		}
 	}
   
 componentDidMount(){
 	this.setState ({
-		did: utils.getUserDid(this.props.location.state.id_token),
-		firstName: this.props.location.state.verifiableKYC.name,
-		lastName: this.props.location.state.verifiableKYC.surname,
-		dateOfBirth: this.props.location.state.verifiableKYC.dateOfBirth,
-		placeOfBirth: this.props.location.state.verifiableKYC.placeOfBirth,
-		documentNumber: this.props.location.state.verifiableKYC.documentNumber,
-		documentType: this.props.location.state.verifiableKYC.documentType,
-		nationality: this.props.location.state.verifiableKYC.nationality,
-		stateIssuer: this.props.location.state.verifiableKYC.stateIssuer,
-		dateOfExpiry: this.props.location.state.verifiableKYC.dateOfExpiry,
-		gender: this.props.location.state.verifiableKYC.sex,
+		did: utils.getUserDid(this.props.location.state.id_token) || "Not provided",
+		firstName: this.props.location.state.verifiableKYC.name || "Not provided",
+		lastName: this.props.location.state.verifiableKYC.surname || "Not provided",
+		dateOfBirth: this.props.location.state.verifiableKYC.dateOfBirth || "Not provided",
+		placeOfBirth: this.props.location.state.verifiableKYC.placeOfBirth || "Not provided",
+		documentNumber: this.props.location.state.verifiableKYC.documentNumber || "Not provided",
+		documentType: this.props.location.state.verifiableKYC.documentType || "Not provided",
+		nationality: this.props.location.state.verifiableKYC.nationality || "Not provided",
+		stateIssuer: this.props.location.state.verifiableKYC.stateIssuer || "Not provided",
+		dateOfExpiry: this.props.location.state.verifiableKYC.dateOfExpiry || "Not provided",
+		gender: this.props.location.state.verifiableKYC.sex || "Not provided",
+		currentAddress: "Not provided", 
+		city: "Your City",
+		state: "Your State",
+		zip: "88888",
 	});
 
 	var client = OpenIDClient.getInstance().getClient();
@@ -86,12 +98,13 @@ componentDidMount(){
 				placeOfBirth: this.state.placeOfBirth,
 				gender: this.state.gender,
 				// When testing with DNI, these values were not provided
-				currentAddress: "Not provided", 
-				city: "Not provided", 
-				state: "Not provided", 
-				zip: "Not provided",
+				currentAddress: this.state.currentAddress, 
+				city: this.state.city, 
+				state: this.state.state, 
+				zip: this.state.zip,
 				
-			};		
+			};
+			//TODO move this operation to backend
 			const response = await vidchain.generateVerifiableID(token, credentialSubject);
 			console.log(response);
 			this.setState({
@@ -126,7 +139,8 @@ componentDidMount(){
 		} 
 	}
   }
- 
+
+
 // Services page is no longer used
 /* async goToServices(){  
 	sessionStorage.setItem('did', utils.getUserDid(this.props.location.state.id_token));
