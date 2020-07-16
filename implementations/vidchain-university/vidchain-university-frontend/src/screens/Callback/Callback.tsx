@@ -9,6 +9,8 @@ import * as utils from "../../utils/utils";
 import * as universityBackend from '../../apis/universityBackend';
 import io from 'socket.io-client';
 import HeaderLogin from '../../components/HeaderLogin/HeaderLogin';
+import { Ring } from 'react-spinners-css';
+
 
 interface Props {
 	history:any;
@@ -142,11 +144,14 @@ class Callback extends Component<Props,State> {
 											<br></br>
 											<br></br>
 											<br></br>
-											<h3>Waiting to receive your credential presentation...</h3>
+											<h3>We have sent you a request to your wallet. Please provide your Verifiable ID.</h3>
 											<br></br>
-											<p>Once you present your verifiableID you will be automatically redirected to your profile.</p>
+											<p>Waiting to receive your credential...</p>	
 											<br></br>
 											<br></br>
+											<div className="spinnerContainer">
+												<Ring color="orange"/>
+											</div>
 											<br></br>
 										</div>
 										</div>

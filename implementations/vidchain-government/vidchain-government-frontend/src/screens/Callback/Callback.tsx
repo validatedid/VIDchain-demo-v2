@@ -9,6 +9,7 @@ import Footer from '../../components/Footer/Footer';
 import * as governmentBackend from '../../apis/governmentBackend';
 import * as utils from "../../utils/utils";
 import { verifiableKYC } from '../../interfaces/dtos';
+import { Ring } from 'react-spinners-css';
 
 
 interface Props {
@@ -150,16 +151,19 @@ class Callback extends Component<Props,State> {
 						<Official></Official>
 						<Header></Header>
 							<div className= "content">
-							<div className="wrapper">
+								<div className="wrapper">
 									<br></br>
 									<br></br>
 									<br></br>
 									<br></br>
+									<h2>We have sent you a request to your wallet,</h2> 
+									<h2>please provide your Verifiable ID.</h2>
 									<br></br>
+									<p>Waiting to receive your credential...</p>	
 									<br></br>
-									<br></br>
-									<h2>Waiting to receive your credential presentation...</h2>
-									<p>Once you present your verifiableID you will be automatically redirected to your profile.</p>				
+									<div className="spinnerContainer">
+									<Ring color="red" />
+									</div>		
 								</div>
 							</div>
 							<div className="footer">
