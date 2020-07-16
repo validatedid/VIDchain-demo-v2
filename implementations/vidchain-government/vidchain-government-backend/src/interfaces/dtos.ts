@@ -65,3 +65,8 @@ export interface CredentialData {
   id: string;
   credentialSubject: any;
 }
+
+export interface SocketClient {
+  did: string;
+  clientId: any;
+}

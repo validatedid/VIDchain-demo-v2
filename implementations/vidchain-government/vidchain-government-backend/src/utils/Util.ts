@@ -44,4 +44,16 @@ function strB64enc(input) {
   }
 }
 
-export { decodeJWT, strB64dec, strB64enc };
+function extractVCfromPresentation(credential){
+  const dataDecoded = strB64dec(credential.data.base64);
+  const JSONdata = JSON.parse(JSON.stringify(dataDecoded));
+  let jwtObject = JSON.stringify(JSONdata.verifiableCredential);
+  jwtObject = jwtObject.substring(
+  jwtObject.lastIndexOf("[") + 1,
+  jwtObject.lastIndexOf("]")
+  );
+  jwtObject = jwtObject.substring(1, jwtObject.length - 1);
+  return decodeJWT(jwtObject);
+}
+
+export { decodeJWT, strB64dec, strB64enc, extractVCfromPresentation };

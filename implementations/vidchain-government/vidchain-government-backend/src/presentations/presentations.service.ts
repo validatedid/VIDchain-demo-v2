@@ -5,7 +5,7 @@ import {
   MsgPresentationReady,
   CredentialData,
 } from "../interfaces/dtos";
-import { decodeJWT, strB64dec } from "../utils/Util";
+import { strB64dec, extractVCfromPresentation } from "../utils/Util";
 import * as config from "../config";
 
 @Injectable()
@@ -64,7 +64,7 @@ export class PresentationsService {
     this.logger.debug("Data decoded: " + JSON.stringify(dataDecoded));
     let validation = false;
     // TESTING: avoid checking the credential type here so we can authenticate presenting any type of credential
-    // let credentialType = await this.validateCredentialType(dataDecoded);
+    // const credentialType = await this.validateCredentialType(presentation);
     const credentialType = true;
     if (credentialType) {
       validation = await vidchainBackend.validateVP(token, dataDecoded);
@@ -75,15 +75,8 @@ export class PresentationsService {
 
   //This validation is done as an extra layer of security (May be removed)
   //This should be checked by VIDChain API (TODO) + the app should only present the kind of credential requested as an option
-  async validateCredentialType(dataDecoded: any) {
-    const JSONdata = JSON.parse(JSON.stringify(dataDecoded));
-    let jwtObject = JSON.stringify(JSONdata.verifiableCredential);
-    jwtObject = jwtObject.substring(
-      jwtObject.lastIndexOf("[") + 1,
-      jwtObject.lastIndexOf("]")
-    );
-    jwtObject = jwtObject.substring(1, jwtObject.length - 1);
-    const jwt = await decodeJWT(jwtObject);
+  async validateCredentialType(presentation: any) {
+    const jwt = extractVCfromPresentation(presentation);
     const credentialType = JSON.stringify(jwt.vc.type);
     this.logger.debug("Type of credential provided:" + credentialType);
     this.logger.debug(

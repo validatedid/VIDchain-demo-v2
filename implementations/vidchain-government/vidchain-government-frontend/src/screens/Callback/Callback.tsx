@@ -23,6 +23,8 @@ interface State {
 	id_token: string,
 	expires: number,
 	verifiableKYC: verifiableKYC,
+	requested: boolean,
+	socketSession: string,
 	error: boolean
 }
 
@@ -36,6 +38,8 @@ class Callback extends Component<Props,State> {
 			id_token: '',
 			expires: 0,
 			verifiableKYC: {} as verifiableKYC,
+			requested: false,
+			socketSession: '',
 			error: false,
 		}	
 	}
@@ -64,16 +68,35 @@ class Callback extends Component<Props,State> {
 				expires: token.expires,
 			});
 		}
-		this.initiateSocket();
-		governmentBackend.claimVP(utils.getUserDid(this.state.id_token));
+		if(!this.state.requested){
+			this.setState({
+				requested: true,
+			});
+			this.initiateSocket();
+			governmentBackend.claimVP(utils.getUserDid(this.state.id_token));
+		}
 	}
 
 	async initiateSocket(){
-		//const socket = io('https://fd4b7eb1114c.ngrok.io'
+		//const socket = io('http://340007ae7ac7.ngrok.io'
 		const socket = io('/', {
 		  path: '/governmentws',
 		  transports: ['websocket']
 		});
+
+		socket.on('connect', () => {
+			console.log('socket connect!');
+			this.setState({
+				socketSession: socket.id,
+			});
+			const socketClient = { 
+				did: utils.getUserDid(this.state.id_token),
+				clientId: this.state.socketSession,
+			};
+			 socket.emit('whoami', socketClient);
+			 console.log('whoami.did: '+ socketClient.did);
+			 console.log('whoami.clientId: '+ socketClient.clientId);
+		 });
 
 		socket.on('presentation', (msg: any) => {
 			console.log("socket presentation notification!");

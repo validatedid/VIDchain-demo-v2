@@ -1,5 +1,5 @@
 import { Injectable, Logger, HttpStatus, HttpException } from "@nestjs/common";
-import { User } from "../interfaces/dtos";
+import { User, SocketClient } from "../interfaces/dtos";
 import Redis from "ioredis";
 
 @Injectable()
@@ -11,15 +11,14 @@ export class UsersService {
     keyPrefix: "government-user:",
   });
 
-  async getUser(did: string): Promise<User> {
-    return await this.userRedis.get(did);
-  }
 
-  async createUser(user: User): Promise<any> {
+  async createUser(body: SocketClient): Promise<any> {
     try {
-      await this.userRedis.set(user.id, JSON.stringify(user));
-      this.logger.debug("Successfully user creation");
-      return "Successfully user creation";
+      await this.userRedis.set(body.did, body.clientId);
+      this.logger.debug("Successfully user session creation");
+      const currentSession = await this.getUser(body.did);
+      this.logger.debug("currentSession: "+JSON.stringify(currentSession));
+      return "Successfully user session creation";
     } catch (e) {
       throw new HttpException(
         {
@@ -30,4 +29,10 @@ export class UsersService {
       );
     }
   }
+
+  async getUser(did: string): Promise<User> {
+    return await this.userRedis.get(did);
+  }
+  
 }
+

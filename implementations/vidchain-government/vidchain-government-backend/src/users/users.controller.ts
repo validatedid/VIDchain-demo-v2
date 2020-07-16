@@ -9,7 +9,7 @@ import {
 } from "@nestjs/common";
 import { Response } from "express";
 import { UsersService } from "./users.service";
-import { User } from "../interfaces/dtos";
+import { SocketClient } from "../interfaces/dtos";
 
 @Controller("demo/governmentbackend/users")
 export class UsersController {
@@ -17,11 +17,10 @@ export class UsersController {
 
   @Post("")
   async register(
-    @Body() body: User,
+    @Body() body: SocketClient,
     @Res() res: Response
   ): Promise<Response<any>> {
     const result = await this.usersService.createUser(body);
-
     return res.status(HttpStatus.CREATED).send(result);
   }
 
