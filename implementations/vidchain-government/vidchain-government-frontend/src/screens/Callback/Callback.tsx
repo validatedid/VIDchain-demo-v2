@@ -74,7 +74,7 @@ class Callback extends Component<Props,State> {
 		  path: '/governmentws',
 		  transports: ['websocket']
 		});
-
+		//Primera conexio front-back pasanli lo DID
 		socket.on('presentation', (msg: any) => {
 			console.log("socket presentation notification!");
 

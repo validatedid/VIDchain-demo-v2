@@ -5,7 +5,7 @@ const BASE_URL = process.env.BASE_URL || "https://dev.api.vidchain.net/demo/gove
 
 //Legal Entity
 const Entity = {
-  iss: "Your City - Test",
+  iss: "Your City - Demo",
   aud: "vidchain-api",
   nonce: "z-0427dc2515b1",
   callbackUrl: BASE_URL + "/presentation/validation",

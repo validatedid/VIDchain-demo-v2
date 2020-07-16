@@ -10,7 +10,7 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || "https://dev.api.vidcha
 
 //Legal Entity
 const Entity = {
-  "iss": "Your City - Test",
+  "iss": "Your City - Demo",
   "aud": "vidchain-api",
   "nonce": "z-0427dc2515b1",
   "callbackUrl": BACKEND_URL + "/presentation/validation"
