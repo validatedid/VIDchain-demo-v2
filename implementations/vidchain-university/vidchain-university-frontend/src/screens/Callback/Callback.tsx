@@ -144,7 +144,7 @@ class Callback extends Component<Props,State> {
 											<br></br>
 											<br></br>
 											<br></br>
-											<h3>We have sent you a request to your wallet. Please provide your Verifiable ID.</h3>
+											<h3>We have sent you a request to your wallet. Please, provide your Verifiable ID.</h3>
 											<br></br>
 											<p>Waiting to receive your credential...</p>	
 											<br></br>
