@@ -78,7 +78,7 @@ class Callback extends Component<Props,State> {
 	}
 
 	async initiateSocket(){
-		//const socket = io('http://340007ae7ac7.ngrok.io'
+		// const socket = io('http://340007ae7ac7.ngrok.io'
 		const socket = io('/', {
 		  path: '/governmentws',
 		  transports: ['websocket']
