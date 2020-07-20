@@ -8,6 +8,15 @@ services:
     container_name:  university-backend
     ports:
       - 3023:3023
+    networks:
+      - hydra_network
     environment:
       - BASE_URL=https://dev.api.vidchain.net/demo/universitybackend
       - PORT=3023
+      - REDIS_URL=redis
+      - REDIS_PORT=6379 
+     
+networks:
+  hydra_network:
+    driver: bridge
+      name: hydra_oidc_network
