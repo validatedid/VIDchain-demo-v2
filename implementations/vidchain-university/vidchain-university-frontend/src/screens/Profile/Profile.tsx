@@ -34,6 +34,8 @@ interface State {
 	gender: string;
    largeFamily: boolean,
    discountRequested: boolean,
+   requested: boolean,
+	socketSession: string,
    error: boolean
 }
 
@@ -58,9 +60,17 @@ class Profile extends Component<Props,State> {
          gender: "",
          largeFamily: false,
          discountRequested: false,
+         requested: false,
+			socketSession: '',
          error: false		
+      }
+      if(!this.state.requested){
+			this.setState({
+				requested: true,
+			});
+			this.initiateSocket();
 		}
-    this.initiateSocket();	
+    
   }
   
   componentDidMount(){
@@ -85,11 +95,26 @@ class Profile extends Component<Props,State> {
   }
   
   async initiateSocket(){
-   //const socket = io('https://b221a7a09da0.ngrok.io', {
+   //const socket = io('https://62b399d34a66.ngrok.io/', {
    const socket = io('/', {
       path: '/universityws',
       transports: ['websocket']
     });
+
+    socket.on('connect', () => {
+      console.log('socket connect!');
+      this.setState({
+         socketSession: socket.id,
+      });
+      const socketClient = { 
+         did: utils.getUserDid(this.state.id_token),
+         clientId: this.state.socketSession,
+      };
+       socket.emit('whoami', socketClient);
+       console.log('whoami.did: '+ socketClient.did);
+       console.log('whoami.clientId: '+ socketClient.clientId);
+    });
+
     socket.on('presentation', (msg: any) => {
       console.log("socket.on('presentation')");
       console.log(msg);

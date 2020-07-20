@@ -70,3 +70,8 @@ export interface Proof {
     credentialSubject: any
 }
 
+export interface SocketClient {
+    did: string;
+    clientId: any;
+  }
+

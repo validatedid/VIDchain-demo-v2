@@ -2,7 +2,7 @@ import { Injectable, Logger, HttpStatus, HttpException } from '@nestjs/common';
 import * as vidchainBackend from "../api/vidchainBackend";
 import { Presentation, MsgPresentationReady, CredentialData } from '../interfaces/dtos';
 import * as config from "../config";
-import { decodeJWT, strB64dec } from "../utils/Util";
+import { extractVCfromPresentation, strB64dec } from "../utils/Util";
 
 
 @Injectable()
@@ -68,14 +68,7 @@ export class PresentationsService {
     //This validation is done as an extra layer of security (May be removed)
     //This should be checked by VIDChain API (TODO) + the app should only present the kind of credential requested as an option
     async validateCredentialType(dataDecoded: any) {
-        const JSONdata = JSON.parse(JSON.stringify(dataDecoded));
-        let jwtObject = JSON.stringify(JSONdata.verifiableCredential);
-        jwtObject = jwtObject.substring(
-        jwtObject.lastIndexOf("[") + 1,
-        jwtObject.lastIndexOf("]")
-        );
-        jwtObject = jwtObject.substring(1, jwtObject.length - 1);
-        const jwt = await decodeJWT(jwtObject);
+        const jwt = extractVCfromPresentation(dataDecoded);
         const credentialType = JSON.stringify(jwt.vc.type);
         this.logger.debug("Type of credential provided:" + credentialType);
         this.logger.debug(
