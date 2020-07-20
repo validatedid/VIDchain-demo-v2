@@ -7,7 +7,7 @@ import * as io from 'socket.io-client';
 @Controller('demo/universitybackend/presentation')
 export class PresentationsController {
   private readonly logger = new Logger(PresentationsController.name);
-  // private readonly socket = io('https://b221a7a09da0.ngrok.io', {
+  // private readonly socket = io('https://62b399d34a66.ngrok.io', {
   private readonly socket = io('https://dev.api.vidchain.net', {
     path: '/universityws',
     transports: ['websocket']

@@ -20,18 +20,22 @@ export class PresentationsService {
                 token,
                 presentation
               );
-              if (validation) {
+            // TODO: Handle properly when a credential has to be provided after presentation validation
+            // TEMPORARY SOLUTION to generate LargeFamilyCredential
+            const credentialType = presentation.name.split(": Verifiable")[0];
+            this.logger.debug("Presentation serviceName: "+ credentialType);
+            if(validation && credentialType != "verifiableKYC"){
+                this.logger.debug("Presentation has just been checked. Presentation validation: done.");
+                this.logger.debug("About to generate a new credential.");
+                const response = await this.generateCredential(token, presentation);
+                this.logger.debug(response);
                 return presentation;
-              }
-              return validation;
-            // TODO: Handle when a credential has to be provided after presentation validation
-            /*if(validation){
-               const response = await this.generateCredential(token, presentation);
-               return response;
+            } else if (validation && credentialType == "verifiableKYC"){
+                this.logger.debug("Presentation has just been checked. Presentation validation: done.");
+                this.logger.debug("No need to generate a new credential.");
+                return presentation;
             }
-            else{
-                this.throwErrorMessage("Error while validation the VP");
-            }*/
+            return validation;
         }
         catch (e) {
             this.throwErrorMessage("Error while creating the VC");

@@ -34,6 +34,7 @@ interface State {
 	gender: string;
    largeFamily: boolean,
    discountRequested: boolean,
+   studentCard: boolean,
    requested: boolean,
 	socketSession: string,
    error: boolean
@@ -60,6 +61,7 @@ class Profile extends Component<Props,State> {
          gender: "",
          largeFamily: false,
          discountRequested: false,
+         studentCard: false,
          requested: false,
 			socketSession: '',
          error: false		
@@ -95,7 +97,7 @@ class Profile extends Component<Props,State> {
   }
   
   async initiateSocket(){
-   //const socket = io('https://62b399d34a66.ngrok.io/', {
+   //const socket = io('https://62b399d34a66.ngrok.io', {
    const socket = io('/', {
       path: '/universityws',
       transports: ['websocket']
@@ -125,6 +127,9 @@ class Profile extends Component<Props,State> {
   }
 
   async generateCredential(){
+      this.setState({
+         studentCard: true
+      });
       const token = await vidchain.getAuthzToken();
 
       let subject:ICredentialSubject = {
@@ -147,8 +152,8 @@ class Profile extends Component<Props,State> {
    this.setState({
       discountRequested: true
    });
-    const presentation: IPresentation = {
-		target: this.state.did,
+   const presentation: IPresentation = {
+	   target: this.state.did,
 		name: "Large Family Card",
 		type: [
 			[
@@ -181,7 +186,7 @@ class Profile extends Component<Props,State> {
 }*/
 
   render() {
-    const { did, firstName, lastName, dateOfBirth, placeOfBirth, documentNumber, documentType, nationality, largeFamily, discountRequested} = this.state;
+    const { did, firstName, lastName, dateOfBirth, placeOfBirth, documentNumber, documentType, nationality, studentCard, largeFamily, discountRequested} = this.state;
       return (
          <div>
             <HeaderLogin></HeaderLogin>
@@ -270,7 +275,13 @@ class Profile extends Component<Props,State> {
                                     <h4>Document:</h4>
                                     <p>{documentType}:&nbsp;{documentNumber}</p>
                                  </div>
+                                 {!studentCard &&
                                  <Button type="button" className="collect-button" onClick={() =>this.generateCredential()}><b>Get student card credential</b></Button>
+                                 }
+                                 <br></br>
+                                 {studentCard &&
+                                 <h2 style={{color: "#00cc00"}}> Credential generated, please check your wallet. </h2>
+                                 }
                               </form>
                               <form action="">
                               </form>

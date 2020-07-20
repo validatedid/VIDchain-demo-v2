@@ -23,7 +23,7 @@ async function getAuthzToken() {
 } 
 
 async function requestVP (token: string, presentation: RequestPresentation){
-    let authorization = {
+    const authorization = {
         headers: {
           Authorization: "Bearer " + token
         }
@@ -41,7 +41,7 @@ async function requestVP (token: string, presentation: RequestPresentation){
 }
 
 async function validateVP (token: string, presentation: VerifiablePresentation): Promise<boolean>{
-    let authorization = {
+    const authorization = {
         headers: {
           Authorization: "Bearer " + token
         }
@@ -62,7 +62,7 @@ async function validateVP (token: string, presentation: VerifiablePresentation):
 }
 
 async function retrievePresentation (token: string, url: string){
-    let authorization = {
+    const authorization = {
         headers: {
           Authorization: "Bearer " + token
         }
@@ -80,7 +80,7 @@ async function retrievePresentation (token: string, url: string){
 }
 
 async function generateVerifiableCredential(token: string, data: CredentialData){
-    let authorization = {
+    const authorization = {
         headers: {
           Authorization: "Bearer " + token
         }
