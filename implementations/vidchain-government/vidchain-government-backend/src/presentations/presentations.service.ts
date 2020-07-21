@@ -23,22 +23,33 @@ export class PresentationsService {
             token,
             presentation
           );
+        
         // Handle properly when a credential has to be provided after presentation validation
-        // TEMPORARY SOLUTION
-        const credentialType = presentation.name.split(": Verifiable")[0];
-        this.logger.debug("Presentation type: "+ credentialType);
-        if(validation && credentialType == "Login"){
+        // The solution below is not enabled. The generation of credentials is not needed.
+        /**
+          const credentialType = presentation.name.split(": Verifiable")[0];
+          this.logger.debug("Presentation type: "+ credentialType);
+          if(validation && credentialType == "Login"){
+            this.logger.debug("Presentation has just been checked. Presentation validation: done.");
+            this.logger.debug("No need to generate a new credential.");
+            return presentation;
+          } else if (validation && credentialType != "Login"){
+            this.logger.debug("Presentation has just been checked. Presentation validation: done.");
+            this.logger.debug("About to generate a new credential.");
+            const response = await this.generateCredential(token, presentation);
+            this.logger.debug("generateCredential response: "+ response);
+            return presentation;
+          }
+          return validation; 
+         */
+        if(validation){
           this.logger.debug("Presentation has just been checked. Presentation validation: done.");
           this.logger.debug("No need to generate a new credential.");
           return presentation;
-        } else if (validation && credentialType == "Login"){
-          this.logger.debug("Presentation has just been checked. Presentation validation: done.");
-          this.logger.debug("About to generate a new credential.");
-          const response = await this.generateCredential(token, presentation);
-          this.logger.debug("generateCredential response: "+ response);
-          return presentation;
         }
-        return validation;
+        else{
+            this.throwErrorMessage("Error while validation the VP");
+        }
     }
     catch (e) {
         this.throwErrorMessage("Error while creating the VC");
