@@ -35,6 +35,7 @@ interface State {
 	city: string; 
 	state: string;
 	zip: string;
+	fakeLogin: boolean;
 }
 
 class Profile extends Component<Props,State> {
@@ -59,37 +60,76 @@ class Profile extends Component<Props,State> {
 			city: "",
 			state: "",
 			zip: "",
-			hasVerifiableId: false,		
+			hasVerifiableId: false,
+			fakeLogin: false		
 		}
 	}
   
-componentDidMount(){
-	this.setState ({
-		did: utils.getUserDid(this.props.location.state.id_token) || "Not provided",
-		firstName: this.props.location.state.verifiableKYC.name || "Not provided",
-		lastName: this.props.location.state.verifiableKYC.surname || "Not provided",
-		dateOfBirth: this.props.location.state.verifiableKYC.dateOfBirth || "Not provided",
-		placeOfBirth: this.props.location.state.verifiableKYC.placeOfBirth || "Not provided",
-		documentNumber: this.props.location.state.verifiableKYC.documentNumber || "Not provided",
-		documentType: this.props.location.state.verifiableKYC.documentType || "Not provided",
-		nationality: this.props.location.state.verifiableKYC.nationality || "Not provided",
-		stateIssuer: this.props.location.state.verifiableKYC.stateIssuer || "Not provided",
-		dateOfExpiry: this.props.location.state.verifiableKYC.dateOfExpiry || "Not provided",
-		gender: this.props.location.state.verifiableKYC.sex || "Not provided",
-		currentAddress: "Not provided", 
-		city: "Your City",
-		state: "Your State",
-		zip: "88888",
-	});
-
-	var client = OpenIDClient.getInstance().getClient();
+  componentDidMount(){
+    if(localStorage.getItem('userPass')){
+      this.setState ({
+        did: "Not yet provided",
+        firstName: sessionStorage.getItem('firstName') || "Not provided",
+        lastName: sessionStorage.getItem('lastName') || "Not provided",
+        dateOfBirth: sessionStorage.getItem('dateOfBirth') || "Not provided",
+        placeOfBirth: sessionStorage.getItem('placeOfBirth') || "Not provided",
+        documentNumber: sessionStorage.getItem('documentNumber') || "Not provided",
+        documentType: sessionStorage.getItem('documentType') || "Not provided",
+        nationality: sessionStorage.getItem('nationality') || "Not provided",
+        stateIssuer: sessionStorage.getItem('stateIssuer') || "Not provided",
+        dateOfExpiry: sessionStorage.getItem('dateOfExpiry') || "Not provided",
+        gender: sessionStorage.getItem('gender') || "Not provided",
+        currentAddress: "Arago 179", 
+        city: "Barcelona",
+        state: "Barcelona",
+        zip: "08011",
+        fakeLogin: true
+      });
+    }else{
+      this.setState({
+        hasVerifiableId : true,
+        did: utils.getUserDid(this.props.location.state.id_token) || "Not provided",
+        firstName: this.props.location.state.verifiableKYC.name || "Not provided",
+        lastName: this.props.location.state.verifiableKYC.surname || "Not provided",
+        dateOfBirth: this.props.location.state.verifiableKYC.dateOfBirth || "Not provided",
+        placeOfBirth: this.props.location.state.verifiableKYC.placeOfBirth || "Not provided",
+        documentNumber: this.props.location.state.verifiableKYC.documentNumber || "Not provided",
+        documentType: this.props.location.state.verifiableKYC.documentType || "Not provided",
+        nationality: this.props.location.state.verifiableKYC.nationality || "Not provided",
+        stateIssuer: this.props.location.state.verifiableKYC.stateIssuer || "Not provided",
+        dateOfExpiry: this.props.location.state.verifiableKYC.dateOfExpiry || "Not provided",
+        gender: this.props.location.state.verifiableKYC.sex || "Not provided",
+        currentAddress: "Arago 179", 
+        city: "Barcelona",
+        state: "Barcelona",
+        zip: "08011",
+      });
+    }
+    if(this.state.did!==""){
+      this.setState({
+				hasVerifiableId: true
+			});
+    }
+	  var client = OpenIDClient.getInstance().getClient();
     client.wipeTokens()
+  }
+
+  async loginWithVIDChain(){
+    var client = OpenIDClient.getInstance().getClient();
+    await client.callback();
+    await client.getToken({
+			scopes: {
+				request: ["openid", "offline"],
+				require: ["openid", "offline"]
+      }
+    });
   }
 
   async generateCredential(type:string){
 	const token = await vidchain.getAuthzToken();
 	switch(type) { 
-		case "verifiableId" : { 
+    // Currently not used
+		/*case "verifiableId" : { 
 			let credentialSubject:ICredentialData = {
 				id: this.state.did,
 				firstName: this.state.firstName,
@@ -102,17 +142,11 @@ componentDidMount(){
 				city: this.state.city, 
 				state: this.state.state, 
 				zip: this.state.zip,
-				
 			};
-			//TODO move this operation to backend
 			const response = await vidchain.generateVerifiableID(token, credentialSubject);
 			console.log(response);
-			this.setState({
-				hasVerifiableId: true
-			});
-			sessionStorage.setItem('hasVerifiableId', 'true');
 		  break; 
-		} 
+		} */
 		case "largeFamily" : { 
 			const credential: CredentialData = {
 				type: ["VerifiableCredential", "LargeFamilyCard"],
@@ -122,7 +156,8 @@ componentDidMount(){
 					"id": this.state.did,
 					"name": "Large Family Card"
 				}
-			}
+      }
+      //TODO move this operation to backend
 			const response = await vidchain.generateVerifiableCredential(token, credential);
 			console.log(response);
 			this.setState({
@@ -140,7 +175,6 @@ componentDidMount(){
 	}
   }
 
-
 // Services page is no longer used
 /* async goToServices(){  
 	sessionStorage.setItem('did', utils.getUserDid(this.props.location.state.id_token));
@@ -152,7 +186,7 @@ componentDidMount(){
   } */
 
   render() {
-	const { did, firstName, lastName, dateOfBirth, documentNumber, documentType, nationality, stateIssuer, dateOfExpiry, largeFamily, hasVerifiableId} = this.state;
+	const { did, firstName, lastName, dateOfBirth, documentNumber, documentType, nationality, stateIssuer, dateOfExpiry, largeFamily, hasVerifiableId, fakeLogin } = this.state;
 		return (
 				<div>
 					<Official></Official>
@@ -201,8 +235,8 @@ componentDidMount(){
 									<h4>Date of expiry: </h4>
 									<p className= "welcome">&nbsp;{dateOfExpiry}</p>
 								</div>
-								{!hasVerifiableId &&
-								<Button type="button" className="collect-button" onClick={() =>this.generateCredential("verifiableId")}>Get official government ID</Button>
+								{!hasVerifiableId && fakeLogin &&
+								<Button type="button" className="collect-button" onClick={() =>this.loginWithVIDChain()}>Get official government ID</Button>
 								}
 								</form>
 							</div>
@@ -210,7 +244,7 @@ componentDidMount(){
 							<div className="services">
 								<div className="service">
 								<br/>
-								<h5 className="eID-text"><b>Now that you have your Verifiable ID, you are ready to request your Large Family credential.</b></h5>
+								<h5 className="eID-text"><b>Request your Large Family credential.</b></h5>
 								<br></br>
 								<h5 className="eID-text"><i>You can use it wherever you go: Public Service Providers, Universities, Schools,...</i></h5>
 									<button className="custom-button" onClick={() => this.generateCredential("largeFamily")}>

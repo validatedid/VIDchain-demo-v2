@@ -3,9 +3,8 @@ import './Home.css';
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Official from '../../components/Official/Official';
-import {ICredentialData} from "../../interfaces/dtos";
 import { OpenIDClient } from '../../libs/openid-connect/client';
-import { Form, Button, Toast } from 'react-bootstrap';
+import { Form, Button } from 'react-bootstrap';
 // @ts-ignore
 
 interface Props {
@@ -32,7 +31,9 @@ class Home extends Component<Props, State> {
   componentDidMount(){
     //Wipe the tokens the library kept in the local Storage
     var client = OpenIDClient.getInstance().getClient();
-    client.wipeTokens()
+    client.wipeTokens();
+    localStorage.clear();
+    sessionStorage.clear();
   }
 
   async loginWithVIDChain(){
@@ -46,97 +47,32 @@ class Home extends Component<Props, State> {
     });
   }
 
-  async login(){  // Currently disabled
-  /*  
+  async login(){ 
 		this.props.history.push(
 			{
         pathname: '/profile',
-        state: { user: JSON.stringify(user) }
 			}
       ); 
-  */
   }
 
-  async loadFakeUser(){ // Currently disabled
-    /*
-    switch(this.state.name.toLowerCase()) { 
-      case "santi" : { 
-        this.state.user.firstName = "Santi";
-        this.state.user.lastName = "Casas";
-        this.state.user.dateOfBirth = "01/01/1990";
-        this.state.user.placeOfBirth = "Barcelona";
-        this.state.user.currentAddress = "C/Arago 179";
-        this.state.user.city ="Barcelona";
-        this.state.user.state = "Barcelona";
-        this.state.user.zip = "08011";
-        this.state.user.gender = "Male";
-        var loaded = true;
-        break; 
-      } 
-      case "ivan" : { 
-        this.state.user.firstName = "Ivan";
-        this.state.user.lastName = "Basart";
-        this.state.user.dateOfBirth = "01/01/1990";
-        this.state.user.placeOfBirth = "Barcelona";
-        this.state.user.currentAddress = "C/Arago 179";
-        this.state.user.city ="Barcelona";
-        this.state.user.state = "Barcelona";
-        this.state.user.zip = "08011";
-        this.state.user.gender = "Male";
-        var loaded = true;
-        break; 
-      } 
-      case "xavi" : { 
-        this.state.user.firstName = "Xavi";
-        this.state.user.lastName = "Vila";
-        this.state.user.dateOfBirth = "01/01/1990";
-        this.state.user.placeOfBirth = "Barcelona";
-        this.state.user.currentAddress = "C/Arago 179";
-        this.state.user.city ="Barcelona";
-        this.state.user.state = "Barcelona";
-        this.state.user.zip = "08011";
-        this.state.user.gender = "Male";
-        var loaded = true;
-        break; 
-      } 
-      case "albert" : { 
-        this.state.user.firstName = "Albert";
-        this.state.user.lastName = "Solana";
-        this.state.user.dateOfBirth = "01/01/1990";
-        this.state.user.placeOfBirth = "Barcelona";
-        this.state.user.currentAddress = "C/Arago 179";
-        this.state.user.city ="Barcelona";
-        this.state.user.state = "Barcelona";
-        this.state.user.zip = "08011";
-        this.state.user.gender = "Male";
-        var loaded = true;
-        break; 
-      } 
-      default: { 
-        var loaded = false;
-        this.setState ({
-          error: true
-        })
-         break; 
-      } 
-   }
-   if (loaded){
-    sessionStorage.setItem('id', this.state.user.id);
-    sessionStorage.setItem('firstName', this.state.user.firstName);
-    sessionStorage.setItem('lastName', this.state.user.lastName);
-    sessionStorage.setItem('dateOfBirth', this.state.user.dateOfBirth);
-    sessionStorage.setItem('placeOfBirth', this.state.user.placeOfBirth);
-    sessionStorage.setItem('currentAddress', this.state.user.currentAddress);
-    sessionStorage.setItem('city', this.state.user.city);
-    sessionStorage.setItem('state', this.state.user.state);
-    sessionStorage.setItem('zip', this.state.user.zip);
-    sessionStorage.setItem('gender', this.state.user.gender);
-    this.login();
-   }*/
+  async loadFakeUser(){ 
+    if(this.state.name.toLowerCase()==="santi"){
+      localStorage.setItem('userPass', 'true');
+      sessionStorage.setItem('firstName', 'Santi');
+      sessionStorage.setItem('lastName', 'Casas');
+      sessionStorage.setItem('dateOfBirth', '01/01/1990');
+      sessionStorage.setItem('placeOfBirth', 'Barcelona');
+      sessionStorage.setItem('documentNumber', 'BAB188000');
+      sessionStorage.setItem('documentType', 'Carnet de Identidad');
+      sessionStorage.setItem('nationality', 'ESP');
+      sessionStorage.setItem('stateIssuer', 'ESP');
+      sessionStorage.setItem('dateOfExpiry', '10/10/2020');
+      sessionStorage.setItem('gender', 'Male');
+      this.login();
+    }
 } 
 
   render() {
-    const { error} = this.state;  
     return (
           <div>
             <Official></Official>

@@ -18,7 +18,21 @@ async function storeUser(user: ICredentialData){
 async function claimVP(target: string){
     const presentation: Presentation = {
         target: target,
-        name: "verifiableKYC",
+        name: "VerifiableKYC",
+        type: [
+            [
+                "VerifiableCredential",
+                "VidKycCredential"
+            ]
+        ],
+    }
+    return postRequest(`${config.BACKEND_URL}/presentation/request`, presentation);
+}
+
+async function claimLoginVP(target: string){
+    const presentation: Presentation = {
+        target: target,
+        name: "Login",
         type: [
             [
                 "VerifiableCredential",
@@ -57,4 +71,4 @@ async function postRequest(endpoint: string, body: any){
 }
 
 
-export { getUser, storeUser, claimVP, getRequest, postRequest };
+export { getUser, storeUser, claimVP, claimLoginVP, getRequest, postRequest };

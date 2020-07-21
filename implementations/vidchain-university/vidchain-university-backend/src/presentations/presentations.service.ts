@@ -21,7 +21,7 @@ export class PresentationsService {
                 presentation
               );
             // TODO: Handle properly when a credential has to be provided after presentation validation
-            // TEMPORARY SOLUTION to generate LargeFamilyCredential
+            // TEMPORARY SOLUTION
             const credentialType = presentation.name.split(": Verifiable")[0];
             this.logger.debug("Presentation serviceName: "+ credentialType);
             if(validation && credentialType != "verifiableKYC"){

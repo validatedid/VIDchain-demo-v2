@@ -24,8 +24,8 @@ interface State {
 	id_token: string,
 	expires: number,
 	verifiableKYC: verifiableKYC,
-	requested: boolean,
 	socketSession: string,
+	showCallback: boolean,
 	error: boolean
 }
 
@@ -39,8 +39,8 @@ class Callback extends Component<Props,State> {
 			id_token: '',
 			expires: 0,
 			verifiableKYC: {} as verifiableKYC,
-			requested: false,
 			socketSession: '',
+			showCallback: false,
 			error: false,
 		}	
 	}
@@ -69,17 +69,38 @@ class Callback extends Component<Props,State> {
 				expires: token.expires,
 			});
 		}
-		if(!this.state.requested){
+		if(localStorage.getItem('userPass')){
+			localStorage.clear();
 			this.setState({
-				requested: true,
-			});
+				verifiableKYC: {
+					id: utils.getUserDid(this.state.id_token),
+					documentNumber: sessionStorage.getItem('documentNumber') || "Not provided",
+					documentType: sessionStorage.getItem('documentType') || "Not provided",
+					name: sessionStorage.getItem('firstName') || "Not provided",
+					surname: sessionStorage.getItem('lastName') || "Not provided",
+					fullName: sessionStorage.getItem('fullName') || "Not provided", 
+					nationality: sessionStorage.getItem('nationality') || "Not provided",
+					stateIssuer: sessionStorage.getItem('stateIssuer') || "Not provided",
+					issuingAuthority: sessionStorage.getItem('issuingAuthority') || "Not provided",
+					dateOfExpiry: sessionStorage.getItem('dateOfExpiry') || "Not provided",
+					dateOfBirth: sessionStorage.getItem('dateOfBirth') || "Not provided",
+					placeOfBirth: sessionStorage.getItem('placeOfBirth') || "Not provided",
+					sex: sessionStorage.getItem('gender') || "Not provided",
+					personalNumber: sessionStorage.getItem('personalNumber') || "Not provided",
+					}	
+				})
+			this.goToProfile();
+		}else{
+			this.setState({
+				showCallback: true
+			})
 			this.initiateSocket();
-			governmentBackend.claimVP(utils.getUserDid(this.state.id_token));
+			governmentBackend.claimLoginVP(utils.getUserDid(this.state.id_token));
 		}
 	}
 
 	async initiateSocket(){
-		// const socket = io('http://340007ae7ac7.ngrok.io'
+		// const socket = io('http://e82af5e6eb66.ngrok.io', {
 		const socket = io('/', {
 		  path: '/governmentws',
 		  transports: ['websocket']
@@ -145,30 +166,43 @@ class Callback extends Component<Props,State> {
 	}
 
   render() {
-	const {access_token, error} = this.state;
+	const {access_token, error, showCallback} = this.state;
     if (access_token != null && !error) {
 			return (<div>
 						<Official></Official>
 						<Header></Header>
 							<div className= "content">
-								<div className="wrapper">
+								{showCallback &&
+									<div className="wrapper">
 									<br></br>
 									<br></br>
 									<br></br>
 									<br></br>
-									<h2>We have sent you a request to your wallet,</h2> 
-									<h2>please provide your Verifiable ID.</h2>
+									<h2>We have sent you a request to your wallet,</h2>
+									<h2>please provide your Verifiable ID.</h2> 
 									<br></br>
-									<p>Waiting to receive your credential...</p>	
+									<p>Waiting to receive your credential...</p>
 									<br></br>
 									<div className="spinnerContainer">
 									<Ring color="red" />
 									</div>		
-								</div>
+									</div>
+								}
+								{!showCallback &&
+									<div className="wrapper">
+									<br></br>
+									<br></br>
+									<br></br>
+									<br></br>
+									<div className="spinnerContainer">
+									<Ring color="red" />
+									</div>		
+									</div>
+								}
 							</div>
 							<div className="footer">
 						<Footer></Footer>
-						</div>
+						</div>	
 					</div>);
 		} else {
 			return (<Redirect to='/'/>);

@@ -14,37 +14,36 @@ export class PresentationsService {
   private credentialTypeRequested;
 
   async handlePresentation(body: MsgPresentationReady): Promise<any> {
-    try {
-      this.logger.debug("Presentation ready");
-      const token = await vidchainBackend.getAuthzToken();
-      const presentation: Presentation = await vidchainBackend.retrievePresentation(
-        token,
-        body.url
-      );
-      this.logger.debug(
-        "Presentation retrieved: " + JSON.stringify(presentation)
-      );
-
-      const validation: boolean = await this.validatePresentation(
-        token,
-        presentation
-      );
-      if (validation) {
-        return presentation;
-      }
-      return validation;
-      //The generation of a credential is not necessary in this scenario
-      /*if(validation){
-               const response = await this.generateCredential(token, presentation);
-               return response;
-            }
-            else{
-                this.throwErrorMessage("Error while validation the VP");
-            }*/
-    } catch (e) {
-      this.throwErrorMessage("Error while creating the VC");
+    try{
+        this.logger.debug("Presentation ready");
+        const token = await vidchainBackend.getAuthzToken();
+        const presentation: Presentation = await vidchainBackend.retrievePresentation(token, body.url);
+        this.logger.debug("Presentation retrieved: "+ JSON.stringify(presentation));
+        const validation: boolean = await this.validatePresentation(
+            token,
+            presentation
+          );
+        // Handle properly when a credential has to be provided after presentation validation
+        // TEMPORARY SOLUTION
+        const credentialType = presentation.name.split(": Verifiable")[0];
+        this.logger.debug("Presentation type: "+ credentialType);
+        if(validation && credentialType == "Login"){
+          this.logger.debug("Presentation has just been checked. Presentation validation: done.");
+          this.logger.debug("No need to generate a new credential.");
+          return presentation;
+        } else if (validation && credentialType == "Login"){
+          this.logger.debug("Presentation has just been checked. Presentation validation: done.");
+          this.logger.debug("About to generate a new credential.");
+          const response = await this.generateCredential(token, presentation);
+          this.logger.debug("generateCredential response: "+ response);
+          return presentation;
+        }
+        return validation;
     }
-  }
+    catch (e) {
+        this.throwErrorMessage("Error while creating the VC");
+    }
+}
 
   async handleRequest(body: MsgPresentationReady): Promise<any> {
     this.logger.debug("handling vp request...");
