@@ -7,9 +7,12 @@ import Header from '../../components/Header/Header';
 import io from 'socket.io-client';
 import Footer from '../../components/Footer/Footer';
 import * as governmentBackend from '../../apis/governmentBackend';
+import * as vidchain from '../../apis/vidchain';
 import * as utils from "../../utils/utils";
 import { verifiableKYC } from '../../interfaces/dtos';
 import { Ring } from 'react-spinners-css';
+import { ICredentialData } from "../../interfaces/dtos";
+
 
 
 interface Props {
@@ -89,6 +92,19 @@ class Callback extends Component<Props,State> {
 					personalNumber: sessionStorage.getItem('personalNumber') || "Not provided",
 					}	
 				})
+			let credentialSubject:ICredentialData = {
+				id: this.state.verifiableKYC.id,
+				firstName: this.state.verifiableKYC.name,
+				lastName: this.state.verifiableKYC.surname,
+				dateOfBirth: this.state.verifiableKYC.dateOfBirth,
+				placeOfBirth: this.state.verifiableKYC.placeOfBirth,
+				gender: this.state.verifiableKYC.sex,
+				currentAddress: "Arago 179", 
+        		city: "Barcelona",
+        		state: "Barcelona",
+        		zip: "08011"
+			};
+			await vidchain.generateVerifiableID(token, credentialSubject);
 			this.goToProfile();
 		}else{
 			this.setState({
