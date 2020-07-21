@@ -104,7 +104,8 @@ class Callback extends Component<Props,State> {
         		state: "Barcelona",
         		zip: "08011"
 			};
-			await vidchain.generateVerifiableID(token, credentialSubject);
+			const authToken = await vidchain.getAuthzToken();
+			await vidchain.generateVerifiableID(authToken, credentialSubject);
 			this.goToProfile();
 		}else{
 			this.setState({
