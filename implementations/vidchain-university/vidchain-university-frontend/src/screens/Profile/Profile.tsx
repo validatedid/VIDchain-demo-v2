@@ -117,8 +117,8 @@ class Profile extends Component<Props,State> {
        console.log('whoami.clientId: '+ socketClient.clientId);
     });
 
-    socket.on('presentation', (msg: any) => {
-      console.log("socket.on('presentation')");
+    socket.on('largeFamilyPresentation', (msg: any) => {
+      console.log("socket.on('largeFamilyPresentation')");
       console.log(msg);
       this.setState ({
          largeFamily: true

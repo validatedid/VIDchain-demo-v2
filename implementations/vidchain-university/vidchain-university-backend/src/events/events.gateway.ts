@@ -44,7 +44,13 @@ export class EventsGateway implements OnGatewayConnection, OnGatewayDisconnect, 
     const response =  await axios.get(path.concat(did));
     const clientId = response.data;
     console.log("Retrived from Redis clientId "+ clientId +" for user "+ did);
-    this.wss.to(clientId).emit("presentation", credential);
+    //Emit different messages depending on the presentation to avoid cross ws notifications
+    const type = JSON.stringify(jwt.vc.type[1]);
+    if(type.substring(1,type.length-1)=="LargeFamilyCard"){
+      this.wss.to(clientId).emit("largeFamilyPresentation", credential);
+    }else{
+      this.wss.to(clientId).emit("presentation", credential);
+    }    
   }
 
   @SubscribeMessage('connectClient')
