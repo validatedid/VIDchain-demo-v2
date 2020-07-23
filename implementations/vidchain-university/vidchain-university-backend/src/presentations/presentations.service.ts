@@ -103,7 +103,7 @@ export class PresentationsService {
             id: "https://example.com/credential/2390",
             credentialSubject: {
                 "id": userDID,
-                "name": serviceName.replace(": Verifiable",""),
+                "degree": serviceName.replace(": Verifiable",""),
                 "university": "University of Barcelona - Computer Science Department",
             }
         }
