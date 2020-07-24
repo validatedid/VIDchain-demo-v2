@@ -195,7 +195,7 @@ class Profile extends Component<Props,State> {
                   <div className="container">
                      <div className="row">
                         <div className="col-lg-12">
-                           <h2 className="pageTitle">Student's Portal</h2>
+                           <h2 className="pageTitle">Your Student Portal</h2>
                         </div>
                      </div>
                   </div>
@@ -205,46 +205,46 @@ class Profile extends Component<Props,State> {
                      <div className="row">
                         <div className="col-md-12">
                            <div className="about-logo">
-                              <h3>Welcome to the Student's Portal</h3>
+                              <h3>Welcome to your Student Portal</h3>
                               <p>Here you can check your profile details and manage your activity within the university.</p>
                            </div>
-                        </div>
-                     </div>
-                     <div className="wrapper">
-                        <div className="inner">
-                           <div className="image-holder">
-                              <img className="imageSoftware" src={require("../../assets/images/software_engineer.png")} alt=""/>
-                           </div>
-                           <form action="">
-                              <div className="form-row">
-                                 <h4><b>Enroled courses</b></h4>
-                              </div>
-                              <br/>
-                              <div className="form-row">
-                                 <h4>Name</h4>
-                                 <p>Bachelor's in Software Engineering</p>
-                              </div>
-                              <br></br>
-                              <div className="form-row">
-                                 <h4>Description</h4>
-                                 <p>The bachelor’s degree in Software Engineering provides the knowledge needed to conceive, design, develop, maintain and manage computer systems, services, applications and architectures and to understand and apply relevant legislation. You will also become an expert in new methods and technologies in the field of ICTs. </p>
-                              </div>
-                              <br/>
-                              <div className="form-row">
-                                 <h4>Institution</h4>
-                                 <p>University of Barcelona - Computer Science Department</p>
-                              </div>
-                              <br/>
-                           </form>
-                           <form action="">
-                           </form>
                         </div>
                      </div>
                      <div className="row">
                         <div className="wrapper">
                            <div className="inner">
                               <div className="image-holder">
-                                 <img className="imageSoftware" src={require("../../assets/images/studentlogo.png")} alt=""/>
+                                 <img className="imageSoftware" src={require("../../assets/images/software_engineer.png")} alt=""/>
+                              </div>
+                              <form action="">
+                                 <div className="form-row">
+                                    <h4><b>Enroled courses</b></h4>
+                                 </div>
+                                 <br/>
+                                 <div className="form-row">
+                                    <h4>Name</h4>
+                                    <p>Bachelor's in Software Engineering</p>
+                                 </div>
+                                 <br></br>
+                                 <div className="form-row">
+                                    <h4>Description</h4>
+                                    <p>The bachelor’s degree in Software Engineering provides the knowledge needed to conceive, design, develop, maintain and manage computer systems, services, applications and architectures and to understand and apply relevant legislation. You will also become an expert in new methods and technologies in the field of ICTs. </p>
+                                 </div>
+                                 <br/>
+                                 <div className="form-row">
+                                    <h4>Institution</h4>
+                                    <p>University of Barcelona - Computer Science Department</p>
+                                 </div>
+                              </form>
+                           </div>
+                        </div>
+                     </div>
+                     <div className="row"></div>
+                     <div className="row">
+                        <div className="wrapper">
+                           <div className="inner">
+                              <div className="image-holder">
+                                 <img className="imageStudent" src={require("../../assets/images/studentlogo.png")} alt=""/>
                               </div>
                               <form action="">
                                  <div className="form-row">
@@ -283,46 +283,46 @@ class Profile extends Component<Props,State> {
                                  <h2 style={{color: "#00cc00"}}> Credential generated, please check your wallet. </h2>
                                  }
                               </form>
-                              <form action="">
-                              </form>
-                           </div>
-                        </div>
-                        <div className="wrapper">
-                           <div className="inner">
-                              <div className="image-holder">
-                                 <img className="imageSoftware" src={require("../../assets/images/familiar.svg")} alt=""/>
-                              </div>
-                              <form action="">
-                                 <div className="form-row">
-                                    <h4><b>Large family? Get a discount on your student fee!</b></h4>
-                                 </div>
-                                 <br/>
-                                 <div className="form-row">
-                                    <h4>Description</h4>
-                                    <p>Our university is commited to provide opportunities to everyone. Therefore, this university is eager to support Large Families and for that reason, all the students who are titled Large Family will have a 25% discount in student's fees. Do not miss the opportunity to present your credentials before finishing the course. </p>
-                                 </div>
-                                 <br/>
-                                 <div className="form-row">
-                                    <h4>Requirements</h4>
-                                    <p>In order to get this discount in your students fees, you will have to prove you are in a Large Family. </p>
-                                    <p><b>Present your Large Family Card Credential</b> issued by your city council.</p>
-                                 </div>
-                                 <br/>
-                                 {!largeFamily && !discountRequested &&
-                                    <Button type="button" className="collect-button" onClick={() =>this.claimVP()}><b>Apply for a discount</b></Button>
-                                 }
-                                 {!largeFamily && discountRequested &&
-                                 <h3 style={{color: "#EA7960"}}> Pending to receive Large Family Credential... </h3>
-                                 }
-                                 {largeFamily &&
-                                 <h2 style={{color: "#00cc00"}}> Accepted request. Discount applied. </h2>
-                                 }
-                              </form>
-                              <form action="">
-                              </form>
                            </div>
                         </div>
                      </div>
+                     <div className="row"></div>
+                     <div className="row">
+                        <div className="wrapper">
+                           <div className="inner">
+                              <div className="image-holder">
+                                 <img className="imageFamily" src={require("../../assets/images/familiar.svg")} alt=""/>
+                              </div>
+                              <form action="">
+                                    <div className="form-row">
+                                       <h4><b>Large family? Get a discount on your student fee!</b></h4>
+                                    </div>
+                                    <br/>
+                                    <div className="form-row">
+                                       <h4>Description</h4>
+                                       <p>Our university is commited to provide opportunities to everyone. Therefore, this university is eager to support Large Families and for that reason, all the students who are titled Large Family will have a 25% discount in student's fees. Do not miss the opportunity to present your credentials before finishing the course. </p>
+                                    </div>
+                                    <br/>
+                                    <div className="form-row">
+                                       <h4>Requirements</h4>
+                                       <p>In order to get this discount in your students fees, you will have to prove you are in a Large Family. </p>
+                                       <p><b>Present your Large Family Card Credential</b> issued by your city council.</p>
+                                    </div>
+                                    <br/>
+                                    <br></br>
+                                    {!largeFamily && !discountRequested &&
+                                       <Button type="button" className="collect-button" onClick={() =>this.claimVP()}><b>Apply for a discount</b></Button>
+                                    }
+                                    {!largeFamily && discountRequested &&
+                                    <h3 style={{color: "#ef801a"}}> Pending to receive Large Family Credential... </h3>
+                                    }
+                                    {largeFamily &&
+                                    <h2 style={{color: "#00cc00"}}> Accepted request. Discount applied. </h2>
+                                    }
+                              </form>
+                           </div>
+                        </div>
+                     </div>             
                   </div>
                </section>
             </div>

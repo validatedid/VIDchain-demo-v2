@@ -17,7 +17,7 @@ class Header extends Component {
                               <span className="icon-bar"></span>
                               <span className="icon-bar"></span>
                           </button>
-                          <a className="navbar-brand" href="/demo/university/"><img src={require("../../assets/images/logo.png")} alt="logo"/>University of Barcelona</a>
+                          <a className="navbar-brand" href="/demo/university/"><img src={require("../../assets/images/logo.png")} alt="logo"/>&nbsp;&nbsp;University of Barcelona</a>
                       </div>
                       <div className="navbar-collapse collapse ">
                           <ul className="nav navbar-nav">
@@ -33,8 +33,6 @@ class Header extends Component {
                           </li> 
                               <li><a href="#">Courses</a></li>
                               <li><a href="#">Student Portal</a></li>
-                              <li><a href="#">Fees</a></li>
-                              <li><a href="#">Contact</a></li>
                           </ul>
                       </div>
                   </div>

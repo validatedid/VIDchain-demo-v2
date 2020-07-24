@@ -23,7 +23,7 @@ class Banner extends Component {
                       <img src={require("../../assets/images/slides/2.jpg")} alt="" />
                       <div className="flex-caption">
                           <h3>Learn to be Sucessful</h3> 
-                <p>Shaping the future.</p> 
+                <p>Shaping the future</p> 
                 
                       </div>
                     </li>
