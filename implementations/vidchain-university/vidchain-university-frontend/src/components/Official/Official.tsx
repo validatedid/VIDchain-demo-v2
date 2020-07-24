@@ -14,7 +14,7 @@ class Official extends Component {
                 aria-expanded="false" aria-controls="trust-seal-content">
                   <img src='https://webapps1.chicago.gov/cdn/chiwds/0.9.1/img/safari-pinned-tab.svg' className='trust-seal-flag' title='Flag' />
                   <div>
-                    <span>This is not an official website of the City of Barcelona</span>
+                    <span>This is not an official website of any Government</span>
                     <button className="what trust-seal-action" title='Here’s how you know' 
                         data-target="#trust-seal-content" 
                         data-toggle="collapse" 
@@ -32,7 +32,7 @@ class Official extends Component {
                   <img className="mr-3 trust-seal-icon" src="https://webapps1.chicago.gov/cdn/chiwds/0.9.1/img/icon-dot-gov.svg" alt="Generic placeholder image" />
                   <div className="media-body">
                     <h5 className="mt-0">Demo.</h5>
-                    This is Municipal government website to demo the generation of a Membership credential.
+                    This is government website to demo the generation of a Membership credential.
                   </div>
               </div>
             </div>
@@ -41,7 +41,7 @@ class Official extends Component {
                   <img className="mr-3 trust-seal-icon" src="https://webapps1.chicago.gov/cdn/chiwds/0.9.1/img/icon-https.svg" alt="Generic placeholder image" />
                   <div className="media-body">
                     <h5 className="mt-0">Mobile App</h5>
-                    Download the app from https://demo.vidchain.net/home and start the flow.
+                    Contact ValidatedID to get access to VIDChain wallet app and start the flow.
                   </div>
               </div>						
             </div>					
