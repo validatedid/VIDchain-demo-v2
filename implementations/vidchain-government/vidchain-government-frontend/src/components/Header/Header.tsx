@@ -14,7 +14,7 @@ class Header extends Component {
             <em className="cds-logo-text">
               <a href="/demo/government" title="Home">
                 <img src={require("../../assets/images/logoCity.png")} alt="Logo of the City"/>
-                <h1 className="cds-header-title">&nbsp;&nbsp;&nbsp;Government of Freedonia Website</h1>
+                <h1 className="cds-header-title">&nbsp;&nbsp;&nbsp;Government of Freedonia</h1>
               </a>
             </em>
           </div>
