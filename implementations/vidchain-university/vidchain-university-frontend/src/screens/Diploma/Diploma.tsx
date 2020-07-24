@@ -83,7 +83,7 @@ class Diploma extends Component<Props,State> {
 
     let subject:ICredentialSubject = {
       id: this.state.did,
-      university: "University of Barcelona - Computer Science Department",
+      university: "ACME University - Computer Science Department",
       degree: degreeName,
     };
 
@@ -167,7 +167,7 @@ class Diploma extends Component<Props,State> {
                            <br/>
                            <div className="form-row">
                               <h4>Issuer</h4>
-                              <p>University of Barcelona - Computer Science Department</p>
+                              <p>ACME University - Computer Science Department</p>
                            </div>
                            <br/>
                            <div className="form-row">

@@ -104,7 +104,7 @@ class Services extends Component<Props,State> {
 							<br></br>
 							<br></br>
 							<br></br>
-							<h5 className="eID-text">Get your Bicing card and start using the bicycle sharing system of Your City. </h5>
+							<h5 className="eID-text">Get your Bicing card and start using the bicycle sharing system of Government of Freedonia. </h5>
 							<br></br>
 							<h5 className="eID-text"><i>Remember you have to provide a presentation of your verifiable credential in order to use this service.</i></h5>
 							<br></br>

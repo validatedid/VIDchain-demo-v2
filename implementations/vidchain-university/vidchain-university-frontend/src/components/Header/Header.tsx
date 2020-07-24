@@ -17,7 +17,7 @@ class Header extends Component {
                               <span className="icon-bar"></span>
                               <span className="icon-bar"></span>
                           </button>
-                          <a className="navbar-brand" href="/demo/university/"><img src={require("../../assets/images/logo.png")} alt="logo"/>&nbsp;&nbsp;University of Barcelona</a>
+                          <a className="navbar-brand" href="/demo/university/"><img src={require("../../assets/images/logo.png")} alt="logo"/>&nbsp;&nbsp;ACME University</a>
                       </div>
                       <div className="navbar-collapse collapse ">
                           <ul className="nav navbar-nav">

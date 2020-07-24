@@ -79,7 +79,7 @@ class Home extends Component<Props, State> {
             <Header></Header>
             <div className="content">
               <div className="login_form">
-                <h4 className="mt-0">Access your city services</h4>
+                <h4 className="mt-0">Access services</h4>
                 <br />
                 <p>
                   You can manage all the city services from this website: subscriptions,

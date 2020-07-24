@@ -104,7 +104,7 @@ export class PresentationsService {
             credentialSubject: {
                 "id": userDID,
                 "degree": serviceName.replace(": Verifiable",""),
-                "university": "University of Barcelona - Computer Science Department",
+                "university": "ACME University - Computer Science Department",
             }
         }
         const response = await vidchainBackend.generateVerifiableCredential(token, credential);

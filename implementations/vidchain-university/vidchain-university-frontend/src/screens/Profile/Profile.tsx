@@ -134,7 +134,7 @@ class Profile extends Component<Props,State> {
 
       let subject:ICredentialSubject = {
          id: this.state.did,
-         university: "University of Barcelona - Computer Science Department",
+         university: "ACME University - Computer Science Department",
          degree: "Bachelor in Software Engineering",
       };
 
@@ -233,7 +233,7 @@ class Profile extends Component<Props,State> {
                                  <br/>
                                  <div className="form-row">
                                     <h4>Institution</h4>
-                                    <p>University of Barcelona - Computer Science Department</p>
+                                    <p>ACME University - Computer Science Department</p>
                                  </div>
                               </form>
                            </div>
@@ -306,7 +306,7 @@ class Profile extends Component<Props,State> {
                                     <div className="form-row">
                                        <h4>Requirements</h4>
                                        <p>In order to get this discount in your students fees, you will have to prove you are in a Large Family. </p>
-                                       <p><b>Present your Large Family Card Credential</b> issued by your city council.</p>
+                                       <p><b>Present your Large Family Card Credential</b> issued by Government of Freedonia.</p>
                                     </div>
                                     <br/>
                                     <br></br>
@@ -314,7 +314,7 @@ class Profile extends Component<Props,State> {
                                        <Button type="button" className="collect-button" onClick={() =>this.claimVP()}><b>Apply for a discount</b></Button>
                                     }
                                     {!largeFamily && discountRequested &&
-                                    <h3 style={{color: "#ef801a"}}> Pending to receive Large Family Credential... </h3>
+                                    <h3 style={{color: "#0c4270"}}> Pending to receive Large Family Credential... </h3>
                                     }
                                     {largeFamily &&
                                     <h2 style={{color: "#00cc00"}}> Accepted request. Discount applied. </h2>

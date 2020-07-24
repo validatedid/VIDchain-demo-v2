@@ -15,7 +15,7 @@ class Footer extends Component {
             <div className="media footer-media">
               <img className="align-self-center mr-3" src={require("../../assets/images/logoCity.png")}  alt="City" />
               <div className="media-body align-self-center">
-                <h3 className="mt-0">The official website of Your City</h3>
+                <h3 className="mt-0">The official website of Government of Freedonia</h3>
               </div>
               </div>
           </div>

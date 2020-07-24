@@ -71,7 +71,7 @@
 }
 
 .gallery-item .gallery-thumb .gallery-zoom:hover, .gallery-item .gallery-thumb .gallery-link:hover {
-    background-color: #ef801a;
+    background-color: #0c4270;
     color: #ffffff;
 }
 
@@ -156,7 +156,7 @@
 .filter li a:hover,
 .filter li a:focus,
 .filter li a.active {
-    color: #ef801a;
+    color: #0c4270;
     text-decoration: none;
 }
 
