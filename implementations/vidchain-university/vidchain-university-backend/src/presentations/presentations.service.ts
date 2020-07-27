@@ -20,9 +20,14 @@ export class PresentationsService {
                 token,
                 presentation
               );
+            if(validation){
+                this.logger.debug("Presentation has just been checked. Presentation validation: done.");
+                this.logger.debug("No need to generate a new credential.");
+                return presentation;
+            }
             // TODO: Handle properly when a credential has to be provided after presentation validation
             // TEMPORARY SOLUTION
-            const credentialType = presentation.name.split(": Verifiable")[0];
+            /*const credentialType = presentation.name.split(": Verifiable")[0];
             this.logger.debug("Presentation serviceName: "+ credentialType);
             if(validation && credentialType != "verifiableKYC"){
                 this.logger.debug("Presentation has just been checked. Presentation validation: done.");
@@ -34,7 +39,7 @@ export class PresentationsService {
                 this.logger.debug("Presentation has just been checked. Presentation validation: done.");
                 this.logger.debug("No need to generate a new credential.");
                 return presentation;
-            }
+            }*/
             return validation;
         }
         catch (e) {
