@@ -24,7 +24,7 @@ interface State {
 	firstName: string;
 	lastName: string;
 	dateOfBirth: string;
-	documentNumber: string;
+	personalNumber: string;
 	documentType: string;
 	nationality: string;
 	stateIssuer: string;
@@ -49,7 +49,7 @@ class Profile extends Component<Props,State> {
 			firstName: "",
 			lastName: "",
 			dateOfBirth: "",
-			documentNumber: "",
+			personalNumber: "",
 			documentType: "",
 			nationality: "",
 			stateIssuer: "",
@@ -73,7 +73,7 @@ class Profile extends Component<Props,State> {
         lastName: sessionStorage.getItem('lastName') || "Not provided",
         dateOfBirth: sessionStorage.getItem('dateOfBirth') || "Not provided",
         placeOfBirth: sessionStorage.getItem('placeOfBirth') || "Not provided",
-        documentNumber: sessionStorage.getItem('documentNumber') || "Not provided",
+        personalNumber: sessionStorage.getItem('personalNumber') || "Not provided",
         documentType: sessionStorage.getItem('documentType') || "Not provided",
         nationality: sessionStorage.getItem('nationality') || "Not provided",
         stateIssuer: sessionStorage.getItem('stateIssuer') || "Not provided",
@@ -93,7 +93,7 @@ class Profile extends Component<Props,State> {
         lastName: this.props.location.state.verifiableKYC.surname || "Not provided",
         dateOfBirth: this.props.location.state.verifiableKYC.dateOfBirth || "Not provided",
         placeOfBirth: this.props.location.state.verifiableKYC.placeOfBirth || "Not provided",
-        documentNumber: this.props.location.state.verifiableKYC.documentNumber || "Not provided",
+        personalNumber: this.props.location.state.verifiableKYC.personalNumber || "Not provided",
         documentType: this.props.location.state.verifiableKYC.documentType || "Not provided",
         nationality: this.props.location.state.verifiableKYC.nationality || "Not provided",
         stateIssuer: this.props.location.state.verifiableKYC.stateIssuer || "Not provided",
@@ -186,7 +186,7 @@ class Profile extends Component<Props,State> {
   } */
 
   render() {
-	const { did, firstName, lastName, dateOfBirth, documentNumber, documentType, nationality, stateIssuer, dateOfExpiry, largeFamily, hasVerifiableId, fakeLogin } = this.state;
+	const { did, firstName, lastName, dateOfBirth, personalNumber, documentType, nationality, stateIssuer, dateOfExpiry, largeFamily, hasVerifiableId, fakeLogin } = this.state;
 		return (
 				<div>
 					<Official></Official>
@@ -217,7 +217,7 @@ class Profile extends Component<Props,State> {
 								</div>
 								<div className="form-row">
 									<h4>Document number:  </h4>
-									<p className= "welcome">&nbsp;{documentNumber}</p>
+									<p className= "welcome">&nbsp;{personalNumber}</p>
 								</div>
 								<div className="form-row">
 									<h4>Document type:  </h4>
