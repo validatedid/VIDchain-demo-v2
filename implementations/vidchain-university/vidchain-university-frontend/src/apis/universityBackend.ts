@@ -9,7 +9,7 @@ async function claimVP(target: string){
         type: [
             [
                 "VerifiableCredential",
-                "VidKycCredential"
+                "VerifiableIdCredential"
             ]
         ],
     }
