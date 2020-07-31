@@ -142,7 +142,7 @@ class Profile extends Component<Props, State> {
   async generateCredential() {
     /**
      *  VIDCHAIN API REQUEST: Generate VerifiableID
-     * An authorization token is requested and it is used to request the generation of a verifiableCredential
+     * An authentication token is requested and it is used to request the generation of a verifiableCredential
      */
     const token = await vidchain.getAuthzToken();
     const credential: CredentialData = {
