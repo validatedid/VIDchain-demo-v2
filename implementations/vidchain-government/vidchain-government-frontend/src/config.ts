@@ -10,9 +10,7 @@ const REDIRECT_CALLBACK =
 const BACKEND_URL =
   process.env.REACT_APP_BACKEND_URL ||
   "https://dev.api.vidchain.net/demo/governmentbackend";
-const BACKEND_WS = "/";
-//const BACKEND_URL = "http://340007ae7ac7.ngrok.io/demo/governmentbackend";
-//const BACKEND_WS = "http://340007ae7ac7.ngrok.io";
+const BACKEND_WS = process.env.WS_URL || "/";
 
 //Legal Entity
 const Entity = {

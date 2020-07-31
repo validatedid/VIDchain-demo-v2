@@ -2,9 +2,7 @@ const PORT = process.env.PORT || 3021;
 const API_URL = "https://dev.api.vidchain.net/api/v1/";
 const BASE_URL =
   process.env.BASE_URL || "https://dev.api.vidchain.net/demo/governmentbackend";
-const WS_URL = "https://dev.api.vidchain.net/";
-//const BASE_URL = "http://340007ae7ac7.ngrok.io/demo/governmentbackend";
-//const WS_URL= "http://340007ae7ac7.ngrok.io/"
+const WS_URL = process.env.WS_URL ||  "https://dev.api.vidchain.net/";
 
 //Legal Entity
 const Entity = {
