@@ -121,7 +121,7 @@ class Callback extends Component<Props, State> {
       this.initiateSocket();
       /**
        *  VIDCHAIN API REQUEST: Claim Verifiable Presentation (forwarded to backend)
-       * The request of a Verifiable presentation must be handled in the backend so as to receive a response from the API in a callback
+       * The request of a Verifiable presentation is handled in the backend so as to process the whole flow there and receive a response from the API in a callback
        */
       governmentBackend.claimVP(utils.getUserDid(this.state.id_token), "Login");
     }

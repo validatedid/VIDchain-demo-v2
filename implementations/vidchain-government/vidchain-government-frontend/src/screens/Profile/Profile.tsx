@@ -138,12 +138,11 @@ class Profile extends Component<Props, State> {
       },
     });
   }
-
+  /**
+   *  VIDCHAIN API REQUEST: Generate Verifiable Credential
+   * An authentication token is requested and it is used to request the generation of a verifiableCredential
+   */
   async generateCredential() {
-    /**
-     *  VIDCHAIN API REQUEST: Generate VerifiableID
-     * An authentication token is requested and it is used to request the generation of a verifiableCredential
-     */
     const token = await vidchain.getAuthzToken();
     const credential: CredentialData = {
       type: ["VerifiableCredential", "LargeFamilyCard"],

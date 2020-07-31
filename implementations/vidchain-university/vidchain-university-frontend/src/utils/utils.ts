@@ -1,19 +1,19 @@
-import {decode as atob, encode } from 'base-64';
-const jwtDecode = require('jwt-decode');
+import { decode as atob, encode } from "base-64";
+const jwtDecode = require("jwt-decode");
 
-
-function randomString (length: number) {
+function randomString(length: number) {
   var text = "";
-  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-  for(var i = 0; i < length; i++) {
-      text += possible.charAt(Math.floor(Math.random() * possible.length));
+  var possible =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  for (var i = 0; i < length; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
   }
   return text;
 }
 
 /**
-* Parse a JWT token
-*/
+ * Parse a JWT token
+ */
 function parseJwt(token: string) {
   try {
     const base64Url = token.split(".")[1];
@@ -33,15 +33,11 @@ function parseJwt(token: string) {
   }
 }
 
-function getJwtNonce(jwt: string): string {
-  return parseJwt(jwt).nonce
-}
-
-function getUserDid( jwt: string ): string {
+function getUserDid(jwt: string): string {
   return parseJwt(jwt).sub;
 }
 
-function getIssuerDid ( jwt: string): string {
+function getIssuerDid(jwt: string): string {
   return parseJwt(jwt).did;
 }
 
@@ -52,8 +48,7 @@ function getIssuerDid ( jwt: string): string {
 function strB64dec(input: any) {
   try {
     return JSON.parse(atob(input));
-  }
-  catch (error) {
+  } catch (error) {
     return null;
   }
 }
@@ -65,19 +60,17 @@ function strB64dec(input: any) {
 function strB64enc(input: any) {
   try {
     return encode(JSON.stringify(input));
-  }
-  catch (error) {
+  } catch (error) {
     return null;
   }
 }
 
 function decodeJWT(token: any) {
-  try{
-    var tok = jwtDecode(token)
+  try {
+    var tok = jwtDecode(token);
     return tok;
-  }
-  catch(Error){
-      return Error;
+  } catch (Error) {
+    return Error;
   }
 }
 
@@ -87,5 +80,5 @@ export {
   getIssuerDid,
   strB64dec,
   strB64enc,
-  decodeJWT
+  decodeJWT,
 };

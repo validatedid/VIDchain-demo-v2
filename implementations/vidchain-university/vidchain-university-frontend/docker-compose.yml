@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     image: vidchain/university-frontend:v0.1
-    container_name:  university-frontend
+    container_name: university-frontend
     ports:
       - 3024:3024
     environment:
@@ -14,4 +14,3 @@ services:
       - REACT_APP_DEMO=https://dev.api.vidchain.net/demo/university
       - REACT_APP_BACKEND_URL=https://dev.api.vidchain.net/demo/universitybackend
       - PUBLIC_URL=https://dev.api.vidchain.net/demo/university
-      
