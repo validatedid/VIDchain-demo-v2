@@ -741,7 +741,7 @@ img.img-center {
 .testimonial-area {
   padding: 0 0 0 0;
   margin: 0;
-  background: url(../../assets/images/img1.png) fixed center center;
+  background: fixed center center;
   background-size: cover;
   -webkit-background-size: cover;
   -moz-background-size: cover;
@@ -781,19 +781,19 @@ section.hero-text h1 {
   border-radius: 8px;
 }
 #clients .client .client1 {
-  background: url("../../assets/images/client1.png") 0 -75px;
+  background: 0 -75px;
 }
 #clients .client .client1:hover {
   background-position: 1px 0px;
 }
 #clients .client .client2 {
-  background: url("../../assets/images/client2.png") 0 -75px;
+  background: 0 -75px;
 }
 #clients .client .client2:hover {
   background-position: -1px 0px;
 }
 #clients .client .client3 {
-  background: url("../../assets/images/client3.png") 0 -76px;
+  background: 0 -76px;
 }
 #clients .client .client3:hover {
   background-position: 0px 0px;
@@ -1044,7 +1044,7 @@ form#commentform textarea {
 }
 
 #call-to-action {
-  background: url(../../assets/images/about.jpg) no-repeat;
+  background: no-repeat;
   background-attachment: fixed;
   background-position: top center;
   padding: 100px 0;

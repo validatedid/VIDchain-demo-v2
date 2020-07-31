@@ -134,7 +134,7 @@ class Content extends Component {
               <div className="col-md-6 col-sm-6">
                 <div className="about-image">
                   <img
-                    src={require("../../assets/images/about.jpg")}
+                    src={require("../../assets/images/studentlogo.png")}
                     alt="About Images"
                   />
                 </div>
