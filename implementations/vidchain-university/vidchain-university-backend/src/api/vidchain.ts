@@ -52,7 +52,7 @@ async function requestVP(token: string, presentation: RequestPresentation) {
   return postRequest(
     token,
     presentation,
-    `${config.API_URL}/verifiable-presentations-requests`
+    "verifiable-presentations-requests"
   );
 }
 
@@ -64,7 +64,7 @@ async function validateVP(
   return postRequest(
     token,
     presentation,
-    `${config.API_URL}verifiable-presentation-validations`
+    "verifiable-presentation-validations"
   );
 }
 
