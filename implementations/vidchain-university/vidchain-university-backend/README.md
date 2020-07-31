@@ -4,7 +4,7 @@ By cloning this repository, you can run the university backend demo locally.
 
 ## How to run the demo locally
 
-Create your *.env* file copying *.env.example* and update *BASE_URL* parameter. This parameter must be updated with the enpoint where **vidchain-university-backend** can be found. In *.env.example* the backend is tunneled through ngrok to the localhost running the backend as well. To do so, install [ngrok](https://ngrok.com/) in your machine and run in your terminal:
+Create your _.env_ file copying _.env.example_ and update _BASE_URL_ parameter. This parameter must be updated with the enpoint where **vidchain-university-backend** can be found. In _.env.example_ the backend is tunneled through ngrok to the localhost running the backend as well. To do so, install [ngrok](https://ngrok.com/) in your machine and run in your terminal:
 
 ```
 ./ngrok http 3021

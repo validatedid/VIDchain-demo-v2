@@ -5,7 +5,7 @@ services:
       context: .
       dockerfile: Dockerfile
     image: vidchain/university-backend:v0.1
-    container_name:  university-backend
+    container_name: university-backend
     ports:
       - 3023:3023
     networks:
@@ -14,8 +14,8 @@ services:
       - BASE_URL=https://dev.api.vidchain.net/demo/universitybackend
       - PORT=3023
       - REDIS_URL=redis
-      - REDIS_PORT=6379 
-     
+      - REDIS_PORT=6379
+
 networks:
   hydra_network:
     driver: bridge

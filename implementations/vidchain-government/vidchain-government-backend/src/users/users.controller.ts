@@ -15,9 +15,6 @@ import { SocketClient } from "../interfaces/dtos";
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
   /**
-   *  presentationReady message is used to trigger the response of a Verifiable presentation. Notice that the did of user is retrieved from the credential and the socket clientId from the backend database.
-   */
-  /**
    *  Store socket clientId -  did pair in a database
    */
   @Post("")
