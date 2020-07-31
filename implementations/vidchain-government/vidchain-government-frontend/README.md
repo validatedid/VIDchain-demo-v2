@@ -29,6 +29,7 @@ You can create a production build with:
 ```sh
 npm run build
 ```
+
 ### Run vidchain-demo with Docker
 
 Adapt the variables to your needs in the docker-compose and run:
@@ -36,4 +37,5 @@ Adapt the variables to your needs in the docker-compose and run:
 ```sh
 docker-compose up --build
 ```
+
 You can now open http://localhost:3022/demo/govenrment
