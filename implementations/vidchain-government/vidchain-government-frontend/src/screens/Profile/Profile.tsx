@@ -85,6 +85,7 @@ class Profile extends Component<Props, State> {
         fakeLogin: true,
       });
     } else {
+      console.log(this.props.location.state.verifiableKYC);
       this.setState({
         hasVerifiableId: true,
         did:

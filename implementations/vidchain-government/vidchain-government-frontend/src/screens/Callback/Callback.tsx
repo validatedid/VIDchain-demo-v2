@@ -155,6 +155,7 @@ class Callback extends Component<Props, State> {
         utils.decodeJWT(presentation.verifiableCredential[0])
       );
       let detailsJSON = JSON.parse(details);
+
       /**
        *  This information is now only used to retrieve the user info whereas in a real scenario, the backend would take some of these attributes to map the information registered in the system's database (check) and authenticate the user
        */
@@ -163,8 +164,8 @@ class Callback extends Component<Props, State> {
           id: detailsJSON.vc.credentialSubject.id,
           documentNumber: detailsJSON.vc.credentialSubject.documentNumber,
           documentType: detailsJSON.vc.credentialSubject.documentType,
-          name: detailsJSON.vc.credentialSubject.name,
-          surname: detailsJSON.vc.credentialSubject.surname,
+          name: detailsJSON.vc.credentialSubject.firstName,
+          surname: detailsJSON.vc.credentialSubject.lastName,
           fullName: detailsJSON.vc.credentialSubject.fullName,
           nationality: detailsJSON.vc.credentialSubject.nationality,
           stateIssuer: detailsJSON.vc.credentialSubject.stateIssuer,
@@ -172,7 +173,7 @@ class Callback extends Component<Props, State> {
           dateOfExpiry: detailsJSON.vc.credentialSubject.dateOfExpiry,
           dateOfBirth: detailsJSON.vc.credentialSubject.dateOfBirth,
           placeOfBirth: detailsJSON.vc.credentialSubject.placeOfBirth,
-          sex: detailsJSON.vc.credentialSubject.sex,
+          sex: detailsJSON.vc.credentialSubject.gender,
           personalNumber: detailsJSON.vc.credentialSubject.personalNumber,
         },
       });
