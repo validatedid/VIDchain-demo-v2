@@ -28,6 +28,7 @@
     "@nestjs/websockets": "^7.4.2",
     "axios": "^0.19.2",
     "base-64": "^0.1.0",
+    "dotenv": "^8.2.0",
     "ioredis": "^4.17.3",
     "jwt-decode": "^2.2.0",
     "reflect-metadata": "^0.1.13",
