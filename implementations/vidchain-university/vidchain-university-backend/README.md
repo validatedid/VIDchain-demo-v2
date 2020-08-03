@@ -1,20 +1,30 @@
 # University backend demo
 
-By cloning this repository, you can run the university backend demo locally.
+### Before running the demo
 
-## How to run the demo locally
+In order to run this backend application a Redis database must be served locally:
+```
+docker run -d -p 127.0.0.1:6379:6379 redis:alpine 
+```
 
-Create your *.env* file copying *.env.example* and update *BASE_URL* parameter. This parameter must be updated with the enpoint where **vidchain-university-backend** can be found. In *.env.example* the backend is tunneled through ngrok to the localhost running the backend as well. To do so, install [ngrok](https://ngrok.com/) in your machine and run in your terminal:
+In order to expose the backend of this application so it can receive callback responses from VIDChain API, install [ngrok](https://ngrok.com/) in your machine and run in your terminal:
 
 ```
-./ngrok http 3021
+./ngrok http 3023
 ```
 
 Then, the enpoint provided by ngrok tunneling your localhost service will be shown.
 
+In the main directory, create an _.env_ file copying _.env.example_ and update "BASE_URL" and "WS_URL" with your tunnel enpoint. These parameter must be updated with the enpoint where **vidchain-university-backend** can be found, i.e. the tunnel, for instance:
+
+```
+BASE_URL=http://5k3ieae7ac7.ngrok.io/demo/universitybackend
+WS_URL=http://5k3ieae7ac7.ngrok.io/
+```
+
 Once you have updated the parameter mentioned above, you can run the demo by either running node or building and starting a container.
 
-### Node
+### Running Node
 
 Obtain the necessary dependencies so the artifacts can be build and run:
 
@@ -24,7 +34,7 @@ npm run build
 npm run start
 ```
 
-### Docker
+### Running Docker
 
 Build your local image by running:
 
@@ -36,6 +46,6 @@ docker images
 Run the container:
 
 ```
-docker run --name myapp -it -d -p 127.0.0.1:3021:3021 vidchain/university-backend:v0.1
+docker run --name myapp -it -d -p 127.0.0.1:3023:3023 vidchain/university-backend:v0.1
 docker ps
 ```

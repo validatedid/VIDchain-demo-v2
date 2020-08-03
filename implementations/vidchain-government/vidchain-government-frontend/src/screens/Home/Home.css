@@ -1,22 +1,21 @@
-.modal{
+.modal {
   z-index: 100000;
 }
-.ModalHeader{
+.ModalHeader {
   justify-content: center;
   background-color: #00bf71;
   color: white;
-  
 }
-.ModalTitle{
+.ModalTitle {
   justify-content: center;
   font-size: 18px;
 }
-.ModalBody{
+.ModalBody {
   text-align: center;
   background-color: white;
   color: black;
 }
-.content{
+.content {
   text-align: center;
   margin: auto;
   width: 100%;
@@ -26,7 +25,7 @@
   margin-bottom: -1.5%; */
 }
 
-.footer{
+.footer {
   clear: both;
   position: fixed;
   bottom: 0;
@@ -45,51 +44,50 @@
   background-color: #00bf71;
   margin-left: 10px;
 }
-.sign_in_vidchain>a {
+.sign_in_vidchain > a {
   color: #fff;
   background-color: #00bf71;
   font-size: 14px;
   text-transform: uppercase;
 }
-.sign_in_vidchain>a:hover,
-.sign_in_vidchain>a:focus {
-    background-color: #00bf71;
-    color: rgba(255, 255, 255, 0.9)
+.sign_in_vidchain > a:hover,
+.sign_in_vidchain > a:focus {
+  background-color: #00bf71;
+  color: rgba(255, 255, 255, 0.9);
 }
-.sign_in_vidchain>a>i {
-    padding-right: 5px;
+.sign_in_vidchain > a > i {
+  padding-right: 5px;
 }
 
 .language_area .btn.btn-default,
 .language_area .btn.btn-default:focus {
-    border: 0 solid transparent;
-    border-radius: 0;
-    color: #fff;
-    background-color: #2c3e50;
-    -webkit-transition-duration: 500ms;
-    transition-duration: 500ms;
+  border: 0 solid transparent;
+  border-radius: 0;
+  color: #fff;
+  background-color: #2c3e50;
+  -webkit-transition-duration: 500ms;
+  transition-duration: 500ms;
 }
 
 .language_area .btn.btn-default:hover {
-    background-color: #fff;
-    color: #2c3e50;
+  background-color: #fff;
+  color: #2c3e50;
 }
 
 .language_area .btn.btn-default i:first-child {
-    padding-right: 5px;
+  padding-right: 5px;
 }
 
 .language_area .btn.btn-default i:last-child {
-    padding-left: 5px;
+  padding-left: 5px;
 }
-
 
 .login_manual_form .form-group {
   margin-bottom: 15px;
   text-align: center;
 }
 
-.login_manual_form .form-group>i{
+.login_manual_form .form-group > i {
   background-color: #f6f6f6;
   color: #7f8c8d;
   padding: 15px;
@@ -97,7 +95,7 @@
   display: inline-block;
 }
 
-.login_manual_form .form-group>input{
+.login_manual_form .form-group > input {
   border: medium none;
   width: 35%;
   padding: 10px;
@@ -116,13 +114,13 @@
 }
 .login_manual_form button:hover,
 .login_manual_form button:focus {
-    background-color: #2c3e50;
-    color: #fff;
+  background-color: #2c3e50;
+  color: #fff;
 }
-.login_manual_form .form-group>input#login_submit:hover {
-    background-color: #a85409;
+.login_manual_form .form-group > input#login_submit:hover {
+  background-color: #a85409;
 }
-.login_manual_form>p {
+.login_manual_form > p {
   color: #6f6f6f;
   margin: 0;
   padding: 15px 0;
@@ -133,7 +131,7 @@
 .login_manual_form form .form-group:last-child {
   margin-bottom: 5px;
 }
-.form-group{
+.form-group {
   text-align: center;
 }
 
@@ -141,17 +139,17 @@
   display: inline-block;
 }
 
-.forget_pass>a {
+.forget_pass > a {
   margin-top: 10px;
   color: #6f6f6f;
   display: inline-block;
 }
 
-.forget_pass>a:hover{
+.forget_pass > a:hover {
   color: #3498db;
 }
 
-.forget_pass>a>i {
+.forget_pass > a > i {
   padding-right: 15px;
 }
 

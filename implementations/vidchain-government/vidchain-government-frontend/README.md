@@ -1,39 +1,41 @@
-# Demo City
+# Government frontend demo
 
-This repository contains the code of a city website to demostrate the interaction with the Vidchain mobile application.
+## Before running the demo
 
-# Getting started
+Create your _.env_ file copying _.env.example_ and update _REACT_APP_BACKEND_URL_ and BACKEND*WS parameters with the backend of this demo url (see **vidchain-government-backend**). This parameter must be updated with the enpoint where **vidchain-government-backend** can be found. In *.env.example\_ the backend is tunneled through ngrok to the localhost running the backend as well.
 
-You can choose to run the project locally with your own Node.js environment, or you can use Docker Compose to run it.
+Once you have updated the parameter mentioned above, you can run the demo by either running node or building and starting a container.
 
-First, create an `.env` file locally. You can duplicate `.env.example` and name the new copy `.env`. Adapt the variables to your needs.
+### Running Node
 
-### Run the project locally
+Obtain the necessary dependencies so the artifacts can be build and run:
 
-Install the required libraries and packages dependencies:
-
-```sh
-npm install
 ```
-
-Run the development server:
-
-```sh
+npm install
+npm run build
 npm run start
 ```
 
-This command starts the web app at http://localhost:3022/demo/govenrment
+### Running Docker
 
-You can create a production build with:
+Build your local image by running:
 
-```sh
-npm run build
 ```
-### Run vidchain-demo with Docker
-
-Adapt the variables to your needs in the docker-compose and run:
-
-```sh
-docker-compose up --build
+docker build -t vidchain/government-frontend:v0.1 .
+docker images
 ```
-You can now open http://localhost:3022/demo/govenrment
+
+Run the container:
+
+```
+docker run --name myapp -it -d -p 127.0.0.1:3022:3022 vidchain/government-frontend:v0.1
+docker ps
+```
+
+## Access through your browser
+
+In any of the cases you have decided to use, you can now find in your browser this React Native application at:
+
+```
+127.0.0.1:3022/demo/govenrment/
+```

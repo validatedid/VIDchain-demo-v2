@@ -1,47 +1,43 @@
-import {decode as atob, encode } from 'base-64';
-const jwtDecode = require('jwt-decode');
+import { decode as atob, encode } from "base-64";
+const jwtDecode = require("jwt-decode");
 
-
-function randomString (length: number) {
-    var text = "";
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    for(var i = 0; i < length; i++) {
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
-    }
-    return text;
+function randomString(length: number) {
+  var text = "";
+  var possible =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+  for (var i = 0; i < length; i++) {
+    text += possible.charAt(Math.floor(Math.random() * possible.length));
+  }
+  return text;
 }
 
 /**
  * Parse a JWT token
  */
 function parseJwt(token: string) {
-    try {
-      const base64Url = token.split(".")[1];
-      const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
-      const jsonPayload = decodeURIComponent(
-        atob(base64)
-          .split("")
-          .map(function atobFunction(c) {
-            return `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`;
-          })
-          .join("")
-      );
-      console.log(jsonPayload);
-      return JSON.parse(jsonPayload);
-    } catch (error) {
-      return "Error";
-    }
+  try {
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map(function atobFunction(c) {
+          return `%${`00${c.charCodeAt(0).toString(16)}`.slice(-2)}`;
+        })
+        .join("")
+    );
+    console.log(jsonPayload);
+    return JSON.parse(jsonPayload);
+  } catch (error) {
+    return "Error";
   }
-  
-  function getJwtNonce(jwt: string): string {
-    return parseJwt(jwt).nonce
-  }
-  
-  function getUserDid( jwt: string ): string {
-    console.log("getUserDID");
-    console.log(jwt);
-    return parseJwt(jwt).sub;
-  }
+}
+
+function getUserDid(jwt: string): string {
+  console.log("getUserDID");
+  console.log(jwt);
+  return parseJwt(jwt).sub;
+}
 
 /**
  * Decodes a Base64 string in an UTF-8 string format
@@ -50,8 +46,7 @@ function parseJwt(token: string) {
 function strB64dec(input: any) {
   try {
     return JSON.parse(atob(input));
-  }
-  catch (error) {
+  } catch (error) {
     return null;
   }
 }
@@ -63,26 +58,18 @@ function strB64dec(input: any) {
 function strB64enc(input: any) {
   try {
     return encode(JSON.stringify(input));
-  }
-  catch (error) {
+  } catch (error) {
     return null;
   }
 }
 
 function decodeJWT(token: any) {
-  try{
-    var tok = jwtDecode(token)
+  try {
+    var tok = jwtDecode(token);
     return tok;
-  }
-  catch(Error){
-      return Error;
+  } catch (Error) {
+    return Error;
   }
 }
 
-export {
-    randomString,
-    getUserDid,
-    strB64dec, 
-    strB64enc,
-    decodeJWT
-  };
+export { randomString, getUserDid, strB64dec, strB64enc, decodeJWT };

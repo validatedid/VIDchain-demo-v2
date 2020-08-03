@@ -1,13 +1,12 @@
 version: "3.7"
 
 services:
-
   government-backend:
     build:
       context: .
       dockerfile: Dockerfile
     image: vidchain/government-backend:v0.1
-    container_name:  government-backend
+    container_name: government-backend
     ports:
       - 3021:3021
     networks:

@@ -1,44 +1,28 @@
-import React from 'react';
-import './App.css';
-import { Switch, Route, BrowserRouter, useLocation } from "react-router-dom";
-import { withRouter } from "react-router";
+import React from "react";
+import "./App.css";
+import { Switch, Route, BrowserRouter } from "react-router-dom";
 import Home from "./screens/Home/Home";
 import Profile from "./screens/Profile/Profile";
-import Registration from "./screens/Registration/Registration";
-import Services from "./screens/Services/Services";
 import Callback from "./screens/Callback/Callback";
-const dotenv = require('dotenv')
+const dotenv = require("dotenv");
 // importing .env variables
 
-const publicUrl = process.env.REACT_APP_DEMO || "http://localhost:3022/demo/government";
+const publicUrl =
+  process.env.REACT_APP_DEMO || "http://localhost:3022/demo/government";
 const basename = publicUrl ? new URL(publicUrl).pathname : "";
 
 function App() {
   dotenv.config();
   return (
     <div className="App">
-        <BrowserRouter basename={basename}>
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact
-              path="/registration"
-              component={Registration}
-            />
-            <Route exact
-              path="/profile"
-              component={Profile}
-            />
-            <Route exact
-              path="/services"
-              component={Services}
-            />
-            <Route
-              path="/callback"
-              component={Callback}
-            />
-          </Switch>
-        </BrowserRouter>
-  </div>
+      <BrowserRouter basename={basename}>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/profile" component={Profile} />
+          <Route path="/callback" component={Callback} />
+        </Switch>
+      </BrowserRouter>
+    </div>
   );
 }
 
