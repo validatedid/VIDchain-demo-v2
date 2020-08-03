@@ -1,3 +1,9 @@
+// CONFIG PROJECT FILE
+import * as dotenv from "dotenv";
+
+// importing .env variables
+dotenv.config();
+
 const PORT = process.env.PORT || 3021;
 const API_URL = "https://dev.api.vidchain.net/api/v1/";
 const BASE_URL =

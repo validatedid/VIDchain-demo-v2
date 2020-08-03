@@ -143,8 +143,6 @@ class Callback extends Component<Props, State> {
         clientId: this.state.socketSession,
       };
       socket.emit("whoami", socketClient);
-      console.log("whoami.did: " + socketClient.did);
-      console.log("whoami.clientId: " + socketClient.clientId);
     });
 
     socket.on("presentation", (msg: any) => {
