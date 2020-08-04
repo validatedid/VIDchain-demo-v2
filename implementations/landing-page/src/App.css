@@ -1,28 +1,44 @@
-body {
-  font-family: "TTNorms";
-  background-color: #00bf71 !important;
+html, body {
+  background-color: #00bf71;
+}
+
+html {
+  display: table;
+  margin: auto;
+}
+
+main {
+  max-width: 1000px;
+  margin: auto;
 }
 .step-body-background {
   background-color: white !important;
   margin: 0;
-  height: 100%;
+  width: 100%;
 }
 .custom-container {
   width: 100%;
+  margin-top: 50px;
 }
 .live-products-header {
-  background: #00bf71;
+  background: white;
   text-align: center;
   width: 100%;
+  margin-top: -120px;
 }
-.live-products-header>p, h4 {
-  color: white;
-  font-size: 16px;
-  padding: 10px;
-  font-family: "TTNorms";
+.live-products-header>h4{
+  color: #00bf71;
+  font-size: 32px;
+  font-family: "TTNorms-Bold";
+}
+.live-products-header>p  {
+  color: black;
+  font-size: 18px;
+  font-family: "TTNorms-Regular";
 }
 .logo {
   width: 360px;
+  margin-top: 25px;
 }
 .logoValidated {
   width: 264px;

@@ -5,19 +5,24 @@ import './App.css';
 
 const logoVidchain = require("./assets/images/VIDchain_horizontal.png");
 const logoValidated = require("./assets/images/validated_white.png");
+const logoNotification = require("./assets/images/VIDchain_vertical.png");
+const logoIOS = require("./assets/images/appleAppStore@3x.png");
+const logoAndroid = require("./assets/images/playStore@3x.png");
+const logoUniversity = require("./assets/images/logo_uni.png");
+const logoGovernment = require("./assets/images/logoCity.png");
 
 function App() {
   return (
     <html>
     <body className="step-body-background">
     <main>
-      
+      <img className="logo" src={logoVidchain} />
       <div className="grid-main-content custom-container">
-        <img className="logo" src={logoVidchain} />
-        <div className="live-products-header">
+        
+        {/* <div className="live-products-header">
           <h4>Welcome to VIDchain demo site!</h4>
           <p>Test the latest demo, downloading our app and using it following the instructions.</p>
-        </div>
+        </div> */}
         <Timeline />
         <div className="step-body">
           <div className="center">
@@ -41,13 +46,13 @@ function App() {
           </p>
         </div>
         <div className="links" style={{height: "96px"}}>
-          <img src="img/CMicon@3x.png" style={{marginRight: "20px", width:"96px"}} />
+          <img src={logoNotification} style={{marginRight: "20px", width:"120px"}} />
           <div className="playstore">
-            <a id="x" href="https://itunes.apple.com/us/app/connect-me/id1260651672?mt=8">
-              <img src="img/appleAppStore@3x.png" style={{width:"121px",marginRight: "20px"}} />
+            <a id="x" href="https://itunes.apple.com">
+              <img src={logoIOS}style={{width:"121px",marginRight: "20px"}} />
             </a>
-            <a href="https://play.google.com/store/apps/details?id=me.connect&amp;hl=en">
-              <img src="img/playStore@3x.png" style={{width:"121px"}} />
+            <a href="https://play.google.com/store/">
+              <img src={logoAndroid} style={{width:"121px"}} />
             </a>
           </div>
         </div>
@@ -68,7 +73,7 @@ function App() {
               'connect' with Faber College to receive your transcripts.
             </p>
           </div>
-          <img src="img/faberLogo2@3x.png" style={{width: "150px", height:"90px"}} />
+          <img src={logoGovernment} style={{width: "200px", height:"200px"}} />
         </div>
         <div className="step step-body">
           <div>
@@ -81,7 +86,7 @@ function App() {
               transcript you received from Faber College!
             </p>
           </div>
-          <img src="img/ACMELogo@3x.png" style={{height:"83px", width:"230px"}} />
+          <img src={logoUniversity} style={{height:"200px", width:"200px"}} />
         </div>
 
         <div className="step-body">
