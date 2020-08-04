@@ -110,19 +110,19 @@ class Callback extends Component<Props,State> {
 			this.setState({
 				verifiableKYC: {
 					id: detailsJSON.vc.credentialSubject.id,
-					documentNumber: detailsJSON.vc.credentialSubject.documentNumber,
-					documentType: detailsJSON.vc.credentialSubject.documentType,
-					name: detailsJSON.vc.credentialSubject.name,
-					surname: detailsJSON.vc.credentialSubject.surname,
-					fullName: detailsJSON.vc.credentialSubject.fullName, 
-					nationality: detailsJSON.vc.credentialSubject.nationality,
-					stateIssuer: detailsJSON.vc.credentialSubject.stateIssuer,
-					issuingAuthority: detailsJSON.vc.credentialSubject.issuingAuthority,
-					dateOfExpiry: detailsJSON.vc.credentialSubject.dateOfExpiry,
-					dateOfBirth: detailsJSON.vc.credentialSubject.dateOfBirth,
-					placeOfBirth: detailsJSON.vc.credentialSubject.placeOfBirth,
-					sex: detailsJSON.vc.credentialSubject.sex,
-					personalNumber: detailsJSON.vc.credentialSubject.personalNumber,
+          documentNumber: detailsJSON.vc.credentialSubject.documentNumber,
+          documentType: detailsJSON.vc.credentialSubject.documentType,
+          name: detailsJSON.vc.credentialSubject.firstName,
+          surname: detailsJSON.vc.credentialSubject.lastName,
+          fullName: detailsJSON.vc.credentialSubject.fullName,
+          nationality: detailsJSON.vc.credentialSubject.nationality,
+          stateIssuer: detailsJSON.vc.credentialSubject.stateIssuer,
+          issuingAuthority: detailsJSON.vc.credentialSubject.issuingAuthority,
+          dateOfExpiry: detailsJSON.vc.credentialSubject.dateOfExpiry,
+          dateOfBirth: detailsJSON.vc.credentialSubject.dateOfBirth,
+          placeOfBirth: detailsJSON.vc.credentialSubject.placeOfBirth,
+          sex: detailsJSON.vc.credentialSubject.gender,
+          personalNumber: detailsJSON.vc.credentialSubject.personalNumber,
 					}	
 				});
 			this.goToProfile();
