@@ -1,39 +1,52 @@
-# Demo City
+# Government backend demo
 
-This repository contains the code of the backend of a city website to demostrate the interaction with the Vidchain mobile application.
+### Before running the demo
 
-# Getting started
-
-You can choose to run the project locally with your own Node.js environment, or you can use Docker Compose to run it.
-
-First, create an `.env` file locally. You can duplicate `.env.example` and name the new copy `.env`. Adapt the variables to your needs.
-
-### Run the project locally
-
-Install the required libraries and packages dependencies:
-
-```sh
-npm install
+In order to run this backend application a Redis database must be served locally:
+```
+docker run -d -p 127.0.0.1:6379:6379 redis:alpine 
 ```
 
-Run the development server:
+In order to expose the backend of this application so it can receive callback responses from VIDChain API, install [ngrok](https://ngrok.com/) in your machine and run in your terminal:
 
-```sh
+```
+./ngrok http 3021
+```
+
+Then, the enpoint provided by ngrok tunneling your localhost service will be shown.
+
+In the main directory, create an _.env_ file copying _.env.example_ and update "BASE_URL" and "WS_URL" with your tunnel enpoint. These parameter must be updated with the enpoint where **vidchain-government-backend** can be found, i.e. the tunnel, for instance:
+
+```
+BASE_URL=http://k09ieae7ac7.ngrok.io/demo/universitybackend
+WS_URL=http://k09ieae7ac7.ngrok.io/
+```
+
+Once you have updated the parameter mentioned above, you can run the demo by either running node or building and starting a container.
+
+### Running Node
+
+Obtain the necessary dependencies so the artifacts can be build and run:
+
+```
+npm install
+npm run build
 npm run start
 ```
 
-This command starts the web app at http://localhost:3021/demo/governmentbackend
+### Running Docker
 
-You can create a production build with:
+Build your local image by running:
 
-```sh
-npm run build
 ```
-### Run demo-homepage with Docker
-
-Adapt the variables to your needs in the docker-compose and run:
-
-```sh
-docker-compose up --build
+docker build -t vidchain/government-backend:v0.1 .
+docker images
 ```
-You can do requests to http://localhost:3021/demo/governmentbackend
+
+Run the container:
+
+```
+docker run --name myapp -it -d -p 127.0.0.1:3021:3021 vidchain/government-backend:v0.1
+docker ps
+```
+

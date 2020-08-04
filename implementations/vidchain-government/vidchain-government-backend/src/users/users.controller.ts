@@ -14,7 +14,9 @@ import { SocketClient } from "../interfaces/dtos";
 @Controller("demo/governmentbackend/users")
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
-
+  /**
+   *  Store socket clientId -  did pair in a database
+   */
   @Post("")
   async register(
     @Body() body: SocketClient,
@@ -24,6 +26,9 @@ export class UsersController {
     return res.status(HttpStatus.CREATED).send(result);
   }
 
+  /**
+   *  Retrieve from database socket clientId
+   */
   @Get(":did")
   async getUser(@Param() params, @Res() res: Response): Promise<Response<any>> {
     const result = await this.usersService.getUser(params.did);

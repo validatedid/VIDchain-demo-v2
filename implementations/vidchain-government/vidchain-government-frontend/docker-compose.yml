@@ -1,13 +1,12 @@
 version: "3.7"
 
 services:
-
   government-frontend:
     build:
       context: .
       dockerfile: Dockerfile
     image: vidchain/government-frontend:v0.1
-    container_name:  government-frontend
+    container_name: government-frontend
     networks:
       - hydra_network
     ports:
@@ -22,4 +21,3 @@ networks:
   hydra_network:
     driver: bridge
     name: hydra_oidc_network
-      
