@@ -6,23 +6,43 @@ body {
   .timeline {
     white-space: nowrap;
     overflow-x: scroll;
-    padding: 30px 0 10px 0;
+    padding: 10px 75px 10px 75px;
     position: relative;
   }
   
   .entry {
     display: inline-block;
     vertical-align: top;
-    background: #13519C;
+    background: #00bf71;
     color: #fff;
     padding: 10px;
     font-size: 12px;
     text-align: center;
+    align-items: center;
+    align-content: center;
     position: relative;
     border-top: 4px solid #06182E;
     border-radius: 3px;
     min-width: 200px;
     max-width: 500px;
+    margin: 20px;
+  }
+  .entryNoSelected {
+    display: inline-block;
+    vertical-align: top;
+    background: #00bf71;
+    color: #fff;
+    padding: 10px;
+    font-size: 12px;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    position: relative;
+    border-top: 4px solid #06182E;
+    border-radius: 3px;
+    min-width: 200px;
+    max-width: 500px;
+    margin: 20px;
   }
   
   .entry img {
@@ -74,9 +94,19 @@ body {
   
   .bar {
     height: 4px;
-    background: #eee;
+    background: #00bf71;
     width: 100%;
     position: relative;
     top: 13px;
     left: 0;
+  }
+  .logoTimeline {
+    width: 100px;
+    height: 100px;
+    display:block;
+    margin:auto;
+  }
+  .img-container {
+    text-align: center;
+    display: block;
   }
