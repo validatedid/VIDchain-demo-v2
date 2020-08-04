@@ -101,7 +101,11 @@ function App() {
           </p>
           <p>Welcome to the world of self-sovereign identity.</p>
         </div>
-        <div className="center">
+        
+      </div>
+    </main>
+    <iframe width="100%" height="810" src="https://www.youtube.com/embed/eRxVWeX389w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    <div className="center">
           <a className="desktop_start" href="faber.html">
             <div className="desktop_start_btn">Start Tutorial</div>
           </a>
@@ -109,11 +113,10 @@ function App() {
             <div className="mobile_start_btn">Start Tutorial</div>
           </a>
         </div>
-      </div>
-    </main>
     </body>
 
     <footer id="footer">
+   
           <h2 style={{fontFamily: "TTNorm-Regular", marginLeft: "0px"}}>Powered by:</h2>
           <a href="https://www.validatedid.com">
             <img className="logoValidated" src={logoValidated} alt="ValidatedID" />
