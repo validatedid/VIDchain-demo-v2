@@ -1,20 +1,24 @@
 import React from 'react';
 import logo from './logo.svg';
+import Timeline from './components/Timeline';
 import './App.css';
+
+const logoVidchain = require("./assets/images/VIDchain_horizontal.png");
+const logoValidated = require("./assets/images/validated_white.png");
 
 function App() {
   return (
+    <html>
     <body className="step-body-background">
     <main>
-      <div className="live-products-header">
-        <a href="https://www.evernym.com/plans/">
-          Ready to try this for for real?
-          <span>Check out our live products</span>
-        </a>
-      </div>
+      
       <div className="grid-main-content custom-container">
-        <img className="logo" src="img/Group2@3x.png" />
-        <img className="step1_desktop" src="img/a@3x.png" />
+        <img className="logo" src={logoVidchain} />
+        <div className="live-products-header">
+          <h4>Welcome to VIDchain demo site!</h4>
+          <p>Test the latest demo, downloading our app and using it following the instructions.</p>
+        </div>
+        <Timeline />
         <div className="step-body">
           <div className="center">
             <a className="desktop_start" href="faber.html">
@@ -79,21 +83,6 @@ function App() {
           </div>
           <img src="img/ACMELogo@3x.png" style={{height:"83px", width:"230px"}} />
         </div>
-        <div className="step step-body">
-          <div>
-            <h3 className="heading">Part 3 - Thrift Bank</h3>
-            <p className="has-image-right">
-              Now armed with both your college transcripts and proof of
-              employment in your Connect.Me wallet, say you want to apply for an
-              auto loan at Thrift Bank. Thrift will ask you for proof of
-              employment and salary, as well as some information contained in
-              your college transcripts. Connect.Me will auto-fill the requested
-              information and disclose it to Thrift Bank at your authorization.
-              It is done privately, securely and within seconds.
-            </p>
-          </div>
-          <img src="img/ThriftLogo@3x.png" style={{height:35 ,width:"239px"}} />
-        </div>
 
         <div className="step-body">
           <p>
@@ -122,41 +111,20 @@ function App() {
         </div>
       </div>
     </main>
+    </body>
 
     <footer id="footer">
-      <div className="container">
-        <section>
-          <h4 className="logo-title">
-            Connect.Me is built by
-            <a href="https://www.evernym.com">Evernym</a>, and is an integral
-            part of the Verity Credential Exchange product.
-          </h4>
-          <a href="https://www.evernym.com">
-            <img className="logo logo-evernym" src="https://www.connect.me/images/logo-evernym.svg" alt="Evernym" />
+          <h2 style={{fontFamily: "TTNorm-Regular", marginLeft: "0px"}}>Powered by:</h2>
+          <a href="https://www.validatedid.com">
+            <img className="logoValidated" src={logoValidated} alt="ValidatedID" />
           </a>
-          <p>
-            <a href="https://www.connect.me/privacy.html">Privacy Policy</a>
-          </p>
-          <br />
-          <p>© Copyright 2018, Evernym Inc. All Rights Reserved.</p>
-          <p>Connect.Me is a registered trademark of Evernym Inc.</p>
-        </section>
-
-        <section>
-          <h4 className="logo-title">Powered by Sovrin</h4>
-          <a href="https://sovrin.org">
-            <img className="logo logo-sovrin" src="https://www.connect.me/images/logo-sovrin.svg" alt="Sovrin" />
-          </a>
-          <h4 className="logo-title">Using Hyperledger Indy at its core</h4>
-          <a href="https://www.hyperledger.org/projects/hyperledger-indy">
-            <img className="logo logo-hyperledger-indy" src="https://www.connect.me/images/logo-hyperledger-indy.png" alt="Hyperledger Indy" />
-          </a>
-        </section>
-      </div>
+          <br/>
+          <p style={{float: "right"}}>Copyright 2020, Validated ID, S.L.</p>
     </footer>
+    </html>
   
 
-</body>
+
   );
 }
 
