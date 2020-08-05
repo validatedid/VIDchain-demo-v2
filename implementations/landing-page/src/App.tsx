@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import logo from './logo.svg';
 import Timeline from './components/Timeline';
 import './App.css';
@@ -12,7 +12,29 @@ const logoUniversity = require("./assets/images/logo_uni.png");
 const logoGovernment = require("./assets/images/logoCity.png");
 const logoNotification = require("./assets/images/icon_notification.png");
 
-function App() {
+interface Props {
+
+}
+
+interface State {
+
+}
+class App extends Component<Props, State> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+     
+    };
+   
+  }
+
+  componentDidMount() {
+
+  }
+  handleChecked(){
+
+  }
+  render() {
   return (
     <html>
     <body className="step-body-background">
@@ -24,7 +46,7 @@ function App() {
           <h4>Welcome to VIDchain demo site!</h4>
           <p>Test the latest demo, downloading our app and using it following the instructions.</p>
         </div> */}
-        <Timeline />
+        <Timeline isChecked={true} methodCheck={this.handleChecked} step={0}/>
         <div className="step-body">
           <div className="center">
             <a className="desktop_start" href="/government">
@@ -38,7 +60,18 @@ function App() {
           <p style={{ fontFamily: "TTNorms-Regular"}}>
             Test the latest demo, downloading our app and using it following the instructions.
           </p>
-          <div className="links" style={{height: "96px"}}>
+          
+
+        </div>
+
+        <div className="step step-body">
+          <div id="download">
+            <h3 className="heading"><b>Part 0 - VIDchain Wallet</b></h3>
+            <p className="has-image-right">
+              Complete the KYC process, verifying your identity document and the liveness probe to assure you are the owner of the document using the VIDchain wallet, and you will receive a Verifiable eID,
+              that you can use to identificate in other entities.
+            </p>
+            <div className="links" style={{height: "96px"}}>
             <img src={logoApp} style={{marginRight: "50px", width:"121px"}} />
             <div className="playstore">
               <a id="x" href="https://itunes.apple.com">
@@ -49,16 +82,6 @@ function App() {
               </a>
             </div>
         </div>
-
-        </div>
-
-        <div className="step step-body">
-          <div>
-            <h3 className="heading"><b>Part 0 - VIDchain Wallet</b></h3>
-            <p className="has-image-right">
-              Complete the KYC process, verifying your identity document and the liveness probe to assure you are the owner of the document using the VIDchain wallet, and you will receive a Verifiable eID,
-              that you can use to identificate in other entities.
-            </p>
           </div>
           <img src={logoNotification} style={{width: "160px", height:"160px", marginBottom: "10px", marginRight: "25px"}} />
         </div>
@@ -106,10 +129,9 @@ function App() {
           <p style={{float: "right"}}>Copyright 2020, Validated ID, S.L.</p>
     </footer>
     </html>
-  
-
 
   );
+  }
 }
 
 
