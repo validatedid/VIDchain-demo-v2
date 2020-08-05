@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Timeline from '../components/Timeline';
 import './Main.css';
+import * as config from "../config/config";
 
 const logoVidchain = require("../assets/images/VIDchain_horizontal.png");
 const logoValidated = require("../assets/images/validated_white.png");
@@ -40,10 +41,10 @@ class Main extends Component<Props, State> {
   }
   redirectTo(step: number){
     if(step === 0){
-      window.open("/government");
+      window.open(config.GOVERNMENT_URL);
     }
     if(step === 1){
-      window.open("/university");
+      window.open(config.UNIVERSITY_URL);
     }
   }
   render() {

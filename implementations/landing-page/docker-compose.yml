@@ -10,4 +10,4 @@ services:
     ports:
       - 3028:3028
     environment:
-      - PUBLIC_URL=https://dev.api.vidchain.net/demo
+      - PUBLIC_URL=https://dev.api.vidchain.net/demo/home
