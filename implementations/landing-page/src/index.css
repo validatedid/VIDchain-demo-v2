@@ -1,0 +1,24 @@
+@font-face {
+  font-family: 'TTNorms';
+  src: local('TTNorms'), url(./assets/fonts/TTNorms-Regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'TTNorms';
+    font-weight: 900;
+    src: local('TTNorms'), url(./assets/fonts/TTNorms-Bold.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'TTNorms';
+    font-weight: 900;
+    src: local('TTNorms'), url(./assets/fonts/TTNorms-Black.otf) format('opentype');
+}
+body {
+  background-color: #00bf71;
+}
+
+code {
+  font-family: 'TTNorms', source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
