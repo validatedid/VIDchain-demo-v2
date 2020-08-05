@@ -114,8 +114,13 @@ class Callback extends Component<Props, State> {
           id: detailsJSON.vc.credentialSubject.id,
           documentNumber: detailsJSON.vc.credentialSubject.documentNumber,
           documentType: detailsJSON.vc.credentialSubject.documentType,
+<<<<<<< HEAD
           name: detailsJSON.vc.credentialSubject.firstName,
           surname: detailsJSON.vc.credentialSubject.lastName,
+=======
+          name: detailsJSON.vc.credentialSubject.name,
+          surname: detailsJSON.vc.credentialSubject.surname,
+>>>>>>> master
           fullName: detailsJSON.vc.credentialSubject.fullName,
           nationality: detailsJSON.vc.credentialSubject.nationality,
           stateIssuer: detailsJSON.vc.credentialSubject.stateIssuer,
@@ -123,7 +128,11 @@ class Callback extends Component<Props, State> {
           dateOfExpiry: detailsJSON.vc.credentialSubject.dateOfExpiry,
           dateOfBirth: detailsJSON.vc.credentialSubject.dateOfBirth,
           placeOfBirth: detailsJSON.vc.credentialSubject.placeOfBirth,
+<<<<<<< HEAD
           sex: detailsJSON.vc.credentialSubject.gender,
+=======
+          sex: detailsJSON.vc.credentialSubject.sex,
+>>>>>>> master
           personalNumber: detailsJSON.vc.credentialSubject.personalNumber,
         },
       });
