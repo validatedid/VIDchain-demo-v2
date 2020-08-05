@@ -23,14 +23,6 @@ function strB64dec(input) {
     return null;
   }
 }
-// TODO: convert function to const
-/*const strB64dec = (input: string) : JSON | null => {
-  try {
-    return JSON.parse(atob(input));
-  } catch (error) {
-    return null;
-  }
-}*/ 
 
 /**
  * Encoded  a Base64 string in an UTF-8 string format
@@ -44,13 +36,13 @@ function strB64enc(input) {
   }
 }
 
-function extractVCfromPresentation(credential){
+function extractVCfromPresentation(credential) {
   const dataDecoded = strB64dec(credential.data.base64);
   const JSONdata = JSON.parse(JSON.stringify(dataDecoded));
   let jwtObject = JSON.stringify(JSONdata.verifiableCredential);
   jwtObject = jwtObject.substring(
-  jwtObject.lastIndexOf("[") + 1,
-  jwtObject.lastIndexOf("]")
+    jwtObject.lastIndexOf("[") + 1,
+    jwtObject.lastIndexOf("]")
   );
   jwtObject = jwtObject.substring(1, jwtObject.length - 1);
   return decodeJWT(jwtObject);
