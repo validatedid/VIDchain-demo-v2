@@ -5,14 +5,7 @@ const logoUniversity = require("../assets/images/logo_uni.png");
 const logoGovernment = require("../assets/images/logoCity.png");
 const logoVidchain = require("../assets/images/icon_notification.png");
 
-const handleCheck = () => {
-
-}
-
-
 const Timeline = ({
-    isChecked,
-    methodCheck,
     step,
   }) => (
     <div>
@@ -24,16 +17,12 @@ const Timeline = ({
                 <h2>VIDchain Wallet</h2>
                 <div className="img-container">
                     <img src={logoVidchain} className="logoTimeline"/> 
-                    <input type="checkbox" 
-                        onChange={methodCheck}
-                        defaultChecked={isChecked}
-                    />
                     <p>Install the VIDchain App<br/>and create your Verifiable eID</p>
                 </div>
             </div>
         </a>
-        <a href="/government">
-            <div className="entryNoSelected">
+        <a href="https://dev.api.vidchain.net/demo/government">
+            <div className={step > 0 ? "entry" : "entryNoSelected"}>
                 <h1>Step 1</h1>
                 <h2>Government of Freedonia</h2>
                 <div className="img-container">
@@ -42,8 +31,8 @@ const Timeline = ({
                 </div>
             </div>
         </a>
-        <a href="/university">
-            <div className="entryNoSelected">
+        <a href="https://dev.api.vidchain.net/demo/university">
+            <div className={step > 1 ? "entry" : "entryNoSelected"}>
             <h1>Step 2</h1>
                 <h2>University</h2>
                 <div className="img-container">

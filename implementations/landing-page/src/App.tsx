@@ -17,15 +17,14 @@ interface Props {
 }
 
 interface State {
-
+  step: number
 }
 class App extends Component<Props, State> {
   constructor(props: any) {
     super(props);
     this.state = {
-     
+      step: +(localStorage.getItem("step") || 0)
     };
-   
   }
 
   componentDidMount() {
@@ -34,7 +33,25 @@ class App extends Component<Props, State> {
   handleChecked(){
 
   }
+  continue(){
+    const {step} = this.state;
+    localStorage.setItem("step", String(step+1))
+    this.redirectTo(step);
+    this.setState(prevState => {
+      return {step: prevState.step + 1}
+   })
+    
+  }
+  redirectTo(step: number){
+    if(step === 0){
+      window.open("https://dev.api.vidchain.net/demo/government");
+    }
+    if(step === 1){
+      window.open("https://dev.api.vidchain.net/demo/university");
+    }
+  }
   render() {
+    const {step} = this.state;
   return (
     <html>
     <body className="step-body-background">
@@ -46,20 +63,21 @@ class App extends Component<Props, State> {
           <h4>Welcome to VIDchain demo site!</h4>
           <p>Test the latest demo, downloading our app and using it following the instructions.</p>
         </div> */}
-        <Timeline isChecked={true} methodCheck={this.handleChecked} step={0}/>
+        <Timeline step={step}/>
         <div className="step-body">
+          <h2 style={{ fontFamily: "TTNorms-Regular"}}>Welcome to the VIDchain demo tutorial</h2>
+          <p style={{ fontFamily: "TTNorms-Regular"}}>
+            To test the latest demo, follow the instructions and click the button to continue.
+          </p>
           <div className="center">
-            <a className="desktop_start" href="/government">
+            <a className="desktop_start" onClick={() => this.continue()}>
               <div className="desktop_start_btn">Start Tutorial</div>
             </a>
-            <a className="mobile_start" href="/government">
+            <a className="mobile_start" onClick={() => this.continue()}>
               <div className="mobile_start_btn">Start Tutorial</div>
             </a>
           </div>
-          <h2 style={{ fontFamily: "TTNorms-Regular"}}>Welcome to the VIDchain demo tutorial</h2>
-          <p style={{ fontFamily: "TTNorms-Regular"}}>
-            Test the latest demo, downloading our app and using it following the instructions.
-          </p>
+          
           
 
         </div>
