@@ -23,7 +23,7 @@ class App extends Component<Props, State> {
   constructor(props: any) {
     super(props);
     this.state = {
-      step: +(localStorage.getItem("step") || 0)
+      step: +(sessionStorage.getItem("step") || 0)
     };
   }
 
@@ -35,7 +35,7 @@ class App extends Component<Props, State> {
   }
   continue(){
     const {step} = this.state;
-    localStorage.setItem("step", String(step+1))
+    sessionStorage.setItem("step", String(step+1))
     this.redirectTo(step);
     this.setState(prevState => {
       return {step: prevState.step + 1}
