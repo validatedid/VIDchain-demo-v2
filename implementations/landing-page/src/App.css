@@ -1,20 +1,18 @@
-html, body {
-  background-color: #00bf71;
-}
 
-html {
-  display: table;
-  margin: auto;
-}
 
-main {
-  max-width: 1000px;
-  margin: auto;
-}
 .step-body-background {
   background-color: white !important;
-  margin: 0;
-  width: 100%;
+  width: 80%;
+  margin-left: 10%;
+  margin-top: -35px;
+}
+@media only screen and (max-width: 750px) {
+  .step-body-background {
+    background-color: white !important;
+    width: 100%;
+    margin-top: -35px;
+    margin-left: 0;
+  }
 }
 .custom-container {
   width: 100%;
@@ -87,6 +85,7 @@ a {
 }
 .step-body .heading {
   font-weight: 700;
+  margin-left: 20px;
 }
 .step .heading {
   color: #00bf71;

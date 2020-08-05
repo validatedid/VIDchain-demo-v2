@@ -53,7 +53,7 @@ class App extends Component<Props, State> {
       <img className="logo" src={logoVidchain} alt="logo vidchain"/>
         <Timeline step={step}/>
         <div className="step-body">
-          <h2 style={{ fontFamily: "TTNorms-Regular"}}>Welcome to the VIDchain demo tutorial</h2>
+          <h2 style={{ fontFamily: "TTNorms-Regular", marginLeft: "20px"}}>Welcome to the VIDchain demo tutorial</h2>
           <p style={{ fontFamily: "TTNorms-Regular"}}>
             To test the latest demo, follow the instructions and click the button to continue.
           </p>
@@ -94,7 +94,7 @@ class App extends Component<Props, State> {
               Once you have access to the portal you can use the government services, and request other credentials like for example a Large Family credential that you can use in other entities to apply for discounts.
             </p>
           </div>
-          <img src={logoGovernment} style={{width: "200px", height:"200px"}} alt="logo government"/>
+          <img src={logoGovernment} style={{width: "200px", height:"200px", marginRight: "25px"}} alt="logo government"/>
         </div>
         <div className="step step-body">
           <div>
@@ -104,11 +104,11 @@ class App extends Component<Props, State> {
               or apply for a discount using the Large Family credential that you got from your government.
             </p>
           </div>
-          <img src={logoUniversity} style={{height:"200px", width:"200px"}} alt="logo university"/>
+          <img src={logoUniversity} style={{height:"200px", width:"200px", marginRight: "25px"}} alt="logo university"/>
         </div>
         
       </div>
-    <iframe title="video" width="100%" height="810" src="https://www.youtube.com/embed/eRxVWeX389w" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+    <iframe title="video"  style={{marginLeft: "2%", marginTop: "2%"}} width="96%" height="810" src="https://www.youtube.com/embed/eRxVWeX389w" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       <div className="center">
           <div className="desktop_start" onClick={() => this.continue()}>
             <div className="desktop_start_btn">{step === 0 ? "Start Tutorial" : "Continue"}</div>

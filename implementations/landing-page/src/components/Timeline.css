@@ -9,13 +9,13 @@ body {
     padding: 10px 75px 10px 75px;
     position: relative;
   }
-  
+ 
   .entry {
     display: inline-block;
     vertical-align: top;
     background: #00bf71;
     color: #fff;
-    padding: 10px;
+    padding: 30px;
     font-size: 12px;
     text-align: center;
     align-items: center;
@@ -32,7 +32,7 @@ body {
     vertical-align: top;
     background: #cfcfd1;
     color: #fff;
-    padding: 10px;
+    padding: 30px;
     font-size: 12px;
     text-align: center;
     align-items: center;
@@ -116,6 +116,20 @@ body {
     margin-bottom: 10px;
     font-size: 14px;
   }
+
+  @media only screen and (max-width: 750px) {
+    .entry {
+      padding: 5px;
+      margin-right: 5px;
+      margin-left: 5px;
+    }
+    .entryNoSelected{
+      padding: 5px;
+      margin-right: 5px;
+      margin-left: 5px;
+    }
+  }
+  
   
   .bar {
     height: 4px;
