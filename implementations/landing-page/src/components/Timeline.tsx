@@ -16,7 +16,7 @@ const Timeline = ({
                 <h1>Step 0</h1>
                 <h2>VIDchain Wallet</h2>
                 <div className="img-container">
-                    <img src={logoVidchain} className="logoTimeline"/> 
+                    <img src={logoVidchain} className="logoTimeline" alt="vidchain logo"/> 
                     <p>Install the VIDchain App<br/>and create your Verifiable eID</p>
                 </div>
             </div>
@@ -26,7 +26,7 @@ const Timeline = ({
                 <h1>Step 1</h1>
                 <h2>Government of Freedonia</h2>
                 <div className="img-container">
-                    <img src={logoGovernment} className="logoTimeline"/> 
+                    <img src={logoGovernment} className="logoTimeline" alt="government logo"/> 
                     <p>Access to your government account<br/>with VIDchain and use their services</p>
                 </div>
             </div>
@@ -36,7 +36,7 @@ const Timeline = ({
             <h1>Step 2</h1>
                 <h2>University</h2>
                 <div className="img-container">
-                    <img src={logoUniversity} className="logoTimeline"/> 
+                    <img src={logoUniversity} className="logoTimeline" alt="university logo"/> 
                     <p>Access to your university portal<br/>and get your diploma</p>
                 </div>
             </div>

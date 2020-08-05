@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import Timeline from './components/Timeline';
 import './App.css';
 
@@ -50,16 +49,8 @@ class App extends Component<Props, State> {
   render() {
     const {step} = this.state;
   return (
-    <html>
-    <body className="step-body-background">
-    <main>
-      <img className="logo" src={logoVidchain} />
-      <div className="grid-main-content custom-container">
-        
-        {/* <div className="live-products-header">
-          <h4>Welcome to VIDchain demo site!</h4>
-          <p>Test the latest demo, downloading our app and using it following the instructions.</p>
-        </div> */}
+    <div className="step-body-background">
+      <img className="logo" src={logoVidchain} alt="logo vidchain"/>
         <Timeline step={step}/>
         <div className="step-body">
           <h2 style={{ fontFamily: "TTNorms-Regular"}}>Welcome to the VIDchain demo tutorial</h2>
@@ -67,18 +58,13 @@ class App extends Component<Props, State> {
             To test the latest demo, follow the instructions and click the button to continue.
           </p>
           <div className="center">
-            <a className="desktop_start" onClick={() => this.continue()}>
+            <div className="desktop_start" onClick={() => this.continue()}>
               <div className="desktop_start_btn">{step === 0 ? "Start Tutorial" : "Continue"}</div>
-            </a>
-            <a className="mobile_start" onClick={() => this.continue()}>
+            </div>
+            <div className="mobile_start" onClick={() => this.continue()}>
               <div className="mobile_start_btn">{step === 0 ? "Start Tutorial" : "Continue"}</div>
-            </a>
+            </div>
           </div>
-          
-          
-
-        </div>
-
         <div className="step step-body">
           <div id="download">
             <h3 className="heading"><b>Part 0 - VIDchain Wallet</b></h3>
@@ -87,18 +73,18 @@ class App extends Component<Props, State> {
               that you can use to identificate in other entities.
             </p>
             <div className="links" style={{height: "96px"}}>
-            <img src={logoApp} style={{marginRight: "50px", width:"121px"}} />
+            <img src={logoApp} style={{marginRight: "50px", width:"121px"}} alt="logo vidchain app"/>
             <div className="playstore">
               <a id="x" href="https://itunes.apple.com">
-                <img src={logoIOS}style={{width:"121px",marginRight: "20px"}} />
+                <img src={logoIOS}style={{width:"121px",marginRight: "20px"}} alt="logo ios"/>
               </a>
               <a href="https://play.google.com/store/">
-                <img src={logoAndroid} style={{width:"121px"}} />
+                <img src={logoAndroid} style={{width:"121px"}} alt="logo android"/>
               </a>
             </div>
-        </div>
+            </div>
           </div>
-          <img src={logoNotification} style={{width: "160px", height:"160px", marginBottom: "10px", marginRight: "25px"}} />
+          <img src={logoNotification} style={{width: "160px", height:"160px", marginBottom: "10px", marginRight: "25px"}} alt="logo vidchain app"/>
         </div>
         <div className="step step-body">
           <div>
@@ -108,7 +94,7 @@ class App extends Component<Props, State> {
               Once you have access to the portal you can use the government services, and request other credentials like for example a Large Family credential that you can use in other entities to apply for discounts.
             </p>
           </div>
-          <img src={logoGovernment} style={{width: "200px", height:"200px"}} />
+          <img src={logoGovernment} style={{width: "200px", height:"200px"}} alt="logo government"/>
         </div>
         <div className="step step-body">
           <div>
@@ -118,24 +104,20 @@ class App extends Component<Props, State> {
               or apply for a discount using the Large Family credential that you got from your government.
             </p>
           </div>
-          <img src={logoUniversity} style={{height:"200px", width:"200px"}} />
+          <img src={logoUniversity} style={{height:"200px", width:"200px"}} alt="logo university"/>
         </div>
         
       </div>
-    </main>
-    <iframe width="100%" height="810" src="https://www.youtube.com/embed/eRxVWeX389w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-    <div className="center">
-          <a className="desktop_start" onClick={() => this.continue()}>
+    <iframe title="video" width="100%" height="810" src="https://www.youtube.com/embed/eRxVWeX389w" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
+      <div className="center">
+          <div className="desktop_start" onClick={() => this.continue()}>
             <div className="desktop_start_btn">{step === 0 ? "Start Tutorial" : "Continue"}</div>
-          </a>
-          <a className="mobile_start" onClick={() => this.continue()}>
+          </div>
+          <div className="mobile_start" onClick={() => this.continue()}>
             <div className="mobile_start_btn">{step === 0 ? "Start Tutorial" : "Continue"}</div>
-          </a>
+          </div>
         </div>
-    </body>
-
-    <footer id="footer">
-   
+        <footer id="footer">
           <h2 style={{fontFamily: "TTNorm-Regular", marginLeft: "0px"}}>Powered by:</h2>
           <a href="https://www.validatedid.com">
             <img className="logoValidated" src={logoValidated} alt="ValidatedID" />
@@ -143,8 +125,7 @@ class App extends Component<Props, State> {
           <br/>
           <p style={{float: "right"}}>Copyright 2020, Validated ID, S.L.</p>
     </footer>
-    </html>
-
+    </div>
   );
   }
 }
