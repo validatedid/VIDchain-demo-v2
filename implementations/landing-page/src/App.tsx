@@ -30,9 +30,6 @@ class App extends Component<Props, State> {
   componentDidMount() {
 
   }
-  handleChecked(){
-
-  }
   continue(){
     const {step} = this.state;
     sessionStorage.setItem("step", String(step+1))
@@ -44,10 +41,10 @@ class App extends Component<Props, State> {
   }
   redirectTo(step: number){
     if(step === 0){
-      window.open("https://dev.api.vidchain.net/demo/government");
+      window.open("/government");
     }
     if(step === 1){
-      window.open("https://dev.api.vidchain.net/demo/university");
+      window.open("/university");
     }
   }
   render() {
