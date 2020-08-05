@@ -68,10 +68,10 @@ class App extends Component<Props, State> {
           </p>
           <div className="center">
             <a className="desktop_start" onClick={() => this.continue()}>
-              <div className="desktop_start_btn">Start Tutorial</div>
+              <div className="desktop_start_btn">{step === 0 ? "Start Tutorial" : "Continue"}</div>
             </a>
             <a className="mobile_start" onClick={() => this.continue()}>
-              <div className="mobile_start_btn">Start Tutorial</div>
+              <div className="mobile_start_btn">{step === 0 ? "Start Tutorial" : "Continue"}</div>
             </a>
           </div>
           
@@ -125,11 +125,11 @@ class App extends Component<Props, State> {
     </main>
     <iframe width="100%" height="810" src="https://www.youtube.com/embed/eRxVWeX389w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     <div className="center">
-          <a className="desktop_start" href="/government">
-            <div className="desktop_start_btn">Start Tutorial</div>
+          <a className="desktop_start" onClick={() => this.continue()}>
+            <div className="desktop_start_btn">{step === 0 ? "Start Tutorial" : "Continue"}</div>
           </a>
-          <a className="mobile_start" href="/government">
-            <div className="mobile_start_btn">Start Tutorial</div>
+          <a className="mobile_start" onClick={() => this.continue()}>
+            <div className="mobile_start_btn">{step === 0 ? "Start Tutorial" : "Continue"}</div>
           </a>
         </div>
     </body>
