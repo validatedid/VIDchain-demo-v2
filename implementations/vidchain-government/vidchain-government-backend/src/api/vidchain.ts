@@ -15,6 +15,10 @@ async function postRequest(token: string, user: any, endpoint: string) {
     },
   };
   try {
+    console.log("request VO");
+    console.log(config.API_URL.concat(endpoint));
+    console.log(authorization);
+    console.log(user);
     const response = await axios.post(
       config.API_URL.concat(endpoint),
       user,
