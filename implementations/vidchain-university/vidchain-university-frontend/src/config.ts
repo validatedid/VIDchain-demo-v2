@@ -12,6 +12,7 @@ const BACKEND_URL =
   process.env.REACT_APP_BACKEND_URL ||
   "https://dev.api.vidchain.net/demo/universitybackend";
 const BACKEND_WS = process.env.REACT_APP_WS_URL || "/";
+const API_KEY = process.env.REACT_APP_API_KEY|| "/";
 
 //Legal Entity
 const Entity = {
@@ -19,11 +20,13 @@ const Entity = {
   aud: "vidchain-api",
   nonce: "z-0427dc2515b1",
   callbackUrl: BACKEND_URL + "/presentation/validation",
+  apiKey: API_KEY
 };
 
 //Entity in Base-64
 const grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer";
-const scope = "vidchain profile test entity";
+const scope = "vidchain profile entity";
+//const scope = "vidchain profile test entity";
 
 const CLIENT_ID = "university";
 const CLIENT_NAME = "YourUniversity";
