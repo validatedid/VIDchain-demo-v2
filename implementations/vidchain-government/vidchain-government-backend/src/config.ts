@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3021;
 const API_URL = "https://dev.api.vidchain.net/api/v1/";
 const BASE_URL =
   process.env.BASE_URL || "https://dev.api.vidchain.net/demo/governmentbackend";
-const WS_URL = process.env.WS_URL ||  "https://dev.api.vidchain.net/";
+const WS_URL = process.env.WS_URL ||  "https://dev.api.vidchain.net";
 const API_KEY = process.env.API_KEY|| "/";
 
 //Legal Entity
