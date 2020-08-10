@@ -15,3 +15,4 @@ services:
       - REACT_APP_BACKEND_URL=https://dev.api.vidchain.net/demo/universitybackend
       - PUBLIC_URL=https://dev.api.vidchain.net/demo/university
       - REACT_APP_API_KEY=${REACT_APP_API_KEY:?Missing API_KEY variable}
+      - REACT_APP_WS_URL=https://dev.api.vidchain.net

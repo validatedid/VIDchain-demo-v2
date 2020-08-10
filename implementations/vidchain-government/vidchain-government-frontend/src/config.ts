@@ -24,7 +24,7 @@ const Entity = {
 
 const grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 const scope = "vidchain profile entity";
-//const scope = "vidchain profile TEST entity";
+//const scope = "vidchain profile test entity";
 
 const DID = "did:vid:0xfB5390914b110BEB6c0B250CB59b23E156B68e29";
 

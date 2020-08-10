@@ -18,6 +18,7 @@ services:
       - REACT_APP_BACKEND_URL=https://dev.api.vidchain.net/demo/governmentbackend
       - PUBLIC_URL=https://dev.api.vidchain.net/demo/government
       - REACT_APP_API_KEY=${REACT_APP_API_KEY:?Missing API_KEY variable}
+      - REACT_APP_WS_URL=https://dev.api.vidchain.net
 networks:
   hydra_network:
     driver: bridge
