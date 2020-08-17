@@ -13,7 +13,7 @@ import * as config from "./../config";
 import { Logger } from "@nestjs/common";
 import { extractVCfromPresentation } from "../utils/Util";
 
-@WebSocketGateway({ path: "/universityws", transports: ["websocket"] })
+@WebSocketGateway({ path: "/universityws", transports: ["websocket"], cookie: false})
 export class EventsGateway
   implements OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit {
   @WebSocketServer() wss: Server;

@@ -13,7 +13,7 @@ import axios from "axios";
 import * as config from "./../config";
 import { extractVCfromPresentation } from "../utils/Util";
 
-@WebSocketGateway({ path: "/governmentws", transports: ["websocket"] })
+@WebSocketGateway({ path: "/governmentws", transports: ["websocket"], cookie: false})
 export class EventsGateway
   implements OnGatewayConnection, OnGatewayDisconnect, OnGatewayInit {
   @WebSocketServer() wss: Server;
