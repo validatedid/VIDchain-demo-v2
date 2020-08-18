@@ -4,6 +4,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args: 
+        - REACT_APP_API_KEY=${REACT_APP_API_KEY:?Missing API_KEY variable}
     image: vidchain/university-frontend:v0.1
     container_name: university-frontend
     ports:
@@ -14,7 +16,6 @@ services:
       - REACT_APP_DEMO=https://dev.api.vidchain.net/demo/university
       - REACT_APP_BACKEND_URL=https://dev.api.vidchain.net/demo/universitybackend
       - PUBLIC_URL=https://dev.api.vidchain.net/demo/university
-      - REACT_APP_API_KEY=${REACT_APP_API_KEY:?Missing REACT_APP_API_KEY variable}
 networks:
   hydra_network:
     driver: bridge
