@@ -3,9 +3,7 @@ services:
   university-backend:
     build:
       context: .
-      dockerfile: Dockerfile
-      args:
-        - API_KEY=${API_KEY:?Missing API_KEY variable}
+      dockerfile: ./Dockerfile
     image: vidchain/university-backend:v0.1
     container_name: university-backend
     ports:
@@ -17,6 +15,8 @@ services:
       - PORT=3023
       - REDIS_URL=redis
       - REDIS_PORT=6379
+      - API_KEY=${API_KEY:?Missing API_KEY variable}
+
 networks:
   hydra_network:
     driver: bridge
