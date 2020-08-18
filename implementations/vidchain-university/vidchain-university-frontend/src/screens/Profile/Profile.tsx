@@ -159,7 +159,7 @@ class Profile extends Component<Props, State> {
     this.setState({
       discountRequested: true,
     });
-    universityBackend.claimVP(utils.getUserDid(this.state.id_token), "Login");
+    universityBackend.claimVP(utils.getUserDid(this.state.id_token), "LargeFamilyCard");
   }
 
   render() {

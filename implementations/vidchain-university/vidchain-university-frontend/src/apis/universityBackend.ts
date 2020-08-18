@@ -13,7 +13,7 @@ async function claimVP(target: string, name: string) {
       presentationType = ["VerifiableCredential", "VerifiableIdCredential"];
       break;
     }
-    case "Large Family Card": {
+    case "LargeFamilyCard": {
       presentationType = ["VerifiableCredential", "LargeFamilyCard"];
       break;
     }
