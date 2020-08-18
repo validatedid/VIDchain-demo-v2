@@ -5,8 +5,6 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
-      args: 
-        - REACT_APP_API_KEY=${REACT_APP_API_KEY:?Missing API_KEY variable}
     image: vidchain/government-frontend:v0.1
     container_name: government-frontend
     networks:
@@ -19,6 +17,7 @@ services:
       - REACT_APP_DEMO=https://dev.api.vidchain.net/demo/government
       - REACT_APP_BACKEND_URL=https://dev.api.vidchain.net/demo/governmentbackend
       - PUBLIC_URL=https://dev.api.vidchain.net/demo/government
+      - REACT_APP_API_KEY=${REACT_APP_API_KEY:?Missing API_KEY variable}
 networks:
   hydra_network:
     driver: bridge

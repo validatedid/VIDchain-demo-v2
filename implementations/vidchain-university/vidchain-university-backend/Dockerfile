@@ -7,8 +7,6 @@ COPY . .
 RUN npm run build
 # Stage 2
 FROM node:12-alpine
-ARG API_KEY
-ENV API_KEY $API_KEY
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 COPY --from=builder node_modules node_modules
