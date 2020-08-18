@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: ./Dockerfile
+      args:
+        - API_KEY=${API_KEY:?Missing API_KEY variable}
     image: vidchain/government-backend:v0.1
     container_name: government-backend
     ports:
@@ -16,8 +18,6 @@ services:
       - REDIS_PORT=6379
       - BASE_URL=https://dev.api.vidchain.net/demo/governmentbackend
       - PORT=3021
-      - API_KEY=${API_KEY:?Missing API_KEY variable}
-
 networks:
   hydra_network:
     driver: bridge

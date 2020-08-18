@@ -8,6 +8,8 @@ RUN apk add --update --no-cache \
 
 ## Stage 1: build the wallet 
 FROM base AS builder-demo
+ARG REACT_APP_API_KEY
+ENV REACT_APP_API_KEY $REACT_APP_API_KEY
 WORKDIR /usr/src/app
 COPY ./package*.json /usr/src/app/
 RUN npm ci --quiet --no-progress
