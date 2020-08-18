@@ -9,6 +9,7 @@ const dotenv = require("dotenv");
 
 const publicUrl =
   process.env.REACT_APP_DEMO || "http://localhost:3022/demo/government";
+console.log("publicUrl:" + publicUrl);
 const basename = publicUrl ? new URL(publicUrl).pathname : "";
 
 function App() {
