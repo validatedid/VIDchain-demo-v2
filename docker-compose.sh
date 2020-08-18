@@ -3,8 +3,13 @@ cp ../envs/.env.government-frontend implementations/vidchain-government/vidchain
 cp ../envs/.env.government-backend implementations/vidchain-government/vidchain-government-backend/.env
 cp ../envs/.env.university-frontend implementations/vidchain-university/vidchain-university-frontend/.env
 cp ../envs/.env.university-backend implementations/vidchain-university/vidchain-university-backend/.env
-docker-compose -f implementations/vidchain-government/vidchain-government-frontend/docker-compose.yml up -d --build
-docker-compose -f implementations/vidchain-government/vidchain-government-backend/docker-compose.yml up -d --build
-docker-compose -f implementations/vidchain-university/vidchain-university-frontend/docker-compose.yml up -d --build
-docker-compose -f implementations/vidchain-university/vidchain-university-backend/docker-compose.yml up -d --build
-docker-compose -f implementations/landing-page/docker-compose.yml up -d --build
+cd implementations/vidchain-government/vidchain-government-frontend
+docker-compose -f docker-compose.yml up -d --build
+cd ../vidchain-government-backend
+docker-compose -f docker-compose.yml up -d --build
+cd ../../vidchain-university/vidchain-university-frontend
+docker-compose -f docker-compose.yml up -d --build
+cd ../vidchain-university-backend
+docker-compose -f docker-compose.yml up -d --build
+cd ../../landing-page
+docker-compose -f docker-compose.yml up -d --build
