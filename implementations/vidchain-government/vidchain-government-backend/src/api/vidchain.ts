@@ -24,8 +24,12 @@ async function postRequest(token: string, user: any, endpoint: string) {
       user,
       authorization
     );
-    if (response.status !== 200 && response.status !== 201) {
+    if (response.status !== 200 && response.status !== 201 && response.status !== 204) {
       return "Error";
+    }
+    // Some requests return an empty response with status 204
+    if(response.status === 204){
+      return "Ok"
     }
     return response.data;
   } catch (error) {
