@@ -1,0 +1,83 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: university-frontend-deployment
+  labels:
+    app: university-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: university-frontend
+  strategy: 
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: university-frontend
+    spec:
+      containers:
+      - image: k8scrvidchaindev.azurecr.io/university-frontend:v1.2
+        imagePullPolicy: "Always"
+        name: university-frontend
+        ports:
+        - containerPort: 3024
+        env:
+        - name: REACT_APP_REDIRECT_CALLBACK
+          value: https://dev.api.vidchain.net/demo/university/callback
+        - name: REACT_APP_IDENTITY_PROVIDER
+          value: https://dev.api.vidchain.net
+        - name: REACT_APP_DEMO
+          value: https://dev.api.vidchain.net/demo/university
+        - name: REACT_APP_BACKEND_URL
+          value: https://dev.api.vidchain.net/demo/universitybackend
+        - name: PUBLIC_URL
+          value: https://dev.api.vidchain.net/demo/university
+        - name: REACT_APP_API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: university-api-key
+              key: api-key
+      restartPolicy: Always
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: university-frontend-service
+  labels:
+    app: university-frontend
+spec:
+  type: ClusterIP
+  ports:
+  - name: "3024"
+    port: 3024
+  selector:
+    app: university-frontend
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: university-frontend-ingress
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /demo/university/$2
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  tls:
+  - hosts:
+    - dev.vidchain.net
+    secretName: tls-secret
+  rules:
+  - host: dev.vidchain.net
+    http:
+      paths: 
+      - backend:
+          serviceName: university-frontend-service
+          servicePort: 3024
+        path: /demo/university(/|$)(.*)

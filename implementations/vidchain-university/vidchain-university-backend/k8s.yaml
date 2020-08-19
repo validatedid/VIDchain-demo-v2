@@ -1,0 +1,79 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: university-backend-deployment
+  labels:
+    app: university-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: university-backend
+  strategy: 
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: university-backend
+    spec:
+      containers:
+      - image: k8scrvidchaindev.azurecr.io/university-backend:v0.6
+        imagePullPolicy: "Always"
+        name: university-backend
+        ports:
+        - containerPort: 3023
+        env:
+        - name: BASE_URL
+          value: https://dev.vidchain.net/demo/universitybackend
+        - name: PORT
+          value: 3023
+        - name: REDIS_URL
+          value: redis
+        - name: REDIS_PORT
+          value: 6379
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: university-api-key
+              key: api-key
+      restartPolicy: Always
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: university-backend-service
+  labels:
+    app: university-backend
+spec:
+  type: ClusterIP
+  ports:
+  - name: "3023"
+    port: 3023
+  selector:
+    app: university-backend
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: university-backend-ingress
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  tls:
+  - hosts:
+    - dev.vidchain.net
+    secretName: tls-secret
+  rules:
+  - host: dev.vidchain.net
+    http:
+      paths:
+      - backend:
+          serviceName: university-backend-service
+          servicePort: 3023
+        path: /demo/universitybackend
