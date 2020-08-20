@@ -17,7 +17,7 @@ spec:
         app: university-backend
     spec:
       containers:
-      - image: k8scrvidchaindev.azurecr.io/university-backend:v0.6
+      - image: k8scrvidchaindev.azurecr.io/university-backend:v0.8
         imagePullPolicy: "Always"
         name: university-backend
         ports:
@@ -26,11 +26,11 @@ spec:
         - name: BASE_URL
           value: https://dev.vidchain.net/demo/universitybackend
         - name: PORT
-          value: 3023
+          value: "3023"
         - name: REDIS_URL
           value: redis
         - name: REDIS_PORT
-          value: 6379
+          value: "6379"
         - name: API_KEY
           valueFrom:
             secretKeyRef:
@@ -59,7 +59,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: university-backend-ingress
-  namespace: default
+  namespace: development
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
@@ -73,7 +73,11 @@ spec:
   - host: dev.vidchain.net
     http:
       paths:
-      - backend:
+      - path: /demo/universitybackend
+        backend:
           serviceName: university-backend-service
           servicePort: 3023
-        path: /demo/universitybackend
+      - path: /universityws
+        backend:
+          serviceName: university-backend-service
+          servicePort: 3023

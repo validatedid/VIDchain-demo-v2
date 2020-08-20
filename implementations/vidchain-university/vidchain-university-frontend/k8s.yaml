@@ -17,22 +17,22 @@ spec:
         app: university-frontend
     spec:
       containers:
-      - image: k8scrvidchaindev.azurecr.io/university-frontend:v1.2
+      - image: k8scrvidchaindev.azurecr.io/university-frontend:v1.4
         imagePullPolicy: "Always"
         name: university-frontend
         ports:
         - containerPort: 3024
         env:
         - name: REACT_APP_REDIRECT_CALLBACK
-          value: https://dev.api.vidchain.net/demo/university/callback
+          value: https://dev.vidchain.net/demo/university/callback
         - name: REACT_APP_IDENTITY_PROVIDER
           value: https://dev.api.vidchain.net
         - name: REACT_APP_DEMO
-          value: https://dev.api.vidchain.net/demo/university
+          value: https://dev.vidchain.net/demo/university
         - name: REACT_APP_BACKEND_URL
-          value: https://dev.api.vidchain.net/demo/universitybackend
+          value: https://dev.vidchain.net/demo/universitybackend
         - name: PUBLIC_URL
-          value: https://dev.api.vidchain.net/demo/university
+          value: https://dev.vidchain.net/demo/university
         - name: REACT_APP_API_KEY
           valueFrom:
             secretKeyRef:
@@ -62,7 +62,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: university-frontend-ingress
-  namespace: default
+  namespace: development
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
@@ -77,7 +77,8 @@ spec:
   - host: dev.vidchain.net
     http:
       paths: 
-      - backend:
+      - path: /demo/university(/|$)(.*)
+        backend:
           serviceName: university-frontend-service
           servicePort: 3024
-        path: /demo/university(/|$)(.*)
+        

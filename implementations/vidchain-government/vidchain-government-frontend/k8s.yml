@@ -17,22 +17,22 @@ spec:
         app: government-frontend
     spec:
       containers:
-      - image: k8scrvidchaindev.azurecr.io/government-frontend:v1.2
+      - image: k8scrvidchaindev.azurecr.io/government-frontend:v0.3
         imagePullPolicy: "Always"
         name: government-frontend
         ports:
         - containerPort: 3022
         env:
         - name: REACT_APP_REDIRECT_CALLBACK
-          value: https://dev.api.vidchain.net/demo/government/callback
+          value: https://dev.vidchain.net/demo/government/callback
         - name: REACT_APP_IDENTITY_PROVIDER
           value: https://dev.api.vidchain.net
         - name: REACT_APP_DEMO
-          value: https://dev.api.vidchain.net/demo/government
+          value: https://dev.vidchain.net/demo/government
         - name: REACT_APP_BACKEND_URL
-          value: https://dev.api.vidchain.net/demo/governmentbackend
+          value: https://dev.vidchain.net/demo/governmentbackend
         - name: PUBLIC_URL
-          value: https://dev.api.vidchain.net/demo/government
+          value: https://dev.vidchain.net/demo/government
         - name: REACT_APP_API_KEY
           valueFrom:
             secretKeyRef:
@@ -51,8 +51,8 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - name: "3024"
-    port: 3024
+  - name: "3022"
+    port: 3022
   selector:
     app: government-frontend
 
@@ -62,7 +62,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: government-frontend-ingress
-  namespace: default
+  namespace: development
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
@@ -77,7 +77,8 @@ spec:
   - host: dev.vidchain.net
     http:
       paths: 
-      - backend:
+      - path: /demo/government(/|$)(.*)
+        backend:
           serviceName: government-frontend-service
-          servicePort: 3024
-        path: /demo/government(/|$)(.*)
+          servicePort: 3022
+        

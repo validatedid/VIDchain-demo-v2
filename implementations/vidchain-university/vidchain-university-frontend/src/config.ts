@@ -7,10 +7,10 @@ const IDENTITY_PROVIDER =
   process.env.REACT_APP_IDENTITY_PROVIDER || "https://dev.api.vidchain.net";
 const REDIRECT_CALLBACK =
   process.env.REACT_APP_REDIRECT_CALLBACK ||
-  "https://dev.api.vidchain.net/demo/university/callback";
+  "https://dev.vidchain.net/demo/university/callback";
 const BACKEND_URL =
   process.env.REACT_APP_BACKEND_URL ||
-  "https://dev.api.vidchain.net/demo/universitybackend";
+  "https://dev.vidchain.net/demo/universitybackend";
 const BACKEND_WS = process.env.REACT_APP_WS_URL || "/";
 const API_KEY = process.env.REACT_APP_API_KEY|| "/";
 

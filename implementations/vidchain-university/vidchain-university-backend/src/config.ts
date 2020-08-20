@@ -4,8 +4,8 @@ dotenv.config();
 const PORT = process.env.PORT || 3023;
 const API_URL = "https://dev.api.vidchain.net/api/v1/";
 const BASE_URL =
-  process.env.BASE_URL || "https://dev.api.vidchain.net/demo/universitybackend";
-const WS_URL = process.env.WS_URL || "https://dev.api.vidchain.net";
+  process.env.BASE_URL || "https://dev.vidchain.net/demo/universitybackend";
+const WS_URL = process.env.WS_URL || "https://dev.vidchain.net";
 const API_KEY = process.env.API_KEY|| "/";
 
 //Legal Entity

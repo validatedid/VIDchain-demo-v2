@@ -17,7 +17,7 @@ spec:
         app: government-backend
     spec:
       containers:
-      - image: k8scrvidchaindev.azurecr.io/government-backend:v0.6
+      - image: k8scrvidchaindev.azurecr.io/government-backend:v0.2
         imagePullPolicy: "Always"
         name: government-backend
         ports:
@@ -26,11 +26,13 @@ spec:
         - name: BASE_URL
           value: https://dev.vidchain.net/demo/governmentbackend
         - name: PORT
-          value: 3021
+          value: "3021"
         - name: REDIS_URL
           value: redis
         - name: REDIS_PORT
-          value: 6379
+          value: "6379"
+        - name: WS_URL
+          value: https://dev.vidchain.net
         - name: API_KEY
           valueFrom:
             secretKeyRef:
@@ -59,7 +61,7 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: government-backend-ingress
-  namespace: default
+  namespace: development
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
@@ -73,7 +75,11 @@ spec:
   - host: dev.vidchain.net
     http:
       paths:
-      - backend:
+      - path: /demo/governmentbackend
+        backend:
           serviceName: government-backend-service
           servicePort: 3021
-        path: /demo/governmentbackend
+      - path: /governmentws
+        backend:
+          serviceName: government-backend-service
+          servicePort: 3021
