@@ -3,7 +3,7 @@ name: WIP - Deploy development government demo on AKS
 on:
   push:
     branches:
-      - ci/cd-github-actions-aks
+      - test-branch
 
 env:
   CLUSTER_NAME: k8s-vidchain-dev

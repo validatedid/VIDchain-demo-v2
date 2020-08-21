@@ -3,7 +3,7 @@ name: WIP - Deploy production university demo on AKS
 on:
   push:
     branches:
-      - master
+      - master-branch
 
 env:
   CLUSTER_NAME: k8s-vidchain-dev
