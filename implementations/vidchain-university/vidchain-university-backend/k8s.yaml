@@ -17,7 +17,7 @@ spec:
         app: university-backend
     spec:
       containers:
-      - image: k8scrvidchaindev.azurecr.io/university-backend:v0.8
+      - image: k8scrvidchaindev.azurecr.io/university-backend:v0.9
         imagePullPolicy: "Always"
         name: university-backend
         ports:

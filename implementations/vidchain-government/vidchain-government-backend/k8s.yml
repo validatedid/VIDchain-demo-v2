@@ -17,7 +17,7 @@ spec:
         app: government-backend
     spec:
       containers:
-      - image: k8scrvidchaindev.azurecr.io/government-backend:v0.2
+      - image: k8scrvidchaindev.azurecr.io/government-backend:v0.3
         imagePullPolicy: "Always"
         name: government-backend
         ports:
