@@ -17,7 +17,7 @@ spec:
         app: government-frontend
     spec:
       containers:
-      - image: k8scrvidchaindev.azurecr.io/government-frontend:v0.3
+      - image: k8scrvidchaindev.azurecr.io/government-frontend:v0.4
         imagePullPolicy: "Always"
         name: government-frontend
         ports:
@@ -26,7 +26,7 @@ spec:
         - name: REACT_APP_REDIRECT_CALLBACK
           value: https://dev.vidchain.net/demo/government/callback
         - name: REACT_APP_IDENTITY_PROVIDER
-          value: https://dev.api.vidchain.net
+          value: https://dev.vidchain.net
         - name: REACT_APP_DEMO
           value: https://dev.vidchain.net/demo/government
         - name: REACT_APP_BACKEND_URL

@@ -17,7 +17,7 @@ spec:
         app: university-frontend
     spec:
       containers:
-      - image: k8scrvidchaindev.azurecr.io/university-frontend:v1.4
+      - image: k8scrvidchaindev.azurecr.io/university-frontend:v1.5
         imagePullPolicy: "Always"
         name: university-frontend
         ports:
@@ -26,7 +26,7 @@ spec:
         - name: REACT_APP_REDIRECT_CALLBACK
           value: https://dev.vidchain.net/demo/university/callback
         - name: REACT_APP_IDENTITY_PROVIDER
-          value: https://dev.api.vidchain.net
+          value: https://dev.vidchain.net
         - name: REACT_APP_DEMO
           value: https://dev.vidchain.net/demo/university
         - name: REACT_APP_BACKEND_URL
