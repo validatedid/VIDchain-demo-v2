@@ -6,6 +6,7 @@ metadata:
     app: demo-landing
 spec:
   replicas: 1
+  revisionHistoryLimit: 1
   selector:
     matchLabels:
       app: demo-landing
@@ -17,14 +18,14 @@ spec:
         app: demo-landing
     spec:
       containers:
-      - image: k8scrvidchaindev.azurecr.io/demo-landing:v0.5
+      - image: k8scrvidchaindev.azurecr.io/demo-landing:v0.6
         imagePullPolicy: "Always"
         name: demo-landing
         ports:
         - containerPort: 3028
         env:
         - name: PUBLIC_URL
-          value: https://dev.vidchain.net/demo
+          value: https://try.vidchain.net/demo
       restartPolicy: Always
 
 ---
@@ -49,7 +50,6 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: demo-landing-ingress
-  namespace: development
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
@@ -58,14 +58,13 @@ metadata:
 spec:
   tls:
   - hosts:
-    - dev.vidchain.net
+    - try.vidchain.net
     secretName: tls-secret
   rules:
-  - host: dev.vidchain.net
+  - host: try.vidchain.net 
     http:
-      paths: 
+      paths:
       - path: /demo(/|$)(.*)
         backend:
           serviceName: demo-landing-service
-          servicePort: 3028
-        
+          servicePort: 3028       

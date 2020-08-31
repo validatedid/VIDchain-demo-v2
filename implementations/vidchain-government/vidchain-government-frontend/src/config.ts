@@ -1,12 +1,12 @@
 const dotenv = require("dotenv");
 dotenv.config();
 
-const API_URL = "https://dev.api.vidchain.net/api/v1";
+const API_URL = "https://dev.vidchain.net/api/v1";
 const IDENTITY_PROVIDER =
   process.env.REACT_APP_IDENTITY_PROVIDER || "https://dev.vidchain.net";
 const REDIRECT_CALLBACK =
   process.env.REACT_APP_REDIRECT_CALLBACK ||
-  "https://dev.vidchain.net/demo/government/callback";
+  "https://try.vidchain.net/demo/government/callback";
 const BACKEND_URL =
   process.env.REACT_APP_BACKEND_URL ||
   "https://dev.vidchain.net/demo/governmentbackend";

@@ -17,22 +17,22 @@ spec:
         app: university-frontend
     spec:
       containers:
-      - image: k8scrvidchaindev.azurecr.io/university-frontend:v1.5
+      - image: k8scrvidchaindev.azurecr.io/university-frontend:v1.6
         imagePullPolicy: "Always"
         name: university-frontend
         ports:
         - containerPort: 3024
         env:
         - name: REACT_APP_REDIRECT_CALLBACK
-          value: https://dev.vidchain.net/demo/university/callback
+          value: https://try.vidchain.net/demo/university/callback
         - name: REACT_APP_IDENTITY_PROVIDER
           value: https://dev.vidchain.net
         - name: REACT_APP_DEMO
-          value: https://dev.vidchain.net/demo/university
+          value: https://try.vidchain.net/demo/university
         - name: REACT_APP_BACKEND_URL
           value: https://dev.vidchain.net/demo/universitybackend
         - name: PUBLIC_URL
-          value: https://dev.vidchain.net/demo/university
+          value: https://try.vidchain.net/demo/university
         - name: REACT_APP_API_KEY
           valueFrom:
             secretKeyRef:
@@ -71,10 +71,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - dev.vidchain.net
+    - try.vidchain.net
     secretName: tls-secret
   rules:
-  - host: dev.vidchain.net
+  - host: try.vidchain.net
     http:
       paths: 
       - path: /demo/university(/|$)(.*)

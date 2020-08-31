@@ -17,22 +17,22 @@ spec:
         app: government-frontend
     spec:
       containers:
-      - image: k8scrvidchaindev.azurecr.io/government-frontend:v0.4
+      - image: k8scrvidchaindev.azurecr.io/government-frontend:v0.5
         imagePullPolicy: "Always"
         name: government-frontend
         ports:
         - containerPort: 3022
         env:
         - name: REACT_APP_REDIRECT_CALLBACK
-          value: https://dev.vidchain.net/demo/government/callback
+          value: https://try.vidchain.net/demo/government/callback
         - name: REACT_APP_IDENTITY_PROVIDER
           value: https://dev.vidchain.net
         - name: REACT_APP_DEMO
-          value: https://dev.vidchain.net/demo/government
+          value: https://try.vidchain.net/demo/government
         - name: REACT_APP_BACKEND_URL
           value: https://dev.vidchain.net/demo/governmentbackend
         - name: PUBLIC_URL
-          value: https://dev.vidchain.net/demo/government
+          value: https://try.vidchain.net/demo/government
         - name: REACT_APP_API_KEY
           valueFrom:
             secretKeyRef:
@@ -71,10 +71,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - dev.vidchain.net
+    - try.vidchain.net
     secretName: tls-secret
   rules:
-  - host: dev.vidchain.net
+  - host: try.vidchain.net
     http:
       paths: 
       - path: /demo/government(/|$)(.*)

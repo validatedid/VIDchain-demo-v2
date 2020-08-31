@@ -12,7 +12,7 @@ WORKDIR /usr/src/app
 COPY ./package*.json /usr/src/app/
 RUN npm ci --quiet --no-progress
 COPY ./ /usr/src/app/
-ARG PUBLIC_URL=https://dev.vidchain.net/demo
+ARG PUBLIC_URL=https://try.vidchain.net/demo
 RUN npm run build
 
 # Stage 2: run nginx
