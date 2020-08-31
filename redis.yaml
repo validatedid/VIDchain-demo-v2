@@ -9,6 +9,7 @@ spec:
     matchLabels:
       app: redis
   replicas: 1
+  revisionHistoryLimit: 1
   template:
     metadata:
       labels:
