@@ -32,6 +32,8 @@ spec:
           value: redis
         - name: REDIS_PORT
           value: "6379"
+        - name: WS_URL
+          value: https://dev.vidchain.net
         - name: API_KEY
           valueFrom:
             secretKeyRef:

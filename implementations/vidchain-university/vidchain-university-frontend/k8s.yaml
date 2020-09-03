@@ -18,7 +18,7 @@ spec:
         app: university-frontend
     spec:
       containers:
-      - image: k8scrvidchaindev.azurecr.io/university-frontend:v1.6
+      - image: k8scrvidchaindev.azurecr.io/university-frontend:v1.7
         imagePullPolicy: "Always"
         name: university-frontend
         ports:
@@ -32,6 +32,8 @@ spec:
           value: https://try.vidchain.net/demo/university
         - name: REACT_APP_BACKEND_URL
           value: https://dev.vidchain.net/demo/universitybackend
+        - name: REACT_APP_WS_URL
+          value: https://dev.vidchain.net
         - name: PUBLIC_URL
           value: https://try.vidchain.net/demo/university
         - name: REACT_APP_API_KEY

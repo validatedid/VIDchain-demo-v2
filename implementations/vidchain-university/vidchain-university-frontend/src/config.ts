@@ -11,7 +11,7 @@ const REDIRECT_CALLBACK =
 const BACKEND_URL =
   process.env.REACT_APP_BACKEND_URL ||
   "https://dev.vidchain.net/demo/universitybackend";
-const BACKEND_WS = process.env.REACT_APP_WS_URL || "/";
+const BACKEND_WS = process.env.REACT_APP_WS_URL || "https://dev.vidchain.net";
 const API_KEY = process.env.REACT_APP_API_KEY|| "/";
 
 //Legal Entity
