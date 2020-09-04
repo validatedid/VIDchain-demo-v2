@@ -32,7 +32,7 @@ stages:
 - stage: Build
   displayName: 'Build stage'
   jobs:  
-  - job: Build Government Backend
+  - job: BuildGovernmentBackend
     displayName: 'Build Government Backend'
     pool:
       vmImage: $(vmImageName)
@@ -48,7 +48,7 @@ stages:
           $(tag)
     - upload: manifests
       artifact: manifests
-  - job: Build Government Frontend
+  - job: BuildGovernmentFrontend
     displayName: 'Build Government Frontend'
     pool:
       vmImage: $(vmImageName)
@@ -64,7 +64,7 @@ stages:
           $(tag)
     - upload: manifests
       artifact: manifests
-  - job: Build University Backend
+  - job: BuildUniversityBackend
     displayName: 'Build University Backend'
     pool:
       vmImage: $(vmImageName)
@@ -80,7 +80,7 @@ stages:
           $(tag)
     - upload: manifests
       artifact: manifests
-  - job: Build University Frontend
+  - job: BuildUniversityFrontend
     displayName: 'Build University Frontend'
     pool:
       vmImage: $(vmImageName)
@@ -96,7 +96,7 @@ stages:
           $(tag)
     - upload: manifests
       artifact: manifests
-  - job: Build Landing demo
+  - job: BuildLandingDemo
     displayName: 'Build Landing demo'
     pool:
       vmImage: $(vmImageName)
