@@ -12,15 +12,21 @@ variables:
 
   # Container registry service connection for build
   governmentBackendRepo: 'government-backend'
-  governmentBackendDir: 'implementations/vidchain-government/vidchain-government-backend/Dockerfile'
+  governmentBackendDocker: 'implementations/vidchain-government/vidchain-government-backend/Dockerfile'
+  governmentBackendKubernetes: 'implementations/vidchain-government/vidchain-government-backend/k8s.yml'
   governmentFrontendRepo: 'government-frontend'
-  governmentFrontendDir: 'implementations/vidchain-government/vidchain-government-frontend/Dockerfile'
+  governmentBackendDocker: 'implementations/vidchain-government/vidchain-government-frontend/Dockerfile'
+  governmentBackendKubernetes: 'implementations/vidchain-government/vidchain-government-frontend/k8s.yml'
   universityBackendRepo: 'university-backend'
-  universityBackendDir: 'implementations/vidchain-university/vidchain-university-backend/Dockerfile'
+  governmentBackendDocker: 'implementations/vidchain-university/vidchain-university-backend/Dockerfile'
+  governmentBackendKubernetes: 'implementations/vidchain-university/vidchain-university-backend/k8s.yml'
   universityFrontendRepo: 'university-frontend'
-  universityFrontendDir: 'implementations/vidchain-university/vidchain-university-frontend/Dockerfile'
+  universityFrontendDocker: 'implementations/vidchain-university/vidchain-university-frontend/Dockerfile'
+  universityFrontendKubernetes: 'implementations/vidchain-university/vidchain-university-frontend/k8s.yml'
   landingRepo: 'demo-landing'
-  landingDir: 'implementations/landing-page/Dockerfile'
+  landingDocker: 'implementations/landing-page/Dockerfile'
+  landingKubernetes: 'implementations/landing-page/k8s.yml'
+
   #tag: '$(Build.BuildId)'
   tag: 'latest'
 
@@ -42,7 +48,7 @@ stages:
       inputs:
         command: buildAndPush
         repository: $(governmentBackendRepo)
-        dockerfile: $(governmentBackendDir)
+        dockerfile: $(governmentBackendDocker)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
@@ -56,7 +62,7 @@ stages:
       inputs:
         command: buildAndPush
         repository: $(governmentFrontendRepo)
-        dockerfile: $(governmentFrontendDir)
+        dockerfile: $(governmentBackendDocker)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
@@ -70,7 +76,7 @@ stages:
       inputs:
         command: buildAndPush
         repository: $(universityBackendRepo)
-        dockerfile: $(universityBackendDir)
+        dockerfile: $(governmentBackendDocker)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
@@ -84,7 +90,7 @@ stages:
       inputs:
         command: buildAndPush
         repository: $(universityFrontendRepo)
-        dockerfile: $(universityFrontendDir)
+        dockerfile: $(universityFrontendDocker)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
@@ -98,7 +104,7 @@ stages:
       inputs:
         command: buildAndPush
         repository: $(landingRepo)
-        dockerfile: $(landingDir)
+        dockerfile: $(landingDocker)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
@@ -124,7 +130,7 @@ stages:
               kubernetesCluster: $(kubernetesCluster)
               command: apply
               useConfigurationFile: true
-              configuration: $(governmentBackendDir)/k8s.yaml  
+              configuration: $(governmentBackendKubernetes)
           - task: Kubernetes@1
             displayName: kubectl apply for Government Frontend
             inputs:
@@ -134,7 +140,7 @@ stages:
               kubernetesCluster: $(kubernetesCluster)
               command: apply
               useConfigurationFile: true
-              configuration: $(governmentFrontendDir)/k8s.yaml
+              configuration: $(governmentBackendKubernetes)
           - task: Kubernetes@1
             displayName: kubectl apply for University Backend
             inputs:
@@ -144,7 +150,7 @@ stages:
               kubernetesCluster: $(kubernetesCluster)
               command: apply
               useConfigurationFile: true
-              configuration: $(universityBackendDir)/k8s.yaml
+              configuration: $(governmentBackendKubernetes)
           - task: Kubernetes@1
             displayName: kubectl apply for University Frontend
             inputs:
@@ -154,7 +160,7 @@ stages:
               kubernetesCluster: $(kubernetesCluster)
               command: apply
               useConfigurationFile: true
-              configuration: $(universityFrontendDir)/k8s.yaml
+              configuration: $(universityFrontendKubernetes)
           - task: Kubernetes@1
             displayName: kubectl apply for Landing demo
             inputs:
@@ -164,4 +170,4 @@ stages:
               kubernetesCluster: $(kubernetesCluster)
               command: apply
               useConfigurationFile: true
-              configuration: $(landingDir)/k8s.yaml     
+              configuration: $(landingKubernetes)   
