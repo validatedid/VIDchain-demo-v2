@@ -128,7 +128,7 @@ stages:
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
               command: apply
-              arguments: -f $(governmentBackendKubernetes)
+              arguments: -f $(Pipeline.Workspace)/$(governmentBackendKubernetes)
           - task: Kubernetes@1
             displayName: kubectl apply for Government Frontend
             inputs:
@@ -137,7 +137,7 @@ stages:
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
               command: apply
-              arguments: -f $(governmentFrontendKubernetes)
+              arguments: -f $(Pipeline.Workspace)/$(governmentFrontendKubernetes)
           - task: Kubernetes@1
             displayName: kubectl apply for University Backend
             inputs:
@@ -146,7 +146,7 @@ stages:
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
               command: apply
-              arguments: -f $(universityBackendKubernetes)
+              arguments: -f $(Pipeline.Workspace)/$(universityBackendKubernetes)
           - task: Kubernetes@1
             displayName: kubectl apply for University Frontend
             inputs:
@@ -155,7 +155,7 @@ stages:
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
               command: apply
-              arguments: -f $(universityFrontendKubernetes)
+              arguments: -f $(Pipeline.Workspace)/$(universityFrontendKubernetes)
           - task: Kubernetes@1
             displayName: kubectl apply for Landing demo
             inputs:
@@ -164,4 +164,4 @@ stages:
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
               command: apply
-              arguments: -f $(landingKubernetes)  
+              arguments: -f $(Pipeline.Workspace)/$(landingKubernetes)  
