@@ -128,7 +128,7 @@ stages:
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
               command: apply
-              arguments: -f $(Pipeline.Workspace)/$(governmentBackendKubernetes)
+              arguments: -f $(System.DefaultWorkingDirectory)/$(governmentBackendKubernetes)
           - task: Kubernetes@1
             displayName: kubectl apply for Government Frontend
             inputs:
@@ -137,7 +137,7 @@ stages:
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
               command: apply
-              arguments: -f $(Pipeline.Workspace)/$(governmentFrontendKubernetes)
+              arguments: -f $(System.DefaultWorkingDirectory)/$(governmentFrontendKubernetes)
           - task: Kubernetes@1
             displayName: kubectl apply for University Backend
             inputs:
@@ -146,7 +146,7 @@ stages:
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
               command: apply
-              arguments: -f $(Pipeline.Workspace)/$(universityBackendKubernetes)
+              arguments: -f $(System.DefaultWorkingDirectory)/$(universityBackendKubernetes)
           - task: Kubernetes@1
             displayName: kubectl apply for University Frontend
             inputs:
@@ -155,7 +155,7 @@ stages:
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
               command: apply
-              arguments: -f $(Pipeline.Workspace)/$(universityFrontendKubernetes)
+              arguments: -f $(System.DefaultWorkingDirectory)/$(universityFrontendKubernetes)
           - task: Kubernetes@1
             displayName: kubectl apply for Landing demo
             inputs:
@@ -164,4 +164,4 @@ stages:
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
               command: apply
-              arguments: -f $(Pipeline.Workspace)/$(landingKubernetes)  
+              arguments: -f $(System.DefaultWorkingDirectory)/$(landingKubernetes)  
