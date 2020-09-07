@@ -9,26 +9,50 @@ resources:
 - repo: self
 
 variables:
-
+  # Image repository
   governmentBackendRepo: 'government-backend'
-  governmentBackendDocker: 'implementations/vidchain-government/vidchain-government-backend/Dockerfile'
-  governmentBackendKubernetes: 'implementations/vidchain-government/vidchain-government-backend/k8s.yaml'
+  governmentBackendRepoEndpoint: 'k8scrvidchaindev.azurecr.io/government-backend'
   governmentFrontendRepo: 'government-frontend'
-  governmentFrontendDocker: 'implementations/vidchain-government/vidchain-government-frontend/Dockerfile'
-  governmentFrontendKubernetes: 'implementations/vidchain-government/vidchain-government-frontend/k8s.yaml'
+  governmentFrontendRepoEndpoint: 'k8scrvidchaindev.azurecr.io/government-frontend'
   universityBackendRepo: 'university-backend'
-  universityBackendDocker: 'implementations/vidchain-university/vidchain-university-backend/Dockerfile'
-  universityBackendKubernetes: 'implementations/vidchain-university/vidchain-university-backend/k8s.yaml'
+  universityBackendRepoEndpoint: 'k8scrvidchaindev.azurecr.io/university-backend'
   universityFrontendRepo: 'university-frontend'
-  universityFrontendDocker: 'implementations/vidchain-university/vidchain-university-frontend/Dockerfile'
-  universityFrontendKubernetes: 'implementations/vidchain-university/vidchain-university-frontend/k8s.yaml'
+  universityFrontendRepoEndpoint: 'k8scrvidchaindev.azurecr.io/university-frontend'
   landingRepo: 'demo-landing'
+  landingRepoEndpoint: 'k8scrvidchaindev.azurecr.io/demo-landing'
+
+  # Dockerfiles
+  governmentBackendDocker: 'implementations/vidchain-government/vidchain-government-backend/Dockerfile'
+  governmentFrontendDocker: 'implementations/vidchain-government/vidchain-government-frontend/Dockerfile'
+  universityBackendDocker: 'implementations/vidchain-university/vidchain-university-backend/Dockerfile'
+  universityFrontendDocker: 'implementations/vidchain-university/vidchain-university-frontend/Dockerfile'
   landingDocker: 'implementations/landing-page/Dockerfile'
-  landingKubernetes: 'implementations/landing-page/k8s.yaml'
+
+  # Deployments YAML
+  # Only used when deployments are already available in the cluster
+  governmentBackendDeployment: 'deployment/government-backend-deployment'
+  governmentFrontendDeployment: 'deployment/government-frontend-deployment'
+  universityBackendDeployment: 'deployment/university-backend-deployment'
+  universityFrontendDeployment: 'deployment/university-frontend-deployment'
+  landingDeployment: 'deployment/university-frontend-deployment'
+
+  # Otherwise Kubernetes YAML...
+  # Used to create a new deployment (check commented code below)
+  #governmentBackendKubernetes: 'implementations/vidchain-government/vidchain-government-backend/k8s.yml'
+  #governmentFrontendKubernetes: 'implementations/vidchain-government/vidchain-government-frontend/k8s.yml'
+  #universityBackendKubernetes: 'implementations/vidchain-university/vidchain-university-backend/k8s.yml'
+  #universityFrontendKubernetes: 'implementations/vidchain-university/vidchain-university-frontend/k8s.yml'
+  #landingKubernetes: 'implementations/landing-page/k8s.yml'
+
+  # Kubernetes namespace
   namespace: 'development'
 
-  #tag: '$(Build.BuildId)'
-  tag: 'latest'
+  # Image tagging: application version - build
+  tagGovernmentBackend: 'v0.1-build.$(Build.BuildId)'
+  tagGovernmentFrontend: 'v0.1-build.$(Build.BuildId)'
+  tagUniversityBackend: 'v0.1-build.$(Build.BuildId)'
+  tagUniversityFrontend: 'v0.1-build.$(Build.BuildId)'
+  tagLanding: 'v0.1-build.$(Build.BuildId)'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -51,7 +75,7 @@ stages:
         dockerfile: $(governmentBackendDocker)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
-          $(tag)
+          $(tagGovernmentBackend)
   - job: BuildGovernmentFrontend
     displayName: 'Build Government Frontend'
     pool:
@@ -65,7 +89,7 @@ stages:
         dockerfile: $(governmentBackendDocker)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
-          $(tag)
+          $(tagGovernmentFrontend)
   - job: BuildUniversityBackend
     displayName: 'Build University Backend'
     pool:
@@ -79,7 +103,7 @@ stages:
         dockerfile: $(governmentBackendDocker)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
-          $(tag)
+          $(tagUniversityBackend)
   - job: BuildUniversityFrontend
     displayName: 'Build University Frontend'
     pool:
@@ -93,7 +117,7 @@ stages:
         dockerfile: $(universityFrontendDocker)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
-          $(tag)
+          $(tagUniversityFrontend)
   - job: BuildLandingDemo
     displayName: 'Build Landing demo'
     pool:
@@ -107,7 +131,7 @@ stages:
         dockerfile: $(landingDocker)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
-          $(tag)
+          $(tagLanding)
 - stage: Deploy
   displayName: 'Deploy stage'
   dependsOn: Build
@@ -122,48 +146,97 @@ stages:
         deploy:
           steps:
           - checkout: self
+          ## Since deployments are already available in the cluster
           - task: Kubernetes@1
-            displayName: kubectl apply for Government Backend
+            displayName: kubectl set new image for government backend
             inputs:
               connectionType: Azure Resource Manager
               azureSubscriptionEndpoint: $(azureSubscriptionEndpoint) 
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
-              command: apply
-              arguments: -f $(System.DefaultWorkingDirectory)/$(governmentBackendKubernetes) -n $(namespace)
+              command: set
+              arguments: image $(governmentBackendDeployment) $(governmentBackendRepo)=$(governmentBackendRepoEndpoint):$(tagGovernmentBackend) -n $(namespace)
           - task: Kubernetes@1
-            displayName: kubectl apply for Government Frontend
+            displayName: kubectl set new image for government frontend
             inputs:
               connectionType: Azure Resource Manager
               azureSubscriptionEndpoint: $(azureSubscriptionEndpoint) 
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
-              command: apply
-              arguments: -f $(System.DefaultWorkingDirectory)/$(governmentFrontendKubernetes) -n $(namespace)
+              command: set
+              arguments: image $(governmentFrontendDeployment) $(governmentFrontendRepo)=$(governmentFrontendRepoEndpoint):$(tagGovernmentFrontend) -n $(namespace)
           - task: Kubernetes@1
-            displayName: kubectl apply for University Backend
+            displayName: kubectl set new image for university backend
             inputs:
               connectionType: Azure Resource Manager
               azureSubscriptionEndpoint: $(azureSubscriptionEndpoint) 
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
-              command: apply
-              arguments: -f $(System.DefaultWorkingDirectory)/$(universityBackendKubernetes) -n $(namespace)
+              command: set
+              arguments: image $(universityBackendDeployment) $(universityBackendRepo)=$(universityBackendRepoEndpoint):$(tagUniversityBackend) -n $(namespace)
           - task: Kubernetes@1
-            displayName: kubectl apply for University Frontend
+            displayName: kubectl set new image for university frontend
             inputs:
               connectionType: Azure Resource Manager
               azureSubscriptionEndpoint: $(azureSubscriptionEndpoint) 
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
-              command: apply
-              arguments: -f $(System.DefaultWorkingDirectory)/$(universityFrontendKubernetes) -n $(namespace)
+              command: set
+              arguments: image $(universityFrontendDeployment) $(universityFrontendRepo)=$(universityFrontendRepoEndpoint):$(tagUniversityFrontend) -n $(namespace)
           - task: Kubernetes@1
-            displayName: kubectl apply for Landing demo
+            displayName: kubectl set new image for landing demo
             inputs:
               connectionType: Azure Resource Manager
               azureSubscriptionEndpoint: $(azureSubscriptionEndpoint) 
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
-              command: apply
-              arguments: -f $(System.DefaultWorkingDirectory)/$(landingKubernetes) -n $(namespace)
+              command: set
+              arguments: image $(landingDeployment) $(landingRepo)=$(landingRepoEndpoint):$(tagLanding) -n $(namespace)
+          ## Otherwise, use code below to create a new deployment 
+          #- task: Kubernetes@1
+          #  displayName: kubectl apply for Government Backend
+          #  inputs:
+          #    connectionType: Azure Resource Manager
+          #    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint) 
+          #    azureResourceGroup: $(azureResourceGroup)
+          #    kubernetesCluster: $(kubernetesCluster)
+          #    command: apply
+          #    arguments: -f $(System.DefaultWorkingDirectory)/$(governmentBackendKubernetes) -n $(namespace)
+          #- task: Kubernetes@1
+          #  displayName: kubectl apply for Government Frontend
+          #  inputs:
+          #    connectionType: Azure Resource Manager
+          #    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint) 
+          #    azureResourceGroup: $(azureResourceGroup)
+          #    kubernetesCluster: $(kubernetesCluster)
+          #    command: apply
+          #    arguments: -f $(System.DefaultWorkingDirectory)/$(governmentFrontendKubernetes) -n $(namespace)
+          #- task: Kubernetes@1
+          #  displayName: kubectl apply for University Backend
+          #  inputs:
+          #    connectionType: Azure Resource Manager
+          #    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint) 
+          #    azureResourceGroup: $(azureResourceGroup)
+          #    kubernetesCluster: $(kubernetesCluster)
+          #    command: apply
+          #    arguments: -f $(System.DefaultWorkingDirectory)/$(universityBackendKubernetes) -n $(namespace)
+          #- task: Kubernetes@1
+          #  displayName: kubectl apply for University Frontend
+          #  inputs:
+          #    connectionType: Azure Resource Manager
+          #    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint) 
+          #    azureResourceGroup: $(azureResourceGroup)
+          #    kubernetesCluster: $(kubernetesCluster)
+          #    command: apply
+          #    arguments: -f $(System.DefaultWorkingDirectory)/$(universityFrontendKubernetes) -n $(namespace)
+          #- task: Kubernetes@1
+          #  displayName: kubectl apply for Landing demo
+          #  inputs:
+          #    connectionType: Azure Resource Manager
+          #    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint) 
+          #    azureResourceGroup: $(azureResourceGroup)
+          #    kubernetesCluster: $(kubernetesCluster)
+          #    command: apply
+          #    arguments: -f $(System.DefaultWorkingDirectory)/$(landingKubernetes) -n $(namespace)
+          #    command: set
+          #    arguments: image $(deployment) $(Repo)=$(RepoEndpoint):$(tag) -n $(namespace)
