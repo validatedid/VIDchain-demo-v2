@@ -10,16 +10,15 @@ resources:
 
 variables:
 
-  # Container registry service connection for build
   governmentBackendRepo: 'government-backend'
   governmentBackendDocker: 'implementations/vidchain-government/vidchain-government-backend/Dockerfile'
   governmentBackendKubernetes: 'implementations/vidchain-government/vidchain-government-backend/k8s.yml'
   governmentFrontendRepo: 'government-frontend'
-  governmentBackendDocker: 'implementations/vidchain-government/vidchain-government-frontend/Dockerfile'
-  governmentBackendKubernetes: 'implementations/vidchain-government/vidchain-government-frontend/k8s.yml'
+  governmentFrontendDocker: 'implementations/vidchain-government/vidchain-government-frontend/Dockerfile'
+  governmentFrontendKubernetes: 'implementations/vidchain-government/vidchain-government-frontend/k8s.yml'
   universityBackendRepo: 'university-backend'
-  governmentBackendDocker: 'implementations/vidchain-university/vidchain-university-backend/Dockerfile'
-  governmentBackendKubernetes: 'implementations/vidchain-university/vidchain-university-backend/k8s.yml'
+  universityBackendDocker: 'implementations/vidchain-university/vidchain-university-backend/Dockerfile'
+  universityBackendKubernetes: 'implementations/vidchain-university/vidchain-university-backend/k8s.yml'
   universityFrontendRepo: 'university-frontend'
   universityFrontendDocker: 'implementations/vidchain-university/vidchain-university-frontend/Dockerfile'
   universityFrontendKubernetes: 'implementations/vidchain-university/vidchain-university-frontend/k8s.yml'
