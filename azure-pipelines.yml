@@ -46,8 +46,6 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-    - upload: manifests
-      artifact: manifests
   - job: BuildGovernmentFrontend
     displayName: 'Build Government Frontend'
     pool:
@@ -78,8 +76,6 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-    - upload: manifests
-      artifact: manifests
   - job: BuildUniversityFrontend
     displayName: 'Build University Frontend'
     pool:
@@ -94,8 +90,6 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-    - upload: manifests
-      artifact: manifests
   - job: BuildLandingDemo
     displayName: 'Build Landing demo'
     pool:
@@ -110,8 +104,6 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-    - upload: manifests
-      artifact: manifests
 - stage: Deploy
   displayName: 'Deploy stage'
   dependsOn: Build
