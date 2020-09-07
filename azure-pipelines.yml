@@ -34,7 +34,7 @@ variables:
   governmentFrontendDeployment: 'deployment/government-frontend-deployment'
   universityBackendDeployment: 'deployment/university-backend-deployment'
   universityFrontendDeployment: 'deployment/university-frontend-deployment'
-  landingDeployment: 'deployment/university-frontend-deployment'
+  landingDeployment: 'deployment/demo-landing-deployment'
 
   # Otherwise Kubernetes YAML...
   # Used to create a new deployment (check commented code below)
