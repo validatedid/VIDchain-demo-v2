@@ -128,8 +128,7 @@ stages:
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
               command: apply
-              useConfigurationFile: true
-              configuration: $(governmentBackendKubernetes)
+              arguments: -f $(governmentBackendKubernetes)
           - task: Kubernetes@1
             displayName: kubectl apply for Government Frontend
             inputs:
@@ -138,8 +137,7 @@ stages:
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
               command: apply
-              useConfigurationFile: true
-              configuration: $(governmentBackendKubernetes)
+              arguments: -f $(governmentFrontendKubernetes)
           - task: Kubernetes@1
             displayName: kubectl apply for University Backend
             inputs:
@@ -148,8 +146,7 @@ stages:
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
               command: apply
-              useConfigurationFile: true
-              configuration: $(governmentBackendKubernetes)
+              arguments: -f $(universityBackendKubernetes)
           - task: Kubernetes@1
             displayName: kubectl apply for University Frontend
             inputs:
@@ -158,8 +155,7 @@ stages:
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
               command: apply
-              useConfigurationFile: true
-              configuration: $(universityFrontendKubernetes)
+              arguments: -f $(universityFrontendKubernetes)
           - task: Kubernetes@1
             displayName: kubectl apply for Landing demo
             inputs:
@@ -168,5 +164,4 @@ stages:
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
               command: apply
-              useConfigurationFile: true
-              configuration: $(landingKubernetes)   
+              arguments: -f $(landingKubernetes)  
