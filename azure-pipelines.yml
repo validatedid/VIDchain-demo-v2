@@ -12,15 +12,15 @@ variables:
 
   # Container registry service connection for build
   governmentBackendRepo: 'government-backend'
-  governmentBackendDir: '../implementations/vidchain-government/vidchain-government-backend'
+  governmentBackendDir: '**/implementations/vidchain-government/vidchain-government-backend'
   governmentFrontendRepo: 'government-frontend'
-  governmentFrontendDir: '../implementations/vidchain-government/vidchain-government-frontend'
+  governmentFrontendDir: '**/implementations/vidchain-government/vidchain-government-frontend'
   universityBackendRepo: 'university-backend'
-  universityBackendDir: '../implementations/vidchain-university/vidchain-university-backend'
+  universityBackendDir: '**/implementations/vidchain-university/vidchain-university-backend'
   universityFrontendRepo: 'university-frontend'
-  universityFrontendDir: '../implementations/vidchain-university/vidchain-university-frontend'
+  universityFrontendDir: '**/implementations/vidchain-university/vidchain-university-frontend'
   landingRepo: 'demo-landing'
-  landingDir: '../implementations/landing-page'
+  landingDir: '**/implementations/landing-page'
   #tag: '$(Build.BuildId)'
   tag: 'latest'
 
