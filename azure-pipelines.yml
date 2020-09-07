@@ -120,6 +120,7 @@ stages:
       runOnce:
         deploy:
           steps:
+          - checkout: self
           - task: Kubernetes@1
             displayName: kubectl apply for Government Backend
             inputs:
