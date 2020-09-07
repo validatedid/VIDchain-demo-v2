@@ -25,6 +25,7 @@ variables:
   landingRepo: 'demo-landing'
   landingDocker: 'implementations/landing-page/Dockerfile'
   landingKubernetes: 'implementations/landing-page/k8s.yaml'
+  namespace: 'development'
 
   #tag: '$(Build.BuildId)'
   tag: 'latest'
@@ -129,7 +130,7 @@ stages:
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
               command: apply
-              arguments: -f $(System.DefaultWorkingDirectory)/$(governmentBackendKubernetes)
+              arguments: -f $(System.DefaultWorkingDirectory)/$(governmentBackendKubernetes) -n $(namespace)
           - task: Kubernetes@1
             displayName: kubectl apply for Government Frontend
             inputs:
@@ -138,7 +139,7 @@ stages:
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
               command: apply
-              arguments: -f $(System.DefaultWorkingDirectory)/$(governmentFrontendKubernetes)
+              arguments: -f $(System.DefaultWorkingDirectory)/$(governmentFrontendKubernetes) -n $(namespace)
           - task: Kubernetes@1
             displayName: kubectl apply for University Backend
             inputs:
@@ -147,7 +148,7 @@ stages:
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
               command: apply
-              arguments: -f $(System.DefaultWorkingDirectory)/$(universityBackendKubernetes)
+              arguments: -f $(System.DefaultWorkingDirectory)/$(universityBackendKubernetes) -n $(namespace)
           - task: Kubernetes@1
             displayName: kubectl apply for University Frontend
             inputs:
@@ -156,7 +157,7 @@ stages:
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
               command: apply
-              arguments: -f $(System.DefaultWorkingDirectory)/$(universityFrontendKubernetes)
+              arguments: -f $(System.DefaultWorkingDirectory)/$(universityFrontendKubernetes) -n $(namespace)
           - task: Kubernetes@1
             displayName: kubectl apply for Landing demo
             inputs:
@@ -165,4 +166,4 @@ stages:
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
               command: apply
-              arguments: -f $(System.DefaultWorkingDirectory)/$(landingKubernetes)  
+              arguments: -f $(System.DefaultWorkingDirectory)/$(landingKubernetes) -n $(namespace)
