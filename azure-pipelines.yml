@@ -60,8 +60,6 @@ stages:
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tag)
-    - upload: manifests
-      artifact: manifests
   - job: BuildUniversityBackend
     displayName: 'Build University Backend'
     pool:
