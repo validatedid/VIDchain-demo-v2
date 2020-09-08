@@ -86,7 +86,7 @@ stages:
       inputs:
         command: buildAndPush
         repository: $(governmentFrontendRepo)
-        dockerfile: $(governmentBackendDocker)
+        dockerfile: $(governmentFrontendDocker)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tagGovernmentFrontend)
