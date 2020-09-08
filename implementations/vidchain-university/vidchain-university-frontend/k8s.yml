@@ -11,14 +11,17 @@ spec:
     matchLabels:
       app: university-frontend
   strategy: 
-    type: Recreate
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   template:
     metadata:
       labels:
         app: university-frontend
     spec:
       containers:
-      - image: k8scrvidchaindev.azurecr.io/university-frontend:v1.7
+      - image: k8scrvidchaindev.azurecr.io/university-frontend:v0.1-build.30
         imagePullPolicy: "Always"
         name: university-frontend
         ports:

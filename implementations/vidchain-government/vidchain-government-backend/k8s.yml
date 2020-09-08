@@ -11,14 +11,17 @@ spec:
     matchLabels:
       app: government-backend
   strategy: 
-    type: Recreate
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   template:
     metadata:
       labels:
         app: government-backend
     spec:
       containers:
-      - image: k8scrvidchaindev.azurecr.io/government-backend:v0.4
+      - image: k8scrvidchaindev.azurecr.io/government-backend:v0.1-build.30
         imagePullPolicy: "Always"
         name: government-backend
         ports:
