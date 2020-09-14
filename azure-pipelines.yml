@@ -110,7 +110,7 @@ stages:
     pool:
       vmImage: $(vmImageName)
     dependsOn: CheckChangesGovernmentBackend
-    condition: eq(dependencies.CheckChanges.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
+    condition: eq(dependencies.CheckChangesGovernmentBackend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     steps:
     - task: Docker@2
       displayName: Build and push Government Backend image to container registry
@@ -125,7 +125,6 @@ stages:
     displayName: 'Checking if there are changes in GovernmentFrontend'
     pool:
       vmImage: $(vmImageName)
-    
     steps:
     - bash: |
         declare -a files=$(checkGovernmentFrontendFiles)
@@ -162,7 +161,7 @@ stages:
     pool:
       vmImage: $(vmImageName)
     dependsOn: CheckChangesGovernmentFrontend
-    condition: eq(dependencies.CheckChanges.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
+    condition: eq(dependencies.CheckChangesGovernmentFrontend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     steps:
     - task: Docker@2
       displayName: Build and push an Government Frontend image to container registry
@@ -213,7 +212,7 @@ stages:
     pool:
       vmImage: $(vmImageName)
     dependsOn: CheckChangesUniversityBackend
-    condition: eq(dependencies.CheckChanges.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
+    condition: eq(dependencies.CheckChangesUniversityBackend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     steps:
     - task: Docker@2
       displayName: Build and push University Backend image to container registry
@@ -264,7 +263,7 @@ stages:
     pool:
       vmImage: $(vmImageName)
     dependsOn: CheckChangesUniversityFrontend
-    condition: eq(dependencies.CheckChanges.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
+    condition: eq(dependencies.CheckChangesUniversityFrontend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     steps:
     - task: Docker@2
       displayName: Build and push an University Frontend image to container registry
@@ -315,7 +314,7 @@ stages:
     pool:
       vmImage: $(vmImageName)
     dependsOn: CheckChangesLanding
-    condition: eq(dependencies.CheckChanges.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
+    condition: eq(dependencies.CheckChangesLanding.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     steps:
     - task: Docker@2
       displayName: Build and push an Landing demo image to container registry
