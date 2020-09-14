@@ -414,7 +414,7 @@ stages:
               manifests: $(universityBackendKubernetes)
               containers: |
                 $(universityBackendRepoEndpoint):$(tagUniversityBackend)
-  - deploymnent: DeployUniversityFrontend
+  - deployment: DeployUniversityFrontend
     displayName: 'Deploy University Frontend'
     condition: eq(stageDependencies.Build.CheckChangesUniversityFrontend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     pool:
