@@ -64,7 +64,7 @@ variables:
   checkUniversityFiles: '("azure-pipelines.yml" "vidchain-university/vidchain-university-frontend")'
   checkLandingFiles: '("azure-pipelines.yml" "landing-page/")'
   
-name: $(major).$(minor)$(Rev:.r)-$(Build.SourceBranchName)
+name: $(major).$(minor)$(Rev:.r)-[$(Build.SourceBranchName)]
 
 stages:
 - stage: Build
