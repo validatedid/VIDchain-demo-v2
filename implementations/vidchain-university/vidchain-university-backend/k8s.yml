@@ -28,15 +28,30 @@ spec:
         - containerPort: 3023
         env:
         - name: BASE_URL
-          value: https://dev.vidchain.net/demo/universitybackend
+          valueFrom:
+            configMapKeyRef:
+              name: university-backend-configmap
+              key: BASE_URL
         - name: PORT
-          value: "3023"
+          valueFrom:
+            configMapKeyRef:
+              name: university-backend-configmap
+              key: PORT
         - name: REDIS_URL
-          value: redis
+          valueFrom:
+            configMapKeyRef:
+              name: university-backend-configmap
+              key: REDIS_URL
         - name: REDIS_PORT
-          value: "6379"
+          valueFrom:
+            configMapKeyRef:
+              name: university-backend-configmap
+              key: REDIS_PORT
         - name: WS_URL
-          value: https://dev.vidchain.net
+          valueFrom:
+            configMapKeyRef:
+              name: university-backend-configmap
+              key: WS_URL
         - name: API_KEY
           valueFrom:
             secretKeyRef:

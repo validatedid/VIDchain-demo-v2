@@ -28,17 +28,35 @@ spec:
         - containerPort: 3024
         env:
         - name: REACT_APP_REDIRECT_CALLBACK
-          value: https://try.vidchain.net/demo/university/callback
+          valueFrom:
+            configMapKeyRef:
+              name: university-frontend-configmap
+              key: REACT_APP_REDIRECT_CALLBACK
         - name: REACT_APP_IDENTITY_PROVIDER
-          value: https://dev.vidchain.net
+          valueFrom:
+            configMapKeyRef:
+              name: university-frontend-configmap
+              key: REACT_APP_IDENTITY_PROVIDER
         - name: REACT_APP_DEMO
-          value: https://try.vidchain.net/demo/university
+          valueFrom:
+            configMapKeyRef:
+              name: university-frontend-configmap
+              key: REACT_APP_DEMO
         - name: REACT_APP_BACKEND_URL
-          value: https://dev.vidchain.net/demo/universitybackend
+          valueFrom:
+            configMapKeyRef:
+              name: university-frontend-configmap
+              key: REACT_APP_BACKEND_URL
         - name: REACT_APP_WS_URL
-          value: https://dev.vidchain.net
+          valueFrom:
+            configMapKeyRef:
+              name: university-frontend-configmap
+              key: REACT_APP_WS_URL
         - name: PUBLIC_URL
-          value: https://try.vidchain.net/demo/university
+          valueFrom:
+            configMapKeyRef:
+              name: university-frontend-configmap
+              key: PUBLIC_URL
         - name: REACT_APP_API_KEY
           valueFrom:
             secretKeyRef:

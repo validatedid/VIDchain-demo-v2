@@ -28,7 +28,10 @@ spec:
         - containerPort: 3028
         env:
         - name: PUBLIC_URL
-          value: https://try.vidchain.net/demo
+          valueFrom:
+            configMapKeyRef:
+              name: landing-configmap
+              key: PUBLIC_URL
       restartPolicy: Always
 
 ---
