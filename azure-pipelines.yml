@@ -58,8 +58,8 @@ variables:
   vmImageName: 'ubuntu-latest'
 
   # Check if there are any changes of the following files
-  checkGovernmentBackendFiles: '("vidchain-government-backend/")'
-  checkGovernmentFrontendFiles: '("vidchain-government-frontend")'
+  checkGovernmentBackendFiles: '("vidchain-government/vidchain-government-backend")'
+  checkGovernmentFrontendFiles: '("vidchain-government/vidchain-government-frontend")'
   checkUniversityBackendFiles: '("vidchain-university/vidchain-university-backend")'
   checkUniversityFrontendFiles: '("vidchain-university/vidchain-university-frontend")'
   checkLandingFiles: '("landing-page/")'
