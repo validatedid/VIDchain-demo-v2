@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-landing-deployment
+  labels:
+    app: demo-landing
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: demo-landing
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: demo-landing
+    spec:
+      containers:
+      - image: k8scrvidchaindev.azurecr.io/demo-landing:v0.1-build.30
+        imagePullPolicy: "Always"
+        name: demo-landing
+        ports:
+        - containerPort: 3028
+        env:
+        - name: PUBLIC_URL
+          valueFrom:
+            configMapKeyRef:
+              name: landing-configmap
+              key: PUBLIC_URL
+      restartPolicy: Always
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: demo-landing-service
+  labels:
+    app: demo-landing
+spec:
+  type: ClusterIP
+  ports:
+  - name: "3028"
+    port: 3028
+  selector:
+    app: demo-landing
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: demo-landing-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /demo/$2
+spec:
+  tls:
+  - hosts:
+    - try.vidchain.net
+    secretName: tls-secret-production
+  rules:
+  - host: try.vidchain.net 
+    http:
+      paths:
+      - path: /demo(/|$)(.*)
+        backend:
+          serviceName: demo-landing-service
+          servicePort: 3028       

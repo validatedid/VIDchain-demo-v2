@@ -1,0 +1,471 @@
+# Deploy to Azure Kubernetes Service
+# Build and push image to Azure Container Registry; Deploy to Azure Kubernetes Service
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- ci/cd-azure-pipeline-aks
+
+resources:
+- repo: self
+
+variables:
+  major: 0
+  minor: 1
+  # Image repository
+  governmentBackendRepo: 'government-backend'
+  governmentBackendRepoEndpoint: 'k8scrvidchaindev.azurecr.io/government-backend'
+  governmentFrontendRepo: 'government-frontend'
+  governmentFrontendRepoEndpoint: 'k8scrvidchaindev.azurecr.io/government-frontend'
+  universityBackendRepo: 'university-backend'
+  universityBackendRepoEndpoint: 'k8scrvidchaindev.azurecr.io/university-backend'
+  universityFrontendRepo: 'university-frontend'
+  universityFrontendRepoEndpoint: 'k8scrvidchaindev.azurecr.io/university-frontend'
+  landingRepo: 'demo-landing'
+  landingRepoEndpoint: 'k8scrvidchaindev.azurecr.io/demo-landing'
+
+  # Dockerfiles
+  governmentBackendDocker: 'implementations/vidchain-government/vidchain-government-backend/Dockerfile'
+  governmentFrontendDocker: 'implementations/vidchain-government/vidchain-government-frontend/Dockerfile'
+  universityBackendDocker: 'implementations/vidchain-university/vidchain-university-backend/Dockerfile'
+  universityFrontendDocker: 'implementations/vidchain-university/vidchain-university-frontend/Dockerfile'
+  landingDocker: 'implementations/landing-page/Dockerfile'
+
+  # Kubernetes YAML
+  governmentBackendKubernetes: 'implementations/vidchain-government/vidchain-government-backend/k8s.yml'
+  governmentFrontendKubernetes: 'implementations/vidchain-government/vidchain-government-frontend/k8s.yml'
+  universityBackendKubernetes: 'implementations/vidchain-university/vidchain-university-backend/k8s.yml'
+  universityFrontendKubernetes: 'implementations/vidchain-university/vidchain-university-frontend/k8s.yml'
+  landingKubernetes: 'implementations/landing-page/k8s.yml'
+
+  # Configmaps
+  governmentBackendConfigMap: 'implementations/vidchain-government/vidchain-government-backend/dev-configmap.yml'
+  governmentFrontendConfigMap: 'implementations/vidchain-government/vidchain-government-frontend/dev-configmap.yml'
+  universityBackendConfigMap: 'implementations/vidchain-university/vidchain-university-backend/dev-configmap.yml'
+  universityFrontendConfigMap: 'implementations/vidchain-university/vidchain-university-frontend/dev-configmap.yml'
+  landingConfigMap: 'implementations/landing-page/dev-configmap.yml'
+
+  # Kubernetes namespace
+  namespace: 'development'
+
+  # Image tagging: application version - build
+  tagGovernmentBackend: '$(Build.BuildNumber)'
+  tagGovernmentFrontend: '$(Build.BuildNumber)'
+  tagUniversityBackend: '$(Build.BuildNumber)'
+  tagUniversityFrontend: '$(Build.BuildNumber)'
+  tagLanding: '$(Build.BuildNumber)'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+  # Check if there are any changes of the following files
+  checkGovernmentBackendFiles: '("azure-pipelines.yml" "vidchain-government-backend/")'
+  checkGovernmentFrontendFiles: '("azure-pipelines.yml" "vidchain-government-frontend")'
+  checkUniversityBackendFiles: '("azure-pipelines.yml" "vidchain-university/vidchain-university-backend")'
+  checkUniversityFiles: '("azure-pipelines.yml" "vidchain-university/vidchain-university-frontend")'
+  checkLandingFiles: '("azure-pipelines.yml" "landing-page/")'
+  
+name: $(major).$(minor)$(Rev:.r)-$(Build.SourceBranchName)
+
+stages:
+- stage: Build
+  displayName: 'Build stage'
+  jobs:
+  - job: CheckChangesGovernmentBackend
+    displayName: 'Checking if there are changes in GovernmentBackend'
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - bash: |
+        declare -a files=$(checkGovernmentBackendFiles)
+        echo "This script detects if there's any change in:"
+        for f in "${files[@]}"
+        do
+            echo ">>> $f"
+        done
+        echo "********** CHANGES **********"
+        CHANGED_FILES=$(git diff HEAD HEAD~ --name-only)
+        BUILD_REQUIRED=false
+        for f in "${files[@]}" 
+        do 
+            for FILE in $CHANGED_FILES
+            do
+            if [[ $FILE == *$f* ]]; then
+                echo ">>> $FILE >>> CHANGED"
+                BUILD_REQUIRED=true
+                break
+            fi
+            done
+        done
+        if [ $BUILD_REQUIRED = true ]; then
+            echo "Build required."
+            echo "##vso[task.setvariable variable=SOURCE_CODE_CHANGED;isOutput=true]true"
+        else
+            echo "There are no changes that require building a new image."
+            echo "##vso[task.setvariable variable=SOURCE_CODE_CHANGED;isOutput=true]false"
+        fi
+      name: check_changes
+      displayName: 'Check changed files in GovernmentBackend'  
+  - job: BuildGovernmentBackend
+    displayName: 'Build Government Backend'
+    pool:
+      vmImage: $(vmImageName)
+    dependsOn: CheckChangesGovernmentBackend
+    condition: eq(dependencies.CheckChangesGovernmentBackend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
+    steps:
+    - task: Docker@2
+      displayName: Build and push Government Backend image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(governmentBackendRepo)
+        dockerfile: $(governmentBackendDocker)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tagGovernmentBackend)
+  - job: CheckChangesGovernmentFrontend
+    displayName: 'Checking if there are changes in GovernmentFrontend'
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - bash: |
+        declare -a files=$(checkGovernmentFrontendFiles)
+        echo "This script detects if there's any change in:"
+        for f in "${files[@]}"
+        do
+            echo ">>> $f"
+        done
+        echo "********** CHANGES **********"
+        CHANGED_FILES=$(git diff HEAD HEAD~ --name-only)
+        BUILD_REQUIRED=false
+        for f in "${files[@]}" 
+        do 
+            for FILE in $CHANGED_FILES
+            do
+            if [[ $FILE == *$f* ]]; then
+                echo ">>> $FILE >>> CHANGED"
+                BUILD_REQUIRED=true
+                break
+            fi
+            done
+        done
+        if [ $BUILD_REQUIRED = true ]; then
+            echo "Build required."
+            echo "##vso[task.setvariable variable=SOURCE_CODE_CHANGED;isOutput=true]true"
+        else
+            echo "There are no changes that require building a new image."
+            echo "##vso[task.setvariable variable=SOURCE_CODE_CHANGED;isOutput=true]false"
+        fi
+      name: check_changes
+      displayName: 'Check changed files in GovernmentFrontend'  
+  - job: BuildGovernmentFrontend
+    displayName: 'Build Government Frontend'
+    pool:
+      vmImage: $(vmImageName)
+    dependsOn: CheckChangesGovernmentFrontend
+    condition: eq(dependencies.CheckChangesGovernmentFrontend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
+    steps:
+    - task: Docker@2
+      displayName: Build and push an Government Frontend image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(governmentFrontendRepo)
+        dockerfile: $(governmentFrontendDocker)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tagGovernmentFrontend)
+  - job: CheckChangesUniversityBackend
+    displayName: 'Checking if there are changes in UniversityBackend'
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - bash: |
+        declare -a files=$(checkUniversityBackendFiles)
+        echo "This script detects if there's any change in:"
+        for f in "${files[@]}"
+        do
+            echo ">>> $f"
+        done
+        echo "********** CHANGES **********"
+        CHANGED_FILES=$(git diff HEAD HEAD~ --name-only)
+        BUILD_REQUIRED=false
+        for f in "${files[@]}" 
+        do 
+            for FILE in $CHANGED_FILES
+            do
+            if [[ $FILE == *$f* ]]; then
+                echo ">>> $FILE >>> CHANGED"
+                BUILD_REQUIRED=true
+                break
+            fi
+            done
+        done
+        if [ $BUILD_REQUIRED = true ]; then
+            echo "Build required."
+            echo "##vso[task.setvariable variable=SOURCE_CODE_CHANGED;isOutput=true]true"
+        else
+            echo "There are no changes that require building a new image."
+            echo "##vso[task.setvariable variable=SOURCE_CODE_CHANGED;isOutput=true]false"
+        fi
+      name: check_changes
+      displayName: 'Check changed files in UniversityBackend'          
+  - job: BuildUniversityBackend
+    displayName: 'Build University Backend'
+    pool:
+      vmImage: $(vmImageName)
+    dependsOn: CheckChangesUniversityBackend
+    condition: eq(dependencies.CheckChangesUniversityBackend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
+    steps:
+    - task: Docker@2
+      displayName: Build and push University Backend image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(universityBackendRepo)
+        dockerfile: $(governmentBackendDocker)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tagUniversityBackend)
+  - job: CheckChangesUniversityFrontend
+    displayName: 'Checking if there are changes in UniversityFrontend'
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - bash: |
+        declare -a files=$(checkUniversityFrontendFiles)
+        echo "This script detects if there's any change in:"
+        for f in "${files[@]}"
+        do
+            echo ">>> $f"
+        done
+        echo "********** CHANGES **********"
+        CHANGED_FILES=$(git diff HEAD HEAD~ --name-only)
+        BUILD_REQUIRED=false
+        for f in "${files[@]}" 
+        do 
+            for FILE in $CHANGED_FILES
+            do
+            if [[ $FILE == *$f* ]]; then
+                echo ">>> $FILE >>> CHANGED"
+                BUILD_REQUIRED=true
+                break
+            fi
+            done
+        done
+        if [ $BUILD_REQUIRED = true ]; then
+            echo "Build required."
+            echo "##vso[task.setvariable variable=SOURCE_CODE_CHANGED;isOutput=true]true"
+        else
+            echo "There are no changes that require building a new image."
+            echo "##vso[task.setvariable variable=SOURCE_CODE_CHANGED;isOutput=true]false"
+        fi
+      name: check_changes
+      displayName: 'Check changed files in UniversityFrontend'
+  - job: BuildUniversityFrontend
+    displayName: 'Build University Frontend'
+    pool:
+      vmImage: $(vmImageName)
+    dependsOn: CheckChangesUniversityFrontend
+    condition: eq(dependencies.CheckChangesUniversityFrontend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
+    steps:
+    - task: Docker@2
+      displayName: Build and push an University Frontend image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(universityFrontendRepo)
+        dockerfile: $(universityFrontendDocker)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tagUniversityFrontend)
+  - job: CheckChangesLanding
+    displayName: 'Checking if there are changes in Landing'
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - bash: |
+        declare -a files=$(checkLandingFiles)
+        echo "This script detects if there's any change in:"
+        for f in "${files[@]}"
+        do
+            echo ">>> $f"
+        done
+        echo "********** CHANGES **********"
+        CHANGED_FILES=$(git diff HEAD HEAD~ --name-only)
+        BUILD_REQUIRED=false
+        for f in "${files[@]}" 
+        do 
+            for FILE in $CHANGED_FILES
+            do
+            if [[ $FILE == *$f* ]]; then
+                echo ">>> $FILE >>> CHANGED"
+                BUILD_REQUIRED=true
+                break
+            fi
+            done
+        done
+        if [ $BUILD_REQUIRED = true ]; then
+            echo "Build required."
+            echo "##vso[task.setvariable variable=SOURCE_CODE_CHANGED;isOutput=true]true"
+        else
+            echo "There are no changes that require building a new image."
+            echo "##vso[task.setvariable variable=SOURCE_CODE_CHANGED;isOutput=true]false"
+        fi
+      name: check_changes
+      displayName: 'Check changed files in Landing' 
+  - job: BuildLandingDemo
+    displayName: 'Build Landing demo'
+    pool:
+      vmImage: $(vmImageName)
+    dependsOn: CheckChangesLanding
+    condition: eq(dependencies.CheckChangesLanding.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
+    steps:
+    - task: Docker@2
+      displayName: Build and push an Landing demo image to container registry
+      inputs:
+        command: buildAndPush
+        repository: $(landingRepo)
+        dockerfile: $(landingDocker)
+        containerRegistry: $(dockerRegistryServiceConnection)
+        tags: |
+          $(tagLanding)
+- stage: Deploy
+  displayName: 'Deploy stage'
+  dependsOn: Build
+  jobs:
+  - deployment: DeployGovernmentBackend
+    displayName: 'Deploy Government Backend'
+    condition: eq(stageDependencies.Build.CheckChangesGovernmentBackend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
+    pool:
+      vmImage: $(vmImageName)
+    environment: 'development'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          - task: Kubernetes@1
+            displayName: Create/update configmap
+            inputs:
+              connectionType: Azure Resource Manager
+              azureSubscriptionEndpoint: $(azureSubscriptionEndpoint) 
+              azureResourceGroup: $(azureResourceGroup)
+              kubernetesCluster: $(kubernetesCluster)
+              command: apply
+              arguments: -f $(governmentBackendConfigMap) -n $(namespace)
+          - task: KubernetesManifest@0
+            displayName: Create/update deployment
+            inputs:              
+              kubernetesServiceConnection: $(kubernetesServiceConnection)
+              namespace: $(namespace)
+              manifests: $(governmentBackendKubernetes)
+              containers: |
+                $(governmentBackendRepoEndpoint):$(tagGovernmentBackend)
+  - deployment: DeployGovernmentFrontend
+    displayName: 'Deploy Government Frontend'
+    condition: eq(stageDependencies.Build.CheckChangesGovernmentFrontend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
+    pool:
+      vmImage: $(vmImageName)
+    environment: 'development'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          - task: Kubernetes@1
+            displayName: Create/update configmap
+            inputs:
+              connectionType: Azure Resource Manager
+              azureSubscriptionEndpoint: $(azureSubscriptionEndpoint) 
+              azureResourceGroup: $(azureResourceGroup)
+              kubernetesCluster: $(kubernetesCluster)
+              command: apply
+              arguments: -f $(governmentFrontendConfigMap) -n $(namespace)
+          - task: KubernetesManifest@0
+            displayName: Create/update deployment
+            inputs:              
+              kubernetesServiceConnection: $(kubernetesServiceConnection)
+              namespace: $(namespace)
+              manifests: $(governmentFrontendKubernetes)
+              containers: |
+                $(governmentFrontendRepoEndpoint):$(tagGovernmentFrontend)
+  - deployment: DeployUniversityBackend
+    displayName: 'Deploy University Backend'
+    condition: eq(stageDependencies.Build.CheckChangesUniversityBackend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
+    pool:
+      vmImage: $(vmImageName)
+    environment: 'development'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          - task: Kubernetes@1
+            displayName: Create/update configmap
+            inputs:
+              connectionType: Azure Resource Manager
+              azureSubscriptionEndpoint: $(azureSubscriptionEndpoint) 
+              azureResourceGroup: $(azureResourceGroup)
+              kubernetesCluster: $(kubernetesCluster)
+              command: apply
+              arguments: -f $(universityBackendConfigMap) -n $(namespace)
+          - task: KubernetesManifest@0
+            displayName: Create/update deployment
+            inputs:              
+              kubernetesServiceConnection: $(kubernetesServiceConnection)
+              namespace: $(namespace)
+              manifests: $(universityBackendKubernetes)
+              containers: |
+                $(universityBackendRepoEndpoint):$(tagUniversityBackend)
+  - deployment: DeployUniversityFrontend
+    displayName: 'Deploy University Frontend'
+    condition: eq(stageDependencies.Build.CheckChangesUniversityFrontend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
+    pool:
+      vmImage: $(vmImageName)
+    environment: 'development'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          - task: Kubernetes@1
+            displayName: Create/update configmap
+            inputs:
+              connectionType: Azure Resource Manager
+              azureSubscriptionEndpoint: $(azureSubscriptionEndpoint) 
+              azureResourceGroup: $(azureResourceGroup)
+              kubernetesCluster: $(kubernetesCluster)
+              command: apply
+              arguments: -f $(universityFrontendConfigMap) -n $(namespace)
+          - task: KubernetesManifest@0
+            displayName: Create/update deployment
+            inputs:              
+              kubernetesServiceConnection: $(kubernetesServiceConnection)
+              namespace: $(namespace)
+              manifests: $(universityFrontendKubernetes)
+              containers: |
+                $(universityFrontendRepoEndpoint):$(tagUniversityFrontend)
+  - deployment: DeployLanding
+    displayName: 'Deploy Landing'
+    condition: eq(stageDependencies.Build.CheckChangesLanding.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
+    pool:
+      vmImage: $(vmImageName)
+    environment: 'development'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          - task: Kubernetes@1
+            displayName: Create/update configmap
+            inputs:
+              connectionType: Azure Resource Manager
+              azureSubscriptionEndpoint: $(azureSubscriptionEndpoint) 
+              azureResourceGroup: $(azureResourceGroup)
+              kubernetesCluster: $(kubernetesCluster)
+              command: apply
+              arguments: -f $(landingConfigMap) -n $(namespace)
+          - task: KubernetesManifest@0
+            displayName: Create/update deployment
+            inputs:              
+              kubernetesServiceConnection: $(kubernetesServiceConnection)
+              namespace: $(namespace)
+              manifests: $(landingKubernetes)
+              containers: |
+                $(landingRepoEndpoint):$(tagLanding)
