@@ -58,11 +58,11 @@ variables:
   vmImageName: 'ubuntu-latest'
 
   # Check if there are any changes of the following files
-  checkGovernmentBackendFiles: '("vidchain-government/vidchain-government-backend")'
-  checkGovernmentFrontendFiles: '("vidchain-government/vidchain-government-frontend")'
-  checkUniversityBackendFiles: '("vidchain-university/vidchain-university-backend")'
-  checkUniversityFrontendFiles: '("vidchain-university/vidchain-university-frontend")'
-  checkLandingFiles: '("landing-page/")'
+  checkGovernmentBackendFiles: '("azure-pipelines.yml" "vidchain-government/vidchain-government-backend")'
+  checkGovernmentFrontendFiles: '("azure-pipelines.yml" "vidchain-government/vidchain-government-frontend")'
+  checkUniversityBackendFiles: '("azure-pipelines.yml" "vidchain-university/vidchain-university-backend")'
+  checkUniversityFrontendFiles: '("azure-pipelines.yml" "vidchain-university/vidchain-university-frontend")'
+  checkLandingFiles: '("azure-pipelines.yml" "landing-page/")'
   
 name: $(major).$(minor)$(Rev:.r)-$(Build.SourceBranchName)
 
