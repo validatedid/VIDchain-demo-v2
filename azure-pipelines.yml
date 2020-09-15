@@ -219,7 +219,7 @@ stages:
       inputs:
         command: buildAndPush
         repository: $(universityBackendRepo)
-        dockerfile: $(governmentBackendDocker)
+        dockerfile: $(universityBackendDocker)
         containerRegistry: $(dockerRegistryServiceConnection)
         tags: |
           $(tagUniversityBackend)
