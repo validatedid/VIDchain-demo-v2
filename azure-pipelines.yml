@@ -3,7 +3,11 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
+<<<<<<< HEAD
 - ci/cd-azure-pipeline-aks
+=======
+- master
+>>>>>>> 598a1c1f8337c4681145c7d33ba7f6d911d5c94f
 
 resources:
 - repo: self
@@ -64,7 +68,11 @@ variables:
   checkUniversityFiles: '("azure-pipelines.yml" "vidchain-university/vidchain-university-frontend")'
   checkLandingFiles: '("azure-pipelines.yml" "landing-page/")'
   
+<<<<<<< HEAD
 name: $(major).$(minor)$(Rev:.r)-[$(Build.SourceBranchName)]
+=======
+name: $(major).$(minor)$(Rev:.r)-$(Build.SourceBranchName)
+>>>>>>> 598a1c1f8337c4681145c7d33ba7f6d911d5c94f
 
 stages:
 - stage: Build

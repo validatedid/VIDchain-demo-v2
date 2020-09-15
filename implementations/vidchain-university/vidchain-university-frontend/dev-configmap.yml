@@ -7,5 +7,10 @@ data:
   REACT_APP_IDENTITY_PROVIDER: "https://dev.vidchain.net"
   REACT_APP_DEMO: "https://try.vidchain.net/demo/university"
   REACT_APP_BACKEND_URL: "https://dev.vidchain.net/demo/universitybackend"
+<<<<<<< HEAD
   REACT_APP_WS_URL: "https://try.vidchain.net/demo/university"
   PUBLIC_URL: "true"
+=======
+  REACT_APP_WS_URL: "https://dev.vidchain.net"
+  PUBLIC_URL: "https://try.vidchain.net/demo/university"
+>>>>>>> 598a1c1f8337c4681145c7d33ba7f6d911d5c94f
