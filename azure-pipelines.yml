@@ -66,13 +66,21 @@ variables:
   checkUniversityBackendFiles: '("azure-pipelines.yml" "vidchain-university/vidchain-university-backend")'
   checkUniversityFrontendFiles: '("azure-pipelines.yml" "vidchain-university/vidchain-university-frontend")'
   checkLandingFiles: '("azure-pipelines.yml" "landing-page/")'
-  
-name: $(major).$(minor)$(Rev:.r)-$(Build.SourceBranchName)
 
 stages:
 - stage: Build
   displayName: 'Build stage'
   jobs:
+  - job: GetShortCommit
+    displayName: 'retrieve commit hash'
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - script: |
+        commit=$(Build.SourceVersion)
+        shortCommit=${commit:0:7}
+        echo "##vso[build.updatebuildnumber]$(major).$(minor)$(Rev:.r)-commit.$shortCommit"
+        displayName: 'retrieve $(packageJson) version'
   - job: CheckChangesGovernmentBackend
     displayName: 'Checking if there are changes in GovernmentBackend'
     pool:
