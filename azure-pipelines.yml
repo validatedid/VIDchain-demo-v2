@@ -79,8 +79,8 @@ stages:
     - script: |
         commit=$(Build.SourceVersion)
         shortCommit=${commit:0:7}
-        echo "##vso[build.updatebuildnumber]$(major).$(minor).$(BuildID)-commit.$shortCommit"
-        displayName: 'retrieve $(packageJson) version'
+        echo "##vso[build.updatebuildnumber]$(major).$(minor).$(Build.BuildID)-commit.$shortCommit"
+      displayName: 'retrieve $(packageJson) version'
   - job: CheckChangesGovernmentBackend
     displayName: 'Checking if there are changes in GovernmentBackend'
     pool:
