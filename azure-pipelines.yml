@@ -9,8 +9,11 @@ resources:
 - repo: self
 
 variables:
+  # Set demo global version - manually
   major: 0
   minor: 1
+  # Docker Buildkit improves image build performance
+  DOCKER_BUILDKIT: 1
   # Image repository
   governmentBackendRepo: 'government-backend'
   governmentBackendRepoEndpoint: 'k8scrvidchaindev.azurecr.io/government-backend'
@@ -113,14 +116,33 @@ stages:
     condition: eq(dependencies.CheckChangesGovernmentBackend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     steps:
     - task: Docker@2
-      displayName: Build and push Government Backend image to container registry
+      displayName: Login ACR
       inputs:
-        command: buildAndPush
-        repository: $(governmentBackendRepo)
-        dockerfile: $(governmentBackendDocker)
+        command: login
         containerRegistry: $(dockerRegistryServiceConnection)
+    - script: "docker pull $(governmentBackendRepoEndpoint):latest"
+      displayName: Pull latest for layer caching
+      continueOnError: true # for first build, no cache
+    - task: Docker@2
+      displayName: "build --cache-from=$(governmentBackendRepoEndpoint):latest"
+      inputs:
+        containerRegistry: '$(dockerRegistryServiceConnection)'
+        repository: '$(governmentBackendRepo)'
+        command: 'build'
+        Dockerfile: $(governmentBackendDocker)
+        arguments: '--cache-from=$(governmentBackendRepoEndpoint):latest' 
         tags: |
           $(tagGovernmentBackend)
+          latest
+    - task: Docker@2
+      displayName: "push"
+      inputs:
+        command: push
+        containerRegistry: "$(dockerRegistryServiceConnection)"
+        repository: $(governmentBackendRepo) 
+        tags: |
+          $(tagGovernmentBackend)
+          latest
   - job: CheckChangesGovernmentFrontend
     displayName: 'Checking if there are changes in GovernmentFrontend'
     pool:
@@ -164,14 +186,33 @@ stages:
     condition: eq(dependencies.CheckChangesGovernmentFrontend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     steps:
     - task: Docker@2
-      displayName: Build and push an Government Frontend image to container registry
+      displayName: Login ACR
       inputs:
-        command: buildAndPush
-        repository: $(governmentFrontendRepo)
-        dockerfile: $(governmentFrontendDocker)
+        command: login
         containerRegistry: $(dockerRegistryServiceConnection)
+    - script: "docker pull $(governmentFrontendRepoEndpoint):latest"
+      displayName: Pull latest for layer caching
+      continueOnError: true # for first build, no cache
+    - task: Docker@2
+      displayName: "build --cache-from=$(governmentFrontendRepoEndpoint):latest"
+      inputs:
+        containerRegistry: '$(dockerRegistryServiceConnection)'
+        repository: '$(governmentFrontendRepo)'
+        command: 'build'
+        Dockerfile: $(governmentFrontendDocker)
+        arguments: '--cache-from=$(governmentFrontendRepoEndpoint):latest' 
         tags: |
           $(tagGovernmentFrontend)
+          latest
+    - task: Docker@2
+      displayName: "push"
+      inputs:
+        command: push
+        containerRegistry: "$(dockerRegistryServiceConnection)"
+        repository: $(governmentFrontendRepo) 
+        tags: |
+          $(tagGovernmentFrontend)
+          latest
   - job: CheckChangesUniversityBackend
     displayName: 'Checking if there are changes in UniversityBackend'
     pool:
@@ -215,14 +256,33 @@ stages:
     condition: eq(dependencies.CheckChangesUniversityBackend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     steps:
     - task: Docker@2
-      displayName: Build and push University Backend image to container registry
+      displayName: Login ACR
       inputs:
-        command: buildAndPush
-        repository: $(universityBackendRepo)
-        dockerfile: $(universityBackendDocker)
+        command: login
         containerRegistry: $(dockerRegistryServiceConnection)
+    - script: "docker pull $(universityBackendRepoEndpoint):latest"
+      displayName: Pull latest for layer caching
+      continueOnError: true # for first build, no cache
+    - task: Docker@2
+      displayName: "build --cache-from=$(universityBackendRepoEndpoint):latest"
+      inputs:
+        containerRegistry: '$(dockerRegistryServiceConnection)'
+        repository: '$(universityBackendRepo)'
+        command: 'build'
+        Dockerfile: $(universityBackendDocker)
+        arguments: '--cache-from=$(universityBackendRepoEndpoint):latest' 
         tags: |
           $(tagUniversityBackend)
+          latest
+    - task: Docker@2
+      displayName: "push"
+      inputs:
+        command: push
+        containerRegistry: "$(dockerRegistryServiceConnection)"
+        repository: $(universityBackendRepo) 
+        tags: |
+          $(tagUniversityBackend)
+          latest
   - job: CheckChangesUniversityFrontend
     displayName: 'Checking if there are changes in UniversityFrontend'
     pool:
@@ -266,14 +326,33 @@ stages:
     condition: eq(dependencies.CheckChangesUniversityFrontend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     steps:
     - task: Docker@2
-      displayName: Build and push an University Frontend image to container registry
+      displayName: Login ACR
       inputs:
-        command: buildAndPush
-        repository: $(universityFrontendRepo)
-        dockerfile: $(universityFrontendDocker)
+        command: login
         containerRegistry: $(dockerRegistryServiceConnection)
+    - script: "docker pull $(universityFrontendRepoEndpoint):latest"
+      displayName: Pull latest for layer caching
+      continueOnError: true # for first build, no cache
+    - task: Docker@2
+      displayName: "build --cache-from=$(universityFrontendRepoEndpoint):latest"
+      inputs:
+        containerRegistry: '$(dockerRegistryServiceConnection)'
+        repository: '$(universityFrontendRepo)'
+        command: 'build'
+        Dockerfile: $(universityFrontendDocker)
+        arguments: '--cache-from=$(universityFrontendRepoEndpoint):latest' 
         tags: |
           $(tagUniversityFrontend)
+          latest
+    - task: Docker@2
+      displayName: "push"
+      inputs:
+        command: push
+        containerRegistry: "$(dockerRegistryServiceConnection)"
+        repository: $(universityFrontendRepo) 
+        tags: |
+          $(tagUniversityFrontend)
+          latest
   - job: CheckChangesLanding
     displayName: 'Checking if there are changes in Landing'
     pool:
@@ -317,14 +396,33 @@ stages:
     condition: eq(dependencies.CheckChangesLanding.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     steps:
     - task: Docker@2
-      displayName: Build and push an Landing demo image to container registry
+      displayName: Login ACR
       inputs:
-        command: buildAndPush
-        repository: $(landingRepo)
-        dockerfile: $(landingDocker)
+        command: login
         containerRegistry: $(dockerRegistryServiceConnection)
+    - script: "docker pull $(landingRepoEndpoint):latest"
+      displayName: Pull latest for layer caching
+      continueOnError: true # for first build, no cache
+    - task: Docker@2
+      displayName: "build --cache-from=$(landingRepoEndpoint):latest"
+      inputs:
+        containerRegistry: '$(dockerRegistryServiceConnection)'
+        repository: '$(landingRepo)'
+        command: 'build'
+        Dockerfile: $(landingDocker)
+        arguments: '--cache-from=$(landingRepoEndpoint):latest' 
         tags: |
           $(tagLanding)
+          latest
+    - task: Docker@2
+      displayName: "push"
+      inputs:
+        command: push
+        containerRegistry: "$(dockerRegistryServiceConnection)"
+        repository: $(landingRepo) 
+        tags: |
+          $(tagLanding)
+          latest
 - stage: Deploy
   displayName: 'Deploy stage'
   dependsOn: Build
