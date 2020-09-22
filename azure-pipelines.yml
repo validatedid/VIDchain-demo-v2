@@ -16,15 +16,15 @@ variables:
   DOCKER_BUILDKIT: 1
   # Image repository
   governmentBackendRepo: 'government-backend'
-  governmentBackendRepoEndpoint: 'k8scrvidchaindev.azurecr.io/government-backend'
+  governmentBackendRepoEndpoint: 'k8scrvidchainpro.azurecr.io/government-backend'
   governmentFrontendRepo: 'government-frontend'
-  governmentFrontendRepoEndpoint: 'k8scrvidchaindev.azurecr.io/government-frontend'
+  governmentFrontendRepoEndpoint: 'k8scrvidchainpro.azurecr.io/government-frontend'
   universityBackendRepo: 'university-backend'
-  universityBackendRepoEndpoint: 'k8scrvidchaindev.azurecr.io/university-backend'
+  universityBackendRepoEndpoint: 'k8scrvidchainpro.azurecr.io/university-backend'
   universityFrontendRepo: 'university-frontend'
-  universityFrontendRepoEndpoint: 'k8scrvidchaindev.azurecr.io/university-frontend'
+  universityFrontendRepoEndpoint: 'k8scrvidchainpro.azurecr.io/university-frontend'
   landingRepo: 'demo-landing'
-  landingRepoEndpoint: 'k8scrvidchaindev.azurecr.io/demo-landing'
+  landingRepoEndpoint: 'k8scrvidchainpro.azurecr.io/demo-landing'
 
   # Dockerfiles
   governmentBackendDocker: 'implementations/vidchain-government/vidchain-government-backend/Dockerfile'
