@@ -58,11 +58,11 @@ variables:
   vmImageName: 'ubuntu-latest'
 
   # Check if there are any changes of the following files
-  checkGovernmentBackendFiles: '("azure-pipelines/azure-pipelines.yml" "vidchain-government/vidchain-government-backend")'
-  checkGovernmentFrontendFiles: '("azure-pipelines/azure-pipelines.yml" "vidchain-government/vidchain-government-frontend")'
-  checkUniversityBackendFiles: '("azure-pipelines/azure-pipelines.yml" "vidchain-university/vidchain-university-backend")'
-  checkUniversityFrontendFiles: '("azure-pipelines/azure-pipelines.yml" "vidchain-university/vidchain-university-frontend")'
-  checkLandingFiles: '("azure-pipelines/azure-pipelines.yml" "landing-page/")'
+  checkGovernmentBackendFiles: '("azure-pipelines/azure-pipelines-pro.yml" "vidchain-government/vidchain-government-backend")'
+  checkGovernmentFrontendFiles: '("azure-pipelines/azure-pipelines-pro.yml" "vidchain-government/vidchain-government-frontend")'
+  checkUniversityBackendFiles: '("azure-pipelines/azure-pipelines-pro.yml" "vidchain-university/vidchain-university-backend")'
+  checkUniversityFrontendFiles: '("azure-pipelines/azure-pipelines-pro.yml" "vidchain-university/vidchain-university-frontend")'
+  checkLandingFiles: '("azure-pipelines/azure-pipelines-pro.yml" "landing-page/")'
 
 stages:
 - stage: Build
