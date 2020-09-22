@@ -3,7 +3,7 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
-- master
+- main
 
 resources:
 - repo: self
@@ -48,7 +48,7 @@ variables:
   landingConfigMap: 'implementations/landing-page/dev-configmap.yml'
 
   # Kubernetes namespace
-  namespace: 'development'
+  namespace: 'production'
 
   # Image tagging: application version - build
   tagGovernmentBackend: '$(Build.BuildNumber)'
