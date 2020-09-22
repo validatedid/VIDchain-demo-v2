@@ -86,7 +86,6 @@ apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
   name: university-frontend-ingress
-  namespace: production
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
