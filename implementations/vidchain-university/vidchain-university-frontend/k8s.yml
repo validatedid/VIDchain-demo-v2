@@ -93,10 +93,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - try.vidchain.net
+    - dev.vidchain.net
     secretName: tls-secret-production
   rules:
-  - host: try.vidchain.net
+  - host: dev.vidchain.net
     http:
       paths: 
       - path: /demo/university(/|$)(.*)
