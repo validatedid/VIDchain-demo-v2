@@ -1,6 +1,6 @@
 const ENV = "development";
-const GOVERNMENT_URL = "https://try.vidchain.net/demo/government";
-const UNIVERSITY_URL = "https://try.vidchain.net/demo/university";
+const GOVERNMENT_URL = "https://dev.vidchain.net/demo/government";
+const UNIVERSITY_URL = "https://dev.vidchain.net/demo/university";
 
 export {
     GOVERNMENT_URL,

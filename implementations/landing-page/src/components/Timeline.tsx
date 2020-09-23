@@ -21,7 +21,7 @@ const Timeline = ({
                 </div>
             </div>
         </a>
-        <a href="https://try.vidchain.net/demo/government">
+        <a href="https://dev.vidchain.net/demo/government">
             <div className={step > 0 ? "entry" : "entryNoSelected"}>
                 <h1>Step 1</h1>
                 <h2>Government of Freedonia</h2>
@@ -31,7 +31,7 @@ const Timeline = ({
                 </div>
             </div>
         </a>
-        <a href="https://try.vidchain.net/demo/university">
+        <a href="https://dev.vidchain.net/demo/university">
             <div className={step > 1 ? "entry" : "entryNoSelected"}>
             <h1>Step 2</h1>
                 <h2>University</h2>
