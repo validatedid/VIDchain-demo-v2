@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: landing-configmap
 data:
-  PUBLIC_URL: "https://try.vidchain.net/demo"
+  PUBLIC_URL: "https://dev.vidchain.net/demo"

@@ -3,9 +3,9 @@ kind: ConfigMap
 metadata:
   name: university-frontend-configmap
 data:
-  REACT_APP_REDIRECT_CALLBACK: "https://try.vidchain.net/demo/university/callback"
+  REACT_APP_REDIRECT_CALLBACK: "https://dev.vidchain.net/demo/university/callback"
   REACT_APP_IDENTITY_PROVIDER: "https://dev.vidchain.net"
-  REACT_APP_DEMO: "https://try.vidchain.net/demo/university"
+  REACT_APP_DEMO: "https://dev.vidchain.net/demo/university"
   REACT_APP_BACKEND_URL: "https://dev.vidchain.net/demo/universitybackend"
   REACT_APP_WS_URL: "https://dev.vidchain.net"
-  PUBLIC_URL: "https://try.vidchain.net/demo/university"
+  PUBLIC_URL: "https://dev.vidchain.net/demo/university"

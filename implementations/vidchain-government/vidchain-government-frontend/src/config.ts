@@ -6,7 +6,7 @@ const IDENTITY_PROVIDER =
   process.env.REACT_APP_IDENTITY_PROVIDER || "https://dev.vidchain.net";
 const REDIRECT_CALLBACK =
   process.env.REACT_APP_REDIRECT_CALLBACK ||
-  "https://try.vidchain.net/demo/government/callback";
+  "https://dev.vidchain.net/demo/government/callback";
 const BACKEND_URL =
   process.env.REACT_APP_BACKEND_URL ||
   "https://dev.vidchain.net/demo/governmentbackend";
