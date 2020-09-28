@@ -32,18 +32,18 @@ variables:
   landingDocker: 'implementations/landing-page/Dockerfile'
 
   # Kubernetes YAML
-  governmentBackendKubernetes: 'implementations/vidchain-government/vidchain-government-backend/k8s.yml'
-  governmentFrontendKubernetes: 'implementations/vidchain-government/vidchain-government-frontend/k8s.yml'
-  universityBackendKubernetes: 'implementations/vidchain-university/vidchain-university-backend/k8s.yml'
-  universityFrontendKubernetes: 'implementations/vidchain-university/vidchain-university-frontend/k8s.yml'
-  landingKubernetes: 'implementations/landing-page/k8s.yml'
+  governmentBackendKubernetes: 'implementations/vidchain-government/vidchain-government-backend/k8s/k8s-pro.yml'
+  governmentFrontendKubernetes: 'implementations/vidchain-government/vidchain-government-frontend/k8s/k8s-pro.yml'
+  universityBackendKubernetes: 'implementations/vidchain-university/vidchain-university-backend/k8s/k8s-pro.yml'
+  universityFrontendKubernetes: 'implementations/vidchain-university/vidchain-university-frontend/k8s/k8s-pro.yml'
+  landingKubernetes: 'implementations/landing-page/k8s/k8s-pro.yml'
 
   # Configmaps
-  governmentBackendConfigMap: 'implementations/vidchain-government/vidchain-government-backend/dev-configmap.yml'
-  governmentFrontendConfigMap: 'implementations/vidchain-government/vidchain-government-frontend/dev-configmap.yml'
-  universityBackendConfigMap: 'implementations/vidchain-university/vidchain-university-backend/dev-configmap.yml'
-  universityFrontendConfigMap: 'implementations/vidchain-university/vidchain-university-frontend/dev-configmap.yml'
-  landingConfigMap: 'implementations/landing-page/dev-configmap.yml'
+  governmentBackendConfigMap: 'implementations/vidchain-government/vidchain-government-backend/k8s/configmap-pro.yml'
+  governmentFrontendConfigMap: 'implementations/vidchain-government/vidchain-government-frontend/k8s/configmap-pro.yml'
+  universityBackendConfigMap: 'implementations/vidchain-university/vidchain-university-backend/k8s/configmap-pro.yml'
+  universityFrontendConfigMap: 'implementations/vidchain-university/vidchain-university-frontend/k8s/configmap-pro.yml'
+  landingConfigMap: 'implementations/landing-page/k8s/configmap-pro.yml'
 
   # Kubernetes namespace
   namespace: 'production'
