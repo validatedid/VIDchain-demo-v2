@@ -32,6 +32,16 @@ spec:
             configMapKeyRef:
               name: landing-configmap
               key: PUBLIC_URL
+        - name: UNIVERSITY_URL
+          valueFrom:
+            configMapKeyRef:
+              name: landing-configmap
+              key: UNIVERSITY_URL
+        - name: GOVERNMENT_URL
+          valueFrom:
+            configMapKeyRef:
+              name: landing-configmap
+              key: GOVERNMENT_URL
       restartPolicy: Always
 
 ---
