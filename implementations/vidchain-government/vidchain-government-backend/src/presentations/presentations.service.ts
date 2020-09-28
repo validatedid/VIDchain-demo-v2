@@ -18,6 +18,7 @@ export class PresentationsService {
    */
   async handleRequest(body: MsgPresentationReady): Promise<any> {
     this.logger.debug("handling vp request...");
+    this.logger.debug(JSON.stringify(body));
     const token = await vidchain.getAuthzToken();
     const response = await vidchain.requestVP(
       token,
@@ -40,7 +41,7 @@ export class PresentationsService {
         body.url
       );
       this.logger.debug(
-        "Presentation retrieved: " + JSON.stringify(presentation)
+        "Presentation retrieved: " + presentation
       );
       const validation: boolean = await this.validatePresentation(
         token,
@@ -79,8 +80,9 @@ export class PresentationsService {
    *  Validates retrieved presentation
    */
   async validatePresentation(token: string, presentation: Presentation) {
-    const dataDecoded = strB64dec(presentation.data.base64);
-    this.logger.debug("Data decoded: " + JSON.stringify(dataDecoded));
+    this.logger.debug("validate presentation: "+ JSON.stringify(presentation));
+    // const dataDecoded = strB64dec(presentation.data.encrypted);
+    // this.logger.debug("Data decoded: " + JSON.stringify(dataDecoded));
     let validation = false;
     /**
      * Despite the API validates the Credential Type, and the wallet filters by type of requested credential too, at this point, the backend could even perform its own extra validations. For instance:
@@ -88,8 +90,10 @@ export class PresentationsService {
      * For testing purposes, in this example, this const is simply set to true.
      */
     const credentialType = true;
+    this.logger.debug("to valdiate: " + JSON.stringify(presentation.data.encrypted));
     if (credentialType) {
-      validation = await vidchain.validateVP(token, dataDecoded);
+      
+      validation = await vidchain.validateVP(token, presentation.data.encrypted);
       this.logger.debug("Validation of VP: " + validation);
     }
     return validation;

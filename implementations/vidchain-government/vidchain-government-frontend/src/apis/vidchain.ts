@@ -16,6 +16,7 @@ async function request(token: string, user: any, endpoint: string) {
     },
   };
   try {
+    console.log(config.API_URL.concat(endpoint));
     const response = await axios.post(
       config.API_URL.concat(endpoint),
       user,
@@ -32,6 +33,7 @@ async function request(token: string, user: any, endpoint: string) {
 
 // Get API authentication token
 async function getAuthzToken() {
+  console.log("ENTITY:"+JSON.stringify(config.Entity));
   const body = {
     grantType: config.grantType,
     assertion: strB64enc(config.Entity),
@@ -50,6 +52,7 @@ async function getAuthzToken() {
 
 // Request VerifiableID generation
 async function generateVerifiableID(token: string, user: ICredentialData) {
+  console.log("go to generate cerifiableID");
   return request(token, user, "/verifiable-ids");
 }
 

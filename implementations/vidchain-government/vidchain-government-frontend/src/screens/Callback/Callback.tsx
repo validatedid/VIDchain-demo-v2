@@ -148,9 +148,12 @@ class Callback extends Component<Props, State> {
     socket.on("presentation", (msg: any) => {
       console.log("socket presentation notification!");
 
-      let presentation = JSON.parse(
-        JSON.stringify(utils.strB64dec(msg.data.base64))
-      );
+      // let presentation = JSON.parse(
+      //   JSON.stringify(utils.strB64dec(msg.data.encrypted))
+      // );
+      console.log("presentattttttion");
+      let presentation = msg.data.encrypted;
+      console.log(presentation);
       let details = JSON.stringify(
         utils.decodeJWT(presentation.verifiableCredential[0])
       );
