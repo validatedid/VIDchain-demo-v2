@@ -21,7 +21,7 @@ spec:
         app: demo-landing
     spec:
       containers:
-      - image: k8scrvidchaindev.azurecr.io/demo-landing:v0.1-build.30
+      - image: k8scrvidchaindev.azurecr.io/demo-landing:latest
         imagePullPolicy: "Always"
         name: demo-landing
         ports:
@@ -63,10 +63,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - try.vidchain.net
+    - dev.vidchain.net
     secretName: tls-secret-production
   rules:
-  - host: try.vidchain.net 
+  - host: dev.vidchain.net 
     http:
       paths:
       - path: /demo(/|$)(.*)

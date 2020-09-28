@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: landing-configmap
-data:
-  PUBLIC_URL: "https://try.vidchain.net/demo"

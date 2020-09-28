@@ -21,7 +21,7 @@ spec:
         app: university-frontend
     spec:
       containers:
-      - image: k8scrvidchaindev.azurecr.io/university-frontend:v0.1-build.30
+      - image: k8scrvidchainpro.azurecr.io/university-frontend:latest
         imagePullPolicy: "Always"
         name: university-frontend
         ports:
