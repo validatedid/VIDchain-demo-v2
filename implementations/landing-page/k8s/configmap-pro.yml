@@ -4,5 +4,5 @@ metadata:
   name: landing-configmap
 data:
   PUBLIC_URL: "https://try.vidchain.net/demo"
-  UNIVERSITY_URL: "https://try.vidchain.net/demo/university"
-  GOVERNMENT_URL: "https://try.vidchain.net/demo/government"
+  REACT_APP_UNIVERSITY_URL: "https://try.vidchain.net/demo/university"
+  REACT_APP_GOVERNMENT_URL: "https://try.vidchain.net/demo/government"
