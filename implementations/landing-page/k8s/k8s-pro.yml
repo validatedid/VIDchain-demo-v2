@@ -32,16 +32,16 @@ spec:
             configMapKeyRef:
               name: landing-configmap
               key: PUBLIC_URL
-        - name: UNIVERSITY_URL
+        - name: REACT_APP_UNIVERSITY_URL
           valueFrom:
             configMapKeyRef:
               name: landing-configmap
-              key: UNIVERSITY_URL
-        - name: GOVERNMENT_URL
+              key: REACT_APP_UNIVERSITY_URL
+        - name: REACT_APP_GOVERNMENT_URL
           valueFrom:
             configMapKeyRef:
               name: landing-configmap
-              key: GOVERNMENT_URL
+              key: REACT_APP_GOVERNMENT_URL
       restartPolicy: Always
 
 ---
