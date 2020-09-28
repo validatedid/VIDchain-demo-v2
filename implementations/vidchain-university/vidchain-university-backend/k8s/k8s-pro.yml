@@ -21,7 +21,7 @@ spec:
         app: university-backend
     spec:
       containers:
-      - image: k8scrvidchaindev.azurecr.io/university-backend:v0.1-build.30
+      - image: k8scrvidchainpro.azurecr.io/university-backend:latest
         imagePullPolicy: "Always"
         name: university-backend
         ports:
@@ -86,10 +86,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - dev.vidchain.net
+    - api.vidchain.net
     secretName: tls-secret-production
   rules:
-  - host: dev.vidchain.net
+  - host: api.vidchain.net
     http:
       paths:
       - path: /demo/universitybackend

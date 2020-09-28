@@ -3,6 +3,7 @@ kind: ConfigMap
 metadata:
   name: government-backend-configmap
 data:
+  API_URL: "https://dev.vidchain.net/api/v1/"
   BASE_URL: "https://dev.vidchain.net/demo/governmentbackend"
   PORT: "3021"
   REDIS_URL: "redis"

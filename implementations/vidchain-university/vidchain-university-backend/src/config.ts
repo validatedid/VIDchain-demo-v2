@@ -2,11 +2,11 @@ const dotenv = require("dotenv");
 // importing .env variables
 dotenv.config();
 const PORT = process.env.PORT || 3023;
-const API_URL = "https://dev.vidchain.net/api/v1/";
+const API_URL = process.env.API_URL || "undefined";
 const BASE_URL =
-  process.env.BASE_URL || "https://dev.vidchain.net/demo/universitybackend";
-const WS_URL = process.env.WS_URL || "https://dev.vidchain.net";
-const API_KEY = process.env.API_KEY|| "/";
+  process.env.BASE_URL || "undefined";;
+const WS_URL = process.env.WS_URL || "undefined";
+const API_KEY = process.env.API_KEY || "undefined";
 
 //Legal Entity
 const Entity = {

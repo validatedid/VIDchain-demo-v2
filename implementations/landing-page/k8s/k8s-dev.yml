@@ -21,7 +21,7 @@ spec:
         app: demo-landing
     spec:
       containers:
-      - image: k8scrvidchaindev.azurecr.io/demo-landing:v0.1-build.30
+      - image: k8scrvidchaindev.azurecr.io/demo-landing:latest
         imagePullPolicy: "Always"
         name: demo-landing
         ports:

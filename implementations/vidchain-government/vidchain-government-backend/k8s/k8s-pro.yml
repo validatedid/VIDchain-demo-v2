@@ -21,12 +21,17 @@ spec:
         app: government-backend
     spec:
       containers:
-      - image: k8scrvidchaindev.azurecr.io/government-backend:v0.1-build.30
+      - image: k8scrvidchainpro.azurecr.io/government-backend:latest
         imagePullPolicy: "Always"
         name: government-backend
         ports:
         - containerPort: 3021
         env:
+        - name: API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: government-backend-configmap
+              key: API_URL
         - name: BASE_URL
           valueFrom:
             configMapKeyRef:
@@ -86,10 +91,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - dev.vidchain.net
+    - api.vidchain.net
     secretName: tls-secret-production
   rules:
-  - host: dev.vidchain.net
+  - host: api.vidchain.net
     http:
       paths:
       - path: /demo/governmentbackend
