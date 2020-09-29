@@ -1,4 +1,4 @@
-const dotenv = require("dotenv");
+const dotenv = require("dotenv-flow");
 dotenv.config();
 
 const API_URL = process.env.REACT_APP_API_URL || "undefined";

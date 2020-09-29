@@ -40,10 +40,7 @@ variables:
 
   # Configmaps
   governmentBackendConfigMap: 'implementations/vidchain-government/vidchain-government-backend/k8s/configmap-dev.yml'
-  governmentFrontendConfigMap: 'implementations/vidchain-government/vidchain-government-frontend/k8s/configmap-dev.yml'
   universityBackendConfigMap: 'implementations/vidchain-university/vidchain-university-backend/k8s/configmap-dev.yml'
-  universityFrontendConfigMap: 'implementations/vidchain-university/vidchain-university-frontend/k8s/configmap-dev.yml'
-  #landingConfigMap: 'implementations/landing-page/k8s/configmap-dev.yml'
 
   # Kubernetes namespace
   namespace: 'development'
@@ -472,15 +469,6 @@ stages:
         deploy:
           steps:
           - checkout: self
-          - task: Kubernetes@1
-            displayName: Create/update configmap
-            inputs:
-              connectionType: Azure Resource Manager
-              azureSubscriptionEndpoint: $(azureSubscriptionEndpoint) 
-              azureResourceGroup: $(azureResourceGroup)
-              kubernetesCluster: $(kubernetesCluster)
-              command: apply
-              arguments: -f $(governmentFrontendConfigMap) -n $(namespace)
           - task: KubernetesManifest@0
             displayName: Create/update deployment
             inputs:              
@@ -528,15 +516,6 @@ stages:
         deploy:
           steps:
           - checkout: self
-          - task: Kubernetes@1
-            displayName: Create/update configmap
-            inputs:
-              connectionType: Azure Resource Manager
-              azureSubscriptionEndpoint: $(azureSubscriptionEndpoint) 
-              azureResourceGroup: $(azureResourceGroup)
-              kubernetesCluster: $(kubernetesCluster)
-              command: apply
-              arguments: -f $(universityFrontendConfigMap) -n $(namespace)
           - task: KubernetesManifest@0
             displayName: Create/update deployment
             inputs:              
@@ -556,15 +535,6 @@ stages:
         deploy:
           steps:
           - checkout: self
-          #- task: Kubernetes@1
-          #  displayName: Create/update configmap
-          #  inputs:
-          #    connectionType: Azure Resource Manager
-          #    azureSubscriptionEndpoint: $(azureSubscriptionEndpoint) 
-          #    azureResourceGroup: $(azureResourceGroup)
-          #    kubernetesCluster: $(kubernetesCluster)
-          #    command: apply
-          #    arguments: -f $(landingConfigMap) -n $(namespace)
           - task: KubernetesManifest@0
             displayName: Create/update deployment
             inputs:              
