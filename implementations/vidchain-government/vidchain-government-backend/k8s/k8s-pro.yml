@@ -91,10 +91,10 @@ metadata:
 spec:
   tls:
   - hosts:
-    - api.vidchain.net
+    - try.vidchain.net
     secretName: tls-secret-production
   rules:
-  - host: api.vidchain.net
+  - host: try.vidchain.net
     http:
       paths:
       - path: /demo/governmentbackend
