@@ -11,6 +11,13 @@ WORKDIR /usr/src/app
 COPY ./package*.json /usr/src/app/
 RUN npm ci --quiet --no-progress
 COPY ./ /usr/src/app/
+ARG REACT_APP_DEMO
+ARG REACT_APP_API_URL
+ARG REACT_APP_IDENTITY_PROVIDER
+ARG REACT_APP_REDIRECT_CALLBACK
+ARG REACT_APP_BACKEND_URL
+ARG REACT_APP_WS_URL
+ARG REACT_APP_API_KEY
 ARG PUBLIC_URL=/demo/university
 RUN npm run build
 
