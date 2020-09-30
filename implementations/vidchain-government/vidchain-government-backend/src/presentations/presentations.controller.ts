@@ -6,7 +6,7 @@ import {
   HttpStatus,
   Logger,
 } from "@nestjs/common";
-import { Response } from "express";
+import { Response, response } from "express";
 import { PresentationsService } from "./presentations.service";
 import { MsgPresentationReady } from "../interfaces/dtos";
 import * as io from "socket.io-client";
@@ -27,6 +27,8 @@ export class PresentationsController {
     @Body() body: MsgPresentationReady,
     @Res() res: Response
   ): Promise<Response<any>> {
+    this.logger.debug("request");
+    this.logger.debug(JSON.stringify(body));
     const result = await this.presentationsService.handleRequest(body);
     return res.status(HttpStatus.CREATED).send(result);
   }
@@ -37,6 +39,7 @@ export class PresentationsController {
     @Res() res: Response
   ): Promise<Response<any>> {
     const result = await this.presentationsService.handlePresentation(body);
+    this.logger.debug("presentation ready: "+result);
     this.socket.emit("presentationReady", result);
     return res.status(HttpStatus.CREATED).send(result);
   }

@@ -14,10 +14,11 @@ export interface Presentation {
   type: string;
   name: string;
   hash: string;
+  did: string;
   data: IAttributeData;
 }
 export interface IAttributeData {
-  base64: string;
+  encrypted: any;
 }
 export interface VerifiablePresentation {
   "@context": string[];

@@ -1,5 +1,6 @@
 import * as jwtDecode from "jwt-decode";
 import { decode as atob, encode } from "base-64";
+import { Logger } from "@nestjs/common";
 /**
  * Parse a JWT token
  */
@@ -37,9 +38,7 @@ function strB64enc(input) {
 }
 
 function extractVCfromPresentation(credential) {
-  const dataDecoded = strB64dec(credential.data.base64);
-  const JSONdata = JSON.parse(JSON.stringify(dataDecoded));
-  let jwtObject = JSON.stringify(JSONdata.verifiableCredential);
+  let jwtObject = JSON.stringify(credential.data.encrypted);
   jwtObject = jwtObject.substring(
     jwtObject.lastIndexOf("[") + 1,
     jwtObject.lastIndexOf("]")

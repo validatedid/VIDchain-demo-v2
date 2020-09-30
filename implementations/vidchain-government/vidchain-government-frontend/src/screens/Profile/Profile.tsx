@@ -144,6 +144,7 @@ class Profile extends Component<Props, State> {
    * An authentication token is requested and it is used to request the generation of a verifiableCredential
    */
   async generateCredential() {
+    console.log("generate credentialww");
     const token = await vidchain.getAuthzToken();
     const credential: CredentialData = {
       type: ["VerifiableCredential", "LargeFamilyCard"],
@@ -154,11 +155,12 @@ class Profile extends Component<Props, State> {
         name: "Large Family Card",
       },
     };
+    console.log("generate credential");
     const response = await vidchain.generateVerifiableCredential(
       token,
       credential
     );
-    console.log(response);
+    console.log("response   "+response);
     this.setState({
       largeFamily: true,
     });

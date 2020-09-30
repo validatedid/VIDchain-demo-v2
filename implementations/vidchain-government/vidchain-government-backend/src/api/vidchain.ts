@@ -39,6 +39,7 @@ async function postRequest(token: string, user: any, endpoint: string) {
 
 // Get API authentication token
 async function getAuthzToken() {
+  console.log("ENTITY:"+JSON.stringify(config.Entity));
   const body = {
     grantType: config.grantType,
     assertion: strB64enc(config.Entity),
@@ -92,12 +93,17 @@ async function retrievePresentation(token: string, url: string) {
     },
   };
   try {
+    console.log("rerieve peresentatttttionnn");
+    console.log(url);
+    console.log(authorization);
     const response = await axios.get(url, authorization);
+    console.log(response.status);
     if (response.status !== 200 && response.status !== 201) {
       return "Error";
     }
     return response.data;
   } catch (error) {
+    console.log(error);
     return "Error";
   }
 }
