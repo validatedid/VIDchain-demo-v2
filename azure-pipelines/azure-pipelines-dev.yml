@@ -7,7 +7,7 @@ resources:
 - repo: self
 
 variables:
-  REACT_APP_IDENTITY_PROVIDER: 'https://dev.vidchain.net'
+  REACT_APP_IDENTITY_PROVIDER: $(INPUT_REACT_APP_IDENTITY_PROVIDER)
   # Set demo global version - manually
   major: 0
   minor: 1
