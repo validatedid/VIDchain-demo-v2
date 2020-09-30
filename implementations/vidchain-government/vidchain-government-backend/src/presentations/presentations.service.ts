@@ -81,8 +81,6 @@ export class PresentationsService {
    */
   async validatePresentation(token: string, presentation: Presentation) {
     this.logger.debug("validate presentation: "+ JSON.stringify(presentation));
-    // const dataDecoded = strB64dec(presentation.data.encrypted);
-    // this.logger.debug("Data decoded: " + JSON.stringify(dataDecoded));
     let validation = false;
     /**
      * Despite the API validates the Credential Type, and the wallet filters by type of requested credential too, at this point, the backend could even perform its own extra validations. For instance:
@@ -90,9 +88,7 @@ export class PresentationsService {
      * For testing purposes, in this example, this const is simply set to true.
      */
     const credentialType = true;
-    this.logger.debug("to valdiate: " + JSON.stringify(presentation.data.encrypted));
     if (credentialType) {
-      
       validation = await vidchain.validateVP(token, presentation.data.encrypted);
       this.logger.debug("Validation of VP: " + validation);
     }
