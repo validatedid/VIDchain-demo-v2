@@ -337,7 +337,6 @@ stages:
     dependsOn: CheckChangesUniversityFrontend
     condition: eq(dependencies.CheckChangesUniversityFrontend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     steps:
-    steps:
     - bash: |
         cp ./implementations/vidchain-university/vidchain-university-frontend/envs/.env.development ./implementations/vidchain-university/vidchain-university-frontend/.env
         echo "API_KEY:$API_KEY" >> ./implementations/vidchain-university/vidchain-university-frontend/.env
