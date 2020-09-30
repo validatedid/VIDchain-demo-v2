@@ -4,8 +4,8 @@ metadata:
   name: government-backend-configmap
 data:
   API_URL: "https://api.vidchain.net/api/v1/"
-  BASE_URL: "https://api.vidchain.net/demo/governmentbackend"
+  BASE_URL: "https://try.vidchain.net/demo/governmentbackend"
   PORT: "3021"
   REDIS_URL: "redis"
   REDIS_PORT: "6379"
-  WS_URL: "https://api.vidchain.net"
+  WS_URL: "https://try.vidchain.net"

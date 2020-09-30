@@ -13,6 +13,8 @@ COPY ./package*.json /usr/src/app/
 RUN npm ci --quiet --no-progress
 COPY ./ /usr/src/app/
 ARG PUBLIC_URL=/demo
+ARG REACT_APP_GOVERNMENT_URL=/demo/government
+ARG REACT_APP_UNIVERSITY_URL=/demo/university
 RUN npm run build
 
 # Stage 2: run nginx

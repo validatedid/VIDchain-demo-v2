@@ -40,11 +40,8 @@ variables:
 
   # Configmaps
   governmentBackendConfigMap: 'implementations/vidchain-government/vidchain-government-backend/k8s/configmap-pro.yml'
-  governmentFrontendConfigMap: 'implementations/vidchain-government/vidchain-government-frontend/k8s/configmap-pro.yml'
   universityBackendConfigMap: 'implementations/vidchain-university/vidchain-university-backend/k8s/configmap-pro.yml'
-  universityFrontendConfigMap: 'implementations/vidchain-university/vidchain-university-frontend/k8s/configmap-pro.yml'
-  landingConfigMap: 'implementations/landing-page/k8s/configmap-pro.yml'
-
+  
   # Kubernetes namespace
   namespace: 'production'
 
@@ -191,6 +188,13 @@ stages:
     dependsOn: CheckChangesGovernmentFrontend
     condition: eq(dependencies.CheckChangesGovernmentFrontend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     steps:
+    - bash: |
+        cp ./implementations/vidchain-government/vidchain-government-frontend/envs/.env.production ./implementations/vidchain-government/vidchain-government-frontend/.env
+        echo "API_KEY:$API_KEY" >> ./implementations/vidchain-government/vidchain-government-frontend/.env
+      name: load_env_variables_file
+      displayName: 'load env vars'
+      env:
+        API_KEY: $(API_KEY_GOVERNMENT)
     - task: Docker@2
       displayName: Login ACR
       inputs:
@@ -331,6 +335,13 @@ stages:
     dependsOn: CheckChangesUniversityFrontend
     condition: eq(dependencies.CheckChangesUniversityFrontend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     steps:
+    - bash: |
+        cp ./implementations/vidchain-university/vidchain-university-frontend/envs/.env.production ./implementations/vidchain-university/vidchain-university-frontend/.env
+        echo "API_KEY:$API_KEY" >> ./implementations/vidchain-university/vidchain-university-frontend/.env
+      name: load_env_variables_file
+      displayName: 'load env vars'
+      env:
+        API_KEY: $(API_KEY_UNIVERSITY)
     - task: Docker@2
       displayName: Login ACR
       inputs:
@@ -438,7 +449,7 @@ stages:
     condition: eq(stageDependencies.Build.CheckChangesGovernmentBackend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     pool:
       vmImage: $(vmImageName)
-    environment: 'development'
+    environment: 'production'
     strategy:
       runOnce:
         deploy:
@@ -466,21 +477,12 @@ stages:
     condition: eq(stageDependencies.Build.CheckChangesGovernmentFrontend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     pool:
       vmImage: $(vmImageName)
-    environment: 'development'
+    environment: 'production'
     strategy:
       runOnce:
         deploy:
           steps:
           - checkout: self
-          - task: Kubernetes@1
-            displayName: Create/update configmap
-            inputs:
-              connectionType: Azure Resource Manager
-              azureSubscriptionEndpoint: $(azureSubscriptionEndpoint) 
-              azureResourceGroup: $(azureResourceGroup)
-              kubernetesCluster: $(kubernetesCluster)
-              command: apply
-              arguments: -f $(governmentFrontendConfigMap) -n $(namespace)
           - task: KubernetesManifest@0
             displayName: Create/update deployment
             inputs:              
@@ -494,7 +496,7 @@ stages:
     condition: eq(stageDependencies.Build.CheckChangesUniversityBackend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     pool:
       vmImage: $(vmImageName)
-    environment: 'development'
+    environment: 'production'
     strategy:
       runOnce:
         deploy:
@@ -522,21 +524,12 @@ stages:
     condition: eq(stageDependencies.Build.CheckChangesUniversityFrontend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     pool:
       vmImage: $(vmImageName)
-    environment: 'development'
+    environment: 'production'
     strategy:
       runOnce:
         deploy:
           steps:
           - checkout: self
-          - task: Kubernetes@1
-            displayName: Create/update configmap
-            inputs:
-              connectionType: Azure Resource Manager
-              azureSubscriptionEndpoint: $(azureSubscriptionEndpoint) 
-              azureResourceGroup: $(azureResourceGroup)
-              kubernetesCluster: $(kubernetesCluster)
-              command: apply
-              arguments: -f $(universityFrontendConfigMap) -n $(namespace)
           - task: KubernetesManifest@0
             displayName: Create/update deployment
             inputs:              
@@ -550,21 +543,12 @@ stages:
     condition: eq(stageDependencies.Build.CheckChangesLanding.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     pool:
       vmImage: $(vmImageName)
-    environment: 'development'
+    environment: 'production'
     strategy:
       runOnce:
         deploy:
           steps:
           - checkout: self
-          - task: Kubernetes@1
-            displayName: Create/update configmap
-            inputs:
-              connectionType: Azure Resource Manager
-              azureSubscriptionEndpoint: $(azureSubscriptionEndpoint) 
-              azureResourceGroup: $(azureResourceGroup)
-              kubernetesCluster: $(kubernetesCluster)
-              command: apply
-              arguments: -f $(landingConfigMap) -n $(namespace)
           - task: KubernetesManifest@0
             displayName: Create/update deployment
             inputs:              

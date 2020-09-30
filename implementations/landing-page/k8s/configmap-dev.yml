@@ -1,8 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: landing-configmap
-data:
-  PUBLIC_URL: "https://dev.vidchain.net/demo"
-  REACT_APP_UNIVERSITY_URL: "https://dev.vidchain.net/demo/university"
-  REACT_APP_GOVERNMENT_URL: "https://dev.vidchain.net/demo/government"

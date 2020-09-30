@@ -17,6 +17,7 @@
     "babel-polyfill": "^6.26.0",
     "base-64": "^0.1.0",
     "dotenv": "^8.2.0",
+    "dotenv-flow": "^3.2.0",
     "history": "^5.0.0",
     "jso": "^4.1.1",
     "jwt-decode": "^2.2.0",
