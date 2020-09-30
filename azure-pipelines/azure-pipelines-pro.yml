@@ -188,6 +188,10 @@ stages:
     dependsOn: CheckChangesGovernmentFrontend
     condition: eq(dependencies.CheckChangesGovernmentFrontend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     steps:
+    - bash: |
+        cp ./implementations/vidchain-government/vidchain-government-frontend/envs/.env.production ./implementations/vidchain-government/vidchain-government-frontend/.env
+      name: load env variables file
+      displayName: 'load env vars'
     - task: Docker@2
       displayName: Login ACR
       inputs:
@@ -328,6 +332,10 @@ stages:
     dependsOn: CheckChangesUniversityFrontend
     condition: eq(dependencies.CheckChangesUniversityFrontend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     steps:
+    - bash: |
+        cp ./implementations/vidchain-university/vidchain-university-frontend/envs/.env.production ./implementations/vidchain-university/vidchain-university-frontend/.env
+      name: load env variables file
+      displayName: 'load env vars'
     - task: Docker@2
       displayName: Login ACR
       inputs:

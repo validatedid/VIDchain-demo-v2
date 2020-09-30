@@ -2,7 +2,9 @@ trigger:
   branches:
     include:
       - development
+
 pr: none
+
 resources:
 - repo: self
 
@@ -188,6 +190,10 @@ stages:
     dependsOn: CheckChangesGovernmentFrontend
     condition: eq(dependencies.CheckChangesGovernmentFrontend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     steps:
+    - bash: |
+        cp ./implementations/vidchain-government/vidchain-government-frontend/envs/.env.development ./implementations/vidchain-government/vidchain-government-frontend/.env
+    name: load env variables file
+    displayName: 'load env vars'
     - task: Docker@2
       displayName: Login ACR
       inputs:
@@ -203,12 +209,10 @@ stages:
         repository: '$(governmentFrontendRepo)'
         command: 'build'
         Dockerfile: $(governmentFrontendDocker)
-        arguments: '--cache-from=$(governmentFrontendRepoEndpoint):latest --build-arg $(REACT_APP_IDENTITY_PROVIDER)' 
+        arguments: '--cache-from=$(governmentFrontendRepoEndpoint):latest' 
         tags: |
           $(tagGovernmentFrontend)
           latest
-      env: 
-        REACT_APP_IDENTITY_PROVIDER: $(INPUT_REACT_APP_IDENTITY_PROVIDER)
     - task: Docker@2
       displayName: "push"
       inputs:
@@ -330,6 +334,11 @@ stages:
     dependsOn: CheckChangesUniversityFrontend
     condition: eq(dependencies.CheckChangesUniversityFrontend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     steps:
+    steps:
+    - bash: |
+        cp ./implementations/vidchain-university/vidchain-university-frontend/envs/.env.development ./implementations/vidchain-university/vidchain-university-frontend/.env
+      name: load env variables file
+      displayName: 'load env vars'
     - task: Docker@2
       displayName: Login ACR
       inputs:
