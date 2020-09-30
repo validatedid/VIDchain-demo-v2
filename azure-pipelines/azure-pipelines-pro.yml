@@ -189,7 +189,7 @@ stages:
     condition: eq(dependencies.CheckChangesGovernmentFrontend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     steps:
     - bash: |
-        echo ./implementations/vidchain-government/vidchain-government-frontend/envs/.env.production >> ./implementations/vidchain-government/vidchain-government-frontend/.env
+        cp ./implementations/vidchain-government/vidchain-government-frontend/envs/.env.production ./implementations/vidchain-government/vidchain-government-frontend/.env
         echo "API_KEY:$API_KEY" >> ./implementations/vidchain-government/vidchain-government-frontend/.env
       name: load_env_variables_file
       displayName: 'load env vars'
@@ -336,7 +336,7 @@ stages:
     condition: eq(dependencies.CheckChangesUniversityFrontend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
     steps:
     - bash: |
-        echo ./implementations/vidchain-university/vidchain-university-frontend/envs/.env.production >> ./implementations/vidchain-university/vidchain-university-frontend/.env
+        cp ./implementations/vidchain-university/vidchain-university-frontend/envs/.env.production ./implementations/vidchain-university/vidchain-university-frontend/.env
         echo "API_KEY:$API_KEY" >> ./implementations/vidchain-university/vidchain-university-frontend/.env
       name: load_env_variables_file
       displayName: 'load env vars'
