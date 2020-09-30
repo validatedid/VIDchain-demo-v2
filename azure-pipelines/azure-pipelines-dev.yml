@@ -207,8 +207,8 @@ stages:
         tags: |
           $(tagGovernmentFrontend)
           latest
-        env: 
-          REACT_APP_IDENTITY_PROVIDER: $(INPUT_REACT_APP_IDENTITY_PROVIDER)
+      env: 
+        REACT_APP_IDENTITY_PROVIDER: $(INPUT_REACT_APP_IDENTITY_PROVIDER)
     - task: Docker@2
       displayName: "push"
       inputs:
