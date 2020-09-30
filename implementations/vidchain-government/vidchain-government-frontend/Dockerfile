@@ -12,7 +12,6 @@ WORKDIR /usr/src/app
 COPY ./package*.json /usr/src/app/
 RUN npm ci --quiet --no-progress
 COPY ./ /usr/src/app/
-ARG NODE_ENV
 ARG PUBLIC_URL=/demo/government
 RUN npm run build
 

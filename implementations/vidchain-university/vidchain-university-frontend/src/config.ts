@@ -6,11 +6,11 @@ const API_URL = process.env.REACT_APP_API_URL || "undefined";
 const IDENTITY_PROVIDER =
   process.env.REACT_APP_IDENTITY_PROVIDER || "undefined";
 const REDIRECT_CALLBACK =
-  process.env.REACT_APP_REDIRECT_CALLBACK || "undefined";
+  process.env.REACT_APP_REDIRECT_CALLBACK_UNIVERSITY || "undefined";
 const BACKEND_URL =
-  process.env.REACT_APP_BACKEND_URL || "undefined";
+  process.env.REACT_APP_BACKEND_URL_UNIVERSITY || "undefined";
 const BACKEND_WS = process.env.REACT_APP_WS_URL || "undefined";
-const API_KEY = process.env.REACT_APP_API_KEY || "undefined";
+const API_KEY = process.env.REACT_APP_API_KEY_UNIVERSITY || "undefined";
 
 //Legal Entity
 const Entity = {
