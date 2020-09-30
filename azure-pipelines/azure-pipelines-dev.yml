@@ -203,7 +203,7 @@ stages:
         repository: '$(governmentFrontendRepo)'
         command: 'build'
         Dockerfile: $(governmentFrontendDocker)
-        arguments: '--cache-from=$(governmentFrontendRepoEndpoint):latest' 
+        arguments: '--cache-from=$(governmentFrontendRepoEndpoint):latest --build-arg $(REACT_APP_IDENTITY_PROVIDER)' 
         tags: |
           $(tagGovernmentFrontend)
           latest
