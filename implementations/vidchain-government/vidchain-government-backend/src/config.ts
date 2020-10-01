@@ -5,9 +5,10 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 const PORT = process.env.PORT || 3021;
-const API_URL = "https://45f26deadcc0.ngrok.io/api/v1/";
+//const API_URL = "https://0bd492669cf4.ngrok.io/api/v1/";
+const API_URL = "https://dev.vidchain.net/api/v1/";
 const BASE_URL =
-"https://8f581fb02d3f.ngrok.io/demo/governmentbackend";
+"https://8beaecec9420.ngrok.io/demo/governmentbackend";
 const WS_URL = process.env.WS_URL ||  "https://dev.vidchain.net";
 const API_KEY = process.env.API_KEY|| "/";
 
