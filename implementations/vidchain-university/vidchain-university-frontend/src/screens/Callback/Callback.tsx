@@ -55,7 +55,6 @@ class Callback extends Component<Props, State> {
       },
     });
     if (token !== null) {
-      console.log("Token: ", token);
       this.setState({
         access_token: token.access_token,
         refresh_token: token.refresh_token,
@@ -83,7 +82,6 @@ class Callback extends Component<Props, State> {
     });
 
     socket.on("connect", () => {
-      console.log("socket connect!");
       this.setState({
         socketSession: socket.id,
       });
@@ -92,12 +90,9 @@ class Callback extends Component<Props, State> {
         clientId: this.state.socketSession,
       };
       socket.emit("whoami", socketClient);
-      console.log("whoami.did: " + socketClient.did);
-      console.log("whoami.clientId: " + socketClient.clientId);
     });
 
     socket.on("presentation", (msg: any) => {
-      console.log("socket presentation notification!");
       let presentation = JSON.parse(msg.data.encrypted);
 
       let details = utils.decodeJWT(presentation.verifiableCredential[0]);
