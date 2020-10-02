@@ -100,7 +100,6 @@ class Profile extends Component<Props, State> {
     });
 
     socket.on("connect", () => {
-      console.log("socket connect!");
       this.setState({
         socketSession: socket.id,
       });
@@ -109,13 +108,9 @@ class Profile extends Component<Props, State> {
         clientId: this.state.socketSession,
       };
       socket.emit("whoami", socketClient);
-      console.log("whoami.did: " + socketClient.did);
-      console.log("whoami.clientId: " + socketClient.clientId);
     });
 
     socket.on("largeFamilyPresentation", (msg: any) => {
-      console.log("socket.on('largeFamilyPresentation')");
-      console.log(msg);
       this.setState({
         largeFamily: true,
       });
@@ -148,7 +143,6 @@ class Profile extends Component<Props, State> {
       token,
       credential
     );
-    console.log("generateVerifiableCredential: " + response);
   }
 
   /**

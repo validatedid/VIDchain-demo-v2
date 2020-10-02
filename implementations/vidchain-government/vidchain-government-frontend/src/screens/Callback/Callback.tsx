@@ -59,9 +59,7 @@ class Callback extends Component<Props, State> {
         require: ["openid", "offline"],
       },
     });
-    console.log(token);
     if (token !== null) {
-      console.log("Token: ", token);
       this.setState({
         access_token: token.access_token,
         refresh_token: token.refresh_token,
@@ -134,7 +132,6 @@ class Callback extends Component<Props, State> {
     });
 
     socket.on("connect", () => {
-      console.log("socket connect!");
       this.setState({
         socketSession: socket.id,
       });
@@ -146,7 +143,6 @@ class Callback extends Component<Props, State> {
     });
 
     socket.on("presentation", (msg: any) => {
-      console.log("socket presentation notification!");
       let presentation = JSON.parse(msg.data.encrypted);
 
       let details = utils.decodeJWT(presentation.verifiableCredential[0]);

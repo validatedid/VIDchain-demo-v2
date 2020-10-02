@@ -26,7 +26,6 @@ function parseJwt(token: string) {
         })
         .join("")
     );
-    console.log(jsonPayload);
     return JSON.parse(jsonPayload);
   } catch (error) {
     return "Error";
