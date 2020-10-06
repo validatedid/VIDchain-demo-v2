@@ -50,7 +50,7 @@ export class EventsGateway
     };
     axios
       .post(config.BASE_URL + "/users", body)
-      .catch((error) => console.log(error));
+      .catch((error) => console.log(error.data));
   }
 
   /**

@@ -24,6 +24,7 @@ async function postRequest(token: string, user: any, endpoint: string) {
       user,
       authorization
     );
+    console.log("RESPONSE STATUS: "+response.status);
     if (response.status !== 200 && response.status !== 201 && response.status !== 204) {
       return "Error";
     }
@@ -103,7 +104,7 @@ async function retrievePresentation(token: string, url: string) {
     }
     return response.data;
   } catch (error) {
-    console.log(error);
+    
     return "Error";
   }
 }
