@@ -27,6 +27,11 @@ spec:
         ports:
         - containerPort: 3023
         env:
+        - name: API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: university-backend-configmap
+              key: API_URL
         - name: BASE_URL
           valueFrom:
             configMapKeyRef:
