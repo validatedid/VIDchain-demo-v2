@@ -14,11 +14,16 @@ async function postRequest(token: string, user: any, endpoint: string) {
     },
   };
   try {
+    console.log(config.API_URL.concat(endpoint));
+    console.log(JSON.stringify(user));
+    console.log(authorization);
     const response = await axios.post(
       config.API_URL.concat(endpoint),
       user,
       authorization
     );
+    console.log("status");
+    console.log(response.status);
     if (response.status !== 200 && response.status !== 201 && response.status !== 204) {
       return "Error";
     }
@@ -28,6 +33,8 @@ async function postRequest(token: string, user: any, endpoint: string) {
     }
     return response.data;
   } catch (error) {
+    console.log("hey error");
+    console.log(error);
     return "Error";
   }
 }
