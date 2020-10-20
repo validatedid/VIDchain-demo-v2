@@ -22,8 +22,14 @@ import {
       @Body() body: any,
       @Res() res: Response
     ): Promise<Response<any>> {
-      const result = await this.authService.handleUserInfo(config.IDENTITY_PROVIDER+"/o/oauth2/token",body);
-      return res.status(HttpStatus.CREATED).send(result);
+        try{
+            const result = await this.authService.handleUserInfo(config.IDENTITY_PROVIDER+"/o/oauth2/token",body);
+            return res.status(HttpStatus.CREATED).send(result);
+        }
+        catch(error){
+            res.status(error.Status);
+            res.json(error.print());
+        }
     }
   }
   

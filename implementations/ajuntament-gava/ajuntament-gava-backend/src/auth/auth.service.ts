@@ -13,17 +13,24 @@ export class AuthService {
       body,
       url
     );
-    this.logger.debug("requestVP response:");
-    this.logger.debug(response.data);
+    if (!response || !response.data.access_token) {
+        throw new Error(
+          ` auth: Error retrieving the Access Token: ${response.status}`
+        );
+    }
     const access_token = response.data.access_token;
     
     const userInfo = await this.getUserInfo(access_token);
-    console.log(userInfo);
     return userInfo;
   }
 
   async getUserInfo(token:string): Promise<userInfo>{
       const response = await externals.get(config.IDENTITY_PROVIDER+"/serveis-rest/getUserInfo?AccessToken="+token);
+      if (!response || response.status !== 200 || !response.data) {
+        throw new Error(
+          ` auth: Error retrieving the User Info: ${response.status}`
+        );
+    }
       return response.data;
 
   }
