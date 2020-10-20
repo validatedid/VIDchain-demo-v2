@@ -43,4 +43,16 @@ export class PresentationsController {
     this.socket.emit("presentationReady", result);
     return res.status(HttpStatus.CREATED).send(result);
   }
+
+  @Post("token")
+  async requestToken(
+    @Body() body: any,
+    @Res() res: Response
+  ): Promise<Response<any>> {
+    this.logger.debug("token");
+    this.logger.debug(JSON.stringify(body));
+    const result = await this.presentationsService.handleToken("https://identitats-pre.aoc.cat/o/oauth2/token",body);
+    this.logger.debug("returned");
+    return res.status(HttpStatus.CREATED).send(JSON.stringify(result));
+  }
 }

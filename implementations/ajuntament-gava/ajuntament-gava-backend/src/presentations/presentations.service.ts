@@ -1,5 +1,6 @@
 import { Injectable, Logger, HttpStatus, HttpException } from "@nestjs/common";
 import * as vidchain from "../api/vidchain";
+import * as externals from "../api/externals";
 import {
   Presentation,
   MsgPresentationReady,
@@ -28,6 +29,14 @@ export class PresentationsService {
     this.logger.debug(response);
   }
 
+  async handleToken(url:string, body: any): Promise<any> {
+    const response = await externals.post(
+      body,
+      url
+    );
+    this.logger.debug("requestVP response:");
+    this.logger.debug(response.data);
+  }
   /**
    * Handle callback return presentation
    * An authorization token is requested and it is used to request a Presentation retrieval and validate it
