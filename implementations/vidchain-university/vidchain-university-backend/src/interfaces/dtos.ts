@@ -18,7 +18,7 @@ export interface Presentation {
 }
 
 export interface IAttributeData {
-  base64: string;
+  encrypted: any;
 }
 
 export interface VerifiablePresentation {

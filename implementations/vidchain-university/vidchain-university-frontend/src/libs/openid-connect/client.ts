@@ -26,7 +26,6 @@ export class OpenIDClient {
       debug: true,
     };
     this.client = new JSO(configFile);
-    console.log(this.client);
   }
 
   public static getInstance(): OpenIDClient {

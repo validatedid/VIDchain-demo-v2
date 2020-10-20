@@ -11,6 +11,7 @@ const BACKEND_URL =
 const BACKEND_WS = process.env.REACT_APP_WS_URL || "undefined";
 const API_KEY = process.env.REACT_APP_API_KEY || "undefined";
 
+
 //Legal Entity
 const Entity = {
   iss: "Government of Freedonia",

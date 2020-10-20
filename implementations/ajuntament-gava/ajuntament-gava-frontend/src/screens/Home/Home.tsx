@@ -1,0 +1,108 @@
+import React, { Component } from "react";
+import "./Home.css";
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
+import Official from "../../components/Official/Official";
+import { OpenIDClient } from "../../libs/openid-connect/client";
+import { Form, Button } from "react-bootstrap";
+// @ts-ignore
+
+interface Props {
+  history?: any;
+}
+
+interface State {
+  name: string;
+}
+
+class Home extends Component<Props, State> {
+  constructor(props: any) {
+    super(props);
+    this.state = {
+      name: "",
+    };
+  }
+
+  componentDidMount() {
+    var client = OpenIDClient.getInstance().getClient();
+    client.wipeTokens();
+    localStorage.clear();
+    sessionStorage.clear();
+  }
+
+  async loginWithVIDChain() {
+    var client = OpenIDClient.getInstance().getClient();
+    await client.callback();
+    await client.getToken({
+      scopes: {
+        request: ["autenticacio_usuari"],
+        require: ["autenticacio_usuari"],
+      },
+    });
+  }
+
+  async login() {
+    this.props.history.push({
+      pathname: "/profile",
+    });
+  }
+
+
+  render() {
+    return (
+      <div>
+        <Official></Official>
+        <Header></Header>
+        <div className="content">
+          <div className="login_form">
+            <h4 className="mt-0">Access services</h4>
+            <br />
+            <p>
+              You can manage all the city services from this website:
+              subscriptions, taxes...
+            </p>
+            <div className="sign_in_vidchain">
+              <a
+                className="btn btn-default"
+                href="#"
+                role="button"
+                onClick={() => this.loginWithVIDChain()}
+              >
+                <i className="fa fa-check-square-o"></i>Sign in with Valid
+              </a>
+            </div>
+            <div>
+              <p>or</p>
+              <Form className="login_manual_form">
+                <div className="form-group">
+                  <i className="fa fa-user"></i>
+                  <Form.Control
+                    placeholder="Username"
+                    onChange={(event: any) =>
+                      this.setState({ name: event.target.value })
+                    }
+                  />
+                </div>
+                <div className="form-group">
+                  <i className="fa fa-lock" aria-hidden="true"></i>
+                  <Form.Control type="password" placeholder="Password" />
+                </div>
+                <Button
+                  variant="primary"
+                  type="submit"
+                >
+                  Submit
+                </Button>
+              </Form>
+            </div>
+          </div>
+        </div>
+        <div className="footer">
+          <Footer></Footer>
+        </div>
+      </div>
+    );
+  }
+}
+
+export default Home;

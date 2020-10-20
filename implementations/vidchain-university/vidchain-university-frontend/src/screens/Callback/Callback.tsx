@@ -55,7 +55,6 @@ class Callback extends Component<Props, State> {
       },
     });
     if (token !== null) {
-      console.log("Token: ", token);
       this.setState({
         access_token: token.access_token,
         refresh_token: token.refresh_token,
@@ -83,7 +82,6 @@ class Callback extends Component<Props, State> {
     });
 
     socket.on("connect", () => {
-      console.log("socket connect!");
       this.setState({
         socketSession: socket.id,
       });
@@ -92,39 +90,31 @@ class Callback extends Component<Props, State> {
         clientId: this.state.socketSession,
       };
       socket.emit("whoami", socketClient);
-      console.log("whoami.did: " + socketClient.did);
-      console.log("whoami.clientId: " + socketClient.clientId);
     });
 
     socket.on("presentation", (msg: any) => {
-      console.log("socket presentation notification!");
-      console.log(msg);
-      let presentation = JSON.parse(
-        JSON.stringify(utils.strB64dec(msg.data.base64))
-      );
-      let details = JSON.stringify(
-        utils.decodeJWT(presentation.verifiableCredential[0])
-      );
-      let detailsJSON = JSON.parse(details);
+      let presentation = JSON.parse(msg.data.encrypted);
+
+      let details = utils.decodeJWT(presentation.verifiableCredential[0]);
       /**
        *  This information is now only used to retrieve the user info whereas in a real scenario, the backend would take some of these attributes to map the information registered in the system's database (check) and authenticate the user
        */
       this.setState({
         verifiableKYC: {
-          id: detailsJSON.vc.credentialSubject.id,
-          documentNumber: detailsJSON.vc.credentialSubject.documentNumber,
-          documentType: detailsJSON.vc.credentialSubject.documentType,
-          name: detailsJSON.vc.credentialSubject.firstName,
-          surname: detailsJSON.vc.credentialSubject.lastName,
-          fullName: detailsJSON.vc.credentialSubject.fullName,
-          nationality: detailsJSON.vc.credentialSubject.nationality,
-          stateIssuer: detailsJSON.vc.credentialSubject.stateIssuer,
-          issuingAuthority: detailsJSON.vc.credentialSubject.issuingAuthority,
-          dateOfExpiry: detailsJSON.vc.credentialSubject.dateOfExpiry,
-          dateOfBirth: detailsJSON.vc.credentialSubject.dateOfBirth,
-          placeOfBirth: detailsJSON.vc.credentialSubject.placeOfBirth,
-          sex: detailsJSON.vc.credentialSubject.gender,
-          personalNumber: detailsJSON.vc.credentialSubject.personalNumber,
+          id: details.vc.credentialSubject.id,
+          documentNumber: details.vc.credentialSubject.documentNumber,
+          documentType: details.vc.credentialSubject.documentType,
+          name: details.vc.credentialSubject.firstName,
+          surname: details.vc.credentialSubject.lastName,
+          fullName: details.vc.credentialSubject.fullName,
+          nationality: details.vc.credentialSubject.nationality,
+          stateIssuer: details.vc.credentialSubject.stateIssuer,
+          issuingAuthority: details.vc.credentialSubject.issuingAuthority,
+          dateOfExpiry: details.vc.credentialSubject.dateOfExpiry,
+          dateOfBirth: details.vc.credentialSubject.dateOfBirth,
+          placeOfBirth: details.vc.credentialSubject.placeOfBirth,
+          sex: details.vc.credentialSubject.gender,
+          personalNumber: details.vc.credentialSubject.personalNumber,
         },
       });
       this.goToProfile();
