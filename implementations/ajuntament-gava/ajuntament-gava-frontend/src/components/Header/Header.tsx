@@ -9,7 +9,7 @@ class Header extends Component {
           <button className="cds-menu-btn">MENU</button>
           <div className="cds-logo" id="logo">
             <em className="cds-logo-text">
-              <a href="/demo/government" title="Home">
+              <a href="/demo/gavius" title="Home">
                 <img
                   src={require("../../assets/images/logoCity.png")}
                   alt="Logo of the City"
