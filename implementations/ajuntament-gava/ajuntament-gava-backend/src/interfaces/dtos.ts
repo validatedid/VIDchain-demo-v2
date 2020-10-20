@@ -51,3 +51,24 @@ export interface SocketClient {
   did: string;
   clientId: any;
 }
+
+export interface userInfo {
+  status: string;
+  identifier?: string;
+  prefix?: string;
+  phone?: string;
+  identifierType?: string;
+  name?: string;
+  surnames?: string;
+  surname1?: string;
+  surname2?: string;
+  countryCode?: string;
+  email?: string;
+  phouserCertificatene?: string;
+  certificateType?: string;
+  companyId?: string;
+  companyName?: string;
+  method?: string;
+  assuranceLevel?: string;
+  error?: string;
+}

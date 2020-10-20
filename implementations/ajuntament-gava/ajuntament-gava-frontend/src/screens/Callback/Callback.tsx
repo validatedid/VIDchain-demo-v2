@@ -35,7 +35,7 @@ class Callback extends Component<Props, State> {
     const code = new URLSearchParams(this.props.location.search).get("code");
     try {
       const response = await axios.post(
-        config.BACKEND_URL+"/presentation/token",{
+        config.BACKEND_URL+"/auth",{
             code: code,
             client_secret: config.CLIENT_SECRET,
             client_id: config.CLIENT_ID,
