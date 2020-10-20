@@ -12,7 +12,7 @@ WORKDIR /usr/src/app
 COPY ./package*.json /usr/src/app/
 RUN npm ci --quiet --no-progress
 COPY ./ /usr/src/app/
-ARG PUBLIC_URL=/demo/government
+ARG PUBLIC_URL=/demo/gavius
 RUN npm run build
 
 # Stage 2: run nginx
@@ -29,6 +29,6 @@ USER nginx
 COPY --from=builder-demo /usr/src/app/build /app
 
 COPY nginx.conf /etc/nginx/nginx.conf
-EXPOSE 3022
+EXPOSE 9090
 CMD ["nginx", "-g", "daemon off;"]
 
