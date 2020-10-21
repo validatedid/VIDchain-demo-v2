@@ -8,7 +8,7 @@ export class UsersService {
   private readonly userRedis = new Redis({
     port: process.env.REDIS_PORT, // Redis port
     host: process.env.REDIS_URL,
-    keyPrefix: "government-user:",
+    keyPrefix: "gavius-user:",
   });
 
   /**

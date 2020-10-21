@@ -1,4 +1,6 @@
 import { Module } from "@nestjs/common";
+import { AuthController } from "./auth/auth.controller";
+import { AuthService } from "./auth/auth.service";
 import { UsersController } from "./users/users.controller";
 import { UsersService } from "./users/users.service";
 import { PresentationsController } from "./presentations/presentations.controller";
@@ -7,7 +9,7 @@ import { EventsModule } from "./events/events.module";
 
 @Module({
   imports: [EventsModule],
-  controllers: [UsersController, PresentationsController],
-  providers: [UsersService, PresentationsService],
+  controllers: [UsersController, PresentationsController, AuthController],
+  providers: [UsersService, PresentationsService, AuthService],
 })
 export class AppModule {}

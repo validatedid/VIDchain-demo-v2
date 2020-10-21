@@ -4,6 +4,8 @@ dotenv.config();
 const API_URL = process.env.REACT_APP_API_URL || "undefined";
 const IDENTITY_PROVIDER =
   process.env.REACT_APP_IDENTITY_PROVIDER || "undefined";
+const VIDCHAIN_IDENTITY_PROVIDER =
+  process.env.REACT_APP_VIDCHAIN_IDENTITY_PROVIDER || "undefined";
 const REDIRECT_CALLBACK =
   process.env.REACT_APP_REDIRECT_CALLBACK || "undefined";
 const BACKEND_URL =
@@ -32,6 +34,9 @@ const CLIENT_ID = "mygov.gava.cat";
 const CLIENT_NAME = "Your City";
 const CLIENT_SECRET = "25d77ac947b00f8b34162901bc7c078c10bcb702";
 
+const VIDCHAIN_CLIENT_ID = "gava";
+const VIDCHAIN_CLIENT_SECRET = "secret";
+
 export {
   Entity,
   grantType,
@@ -44,4 +49,8 @@ export {
   BACKEND_URL,
   DID,
   BACKEND_WS,
+  VIDCHAIN_IDENTITY_PROVIDER,
+  VIDCHAIN_CLIENT_ID,
+  VIDCHAIN_CLIENT_SECRET
+
 };

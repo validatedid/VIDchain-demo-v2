@@ -5,7 +5,6 @@ import Footer from "../../components/Footer/Footer";
 import Official from "../../components/Official/Official";
 import { OpenIDClient } from "../../libs/openid-connect/client";
 import { Form, Button } from "react-bootstrap";
-// @ts-ignore
 
 interface Props {
   history?: any;
@@ -30,21 +29,10 @@ class Home extends Component<Props, State> {
     sessionStorage.clear();
   }
 
-  async loginWithVIDChain() {
+  async loginWithValid() {
     var client = OpenIDClient.getInstance().getClient();
     await client.callback();
-    await client.getToken({
-      scopes: {
-        request: ["autenticacio_usuari"],
-        require: ["autenticacio_usuari"],
-      },
-    });
-  }
-
-  async login() {
-    this.props.history.push({
-      pathname: "/profile",
-    });
+    await client.getToken();
   }
 
 
@@ -66,7 +54,7 @@ class Home extends Component<Props, State> {
                 className="btn btn-default"
                 href="#"
                 role="button"
-                onClick={() => this.loginWithVIDChain()}
+                onClick={() => this.loginWithValid()}
               >
                 <i className="fa fa-check-square-o"></i>Sign in with Valid
               </a>

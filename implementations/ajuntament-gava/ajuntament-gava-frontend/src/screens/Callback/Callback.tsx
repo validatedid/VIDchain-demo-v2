@@ -1,17 +1,11 @@
 import React, { Component } from "react";
 import "./Callback.css";
-import { OpenIDClient } from "../../libs/openid-connect/client";
 import { Redirect } from "react-router-dom";
 import Official from "../../components/Official/Official";
 import Header from "../../components/Header/Header";
-import io from "socket.io-client";
 import Footer from "../../components/Footer/Footer";
-import * as governmentBackend from "../../apis/governmentBackend";
-import * as vidchain from "../../apis/vidchain";
-import * as utils from "../../utils/utils";
-import { verifiableKYC } from "../../interfaces/dtos";
+import { UserInfo } from "../../interfaces/dtos";
 import { Ring } from "react-spinners-css";
-import { ICredentialData } from "../../interfaces/dtos";
 import * as config from "../../config";
 import axios from "axios";
 
@@ -22,103 +16,95 @@ interface Props {
 }
 
 interface State {
-  access_token: string;
-  refresh_token: string;
-  id_token: string;
-  expires: number;
-  verifiableKYC: verifiableKYC;
-  socketSession: string;
-  showCallback: boolean;
+  errorMessage: string;
   error: boolean;
+  redirect: boolean;
 }
 
 class Callback extends Component<Props, State> {
   constructor(props: any) {
     super(props);
     this.state = {
-      access_token: "",
-      refresh_token: "",
-      id_token: "",
-      expires: 0,
-      verifiableKYC: {} as verifiableKYC,
-      socketSession: "",
-      showCallback: false,
+      errorMessage: "Error",
       error: false,
+      redirect: false,
     };
   }
 
   async componentDidMount() {
-    var client = OpenIDClient.getInstance().getClient();
+    const code = new URLSearchParams(this.props.location.search).get("code");
+    if(!code){
+      this.setState({
+        redirect: true
+      })
+    }
+    else{
+      this.getAuthToken(code);
+    }
+    
+  }
+
+  async getAuthToken(code: string){
     try {
-      await client.callback();
+      const response = await axios.post(
+        config.BACKEND_URL+"/auth",{
+            code: code,
+            client_secret: config.CLIENT_SECRET,
+            client_id: config.CLIENT_ID,
+            redirect_uri: config.REDIRECT_CALLBACK,
+            grant_type: "authorization_code",
+          }
+      );
+      if(response.data.status === "ko"){
+        this.setState({
+          error: true,
+          errorMessage: response.data.error
+        })
+      }
+      if(response.data.status === "ok"){
+        console.log(response.data);
+        this.goToProfile(response.data);
+      }
     } catch (error) {
-      console.log(error);
-    }
-    let token = await client.checkToken({
-      scopes: {
-        request: ["autenticacio_usuari"],
-        require: ["autenticacio_usuari"],
-      },
-    });
-    console.log("TOKEN: "+token);
-    if (token !== null) {
       this.setState({
-        access_token: token.access_token,
-        refresh_token: token.refresh_token,
-        id_token: token.id_token,
-        expires: token.expires,
-      });
+        error: true,
+        errorMessage: error.message
+      })
     }
-      this.setState({
-        showCallback: true,
-      });
-      // this.initiateSocket();
-      // /**
-      //  *  VIDCHAIN API REQUEST: Claim Verifiable Presentation (forwarded to backend)
-      //  * The request of a Verifiable presentation is handled in the backend so as to process the whole flow there and receive a response from the API in a callback
-      //  */
-      // governmentBackend.claimVP(utils.getUserDid(this.state.id_token), "Login");
   }
 
 
-  goToProfile() {
-    const { access_token, refresh_token, id_token, verifiableKYC } = this.state;
+  goToProfile(userData) {
     this.props.history.push({
       pathname: "/profile",
       state: {
-        access_token: access_token,
-        refresh_token: refresh_token,
-        id_token: id_token,
-        verifiableKYC: verifiableKYC,
+        userData: userData,
       },
     });
   }
 
   render() {
-    const { access_token, error, showCallback } = this.state;
-    if (access_token != null && !error) {
+    const { error, errorMessage, redirect } = this.state;
+    if (!redirect) {
       return (
         <div>
           <Official></Official>
           <Header></Header>
           <div className="content">
-            {showCallback && (
+            {error && (
               <div className="wrapper">
                 <br></br>
                 <br></br>
                 <br></br>
                 <br></br>
-                <h2>We have sent you a request to your wallet,</h2>
-                <h2>please provide your Verifiable ID.</h2>
+                <h2>Error authenticating!</h2>
                 <br></br>
-                <p>Waiting to receive your credential...</p>
+                <h6>{errorMessage}</h6>
                 <br></br>
-                <div className="spinnerContainer">
-                  <Ring color="red" />
-                </div>
+                <p>Please come back and try again...</p>
               </div>
             )}
-            {!showCallback && (
+            {!error && (
               <div className="wrapper">
                 <br></br>
                 <br></br>
