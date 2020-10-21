@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: government-backend-deployment
+  name: ajuntament-gava-backend-deployment
   labels:
-    app: government-backend
+    app: ajuntament-gava-backend
 spec:
   replicas: 1
   revisionHistoryLimit: 1
   selector:
     matchLabels:
-      app: government-backend
+      app: ajuntament-gava-backend
   strategy: 
     type: RollingUpdate
     rollingUpdate:
@@ -18,49 +18,54 @@ spec:
   template:
     metadata:
       labels:
-        app: government-backend
+        app: ajuntament-gava-backend
     spec:
       containers:
-      - image: k8scrvidchaindev.azurecr.io/government-backend:latest
+      - image: k8scrvidchaindev.azurecr.io/ajuntament-gava-backend:latest
         imagePullPolicy: "Always"
-        name: government-backend
+        name: ajuntament-gava-backend
         ports:
         - containerPort: 3021
         env:
         - name: API_URL
           valueFrom:
             configMapKeyRef:
-              name: government-backend-configmap
+              name: ajuntament-gava-backend-configmap
               key: API_URL
         - name: BASE_URL
           valueFrom:
             configMapKeyRef:
-              name: government-backend-configmap
+              name: ajuntament-gava-backend-configmap
               key: BASE_URL
         - name: PORT
           valueFrom:
             configMapKeyRef:
-              name: government-backend-configmap
+              name: ajuntament-gava-backend-configmap
               key: PORT
         - name: REDIS_URL
           valueFrom:
             configMapKeyRef:
-              name: government-backend-configmap
+              name: ajuntament-gava-backend-configmap
               key: REDIS_URL
         - name: REDIS_PORT
           valueFrom:
             configMapKeyRef:
-              name: government-backend-configmap
+              name: ajuntament-gava-backend-configmap
               key: REDIS_PORT
         - name: WS_URL
           valueFrom:
             configMapKeyRef:
-              name: government-backend-configmap
+              name: ajuntament-gava-backend-configmap
               key: WS_URL
+        - name: IDENTITY_PROVIDER
+          valueFrom:
+            configMapKeyRef:
+              name: ajuntament-gava-backend-configmap
+              key: IDENTITY_PROVIDER
         - name: API_KEY
           valueFrom:
             secretKeyRef:
-              name: government-api-key
+              name: ajuntament-gava-api-key
               key: api-key
       restartPolicy: Always
 ---
@@ -68,23 +73,23 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: government-backend-service
+  name: ajuntament-gava-backend-service
   labels:
-    app: government-backend
+    app: ajuntament-gava-backend
 spec:
   type: ClusterIP
   ports:
-  - name: "3021"
-    port: 3021
+  - name: "9091"
+    port: 9091
   selector:
-    app: government-backend
+    app: ajuntament-gava-backend
 
 ---
 
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: government-backend-ingress
+  name: ajuntament-gava-backend-ingress
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
@@ -99,9 +104,9 @@ spec:
       paths:
       - path: /demo/gaviusbackend
         backend:
-          serviceName: government-backend-service
-          servicePort: 3021
+          serviceName: ajuntament-gava-backend-service
+          servicePort: 9091
       - path: /gaviusws
         backend:
-          serviceName: government-backend-service
-          servicePort: 3021
+          serviceName: ajuntament-gava-backend-service
+          servicePort: 9091
