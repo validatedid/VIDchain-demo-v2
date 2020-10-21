@@ -40,7 +40,8 @@ class Profile extends Component<Props, State> {
       userInfo
     });
     sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
-    if (userInfo.did !== "") {
+    console.log(userInfo.did);
+    if (userInfo.did !== undefined && userInfo.did !== "") {
       this.setState({
         hasVerifiableId: true,
       });
