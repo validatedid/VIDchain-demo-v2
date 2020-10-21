@@ -1,0 +1,91 @@
+.footerMyGov{
+    background-color: #333333;
+    display: table;
+    width: 100%;
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    padding: 1%;
+    margin-top: 15px;
+  }
+  #footerPri #FOOTER_PTS{
+      width: 100%!important ;
+      padding: 0;background-color: #3e3e3e!important ;height: 325px;
+      background-repeat: no-repeat;
+  }
+  #footerPri #FOOTER_SINMENU_PTS {
+      width: 100%!important ;
+      padding-top:15px;height: 84px;
+      background-color: #3e3e3e;
+  
+  }
+  #footerContent{
+    background-color: #333333; 
+    }
+    #datos_pie{
+      margin:0;width: 50%;float:left;
+      float:left;
+      padding-top:5px;
+      padding-left: 12px;
+      padding-bottom: 0;
+      color: #fff;
+      font-family: Helvetica, sans-serif;
+      font-size: 15px;
+      text-align: left;
+    }
+    #datos_pie p{margin:0; padding:100 10px 100 30px;}
+  
+    #pie_listado ul {
+      
+      color: #FFF;
+    }
+    #pie_listado ul {
+      display:inline;
+      color: #5b5b5b;
+      
+      font-size:15px;
+    }
+    
+    #pie_listado {
+      text-align:right;
+      vertical-align:top;
+      padding-left: 0;font-size:13px;width: 45%;float:right;margin-top:8px;padding-bottom: 5px;
+    }
+    #pie_listado ul {
+      
+      color: #FFF;
+    }
+    #pie_listado ul li {
+      display:inline;
+      color: #5b5b5b;
+      font-size:13px;margin-left: 8px;
+    }
+    
+    
+    #pie_listado2 ul li {
+      display:inline;
+      color: #5b5b5b;
+      font-size:15px;
+    }
+    .bla a:visited  {
+      color: #fff !important;
+    }
+    .bla a:link  {
+      color: #fff !important;
+    }
+    #pie_listado2 ul li {
+      display:inline;
+      color: #5b5b5b;
+      font-size:15px;
+    }
+    .bla2{
+      float:right !important;}
+      
+      .mod_lat_se ul{
+    
+      color:#333333;
+      margin-top: 0.8em;
+      margin-right: 0em;
+      margin-bottom: 0em;
+      margin-left: 7px;
+    }
