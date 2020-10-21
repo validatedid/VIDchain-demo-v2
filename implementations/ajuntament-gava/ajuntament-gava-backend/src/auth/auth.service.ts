@@ -9,19 +9,20 @@ export class AuthService {
 
 
   async handleUserInfo(url:string, body: any): Promise<any> {
-    // const response = await externals.post(
-    //   body,
-    //   url
-    // );
-    // if (!response || !response.data.access_token) {
-    //     throw new Error(
-    //       ` auth: Error retrieving the Access Token: ${response.status}`
-    //     );
-    // }
-    // const access_token = response.data.access_token;
-    const access_token = "1/TsPgj7rkG8F06EaNLZ7HGtnl0SlsKZoVwoppdIV9";
+    const response = await externals.post(
+      body,
+      url
+    );
+    if (!response || !response.data.access_token) {
+        throw new Error(
+          ` auth: Error retrieving the Access Token: ${response.status}`
+        );
+    }
+    const access_token = response.data.access_token;
     
     const userInfo = await this.getUserInfo(access_token);
+    //After the get Info we close the session.
+    await this.logout(access_token);
     return userInfo;
   }
 
@@ -34,6 +35,11 @@ export class AuthService {
     }
       return response.data;
 
+  }
+
+  async logout(token: string){
+    console.log("to logout");
+    await externals.get(config.IDENTITY_PROVIDER+"/o/oauth2/logout?token="+token);
   }
   
 }

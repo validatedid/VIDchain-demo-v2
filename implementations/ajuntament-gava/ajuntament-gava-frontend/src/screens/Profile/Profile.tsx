@@ -7,6 +7,7 @@ import { UserInfo} from "../../interfaces/dtos";
 import { Button } from "react-bootstrap";
 import * as vidchain from "../../apis/vidchain";
 import { OpenIDClient } from "../../libs/openid-connect/client";
+import { VidchainClient } from "../../libs/openid-connect/vidchainClient";
 import * as utils from "../../utils/utils";
 
 interface Props {
@@ -36,25 +37,24 @@ class Profile extends Component<Props, State> {
   componentDidMount() {
     const userInfo = this.props.location.state.userData;
     this.setState({
-      hasVerifiableId: true,
       userInfo
     });
-    if (this.state.did !== "") {
-      this.setState({
-        hasVerifiableId: true,
-      });
-    }
+    // if (this.state.did !== "") {
+    //   this.setState({
+    //     hasVerifiableId: true,
+    //   });
+    // }
     // var client = OpenIDClient.getInstance().getClient();
     // client.wipeTokens();
   }
 
   async loginWithVIDChain() {
-    var client = OpenIDClient.getInstance().getClient();
+    var client = VidchainClient.getInstance().getClient();
     await client.callback();
     await client.getToken({
       scopes: {
-        request: ["autenticacio_usuari"],
-        require: ["autenticacio_usuari"],
+        request: ["openid", "offline"],
+        require: ["openid", "offline"],
       },
     });
   }
@@ -89,7 +89,6 @@ class Profile extends Component<Props, State> {
       hasVerifiableId,
       largeFamily
     } = this.state;
-    console.log(userInfo);
     return (
       <div>
         <Official></Official>
