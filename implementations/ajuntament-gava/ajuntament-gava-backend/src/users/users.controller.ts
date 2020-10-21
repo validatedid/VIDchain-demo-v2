@@ -11,7 +11,7 @@ import { Response } from "express";
 import { UsersService } from "./users.service";
 import { SocketClient } from "../interfaces/dtos";
 
-@Controller("demo/governmentbackend/users")
+@Controller("demo/gaviusbackend/users")
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
   /**

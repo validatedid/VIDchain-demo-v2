@@ -40,7 +40,7 @@ export interface verifiableKYC {
   personalNumber: string;
 }
 
-export interface userInfo {
+export interface UserInfo {
   status: string;
   identifier?: string;
   prefix?: string;

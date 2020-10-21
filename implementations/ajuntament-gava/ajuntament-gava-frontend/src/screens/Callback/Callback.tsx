@@ -4,7 +4,7 @@ import { Redirect } from "react-router-dom";
 import Official from "../../components/Official/Official";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import { userInfo } from "../../interfaces/dtos";
+import { UserInfo } from "../../interfaces/dtos";
 import { Ring } from "react-spinners-css";
 import * as config from "../../config";
 import axios from "axios";
@@ -16,23 +16,35 @@ interface Props {
 }
 
 interface State {
-  userInfo: userInfo;
-  showCallback: boolean;
+  errorMessage: string;
   error: boolean;
+  redirect: boolean;
 }
 
 class Callback extends Component<Props, State> {
   constructor(props: any) {
     super(props);
     this.state = {
-      userInfo: {} as userInfo,
-      showCallback: false,
+      errorMessage: "Error",
       error: false,
+      redirect: false,
     };
   }
 
   async componentDidMount() {
     const code = new URLSearchParams(this.props.location.search).get("code");
+    if(!code){
+      this.setState({
+        redirect: true
+      })
+    }
+    else{
+      this.getAuthToken(code);
+    }
+    
+  }
+
+  async getAuthToken(code: string){
     try {
       const response = await axios.post(
         config.BACKEND_URL+"/auth",{
@@ -43,13 +55,21 @@ class Callback extends Component<Props, State> {
             grant_type: "authorization_code",
           }
       );
-      this.setState({
-        showCallback: true,
-      });
-      console.log(response);
-      //this.goToProfile(userData);
+      if(response.data.status === "ko"){
+        this.setState({
+          error: true,
+          errorMessage: response.data.error
+        })
+      }
+      if(response.data.status === "ok"){
+        console.log(response.data);
+        this.goToProfile(response.data);
+      }
     } catch (error) {
-      console.log(error);
+      this.setState({
+        error: true,
+        errorMessage: error.message
+      })
     }
   }
 
@@ -64,30 +84,27 @@ class Callback extends Component<Props, State> {
   }
 
   render() {
-    const { userInfo,error, showCallback } = this.state;
-    if (userInfo.status != "ok" && !error) {
+    const { error, errorMessage, redirect } = this.state;
+    if (!redirect) {
       return (
         <div>
           <Official></Official>
           <Header></Header>
           <div className="content">
-            {showCallback && (
+            {error && (
               <div className="wrapper">
                 <br></br>
                 <br></br>
                 <br></br>
                 <br></br>
-                <h2>We have sent you a request to your wallet,</h2>
-                <h2>please provide your Verifiable ID.</h2>
+                <h2>Error authenticating!</h2>
                 <br></br>
-                <p>Waiting to receive your credential...</p>
+                <h6>{errorMessage}</h6>
                 <br></br>
-                <div className="spinnerContainer">
-                  <Ring color="red" />
-                </div>
+                <p>Please come back and try again...</p>
               </div>
             )}
-            {!showCallback && (
+            {!error && (
               <div className="wrapper">
                 <br></br>
                 <br></br>

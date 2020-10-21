@@ -10,8 +10,6 @@ export class OpenIDClient {
   private client: any;
 
   private constructor() {
-    const nonce = utils.randomString(24);
-    const state = utils.randomString(24);
     let configFile = {
       client_id: config.CLIENT_ID,
       client_secret: config.CLIENT_SECRET,
@@ -22,6 +20,10 @@ export class OpenIDClient {
         request: ["autenticacio_usuari"]
       },
       response_type: "code",
+      request: {
+        access_type: "online",
+        approval_prompt: "auto",
+      },
       debug: true,
     };
     this.client = new JSO(configFile);

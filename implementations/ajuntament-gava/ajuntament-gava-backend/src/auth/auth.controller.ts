@@ -27,8 +27,8 @@ import {
             return res.status(HttpStatus.CREATED).send(result);
         }
         catch(error){
-            res.status(error.Status);
-            res.json(error.print());
+            res.status(500);
+            res.json(error);
         }
     }
   }

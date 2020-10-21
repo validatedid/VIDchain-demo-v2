@@ -52,7 +52,7 @@ export interface SocketClient {
   clientId: any;
 }
 
-export interface userInfo {
+export interface UserInfo {
   status: string;
   identifier?: string;
   prefix?: string;
