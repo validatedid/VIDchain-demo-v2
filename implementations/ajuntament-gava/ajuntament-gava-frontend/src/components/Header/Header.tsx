@@ -32,7 +32,7 @@ class Header extends Component {
             </button>
             <ul className="cds-nav-primary cds-accordion">
               <li>
-                <a className="cds-nav-link" href="/demo/government">
+                <a className="cds-nav-link" href="/demo/gavius">
                   <span>Home</span>
                 </a>
               </li>

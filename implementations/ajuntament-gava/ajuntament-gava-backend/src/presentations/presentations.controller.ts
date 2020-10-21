@@ -12,11 +12,11 @@ import { MsgPresentationReady } from "../interfaces/dtos";
 import * as io from "socket.io-client";
 import * as config from "../config";
 
-@Controller("demo/governmentbackend/presentation")
+@Controller("demo/gaviusbackend/presentation")
 export class PresentationsController {
   private readonly logger = new Logger(PresentationsController.name);
   private readonly socket = io(config.WS_URL, {
-    path: "/governmentws",
+    path: "/gaviusws",
     transports: ["websocket"],
   });
 

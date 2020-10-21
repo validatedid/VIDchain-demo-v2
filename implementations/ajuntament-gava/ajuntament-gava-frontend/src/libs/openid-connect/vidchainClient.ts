@@ -17,7 +17,7 @@ export class VidchainClient {
       client_secret: config.VIDCHAIN_CLIENT_SECRET,
       token: config.VIDCHAIN_IDENTITY_PROVIDER + "/oauth2/token",
       authorization: config.VIDCHAIN_IDENTITY_PROVIDER + "/oauth2/auth",
-      redirect_uri: config.REDIRECT_CALLBACK,
+      redirect_uri: config.VIDCHAIN_REDIRECT_CALLBACK,
       scopes: {
         request: ["openid", "offline"],
         require: ["openid", "offline"],
