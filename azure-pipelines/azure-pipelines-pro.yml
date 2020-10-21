@@ -757,12 +757,12 @@ stages:
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
               command: apply
-              arguments: -f $(universityGaviusConfigMap) -n $(namespace)
+              arguments: -f $(gaviusBackendConfigMap) -n $(namespace)
           - task: KubernetesManifest@0
             displayName: Create/update deployment
             inputs:              
               kubernetesServiceConnection: $(kubernetesServiceConnection)
               namespace: $(namespace)
-              manifests: $(universityBackendKubernetes)
+              manifests: $(gaviusBackendKubernetes)
               containers: |
                 $(gaviusBackendRepoEndpoint):$(tagGaviusBackend)
