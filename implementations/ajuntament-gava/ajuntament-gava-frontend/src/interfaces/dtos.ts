@@ -41,6 +41,7 @@ export interface verifiableKYC {
 }
 
 export interface UserInfo {
+  did?: string;
   status: string;
   identifier?: string;
   prefix?: string;

@@ -97,11 +97,11 @@ spec:
   - host: try.vidchain.net
     http:
       paths:
-      - path: /demo/governmentbackend
+      - path: /demo/gaviusbackend
         backend:
           serviceName: government-backend-service
           servicePort: 3021
-      - path: /governmentws
+      - path: /gaviusws
         backend:
           serviceName: government-backend-service
           servicePort: 3021
