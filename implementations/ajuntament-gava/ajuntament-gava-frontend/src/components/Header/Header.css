@@ -60,3 +60,6 @@
 .accordion-toggle.text-white::after {
   color: #fff;
 }
+.cabeceraPri {
+  width: 100%;
+}

@@ -41,7 +41,7 @@ class Home extends Component<Props, State> {
       <div className="page">
         <Official></Official>
         <Header></Header>
-        <main id="contenedorWebapps" className="">
+        <main id="contenedorWebapps" className="contendorHome">
               <div id="bienvenida">
                   <h3>L'accés electrònic al vostre Ajuntament amb plenes garanties</h3>
                   <div className="sign_in_vidchain">
