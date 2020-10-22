@@ -98,7 +98,7 @@ class Profile extends Component<Props, State> {
         <div className="content">
             <div className="serviceCard">
               <form action="">
-                <h3 className="eID-text">MyGOV Profile</h3>
+                <h3 className="eID-text">MyGOV</h3>
                 <div className="form-row">
                   <h4>DID: </h4>
                   <p className="welcome">&nbsp;{userInfo.did}</p>
@@ -158,7 +158,7 @@ class Profile extends Component<Props, State> {
                     className="collect-button"
                     onClick={() => this.loginWithVIDChain()}
                   >
-                    Get myGov ID
+                    Descàrrega el teu myGov ID
                   </Button>
                 )}
               </form>
@@ -168,20 +168,19 @@ class Profile extends Component<Props, State> {
                 <div className="service">
                   <br />
                   <h5 className="eID-text">
-                    <b>Request your Large Family credential.</b>
+                    <b>Descàrrega les teves dades.</b>
                   </h5>
                   <br></br>
                   <h5 className="eID-text">
                     <i>
-                      You can use it wherever you go: Public Service Providers,
-                      Universities, Schools,...
+                      Tens una credencial de família nombrosa
                     </i>
                   </h5>
                   <button
                     className="custom-button"
                     onClick={() => this.generateCredential()}
                   >
-                    <b>Get Large Family credential</b>
+                    <b>Descarregar</b>
                   </button>
                 </div>
               </div>
