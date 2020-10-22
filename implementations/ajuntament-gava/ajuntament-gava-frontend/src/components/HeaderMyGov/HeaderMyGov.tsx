@@ -4,7 +4,7 @@ import "./HeaderMyGov.css";
 class HeaderMyGov extends Component {
   render() {
     return (
-      <header>
+      <header className="HeaderMyGov">
           <div className="spaceHeader"></div>
           <div className="subHeader">
             <img src={require("../../assets/images/ciutada.png")} className="imageMyGov" />
