@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Profile.css";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
+import HeaderMyGov from "../../components/HeaderMyGov/HeaderMyGov";
+import FooterMyGov from "../../components/FooterMyGov/FooterMyGov";
 import Official from "../../components/Official/Official";
 import { UserInfo, CredentialData} from "../../interfaces/dtos";
 import { Button } from "react-bootstrap";
@@ -40,7 +40,8 @@ class Profile extends Component<Props, State> {
       userInfo
     });
     sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
-    if (userInfo.did !== "") {
+    console.log(userInfo.did);
+    if (userInfo.did !== undefined && userInfo.did !== "") {
       this.setState({
         hasVerifiableId: true,
       });
@@ -93,15 +94,11 @@ class Profile extends Component<Props, State> {
     return (
       <div>
         <Official></Official>
-        <Header></Header>
+        <HeaderMyGov></HeaderMyGov>
         <div className="content">
-          <div className="wrapper">
             <div className="serviceCard">
-              <div className="image-holder">
-                <img src={require("../../assets/images/card.png")} alt="" />
-              </div>
               <form action="">
-                <h3 className="eID-text">Your profile</h3>
+                <h3 className="eID-text">MyGOV Profile</h3>
                 <div className="form-row">
                   <h4>DID: </h4>
                   <p className="welcome">&nbsp;{userInfo.did}</p>
@@ -161,7 +158,7 @@ class Profile extends Component<Props, State> {
                     className="collect-button"
                     onClick={() => this.loginWithVIDChain()}
                   >
-                    Get official government ID
+                    Get myGov ID
                   </Button>
                 )}
               </form>
@@ -203,10 +200,9 @@ class Profile extends Component<Props, State> {
                 </div>
               </div>
             )}
-          </div>
         </div>
-        <div className="footer">
-          <Footer></Footer>
+        <div className="footerMyGov">
+          <FooterMyGov></FooterMyGov>
         </div>
       </div>
     );

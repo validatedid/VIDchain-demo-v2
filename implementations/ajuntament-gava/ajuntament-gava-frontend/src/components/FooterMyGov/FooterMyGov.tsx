@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import "./Footer.css";
+import "./FooterMyGov.css";
 
-class Footer extends Component {
+class FooterMyGov extends Component {
   render() {
     return (
       <footer>
@@ -17,7 +17,7 @@ class Footer extends Component {
 		<div id="footerContent">
 		<ul className="footer-wrapper">
 
-        <div id="datos_pie"><strong><span className="tit">Ajuntament de Gavà<br /></span></strong><span className="bla">Plaça de Jaume Balmes S\N, 08850 Gavà (Barcelona)<br/>Telèfon: 932 639 100<br/></span></div>
+        <div id="datos_pie"><strong><span className="tit">Consorci Administració Oberta de Catalunya<br /></span></strong></div>
 
 <div id="menu_pie">
 
@@ -52,4 +52,4 @@ class Footer extends Component {
   }
 }
 
-export default Footer;
+export default FooterMyGov;

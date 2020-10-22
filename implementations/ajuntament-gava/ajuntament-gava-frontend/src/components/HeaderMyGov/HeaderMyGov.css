@@ -1,0 +1,23 @@
+header {
+    background-color: black;
+    text-align: center;
+    color: white;
+    height: 400px;
+}
+.subHeader h3{
+    color: white;
+}
+.subHeader {
+}
+.spaceHeader {
+    height: 100px;
+}
+.imageMyGov{
+    float: left;
+    margin-left: 30px;
+    width: 300px;
+    height: 400px;
+}
+.textMyGov{
+    float: middle;    
+}

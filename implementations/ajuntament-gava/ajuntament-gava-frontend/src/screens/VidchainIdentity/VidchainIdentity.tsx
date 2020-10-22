@@ -77,13 +77,13 @@ class VidchainIdentity extends Component<Props, State> {
         id: userInfo.did,
         firstName: userInfo.name || "-",
         lastName: userInfo.surnames || "-",
-        dateOfBirth: userInfo.surnames || "-",
-        placeOfBirth: userInfo.surnames || "-",
-        gender: userInfo.surnames || "-",
-        currentAddress: userInfo.surnames || "-",
-        city: userInfo.surnames || "-",
-        state: userInfo.surnames || "-",
-        zip: userInfo.surnames || "-",
+        dateOfBirth: "-",
+        placeOfBirth:  "-",
+        gender:  "-",
+        currentAddress: "-",
+        city:  "-",
+        state: userInfo.countryCode || "-",
+        zip: "-",
       }
       /**
        *  VIDCHAIN API REQUEST: Generate VerifiableID
@@ -91,6 +91,20 @@ class VidchainIdentity extends Component<Props, State> {
        */
       const authToken = await vidchain.getAuthzToken();
       await vidchain.generateVerifiableID(authToken, credentialSubject);
+
+      // const credential: CredentialData = {
+      //   type: ["VerifiableCredential", "LargeFamilyCard"],
+      //   issuer: config.DID,
+      //   id: "https://example.com/credential/2390",
+      //   credentialSubject: {
+      //     id: this.state.userInfo.did,
+      //     name: "Large Family Card",
+      //   },
+      // };
+      // await vidchain.generateVerifiableCredential(
+      //   token,
+      //   credential
+      // );
       this.goToProfile(userInfo);
     }
     else{
