@@ -143,7 +143,7 @@ class Callback extends Component<Props, State> {
     });
 
     socket.on("presentation", (msg: any) => {
-      let presentation = JSON.parse(msg.data.encrypted);
+      let presentation = msg.data.encrypted;
 
       let details = utils.decodeJWT(presentation.verifiableCredential[0]);
 
