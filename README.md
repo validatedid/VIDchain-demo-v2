@@ -7,7 +7,7 @@ This repository contains two demo projects:
 
 ## Get VIDChain wallet and test the available demos
 
-The _.apk_ is currently not publically distributed, you will need to contact with ValidatedID to get the latest wallet version. Once you got your wallet, you will find the demos running at: [vidchain-government](https://try.vidchain.net/demo/government) and [vidchain-university](https://try.vidchain.net/demo/university).
+The _.apk_ is currently not publically distributed, you will need to contact with ValidatedID to get the latest wallet version. Once you got your wallet, you will find the demos running at: [vidchain demo](https://try.vidchain.net/demo).
 
 
 ## Run the apps locally
