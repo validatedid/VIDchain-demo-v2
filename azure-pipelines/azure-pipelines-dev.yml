@@ -79,7 +79,7 @@ stages:
         echo "##vso[build.updatebuildnumber]$(major).$(minor).$(Build.BuildId)-commit.$shortCommit"
       displayName: 'retrieve $(packageJson) version'
   - job: CheckChangesGovernmentBackend
-    displayName: 'Checking if there are changes in GovernmentBackend'
+    displayName: 'Checking changes in GovernmentBackend'
     pool:
       vmImage: $(vmImageName)
     steps:
@@ -149,7 +149,7 @@ stages:
           $(tagGovernmentBackend)
           latest
   - job: CheckChangesGovernmentFrontend
-    displayName: 'Checking if there are changes in GovernmentFrontend'
+    displayName: 'Checking changes in GovernmentFrontend'
     pool:
       vmImage: $(vmImageName)
     steps:
@@ -226,7 +226,7 @@ stages:
           $(tagGovernmentFrontend)
           latest
   - job: CheckChangesUniversityBackend
-    displayName: 'Checking if there are changes in UniversityBackend'
+    displayName: 'Checking changes in UniversityBackend'
     pool:
       vmImage: $(vmImageName)
     steps:
@@ -296,7 +296,7 @@ stages:
           $(tagUniversityBackend)
           latest
   - job: CheckChangesUniversityFrontend
-    displayName: 'Checking if there are changes in UniversityFrontend'
+    displayName: 'Checking changes in UniversityFrontend'
     pool:
       vmImage: $(vmImageName)
     steps:
@@ -373,7 +373,7 @@ stages:
           $(tagUniversityFrontend)
           latest
   - job: CheckChangesLanding
-    displayName: 'Checking if there are changes in Landing'
+    displayName: 'Checking changes in Landing'
     pool:
       vmImage: $(vmImageName)
     steps:

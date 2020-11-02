@@ -50,7 +50,7 @@ export class PresentationsService {
       }
       return validation;
     } catch (e) {
-      this.throwErrorMessage("Error while creating the VC");
+      this.throwErrorMessage("");
     }
   }
 
@@ -66,7 +66,7 @@ export class PresentationsService {
      */
     const credentialType = true;
     if (credentialType) {
-      validation = await vidchain.validateVP(token, JSON.parse(presentation.data.encrypted));
+      validation = await vidchain.validateVP(token, presentation.data.encrypted);
       this.logger.debug("Validation of VP: " + validation);
     }
     return validation;
