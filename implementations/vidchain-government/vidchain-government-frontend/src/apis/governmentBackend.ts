@@ -27,19 +27,4 @@ async function claimVP(target: string, name: string) {
   }
 }
 
-async function getToken(body: any) {
-  try {
-    const response = await axios.post(
-      `${config.BACKEND_URL}/auth`,
-      body
-    );
-    if (response.status !== 200 && response.status !== 201) {
-      return "Error";
-    }
-    return response.data;
-  } catch (error) {
-    return "Error";
-  }
-}
-
-export { claimVP, getToken };
+export { claimVP };

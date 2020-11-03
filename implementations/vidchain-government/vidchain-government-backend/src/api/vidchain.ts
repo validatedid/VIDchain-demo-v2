@@ -40,11 +40,13 @@ async function postRequest(token: string, user: any, endpoint: string) {
 
 // Get API authentication token
 async function getAuthzToken() {
+  console.log("ENTITY:"+JSON.stringify(config.Entity));
   const body = {
     grantType: config.grantType,
     assertion: strB64enc(config.Entity),
     scope: config.scope,
   };
+  console.log(body);
   try {
     const response = await axios.post(`${config.API_URL}/sessions`, body);
     if (response.status !== 200 && response.status !== 201) {
