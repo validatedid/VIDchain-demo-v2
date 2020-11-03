@@ -47,11 +47,18 @@ class Callback extends Component<Props, State> {
   }
 
   async componentDidMount() {
-    const code = new URLSearchParams(this.props.location.search).get("code");
-    if(!code){
-      throw new Error("error");
+    var client = OpenIDClient.getInstance().getClient();
+    try {
+      await client.callback();
+    } catch (error) {
+      console.log(error);
     }
-    const token = await this.getAuthToken(code);
+    let token = await client.checkToken({
+      scopes: {
+        request: ["openid", "offline"],
+        require: ["openid", "offline"],
+      },
+    });
     if (token !== null) {
       this.setState({
         access_token: token.access_token,
@@ -117,26 +124,6 @@ class Callback extends Component<Props, State> {
       governmentBackend.claimVP(utils.getUserDid(this.state.id_token), "Login");
     }
   }
-
-  async getAuthToken(code: string){
-    try {
-      const response = await governmentBackend.getToken(
-        {
-            code: code,
-            client_secret: config.CLIENT_SECRET,
-            client_id: config.CLIENT_ID,
-            redirect_uri: config.REDIRECT_CALLBACK,
-            grant_type: "authorization_code",
-          }
-      );
-      return response;
-    } catch (error) {
-      this.setState({
-        error: true
-      })
-    }
-  }
-
 
   async initiateSocket() {
     const socket = io(config.BACKEND_WS, {

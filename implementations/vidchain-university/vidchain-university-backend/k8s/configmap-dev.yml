@@ -9,4 +9,3 @@ data:
   REDIS_URL: "redis"
   REDIS_PORT: "6379"
   WS_URL: "https://dev.vidchain.net"
-  IDENTITY_PROVIDER: https://dev.vidchain.net
