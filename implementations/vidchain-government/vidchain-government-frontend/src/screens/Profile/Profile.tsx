@@ -8,6 +8,8 @@ import { Button } from "react-bootstrap";
 import * as vidchain from "../../apis/vidchain";
 import { OpenIDClient } from "../../libs/openid-connect/client";
 import * as utils from "../../utils/utils";
+import * as config from "../../config";
+
 
 interface Props {
   user: string;
@@ -146,7 +148,7 @@ class Profile extends Component<Props, State> {
     const token = await vidchain.getAuthzToken();
     const credential: CredentialData = {
       type: ["VerifiableCredential", "LargeFamilyCard"],
-      issuer: "did:vid:0xfB5390914b110BEB6c0B250CB59b23E156B68e29",
+      issuer: config.DID,
       id: "https://example.com/credential/2390",
       credentialSubject: {
         id: this.state.did,

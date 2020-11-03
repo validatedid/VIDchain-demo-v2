@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import "./Profile.css";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
+import HeaderMyGov from "../../components/HeaderMyGov/HeaderMyGov";
+import FooterMyGov from "../../components/FooterMyGov/FooterMyGov";
 import Official from "../../components/Official/Official";
-import { UserInfo} from "../../interfaces/dtos";
+import { UserInfo, CredentialData} from "../../interfaces/dtos";
 import { Button } from "react-bootstrap";
 import * as vidchain from "../../apis/vidchain";
 import { OpenIDClient } from "../../libs/openid-connect/client";
 import { VidchainClient } from "../../libs/openid-connect/vidchainClient";
-import * as utils from "../../utils/utils";
+import * as config from "../../config";
 
 interface Props {
   user: string;
@@ -39,13 +39,15 @@ class Profile extends Component<Props, State> {
     this.setState({
       userInfo
     });
-    // if (this.state.did !== "") {
-    //   this.setState({
-    //     hasVerifiableId: true,
-    //   });
-    // }
-    // var client = OpenIDClient.getInstance().getClient();
-    // client.wipeTokens();
+    sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
+    console.log(userInfo.did);
+    if (userInfo.did !== undefined && userInfo.did !== "") {
+      this.setState({
+        hasVerifiableId: true,
+      });
+    }
+    var client = VidchainClient.getInstance().getClient();
+    client.wipeTokens();
   }
 
   async loginWithVIDChain() {
@@ -63,23 +65,23 @@ class Profile extends Component<Props, State> {
    * An authentication token is requested and it is used to request the generation of a verifiableCredential
    */
   async generateCredential() {
-    // const token = await vidchain.getAuthzToken();
-    // const credential: CredentialData = {
-    //   type: ["VerifiableCredential", "LargeFamilyCard"],
-    //   issuer: "did:vid:0xfB5390914b110BEB6c0B250CB59b23E156B68e29",
-    //   id: "https://example.com/credential/2390",
-    //   credentialSubject: {
-    //     id: this.state.did,
-    //     name: "Large Family Card",
-    //   },
-    // };
-    // const response = await vidchain.generateVerifiableCredential(
-    //   token,
-    //   credential
-    // );
-    // this.setState({
-    //   largeFamily: true,
-    // });
+    const token = await vidchain.getAuthzToken();
+    const credential: CredentialData = {
+      type: ["VerifiableCredential", "LargeFamilyCard"],
+      issuer: config.DID,
+      id: "https://example.com/credential/2390",
+      credentialSubject: {
+        id: this.state.userInfo.did,
+        name: "Large Family Card",
+      },
+    };
+    await vidchain.generateVerifiableCredential(
+      token,
+      credential
+    );
+    this.setState({
+      largeFamily: true,
+    });
   }
 
   render() {
@@ -92,18 +94,14 @@ class Profile extends Component<Props, State> {
     return (
       <div>
         <Official></Official>
-        <Header></Header>
+        <HeaderMyGov></HeaderMyGov>
         <div className="content">
-          <div className="wrapper">
             <div className="serviceCard">
-              <div className="image-holder">
-                <img src={require("../../assets/images/card.png")} alt="" />
-              </div>
               <form action="">
-                <h3 className="eID-text">Your profile</h3>
+                <h3 className="eID-text">MyGOV</h3>
                 <div className="form-row">
                   <h4>DID: </h4>
-                  <p className="welcome">&nbsp;{did}</p>
+                  <p className="welcome">&nbsp;{userInfo.did}</p>
                 </div>
                 <div className="form-row">
                   <h4>Identifier: </h4>
@@ -160,7 +158,7 @@ class Profile extends Component<Props, State> {
                     className="collect-button"
                     onClick={() => this.loginWithVIDChain()}
                   >
-                    Get official government ID
+                    Descàrrega el teu myGov ID
                   </Button>
                 )}
               </form>
@@ -170,20 +168,19 @@ class Profile extends Component<Props, State> {
                 <div className="service">
                   <br />
                   <h5 className="eID-text">
-                    <b>Request your Large Family credential.</b>
+                    <b>Descàrrega les teves dades.</b>
                   </h5>
                   <br></br>
                   <h5 className="eID-text">
                     <i>
-                      You can use it wherever you go: Public Service Providers,
-                      Universities, Schools,...
+                      Tens una credencial de família nombrosa
                     </i>
                   </h5>
                   <button
                     className="custom-button"
                     onClick={() => this.generateCredential()}
                   >
-                    <b>Get Large Family credential</b>
+                    <b>Descarregar</b>
                   </button>
                 </div>
               </div>
@@ -202,10 +199,9 @@ class Profile extends Component<Props, State> {
                 </div>
               </div>
             )}
-          </div>
         </div>
-        <div className="footer">
-          <Footer></Footer>
+        <div className="footerMyGov">
+          <FooterMyGov></FooterMyGov>
         </div>
       </div>
     );

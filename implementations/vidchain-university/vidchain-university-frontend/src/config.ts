@@ -20,6 +20,7 @@ const Entity = {
   callbackUrl: BACKEND_URL + "/presentation/validation",
   apiKey: API_KEY
 };
+const DID = "did:vid:0x96A28e3Ce8Ef23F0e0aeFE82AA4015E1edABaaA0";
 
 //Entity in Base-64
 const grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer";
@@ -41,4 +42,5 @@ export {
   REDIRECT_CALLBACK,
   CLIENT_ID,
   CLIENT_SECRET,
+  DID
 };
