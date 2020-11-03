@@ -42,18 +42,12 @@ class Callback extends Component<Props, State> {
   }
 
   async componentDidMount() {
-    var client = OpenIDClient.getInstance().getClient();
-    try {
-      await client.callback();
-    } catch (error) {
-      console.log(error);
+    const code = new URLSearchParams(this.props.location.search).get("code");
+    if(!code){
+      throw new Error("error");
     }
-    let token = await client.checkToken({
-      scopes: {
-        request: ["openid", "offline"],
-        require: ["openid", "offline"],
-      },
-    });
+    const token = await this.getAuthToken(code);
+
     if (token !== null) {
       this.setState({
         access_token: token.access_token,
@@ -72,6 +66,23 @@ class Callback extends Component<Props, State> {
        * The request of a Verifiable presentation must be handled in the backend so as to receive a response from the API in a callback
        */
       universityBackend.claimVP(utils.getUserDid(this.state.id_token), "Login");
+    }
+  }
+
+  async getAuthToken(code: string){
+    try {
+      const response = await universityBackend.getToken(
+        {
+            code: code,
+            client_secret: config.CLIENT_SECRET,
+            client_id: config.CLIENT_ID,
+            redirect_uri: config.REDIRECT_CALLBACK,
+            grant_type: "authorization_code",
+          }
+      );
+      return response;
+    } catch (error) {
+      console.log(error);
     }
   }
 
