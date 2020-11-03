@@ -57,6 +57,11 @@ spec:
             configMapKeyRef:
               name: university-backend-configmap
               key: WS_URL
+        - name: IDENTITY_PROVIDER
+          valueFrom:
+            configMapKeyRef:
+              name: university-backend-configmap
+              key: IDENTITY_PROVIDER
         - name: API_KEY
           valueFrom:
             secretKeyRef:

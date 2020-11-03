@@ -9,6 +9,7 @@ const API_URL = process.env.API_URL || "undefined";
 const BASE_URL = process.env.BASE_URL || "undefined";
 const WS_URL = process.env.WS_URL || "undefined";
 const API_KEY = process.env.API_KEY || "undefined";
+const IDENTITY_PROVIDER = process.env.IDENTITY_PROVIDER || "undefined";
 
 //Legal Entity
 const Entity = {
@@ -24,4 +25,4 @@ const scope = "vidchain profile entity";
 
 const DID = "did:vid:0xc04F03A93446BE9Cf57aFEc5de1f3FBeb624a21B";
 
-export { PORT, API_URL, BASE_URL, Entity, grantType, scope, DID, WS_URL };
+export { PORT, API_URL, BASE_URL, Entity, grantType, scope, DID, WS_URL, IDENTITY_PROVIDER };
