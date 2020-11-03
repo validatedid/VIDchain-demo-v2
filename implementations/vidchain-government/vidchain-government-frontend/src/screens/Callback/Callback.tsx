@@ -47,24 +47,11 @@ class Callback extends Component<Props, State> {
   }
 
   async componentDidMount() {
-    // var client = OpenIDClient.getInstance().getClient();
-    // try {
-    //   await client.callback();
-    // } catch (error) {
-    //   console.log(error);
-    // }
-    // let token = await client.checkToken({
-    //   scopes: {
-    //     request: ["openid", "offline"],
-    //     require: ["openid", "offline"],
-    //   },
-    // });
     const code = new URLSearchParams(this.props.location.search).get("code");
     if(!code){
       throw new Error("error");
     }
     const token = await this.getAuthToken(code);
-    console.log(token);
     if (token !== null) {
       this.setState({
         access_token: token.access_token,
@@ -142,7 +129,6 @@ class Callback extends Component<Props, State> {
             grant_type: "authorization_code",
           }
       );
-      console.log(response.data);
       return response;
     } catch (error) {
       this.setState({

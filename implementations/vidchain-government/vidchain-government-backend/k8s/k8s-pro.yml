@@ -62,6 +62,11 @@ spec:
             secretKeyRef:
               name: government-api-key
               key: api-key
+         - name: IDENTITY_PROVIDER
+          valueFrom:
+            configMapKeyRef:
+              name: government-backend-configmap
+              key: IDENTITY_PROVIDER
       restartPolicy: Always
 ---
 
