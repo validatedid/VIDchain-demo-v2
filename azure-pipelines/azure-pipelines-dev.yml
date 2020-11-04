@@ -192,7 +192,7 @@ stages:
     steps:
     - bash: |
         cp ./implementations/vidchain-government/vidchain-government-frontend/envs/.env.development ./implementations/vidchain-government/vidchain-government-frontend/.env
-        echo "REACT_APP_API_KEY:$REACT_APP_API_KEY" >> ./implementations/vidchain-government/vidchain-government-frontend/.env
+        echo "REACT_APP_API_KEY:$API_KEY_GOVERNMENT" >> ./implementations/vidchain-government/vidchain-government-frontend/.env
       name: load_env_variables_file
       displayName: 'load env vars'
       env:
@@ -339,7 +339,7 @@ stages:
     steps:
     - bash: |
         cp ./implementations/vidchain-university/vidchain-university-frontend/envs/.env.development ./implementations/vidchain-university/vidchain-university-frontend/.env
-        echo "REACT_APP_API_KEY:$REACT_APP_API_KEY" >> ./implementations/vidchain-university/vidchain-university-frontend/.env
+        echo "REACT_APP_API_KEY:$API_KEY_UNIVERSITY" >> ./implementations/vidchain-university/vidchain-university-frontend/.env
       name: load_env_variables_file
       displayName: 'load env vars'
       env:

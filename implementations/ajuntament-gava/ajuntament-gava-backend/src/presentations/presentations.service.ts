@@ -17,9 +17,7 @@ export class PresentationsService {
    * Request Verifiable presentation
    * An authorization token is requested and it is used to request a Verifiable Presentation
    */
-  async handleRequest(body: MsgPresentationReady): Promise<any> {
-    this.logger.debug("handling vp request...");
-    this.logger.debug(JSON.stringify(body));
+  async handleRequest(body: MsgPresentationReady): Promise<any> {s
     const token = await vidchain.getAuthzToken();
     const response = await vidchain.requestVP(
       token,
@@ -43,14 +41,13 @@ export class PresentationsService {
    */
   async handlePresentation(body: MsgPresentationReady): Promise<any> {
     try {
-      this.logger.debug("Presentation ready");
       const token = await vidchain.getAuthzToken();
       const presentation: Presentation = await vidchain.retrievePresentation(
         token,
         body.url
       );
       this.logger.debug(
-        "Presentation retrieved: " + presentation
+        "Presentation retrieved: " + JSON.stringify(presentation)
       );
       const validation: boolean = await this.validatePresentation(
         token,
@@ -64,11 +61,11 @@ export class PresentationsService {
 
       const credentialType = presentation.name.split(": Verifiable")[0];
       this.logger.debug("Presentation type: " + credentialType);
+
       if (validation && credentialType == "Login") {
         this.logger.debug(
           "Presentation has just been checked. Presentation validation: done."
         );
-        this.logger.debug("No need to generate a new credential.");
         return presentation;
       } else if (validation && credentialType != "Login") {
         this.logger.debug(
@@ -89,18 +86,13 @@ export class PresentationsService {
    *  Validates retrieved presentation
    */
   async validatePresentation(token: string, presentation: Presentation) {
-    this.logger.debug("validate presentation: "+ JSON.stringify(presentation));
-    let validation = false;
     /**
      * Despite the API validates the Credential Type, and the wallet filters by type of requested credential too, at this point, the backend could even perform its own extra validations. For instance:
      * const credentialType = await this.customValidationCredentialType(presentation);
      * For testing purposes, in this example, this const is simply set to true.
      */
-    const credentialType = true;
-    if (credentialType) {
-      validation = await vidchain.validateVP(token, presentation.data.encrypted);
-      this.logger.debug("Validation of VP: " + validation);
-    }
+    const validation = await vidchain.validateVP(token, presentation.data.encrypted);
+    this.logger.debug("Validation of VP: " + validation);
     return validation;
   }
 

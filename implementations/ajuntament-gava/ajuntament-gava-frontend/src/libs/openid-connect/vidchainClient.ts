@@ -10,8 +10,6 @@ export class VidchainClient {
   private client: any;
 
   private constructor() {
-    const nonce = utils.randomString(24);
-    const state = utils.randomString(24);
     let configFile = {
       client_id: config.VIDCHAIN_CLIENT_ID,
       client_secret: config.VIDCHAIN_CLIENT_SECRET,
