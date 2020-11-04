@@ -71,7 +71,7 @@ spec:
           valueFrom:
             secretKeyRef:
               name: university-client-secret
-              key: client-secre
+              key: client-secret
       restartPolicy: Always
 ---
 
