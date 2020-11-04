@@ -500,6 +500,7 @@ stages:
     - bash: |
         cp ./implementations/ajuntament-gava/ajuntament-gava-frontend/envs/.env.production ./implementations/ajuntament-gava/ajuntament-gava-frontend/.env
         echo "REACT_APP_API_KEY:$REACT_APP_API_KEY" >> ./implementations/ajuntament-gava/ajuntament-gava-frontend/.env
+        echo "REACT_APP_VIDCHAIN_CLIENT_SECRET:$REACT_APP_VIDCHAIN_CLIENT_SECRET" >> ./implementations/ajuntament-gava/ajuntament-gava-frontend/.env
       name: load_env_variables_file
       displayName: 'load env vars'
       env:
