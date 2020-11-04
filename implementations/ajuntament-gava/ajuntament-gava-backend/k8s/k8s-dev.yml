@@ -67,6 +67,11 @@ spec:
             secretKeyRef:
               name: ajuntament-gava-api-key
               key: api-key
+        - name: CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: ajuntament-gava-client-secret
+              key: client-secret
       restartPolicy: Always
 ---
 

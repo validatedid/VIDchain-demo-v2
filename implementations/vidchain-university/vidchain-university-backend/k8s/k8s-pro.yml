@@ -67,6 +67,11 @@ spec:
             secretKeyRef:
               name: university-api-key
               key: api-key
+         - name: CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: university-client-secret
+              key: client-secret
       restartPolicy: Always
 ---
 

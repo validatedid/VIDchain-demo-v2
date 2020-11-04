@@ -29,8 +29,6 @@ const DID = "did:vid:0xc04F03A93446BE9Cf57aFEc5de1f3FBeb624a21B";
 
 //const CLIENT_ID = "city-test";
 const CLIENT_ID = "city";
-const CLIENT_NAME = "Your City";
-const CLIENT_SECRET = "secret";
 
 export {
   Entity,
@@ -40,7 +38,6 @@ export {
   IDENTITY_PROVIDER,
   REDIRECT_CALLBACK,
   CLIENT_ID,
-  CLIENT_SECRET,
   BACKEND_URL,
   DID,
   BACKEND_WS,

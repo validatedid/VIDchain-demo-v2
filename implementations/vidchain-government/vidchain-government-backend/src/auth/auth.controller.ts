@@ -18,7 +18,7 @@ import {
 
   
     @Post("")
-    async requestUserInfo(
+    async requestToken(
       @Body() body: any,
       @Res() res: Response
     ): Promise<Response<any>> {

@@ -9,8 +9,12 @@ export class AuthService {
 
 
   async handleUserInfo(url:string, body: any): Promise<any> {
+    const bodyWithSecret = {
+      ...body,
+      client_secret: config.CLIENT_SECRET
+    }
     const response = await externals.post(
-      body,
+      bodyWithSecret,
       url
     );
     if (!response || !response.data.access_token) {

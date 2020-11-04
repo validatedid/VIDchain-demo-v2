@@ -14,6 +14,7 @@ const BACKEND_URL =
   process.env.REACT_APP_BACKEND_URL || "undefined";
 const BACKEND_WS = process.env.REACT_APP_WS_URL || "undefined";
 const API_KEY = process.env.REACT_APP_API_KEY || "undefined";
+const VIDCHAIN_CLIENT_SECRET = process.env.REACT_APP_VIDCHAIN_CLIENT_SECRET || "undefined";
 
 
 //Legal Entity
@@ -32,11 +33,8 @@ const scope = "vidchain profile entity";
 
 //const CLIENT_ID = "city-test";
 const CLIENT_ID = "mygov.gava.cat";
-const CLIENT_NAME = "Your City";
-const CLIENT_SECRET = "25d77ac947b00f8b34162901bc7c078c10bcb702";
 
 const VIDCHAIN_CLIENT_ID = "gava";
-const VIDCHAIN_CLIENT_SECRET = "secret";
 
 export {
   Entity,
@@ -46,7 +44,6 @@ export {
   IDENTITY_PROVIDER,
   REDIRECT_CALLBACK,
   CLIENT_ID,
-  CLIENT_SECRET,
   BACKEND_URL,
   BACKEND_WS,
   VIDCHAIN_IDENTITY_PROVIDER,
