@@ -49,7 +49,6 @@ class Callback extends Component<Props, State> {
       const response = await axios.post(
         config.BACKEND_URL+"/auth",{
             code: code,
-            client_secret: config.CLIENT_SECRET,
             client_id: config.CLIENT_ID,
             redirect_uri: config.REDIRECT_CALLBACK,
             grant_type: "authorization_code",

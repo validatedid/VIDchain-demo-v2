@@ -12,7 +12,6 @@ export class OpenIDClient {
   private constructor() {
     let configFile = {
       client_id: config.CLIENT_ID,
-      client_secret: config.CLIENT_SECRET,
       token: config.IDENTITY_PROVIDER + "/oauth2/token",
       authorization: config.IDENTITY_PROVIDER + "/oauth2/auth",
       redirect_uri: config.REDIRECT_CALLBACK,
