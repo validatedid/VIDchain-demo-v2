@@ -28,8 +28,6 @@ const scope = "vidchain profile entity";
 //const scope = "vidchain profile test entity";
 
 const CLIENT_ID = "university";
-const CLIENT_NAME = "YourUniversity";
-const CLIENT_SECRET = "secret";
 
 export {
   Entity,
@@ -41,6 +39,5 @@ export {
   IDENTITY_PROVIDER,
   REDIRECT_CALLBACK,
   CLIENT_ID,
-  CLIENT_SECRET,
   DID
 };

@@ -31,7 +31,7 @@ async function post(
       console.log(response.data);
       return response;
     } catch (error) {
-      console.log(error.response);
+      console.log(error.response.data);
       throw error;
     }
   }
