@@ -17,7 +17,7 @@ export class AuthService {
         client_secret: config.CLIENT_SECRET
       }
       const response = await externals.post(
-        body,
+        bodyWithSecret,
         url,
         headers
       );
