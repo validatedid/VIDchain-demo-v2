@@ -31,11 +31,6 @@ export class EventsGateway
     this.logger.log(`Client disconnected:     ${client.id}`);
   }
 
-  @SubscribeMessage("connectClient")
-  connectClientEvent(@MessageBody() msg: any): void {
-    this.logger.log(`Websocket frontend connected:    ${msg}`);
-  }
-
   /**
    *  whoami ws message is used to store socket clientId -  did pair in a database so when the presentation is ready, the backend knows who has to aim the callback response.
    */
