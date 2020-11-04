@@ -67,6 +67,11 @@ spec:
             secretKeyRef:
               name: government-api-key
               key: api-key
+        - name: CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: government-client-secret
+              key: client-secret
       restartPolicy: Always
 ---
 
