@@ -15,6 +15,7 @@ export interface Presentation {
   target: string;
   name?: string;
   type: string[][];
+  redirectUri?: string;
 }
 
 export interface CredentialData {

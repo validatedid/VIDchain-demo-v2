@@ -22,8 +22,7 @@ export class PresentationsService {
       token,
       JSON.parse(JSON.stringify(body))
     );
-    this.logger.debug("requestVP response:");
-    this.logger.debug(response);
+    this.logger.debug("requestVP done successfully");
   }
 
   /**
