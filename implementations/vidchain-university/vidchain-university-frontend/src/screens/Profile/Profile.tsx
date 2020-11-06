@@ -10,6 +10,7 @@ import { Button } from "react-bootstrap";
 import { ICredentialData } from "../../interfaces/ICredentialData";
 import { ICredentialSubject } from "../../interfaces/ICredentialSubject";
 import * as config from "../../config";
+import { verifiableKYC } from "../../interfaces/dtos";
 
 interface Props {
   did: string;
@@ -23,20 +24,10 @@ interface State {
   refresh_token: string;
   id_token: string;
   did: string;
-  firstName: string;
-  lastName: string;
-  dateOfBirth: string;
-  documentNumber: string;
-  documentType: string;
-  nationality: string;
-  stateIssuer: string;
-  dateOfExpiry: string;
-  placeOfBirth: string;
-  gender: string;
+  verifiableKYC: verifiableKYC;
   largeFamily: boolean;
   discountRequested: boolean;
   studentCard: boolean;
-  requested: boolean;
   socketSession: string;
 }
 
@@ -48,28 +39,13 @@ class Profile extends Component<Props, State> {
       refresh_token: "",
       id_token: "",
       did: utils.getUserDid(this.props.location.state.id_token),
-      firstName: "",
-      lastName: "",
-      dateOfBirth: "",
-      documentNumber: "",
-      documentType: "",
-      nationality: "",
-      stateIssuer: "",
-      dateOfExpiry: "",
-      placeOfBirth: "",
-      gender: "",
       largeFamily: false,
       discountRequested: false,
       studentCard: false,
-      requested: false,
       socketSession: "",
+      verifiableKYC: {} as verifiableKYC
     };
-    if (!this.state.requested) {
-      this.setState({
-        requested: true,
-      });
-      this.initiateSocket();
-    }
+    this.initiateSocket();
   }
 
   componentDidMount() {
@@ -79,16 +55,7 @@ class Profile extends Component<Props, State> {
         refresh_token: this.props.location.state.refresh_token,
         id_token: this.props.location.state.id_token,
         did: utils.getUserDid(this.props.location.state.id_token),
-        firstName: this.props.location.state.verifiableKYC.name,
-        lastName: this.props.location.state.verifiableKYC.surname,
-        dateOfBirth: this.props.location.state.verifiableKYC.dateOfBirth,
-        placeOfBirth: this.props.location.state.verifiableKYC.placeOfBirth,
-        documentNumber: this.props.location.state.verifiableKYC.documentNumber,
-        documentType: this.props.location.state.verifiableKYC.documentType,
-        nationality: this.props.location.state.verifiableKYC.nationality,
-        stateIssuer: this.props.location.state.verifiableKYC.stateIssuer,
-        dateOfExpiry: this.props.location.state.verifiableKYC.dateOfExpiry,
-        gender: this.props.location.state.verifiableKYC.sex,
+        verifiableKYC: this.props.location.state.verifiableKYC,
       });
     }
   }
@@ -159,13 +126,7 @@ class Profile extends Component<Props, State> {
   render() {
     const {
       did,
-      firstName,
-      lastName,
-      dateOfBirth,
-      placeOfBirth,
-      documentNumber,
-      documentType,
-      nationality,
+      verifiableKYC,
       studentCard,
       largeFamily,
       discountRequested,
@@ -276,23 +237,23 @@ class Profile extends Component<Props, State> {
                       <div className="form-row">
                         <h4>Name:</h4>
                         <p>
-                          {firstName}&nbsp;{lastName}
+                          {verifiableKYC.name}&nbsp;{verifiableKYC.surname}
                         </p>
                       </div>
                       <div className="form-row">
                         <h4>Birth:</h4>
                         <p>
-                          {dateOfBirth}&nbsp;-&nbsp;{placeOfBirth}
+                          {verifiableKYC.dateOfBirth}&nbsp;-&nbsp;{verifiableKYC.placeOfBirth}
                         </p>
                       </div>
                       <div className="form-row">
                         <h4>Nationality:</h4>
-                        <p>{nationality}</p>
+                        <p>{verifiableKYC.nationality}</p>
                       </div>
                       <div className="form-row">
                         <h4>Document:</h4>
                         <p>
-                          {documentType}:&nbsp;{documentNumber}
+                          {verifiableKYC.documentType}:&nbsp;{verifiableKYC.documentNumber}
                         </p>
                       </div>
                       {!studentCard && (
