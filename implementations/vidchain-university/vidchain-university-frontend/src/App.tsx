@@ -4,6 +4,7 @@ import { Switch, Route, BrowserRouter } from "react-router-dom";
 import Home from "./screens/Home/Home";
 import Profile from "./screens/Profile/Profile";
 import Callback from "./screens/Callback/Callback";
+import AppRedirect from "./screens/AppRedirect/AppRedirect";
 const dotenv = require("dotenv");
 // importing .env variables
 
@@ -20,6 +21,7 @@ function App() {
           <Route exact path="/" component={Home} />
           <Route exact path="/profile" component={Profile} />
           <Route path="/callback" component={Callback} />
+          <Route path="/presentation" component={AppRedirect} />
         </Switch>
       </BrowserRouter>
     </div>
