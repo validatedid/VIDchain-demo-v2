@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./Callback.css";
+import "./AppRedirect.css";
 import Footer from "../../components/Footer/Footer";
 import { Redirect } from "react-router-dom";
 import * as utils from "../../utils/utils";
@@ -65,12 +65,13 @@ class AppRedirect extends Component<Props, State> {
       const socketClient = {
         did: this.state.did,
         clientId: this.state.socketSession,
-        sessionId: this.state.socketSession,
+        lastSessionId: this.state.sessionId,
       };
       socket.emit("whoami", socketClient);
     });
 
-    socket.on("presentation", (msg: any) => {
+    socket.on("largeFamilyPresentation", (msg: any) => {
+      console.log("arrived Presentation");
       let presentation = msg.data.encrypted;
 
       let details = utils.decodeJWT(presentation.verifiableCredential[0]);

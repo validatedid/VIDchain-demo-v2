@@ -11,6 +11,7 @@ const BACKEND_URL =
   process.env.REACT_APP_BACKEND_URL|| "undefined";
 const BACKEND_WS = process.env.REACT_APP_WS_URL || "undefined";
 const API_KEY = process.env.REACT_APP_API_KEY || "undefined";
+const APP_URL = process.env.REACT_APP_DEMO || "undefined";
 
 //Legal Entity
 const Entity = {
@@ -39,5 +40,6 @@ export {
   IDENTITY_PROVIDER,
   REDIRECT_CALLBACK,
   CLIENT_ID,
-  DID
+  DID,
+  APP_URL
 };

@@ -59,7 +59,7 @@ class Callback extends Component<Props, State> {
          *  VIDCHAIN API REQUEST: Claim Verifiable Presentation (forwarded to backend)
          * The request of a Verifiable presentation must be handled in the backend so as to receive a response from the API in a callback
          */
-        universityBackend.claimVP(utils.getUserDid(this.state.id_token), "Login");
+        universityBackend.claimVP(utils.getUserDid(this.state.id_token), "Login", "");
     }
   }
 
@@ -92,6 +92,7 @@ class Callback extends Component<Props, State> {
       const socketClient = {
         did: utils.getUserDid(this.state.id_token),
         clientId: this.state.socketSession,
+        lastSessionId: ""
       };
       socket.emit("whoami", socketClient);
     });

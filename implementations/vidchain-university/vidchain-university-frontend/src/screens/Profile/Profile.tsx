@@ -120,7 +120,19 @@ class Profile extends Component<Props, State> {
     this.setState({
       discountRequested: true,
     });
-    universityBackend.claimVP(utils.getUserDid(this.state.id_token), "LargeFamilyCard");
+    let redirectUri = "";
+    if(utils.isMobileOrTablet()){
+      const sessionId = utils.randomString(8);
+      const did = this.state;
+      redirectUri = config.APP_URL + "/presentation?sessionId="+sessionId+"&did="+did+"&type=LargeFamilyCard";
+      const body = {
+        did,
+        sessionId,
+      }
+      await universityBackend.createSession(body);
+    }
+
+    universityBackend.claimVP(utils.getUserDid(this.state.id_token), "LargeFamilyCard", redirectUri);
   }
 
   render() {
