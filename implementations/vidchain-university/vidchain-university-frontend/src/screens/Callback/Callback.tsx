@@ -52,6 +52,8 @@ class Callback extends Component<Props, State> {
           id_token: token.id_token,
           expires: token.expires,
         });
+
+        this.parseResponse();
       }
 
         this.initiateSocket();
@@ -59,8 +61,20 @@ class Callback extends Component<Props, State> {
          *  VIDCHAIN API REQUEST: Claim Verifiable Presentation (forwarded to backend)
          * The request of a Verifiable presentation must be handled in the backend so as to receive a response from the API in a callback
          */
-        universityBackend.claimVP(utils.getUserDid(this.state.id_token), "Login", "");
+        //universityBackend.claimVP(utils.getUserDid(this.state.id_token), "Login", "");
+        
     }
+  }
+
+  parseResponse(){
+    const { access_token, refresh_token, id_token } = this.state;
+    const decodedIdToken = utils.decodeJWT(id_token);
+    console.log(decodedIdToken)
+    const jwt = decodedIdToken.jwt;
+    const credential = utils.decodeJWT(jwt);
+    console.log(credential.vp);
+      //   4
+
   }
 
   async getAuthToken(code: string){
