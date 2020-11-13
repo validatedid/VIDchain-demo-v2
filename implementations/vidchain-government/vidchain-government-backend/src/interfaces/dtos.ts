@@ -18,7 +18,8 @@ export interface Presentation {
   data: IAttributeData;
 }
 export interface IAttributeData {
-  encrypted: any;
+  encrypted: string;
+  decrypted?: string;
 }
 export interface VerifiablePresentation {
   "@context": string[];

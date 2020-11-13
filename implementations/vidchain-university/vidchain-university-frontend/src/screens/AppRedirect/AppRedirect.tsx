@@ -8,6 +8,7 @@ import io from "socket.io-client";
 import HeaderLogin from "../../components/HeaderLogin/HeaderLogin";
 import { Ring } from "react-spinners-css";
 import * as config from "../../config";
+import { strB64dec } from "../../utils/utils";
 
 interface Props {
   history: any;
@@ -72,7 +73,7 @@ class AppRedirect extends Component<Props, State> {
 
     socket.on("largeFamilyPresentation", (msg: any) => {
       console.log("arrived Presentation");
-      let presentation = msg.data.encrypted;
+      let presentation = strB64dec(msg.data.decrypted);
 
       let details = utils.decodeJWT(presentation.verifiableCredential[0]);
       this.setState({

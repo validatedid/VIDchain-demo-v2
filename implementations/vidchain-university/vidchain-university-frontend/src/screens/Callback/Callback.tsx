@@ -10,6 +10,7 @@ import io from "socket.io-client";
 import HeaderLogin from "../../components/HeaderLogin/HeaderLogin";
 import { Ring } from "react-spinners-css";
 import * as config from "../../config";
+import { strB64dec } from "../../utils/utils";
 
 interface Props {
   history: any;
@@ -109,7 +110,7 @@ class Callback extends Component<Props, State> {
     });
 
     socket.on("presentation", (msg: any) => {
-      let presentation = msg.data.encrypted;
+      let presentation = strB64dec(msg.data.decrypted);
 
       let details = utils.decodeJWT(presentation.verifiableCredential[0]);
       this.setState({

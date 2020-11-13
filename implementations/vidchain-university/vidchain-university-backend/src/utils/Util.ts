@@ -47,7 +47,7 @@ function strB64enc(input) {
 }
 
 function extractVCfromPresentation(credential) {
-  let jwtObject = JSON.stringify(credential.data.encrypted);
+  let jwtObject = strB64dec(credential.data.decrypted);
   jwtObject = jwtObject.substring(
     jwtObject.lastIndexOf("[") + 1,
     jwtObject.lastIndexOf("]")

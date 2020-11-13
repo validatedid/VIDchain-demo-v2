@@ -81,7 +81,7 @@ export class PresentationsService {
      * const credentialType = await this.customValidationCredentialType(presentation);
      * For testing purposes, in this example, this const is simply set to true.
      */
-    const validation = await vidchain.validateVP(token, presentation.data.encrypted);
+    const validation = await vidchain.validateVP(token, strB64dec(presentation.data.decrypted));
     this.logger.debug("Validation of VP: " + validation);
     return validation;
   }
