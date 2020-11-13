@@ -42,36 +42,20 @@ class Profile extends Component<Props, State> {
   }
 
   componentDidMount() {
-    if (localStorage.getItem("userPass")) {
+    const {id_token, fakeLogin} = this.props.location.state;
+    if (fakeLogin) {
       this.setState({
         did: "Not yet provided",
-        verifiableKYC: {
-          id: "Not yet provided",
-          name: sessionStorage.getItem("firstName") || "Not provided",
-          surname: sessionStorage.getItem("lastName") || "Not provided",
-          fullName: sessionStorage.getItem("firstName") || "Not provided",
-          dateOfBirth: sessionStorage.getItem("dateOfBirth") || "Not provided",
-          placeOfBirth: sessionStorage.getItem("placeOfBirth") || "Not provided",
-          personalNumber:
-            sessionStorage.getItem("personalNumber") || "Not provided",
-          documentType: sessionStorage.getItem("documentType") || "Not provided",
-          nationality: sessionStorage.getItem("nationality") || "Not provided",
-          stateIssuer: sessionStorage.getItem("stateIssuer") || "Not provided",
-          dateOfExpiry: sessionStorage.getItem("dateOfExpiry") || "Not provided",
-          sex: sessionStorage.getItem("gender") || "Not provided",
-          documentNumber: sessionStorage.getItem("documentNumber") || "Not provided",
-          issuingAuthority: sessionStorage.getItem("issuingAuthority") || "Not provided",
-        },
+        verifiableKYC: utils.generateFakeCredential(),
         fakeLogin: true,
       });
-    } else {
-      if(this.props.location.state.id_token){
-        const decodedIdToken = utils.decodeJWT(this.props.location.state.id_token);
+    }
+    if(id_token){
+        const decodedIdToken = utils.decodeJWT(id_token);
         const jwt = decodedIdToken.jwt;
         if(jwt){
             const presentation: PresentationPayload = utils.decodeJWT(jwt);
             const credential: VerifiableCredential = presentation.vp.verifiableCredential[0] as VerifiableCredential;
-            console.log(JSON.stringify(credential));
             this.setState({
               verifiableKYC: {
                 id: credential.credentialSubject.id as string,
@@ -94,7 +78,6 @@ class Profile extends Component<Props, State> {
           });
         }
     }
-  }
     if (this.state.did !== "") {
       this.setState({
         hasVerifiableId: true,
@@ -105,6 +88,7 @@ class Profile extends Component<Props, State> {
   }
 
   async loginWithVIDChain() {
+    localStorage.setItem("userPass", "fakePass");
     var client = OpenIDClient.getInstance().getClient();
     await client.callback();
     await client.getToken({
