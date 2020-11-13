@@ -15,9 +15,8 @@ export class OpenIDClient {
       authorization: config.IDENTITY_PROVIDER + "/oauth2/auth",
       redirect_uri: config.REDIRECT_CALLBACK,
       scopes: {
-        request: ["openid", "offline"],
-        require: ["openid", "offline"],
-      },
+        request: ["openid", "VerifiableIdCredential"]
+      }, 
       response_type: "code",
       debug: true,
     };
