@@ -109,9 +109,8 @@ class Profile extends Component<Props, State> {
     await client.callback();
     await client.getToken({
       scopes: {
-        request: ["openid", "offline"],
-        require: ["openid", "offline"],
-      },
+        request: ["openid"]
+      }, 
     });
   }
   /**
