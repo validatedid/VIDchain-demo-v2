@@ -40,3 +40,5 @@ export interface verifiableKYC {
   sex: string;
   personalNumber: string;
 }
+
+

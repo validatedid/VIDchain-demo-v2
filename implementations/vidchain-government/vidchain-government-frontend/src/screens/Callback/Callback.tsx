@@ -48,9 +48,7 @@ class Callback extends Component<Props, State> {
 
   async componentDidMount() {
     const code = new URLSearchParams(this.props.location.search).get("code");
-    if(!code){
-      throw new Error("error");
-    }
+    if(code){
     const token = await this.getAuthToken(code);
     if (token !== null) {
       this.setState({
@@ -59,7 +57,9 @@ class Callback extends Component<Props, State> {
         id_token: token.id_token,
         expires: token.expires,
       });
+      this.parseResponse();
     }
+
     if (localStorage.getItem("userPass")) {
       localStorage.clear();
       this.setState({
@@ -109,12 +109,13 @@ class Callback extends Component<Props, State> {
       this.setState({
         showCallback: true,
       });
+    }
       this.initiateSocket();
       /**
        *  VIDCHAIN API REQUEST: Claim Verifiable Presentation (forwarded to backend)
        * The request of a Verifiable presentation is handled in the backend so as to process the whole flow there and receive a response from the API in a callback
        */
-      governmentBackend.claimVP(utils.getUserDid(this.state.id_token), "Login");
+      //governmentBackend.claimVP(utils.getUserDid(this.state.id_token), "Login");
     }
   }
 
@@ -134,6 +135,14 @@ class Callback extends Component<Props, State> {
         error: true
       })
     }
+  }
+
+  parseResponse(){
+    /**
+     *  This information is not used here, just want to login
+     */
+    this.goToProfile();
+
   }
 
 
@@ -191,8 +200,7 @@ class Callback extends Component<Props, State> {
       state: {
         access_token: access_token,
         refresh_token: refresh_token,
-        id_token: id_token,
-        verifiableKYC: verifiableKYC,
+        id_token: id_token
       },
     });
   }
