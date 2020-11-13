@@ -3,7 +3,7 @@ import "./Callback.css";
 import Footer from "../../components/Footer/Footer";
 import { OpenIDClient } from "../../libs/openid-connect/client";
 import { Redirect } from "react-router-dom";
-import { verifiableKYC } from "../../interfaces/dtos";
+import { verifiableKYC } from "../../interfaces/dtos"; 
 import * as utils from "../../utils/utils";
 import * as universityBackend from "../../apis/universityBackend";
 import io from "socket.io-client";
@@ -67,13 +67,10 @@ class Callback extends Component<Props, State> {
   }
 
   parseResponse(){
-    const { access_token, refresh_token, id_token } = this.state;
-    const decodedIdToken = utils.decodeJWT(id_token);
-    console.log(decodedIdToken)
-    const jwt = decodedIdToken.jwt;
-    const credential = utils.decodeJWT(jwt);
-    console.log(credential.vp);
-      //   4
+    /**
+     *  This information is not used here, just want to login
+     */
+    this.goToProfile();
 
   }
 
@@ -141,14 +138,13 @@ class Callback extends Component<Props, State> {
   }
 
   goToProfile() {
-    const { access_token, refresh_token, id_token, verifiableKYC } = this.state;
+    const { access_token, refresh_token, id_token } = this.state;
     this.props.history.push({
       pathname: "/profile",
       state: {
         access_token: access_token,
         refresh_token: refresh_token,
         id_token: id_token,
-        verifiableKYC: verifiableKYC,
       },
     });
   }
