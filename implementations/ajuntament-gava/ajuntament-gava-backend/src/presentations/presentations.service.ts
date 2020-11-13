@@ -23,8 +23,7 @@ export class PresentationsService {
       token,
       JSON.parse(JSON.stringify(body))
     );
-    this.logger.debug("requestVP response:");
-    this.logger.debug(response);
+    this.logger.debug("requestVP done successfully");
   }
 
   async handleToken(url:string, body: any): Promise<any> {
@@ -32,7 +31,7 @@ export class PresentationsService {
       body,
       url
     );
-    this.logger.debug("requestVP response:");
+    this.logger.debug("got token");
     this.logger.debug(response.data);
   }
   /**
@@ -91,7 +90,7 @@ export class PresentationsService {
      * const credentialType = await this.customValidationCredentialType(presentation);
      * For testing purposes, in this example, this const is simply set to true.
      */
-    const validation = await vidchain.validateVP(token, presentation.data.encrypted);
+    const validation = await vidchain.validateVP(token, strB64dec(presentation.data.decrypted));
     this.logger.debug("Validation of VP: " + validation);
     return validation;
   }

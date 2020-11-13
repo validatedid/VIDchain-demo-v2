@@ -13,6 +13,7 @@ import { verifiableKYC } from "../../interfaces/dtos";
 import { Ring } from "react-spinners-css";
 import { ICredentialData } from "../../interfaces/dtos";
 import * as config from "../../config";
+import { strB64dec } from "../../utils/utils";
 
 interface Props {
   history: any;
@@ -48,9 +49,7 @@ class Callback extends Component<Props, State> {
 
   async componentDidMount() {
     const code = new URLSearchParams(this.props.location.search).get("code");
-    if(!code){
-      throw new Error("error");
-    }
+    if(code){
     const token = await this.getAuthToken(code);
     if (token !== null) {
       this.setState({
@@ -59,7 +58,9 @@ class Callback extends Component<Props, State> {
         id_token: token.id_token,
         expires: token.expires,
       });
+      this.parseResponse();
     }
+
     if (localStorage.getItem("userPass")) {
       localStorage.clear();
       this.setState({
@@ -109,12 +110,13 @@ class Callback extends Component<Props, State> {
       this.setState({
         showCallback: true,
       });
+    }
       this.initiateSocket();
       /**
        *  VIDCHAIN API REQUEST: Claim Verifiable Presentation (forwarded to backend)
        * The request of a Verifiable presentation is handled in the backend so as to process the whole flow there and receive a response from the API in a callback
        */
-      governmentBackend.claimVP(utils.getUserDid(this.state.id_token), "Login");
+      //governmentBackend.claimVP(utils.getUserDid(this.state.id_token), "Login");
     }
   }
 
@@ -136,6 +138,14 @@ class Callback extends Component<Props, State> {
     }
   }
 
+  parseResponse(){
+    /**
+     *  This information is not used here, just want to login
+     */
+    this.goToProfile();
+
+  }
+
 
   async initiateSocket() {
     const socket = io(config.BACKEND_WS, {
@@ -155,7 +165,7 @@ class Callback extends Component<Props, State> {
     });
 
     socket.on("presentation", (msg: any) => {
-      let presentation = msg.data.encrypted;
+      let presentation = strB64dec(msg.data.decrypted);
 
       let details = utils.decodeJWT(presentation.verifiableCredential[0]);
 
@@ -191,8 +201,7 @@ class Callback extends Component<Props, State> {
       state: {
         access_token: access_token,
         refresh_token: refresh_token,
-        id_token: id_token,
-        verifiableKYC: verifiableKYC,
+        id_token: id_token
       },
     });
   }

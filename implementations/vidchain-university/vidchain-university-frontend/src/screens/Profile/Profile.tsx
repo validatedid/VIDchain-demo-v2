@@ -10,6 +10,8 @@ import { Button } from "react-bootstrap";
 import { ICredentialData } from "../../interfaces/ICredentialData";
 import { ICredentialSubject } from "../../interfaces/ICredentialSubject";
 import * as config from "../../config";
+import { verifiableKYC } from "../../interfaces/dtos";
+import { PresentationPayload, VerifiableCredential } from "../../interfaces/IPresentation";
 
 interface Props {
   did: string;
@@ -23,21 +25,13 @@ interface State {
   refresh_token: string;
   id_token: string;
   did: string;
-  firstName: string;
-  lastName: string;
-  dateOfBirth: string;
-  documentNumber: string;
-  documentType: string;
-  nationality: string;
-  stateIssuer: string;
-  dateOfExpiry: string;
-  placeOfBirth: string;
-  gender: string;
+  verifiableKYC: verifiableKYC;
   largeFamily: boolean;
   discountRequested: boolean;
   studentCard: boolean;
-  requested: boolean;
   socketSession: string;
+  type: string;
+  data: any;
 }
 
 class Profile extends Component<Props, State> {
@@ -48,49 +42,63 @@ class Profile extends Component<Props, State> {
       refresh_token: "",
       id_token: "",
       did: utils.getUserDid(this.props.location.state.id_token),
-      firstName: "",
-      lastName: "",
-      dateOfBirth: "",
-      documentNumber: "",
-      documentType: "",
-      nationality: "",
-      stateIssuer: "",
-      dateOfExpiry: "",
-      placeOfBirth: "",
-      gender: "",
       largeFamily: false,
       discountRequested: false,
       studentCard: false,
-      requested: false,
       socketSession: "",
+      verifiableKYC: {} as verifiableKYC,
+      type: "",
+      data: {}
     };
-    if (!this.state.requested) {
-      this.setState({
-        requested: true,
-      });
-      this.initiateSocket();
-    }
+    this.initiateSocket();
   }
 
   componentDidMount() {
-    if (this.props.location.state) {
-      this.setState({
-        access_token: this.props.location.state.access_token,
-        refresh_token: this.props.location.state.refresh_token,
-        id_token: this.props.location.state.id_token,
-        did: utils.getUserDid(this.props.location.state.id_token),
-        firstName: this.props.location.state.verifiableKYC.name,
-        lastName: this.props.location.state.verifiableKYC.surname,
-        dateOfBirth: this.props.location.state.verifiableKYC.dateOfBirth,
-        placeOfBirth: this.props.location.state.verifiableKYC.placeOfBirth,
-        documentNumber: this.props.location.state.verifiableKYC.documentNumber,
-        documentType: this.props.location.state.verifiableKYC.documentType,
-        nationality: this.props.location.state.verifiableKYC.nationality,
-        stateIssuer: this.props.location.state.verifiableKYC.stateIssuer,
-        dateOfExpiry: this.props.location.state.verifiableKYC.dateOfExpiry,
-        gender: this.props.location.state.verifiableKYC.sex,
-      });
-    }
+      if(this.props.location.state.id_token){
+        const decodedIdToken = utils.decodeJWT(this.props.location.state.id_token);
+        const jwt = decodedIdToken.jwt;
+        if(jwt){
+            const presentation: PresentationPayload = utils.decodeJWT(jwt);
+            const credential: VerifiableCredential = presentation.vp.verifiableCredential[0] as VerifiableCredential;
+            console.log(JSON.stringify(credential));
+            this.setState({
+              verifiableKYC: {
+                id: credential.credentialSubject.id as string,
+                documentNumber: credential.credentialSubject.documentNumber as string,
+                documentType: credential.credentialSubject.documentType as string,
+                name: credential.credentialSubject.firstName as string,
+                surname: credential.credentialSubject.lastName as string,
+                fullName: credential.credentialSubject.fullName as string,
+                nationality: credential.credentialSubject.nationality as string,
+                stateIssuer: credential.credentialSubject.stateIssuer as string,
+                issuingAuthority: credential.credentialSubject.issuingAuthority as string,
+                dateOfExpiry: credential.credentialSubject.dateOfExpiry as string,
+                dateOfBirth: credential.credentialSubject.dateOfBirth as string,
+                placeOfBirth: credential.credentialSubject.placeOfBirth as string,
+                sex: credential.credentialSubject.gender as string,
+                personalNumber: credential.credentialSubject.personalNumber as string,
+              },
+            did: utils.getUserDid(this.props.location.state.id_token),
+          });
+        }
+        // this.setState({
+        //   access_token: this.props.location.state.access_token,
+        //   refresh_token: this.props.location.state.refresh_token,
+        //   id_token: this.props.location.state.id_token,
+        //   did: utils.getUserDid(this.props.location.state.id_token),
+        //   verifiableKYC: this.props.location.state.verifiableKYC,
+        // });
+      }
+      if(this.props.location.state.did){
+        this.setState({
+          did: this.props.location.state.did,
+          type: this.props.location.state.type,
+          data: this.props.location.state.data,
+        });
+        console.log(this.state.type);
+        console.log(this.state.data);
+
+      }
   }
 
   async initiateSocket() {
@@ -150,22 +158,27 @@ class Profile extends Component<Props, State> {
    * The request of a Verifiable presentation is handled in the backend so as to process the whole flow there and receive a response from the API in a callback
    */
   async claimVP() {
+    const {did} = this.state;
     this.setState({
       discountRequested: true,
     });
-    universityBackend.claimVP(utils.getUserDid(this.state.id_token), "LargeFamilyCard");
+    let redirectUri = "";
+    if(utils.isMobileOrTablet()){
+      const sessionId = utils.randomString(8);
+      redirectUri = config.APP_URL + "/presentation?sessionId="+sessionId+"&did="+did+"&type=LargeFamilyCard";
+      const body = {
+        did,
+        sessionId,
+      }
+      await universityBackend.createSession(body);
+    }
+    universityBackend.claimVP(did, "LargeFamilyCard", redirectUri);
   }
 
   render() {
     const {
       did,
-      firstName,
-      lastName,
-      dateOfBirth,
-      placeOfBirth,
-      documentNumber,
-      documentType,
-      nationality,
+      verifiableKYC,
       studentCard,
       largeFamily,
       discountRequested,
@@ -276,23 +289,23 @@ class Profile extends Component<Props, State> {
                       <div className="form-row">
                         <h4>Name:</h4>
                         <p>
-                          {firstName}&nbsp;{lastName}
+                          {verifiableKYC.name}&nbsp;{verifiableKYC.surname}
                         </p>
                       </div>
                       <div className="form-row">
                         <h4>Birth:</h4>
                         <p>
-                          {dateOfBirth}&nbsp;-&nbsp;{placeOfBirth}
+                          {verifiableKYC.dateOfBirth}&nbsp;-&nbsp;{verifiableKYC.placeOfBirth}
                         </p>
                       </div>
                       <div className="form-row">
                         <h4>Nationality:</h4>
-                        <p>{nationality}</p>
+                        <p>{verifiableKYC.nationality}</p>
                       </div>
                       <div className="form-row">
                         <h4>Document:</h4>
                         <p>
-                          {documentType}:&nbsp;{documentNumber}
+                          {verifiableKYC.documentType}:&nbsp;{verifiableKYC.documentNumber}
                         </p>
                       </div>
                       {!studentCard && (

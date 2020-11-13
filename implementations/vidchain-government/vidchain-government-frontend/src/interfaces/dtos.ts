@@ -15,6 +15,7 @@ export interface Presentation {
   target: string;
   name?: string;
   type: string[][];
+  redirectUri?: string;
 }
 
 export interface CredentialData {
@@ -39,3 +40,5 @@ export interface verifiableKYC {
   sex: string;
   personalNumber: string;
 }
+
+

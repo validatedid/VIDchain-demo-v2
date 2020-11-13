@@ -3,13 +3,14 @@ import "./Callback.css";
 import Footer from "../../components/Footer/Footer";
 import { OpenIDClient } from "../../libs/openid-connect/client";
 import { Redirect } from "react-router-dom";
-import { verifiableKYC } from "../../interfaces/dtos";
+import { verifiableKYC } from "../../interfaces/dtos"; 
 import * as utils from "../../utils/utils";
 import * as universityBackend from "../../apis/universityBackend";
 import io from "socket.io-client";
 import HeaderLogin from "../../components/HeaderLogin/HeaderLogin";
 import { Ring } from "react-spinners-css";
 import * as config from "../../config";
+import { strB64dec } from "../../utils/utils";
 
 interface Props {
   history: any;
@@ -23,7 +24,6 @@ interface State {
   id_token: string;
   expires: number;
   verifiableKYC: verifiableKYC;
-  requested: boolean;
   socketSession: string;
 }
 
@@ -36,37 +36,43 @@ class Callback extends Component<Props, State> {
       id_token: "",
       expires: 0,
       verifiableKYC: {} as verifiableKYC,
-      requested: false,
       socketSession: "",
     };
   }
 
   async componentDidMount() {
     const code = new URLSearchParams(this.props.location.search).get("code");
-    if(!code){
-      throw new Error("error");
-    }
-    const token = await this.getAuthToken(code);
+    if(code){
+      
+      const token = await this.getAuthToken(code);
 
-    if (token !== null) {
-      this.setState({
-        access_token: token.access_token,
-        refresh_token: token.refresh_token,
-        id_token: token.id_token,
-        expires: token.expires,
-      });
+      if (token !== null) {
+        this.setState({
+          access_token: token.access_token,
+          refresh_token: token.refresh_token,
+          id_token: token.id_token,
+          expires: token.expires,
+        });
+
+        this.parseResponse();
+      }
+
+        this.initiateSocket();
+        /**
+         *  VIDCHAIN API REQUEST: Claim Verifiable Presentation (forwarded to backend)
+         * The request of a Verifiable presentation must be handled in the backend so as to receive a response from the API in a callback
+         */
+        //universityBackend.claimVP(utils.getUserDid(this.state.id_token), "Login", "");
+        
     }
-    if (!this.state.requested) {
-      this.setState({
-        requested: true,
-      });
-      this.initiateSocket();
-      /**
-       *  VIDCHAIN API REQUEST: Claim Verifiable Presentation (forwarded to backend)
-       * The request of a Verifiable presentation must be handled in the backend so as to receive a response from the API in a callback
-       */
-      universityBackend.claimVP(utils.getUserDid(this.state.id_token), "Login");
-    }
+  }
+
+  parseResponse(){
+    /**
+     *  This information is not used here, just want to login
+     */
+    this.goToProfile();
+
   }
 
   async getAuthToken(code: string){
@@ -98,17 +104,15 @@ class Callback extends Component<Props, State> {
       const socketClient = {
         did: utils.getUserDid(this.state.id_token),
         clientId: this.state.socketSession,
+        lastSessionId: ""
       };
       socket.emit("whoami", socketClient);
     });
 
     socket.on("presentation", (msg: any) => {
-      let presentation = msg.data.encrypted;
+      let presentation = strB64dec(msg.data.decrypted);
 
       let details = utils.decodeJWT(presentation.verifiableCredential[0]);
-      /**
-       *  This information is now only used to retrieve the user info whereas in a real scenario, the backend would take some of these attributes to map the information registered in the system's database (check) and authenticate the user
-       */
       this.setState({
         verifiableKYC: {
           id: details.vc.credentialSubject.id,
@@ -127,19 +131,21 @@ class Callback extends Component<Props, State> {
           personalNumber: details.vc.credentialSubject.personalNumber,
         },
       });
+      /**
+       *  This information is not used here, just want to login
+       */
       this.goToProfile();
     });
   }
 
   goToProfile() {
-    const { access_token, refresh_token, id_token, verifiableKYC } = this.state;
+    const { access_token, refresh_token, id_token } = this.state;
     this.props.history.push({
       pathname: "/profile",
       state: {
         access_token: access_token,
         refresh_token: refresh_token,
         id_token: id_token,
-        verifiableKYC: verifiableKYC,
       },
     });
   }
