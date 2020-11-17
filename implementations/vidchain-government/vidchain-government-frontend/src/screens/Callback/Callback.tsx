@@ -58,42 +58,19 @@ class Callback extends Component<Props, State> {
         id_token: token.id_token,
         expires: token.expires,
       });
-      this.parseResponse();
+      this.goToProfile();
     }
 
     if (localStorage.getItem("userPass")) {
       localStorage.clear();
-      this.setState({
-        verifiableKYC: {
-          id: utils.getUserDid(this.state.id_token),
-          documentNumber:
-            sessionStorage.getItem("documentNumber") || "Not provided",
-          documentType:
-            sessionStorage.getItem("documentType") || "Not provided",
-          name: sessionStorage.getItem("firstName") || "Not provided",
-          surname: sessionStorage.getItem("lastName") || "Not provided",
-          fullName: sessionStorage.getItem("fullName") || "Not provided",
-          nationality: sessionStorage.getItem("nationality") || "Not provided",
-          stateIssuer: sessionStorage.getItem("stateIssuer") || "Not provided",
-          issuingAuthority:
-            sessionStorage.getItem("issuingAuthority") || "Not provided",
-          dateOfExpiry:
-            sessionStorage.getItem("dateOfExpiry") || "Not provided",
-          dateOfBirth: sessionStorage.getItem("dateOfBirth") || "Not provided",
-          placeOfBirth:
-            sessionStorage.getItem("placeOfBirth") || "Not provided",
-          sex: sessionStorage.getItem("gender") || "Not provided",
-          personalNumber:
-            sessionStorage.getItem("personalNumber") || "Not provided",
-        },
-      });
+      const verifiableKYC = utils.generateFakeCredential();
       let credentialSubject: ICredentialData = {
-        id: this.state.verifiableKYC.id,
-        firstName: this.state.verifiableKYC.name,
-        lastName: this.state.verifiableKYC.surname,
-        dateOfBirth: this.state.verifiableKYC.dateOfBirth,
-        placeOfBirth: this.state.verifiableKYC.placeOfBirth,
-        gender: this.state.verifiableKYC.sex,
+        id: verifiableKYC.id,
+        firstName: verifiableKYC.name,
+        lastName: verifiableKYC.surname,
+        dateOfBirth: verifiableKYC.dateOfBirth,
+        placeOfBirth: verifiableKYC.placeOfBirth,
+        gender: verifiableKYC.sex,
         currentAddress: "Arago 179",
         city: "Barcelona",
         state: "Barcelona",
@@ -195,7 +172,7 @@ class Callback extends Component<Props, State> {
   }
 
   goToProfile() {
-    const { access_token, refresh_token, id_token, verifiableKYC } = this.state;
+    const { access_token, refresh_token, id_token } = this.state;
     this.props.history.push({
       pathname: "/profile",
       state: {

@@ -2,10 +2,7 @@ import axios from "axios";
 import * as config from "../config";
 import { Presentation } from "../interfaces/dtos";
 
-/**
-* GOVERNMENT BACKEND REQUESTS 
-The request of a Verifiable presentation must be handled in the backend so as to receive a response from the API in a callback
-*/
+
 
 async function claimVP(target: string, name: string) {
   const presentation: Presentation = {

@@ -3,12 +3,7 @@ import * as config from "../config";
 import { ICredentialData, CredentialData } from "../interfaces/dtos";
 import { strB64enc } from "../utils/utils";
 
-/**
- * VIDCHAIN API REQUESTS
- * This requests can be performed even from the frontend because do not require any callback.
- */
 
-// Simple axios post request
 async function request(token: string, user: any, endpoint: string) {
   let authorization = {
     headers: {
