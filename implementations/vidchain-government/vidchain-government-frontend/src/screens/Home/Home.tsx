@@ -41,7 +41,7 @@ class Home extends Component<Props, State> {
       this.props.history.push({
         pathname: "/profile",
         state: {
-          fakeLogin: false
+          fakeLogin: true
         }
       });
     }
