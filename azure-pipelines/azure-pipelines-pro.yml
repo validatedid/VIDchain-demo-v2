@@ -28,7 +28,6 @@ variables:
   gaviusBackendRepo: 'ajuntament-gava-backend'
   gaviusBackendRepoEndpoint: 'k8scrvidchainpro.azurecr.io/ajuntament-gava-backend'
   
-
   # Dockerfiles
   governmentBackendDocker: 'implementations/vidchain-government/vidchain-government-backend/Dockerfile'
   governmentFrontendDocker: 'implementations/vidchain-government/vidchain-government-frontend/Dockerfile'
@@ -37,7 +36,6 @@ variables:
   landingDocker: 'implementations/landing-page/Dockerfile'
   gaviusFrontendDocker: 'implementations/ajuntament-gava/ajuntament-gava-frontend/Dockerfile'
   gaviusBackendDocker: 'implementations/ajuntament-gava/ajuntament-gava-backend/Dockerfile'
-
 
   # Kubernetes YAML
   governmentBackendKubernetes: 'implementations/vidchain-government/vidchain-government-backend/k8s/k8s-pro.yml'
@@ -205,11 +203,11 @@ stages:
     steps:
     - bash: |
         cp ./implementations/vidchain-government/vidchain-government-frontend/envs/.env.production ./implementations/vidchain-government/vidchain-government-frontend/.env
-        echo "REACT_APP_API_KEY: $(API_KEY_GOVERNMENT)" >> ./implementations/vidchain-government/vidchain-government-frontend/.env
+        echo -e "\nREACT_APP_API_KEY=$API_KEY" >> ./implementations/vidchain-government/vidchain-government-frontend/.env
       name: load_env_variables_file
       displayName: 'load env vars'
       env:
-        REACT_APP_API_KEY: $(API_KEY_GOVERNMENT)
+        API_KEY: $(API_KEY_GOVERNMENT)
     - task: Docker@2
       displayName: Login ACR
       inputs:
@@ -352,11 +350,11 @@ stages:
     steps:
     - bash: |
         cp ./implementations/vidchain-university/vidchain-university-frontend/envs/.env.production ./implementations/vidchain-university/vidchain-university-frontend/.env
-        echo "REACT_APP_API_KEY: $(API_KEY_UNIVERSITY)" >> ./implementations/vidchain-university/vidchain-university-frontend/.env
+        echo -e "\nREACT_APP_API_KEY=$API_KEY" >> ./implementations/vidchain-university/vidchain-university-frontend/.env
       name: load_env_variables_file
       displayName: 'load env vars'
       env:
-        REACT_APP_API_KEY: $(API_KEY_UNIVERSITY)
+        API_KEY: $(API_KEY_UNIVERSITY)
     - task: Docker@2
       displayName: Login ACR
       inputs:
@@ -499,13 +497,13 @@ stages:
     steps:
     - bash: |
         cp ./implementations/ajuntament-gava/ajuntament-gava-frontend/envs/.env.production ./implementations/ajuntament-gava/ajuntament-gava-frontend/.env
-        echo "REACT_APP_API_KEY: $(API_KEY_GAVA)" >> ./implementations/ajuntament-gava/ajuntament-gava-frontend/.env
-        echo "REACT_APP_VIDCHAIN_CLIENT_SECRET:$CLIENT_KEY_GAVA" >> ./implementations/ajuntament-gava/ajuntament-gava-frontend/.env
+        echo -e "\nREACT_APP_API_KEY: $API_KEY" >> ./implementations/ajuntament-gava/ajuntament-gava-frontend/.env
+        echo -e "\nREACT_APP_VIDCHAIN_CLIENT_SECRET:$CLIENT_SECRET" >> ./implementations/ajuntament-gava/ajuntament-gava-frontend/.env
       name: load_env_variables_file
       displayName: 'load env vars'
       env:
-        REACT_APP_API_KEY: $(API_KEY_GAVA)
-        REACT_APP_VIDCHAIN_CLIENT_SECRET: $(CLIENT_KEY_GAVA)
+        API_KEY: $(API_KEY_GAVA)
+        CLIENT_SECRET: $(CLIENT_KEY_GAVA)
     - task: Docker@2
       displayName: Login ACR
       inputs:

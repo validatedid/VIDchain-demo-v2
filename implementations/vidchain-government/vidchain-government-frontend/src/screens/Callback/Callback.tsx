@@ -115,6 +115,14 @@ class Callback extends Component<Props, State> {
     }
   }
 
+  parseResponse(){
+    /**
+     *  This information is not used here, just want to login
+     */
+    this.goToProfile();
+
+  }
+
 
   async initiateSocket() {
     const socket = io(config.BACKEND_WS, {
