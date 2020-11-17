@@ -44,12 +44,22 @@ class Profile extends Component<Props, State> {
   componentDidMount() {
     const {id_token, fakeLogin} = this.props.location.state;
     if (fakeLogin) {
-      this.setState({
-        did: "Not yet provided",
-        verifiableKYC: utils.generateFakeCredential(),
-        fakeLogin: true,
-      });
+      if(id_token){
+        this.setState({
+          did: utils.getUserDid(id_token),
+          verifiableKYC: utils.generateFakeCredential(),
+          hasVerifiableId: true,
+        });
+      }
+      else{
+        this.setState({
+          did: "Not yet provided",
+          verifiableKYC: utils.generateFakeCredential(),
+          fakeLogin: true,
+        });
+      }
     }
+    else{
     if(id_token){
         const decodedIdToken = utils.decodeJWT(id_token);
         const jwt = decodedIdToken.jwt;
@@ -77,6 +87,7 @@ class Profile extends Component<Props, State> {
             hasVerifiableId: true,
           });
         }
+      }
     }
     if (this.state.did !== "") {
       this.setState({

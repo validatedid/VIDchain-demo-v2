@@ -33,7 +33,11 @@ class Home extends Component<Props, State> {
   async loginWithVIDChain() {
     var client = OpenIDClient.getInstance().getClient();
     await client.callback();
-    await client.getToken({});
+    await client.getToken({
+      scopes: {
+        request: ["openid", "VerifiableIdCredential"]
+      }, 
+    });
   }
 
   async login() {

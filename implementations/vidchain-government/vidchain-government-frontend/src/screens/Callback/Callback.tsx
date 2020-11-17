@@ -58,14 +58,13 @@ class Callback extends Component<Props, State> {
         id_token: token.id_token,
         expires: token.expires,
       });
-      this.goToProfile();
     }
 
-    if (localStorage.getItem("userPass")) {
+    if (localStorage.getItem("userPass") && token) {
       localStorage.clear();
       const verifiableKYC = utils.generateFakeCredential();
       let credentialSubject: ICredentialData = {
-        id: verifiableKYC.id,
+        id: utils.getUserDid(token.id_token),
         firstName: verifiableKYC.name,
         lastName: verifiableKYC.surname,
         dateOfBirth: verifiableKYC.dateOfBirth,
@@ -82,13 +81,14 @@ class Callback extends Component<Props, State> {
        */
       const authToken = await vidchain.getAuthzToken();
       await vidchain.generateVerifiableID(authToken, credentialSubject);
-      this.goToProfile();
+      this.goToProfileFake();
     } else {
       this.setState({
         showCallback: true,
       });
+        this.goToProfile();
     }
-      this.initiateSocket();
+    //   this.initiateSocket();
       /**
        *  VIDCHAIN API REQUEST: Claim Verifiable Presentation (forwarded to backend)
        * The request of a Verifiable presentation is handled in the backend so as to process the whole flow there and receive a response from the API in a callback
@@ -115,13 +115,6 @@ class Callback extends Component<Props, State> {
     }
   }
 
-  parseResponse(){
-    /**
-     *  This information is not used here, just want to login
-     */
-    this.goToProfile();
-
-  }
 
 
   async initiateSocket() {
@@ -182,6 +175,19 @@ class Callback extends Component<Props, State> {
       },
     });
   }
+  goToProfileFake() {
+    const { access_token, refresh_token, id_token } = this.state;
+    this.props.history.push({
+      pathname: "/profile",
+      state: {
+        access_token: access_token,
+        refresh_token: refresh_token,
+        id_token: id_token,
+        fakeLogin: true
+      },
+    });
+  }
+
 
   render() {
     const { access_token, error, showCallback } = this.state;
