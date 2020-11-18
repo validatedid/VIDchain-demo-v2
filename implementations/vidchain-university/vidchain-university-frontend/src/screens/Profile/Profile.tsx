@@ -112,10 +112,14 @@ class Profile extends Component<Props, State> {
         socketSession: socket.id,
       });
       const socketClient = {
-        did: utils.getUserDid(this.state.id_token),
+        did: this.state.did,
         clientId: this.state.socketSession,
       };
-      socket.emit("whoami", socketClient);
+      if(socketClient.clientId && socketClient.did && socketClient.clientId !== "" && socketClient.did !== ""){
+        console.log(`FRONT: socketClient.did: ${JSON.stringify(socketClient.did)}`);
+        console.log(`FRONT: socketClient.clientId: ${JSON.stringify(socketClient.clientId)}`);
+        socket.emit("whoami", socketClient);
+      }
     });
 
     socket.on("largeFamilyPresentation", (msg: any) => {

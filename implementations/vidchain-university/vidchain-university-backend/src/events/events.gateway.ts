@@ -46,14 +46,13 @@ export class EventsGateway
         lastSessionId: msg.sessionId
       }
     };
-    await axios
+    if (body.value.clientId) await axios
       .post(config.BASE_URL + "/users", body);
     //Check if value already exists, in the sessions DB. Meaning the VP has already been done
     const path = `${config.BASE_URL}/users/sessions`;
     const response = await axios.get(path.concat(msg.sessionId));
     this.logger.log(`From session got: ${JSON.stringify(response.data)}`);
     if(response.data){
-      this.logger.log('innnn')
       this.handlePresentationEvent(response.data);
     }
   }
@@ -66,7 +65,7 @@ export class EventsGateway
     this.logger.log(`Credential presentation:    ${credential}`);
     const jwt = extractVCfromPresentation(credential);
     const id = JSON.stringify(jwt.vc.credentialSubject.id);
-    const did = id.substring(1, id.length - 1);
+    const did = `university-user:${id.substring(1, id.length - 1)}`;
     const path = `${config.BASE_URL}/users/`;
     console.log("Reach Redis at endpoint: " + path.concat(did));
     const response = await axios.get(path.concat(did));
