@@ -65,7 +65,7 @@ export class EventsGateway
     this.logger.log(`Credential presentation:    ${credential}`);
     const jwt = extractVCfromPresentation(credential);
     const id = JSON.stringify(jwt.vc.credentialSubject.id);
-    const did = `university-user:${id.substring(1, id.length - 1)}`;
+    const did = `${id.substring(1, id.length - 1)}`;
     const path = `${config.BASE_URL}/users/`;
     console.log("Reach Redis at endpoint: " + path.concat(did));
     const response = await axios.get(path.concat(did));
