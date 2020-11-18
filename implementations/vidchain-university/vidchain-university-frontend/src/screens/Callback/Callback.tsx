@@ -106,7 +106,7 @@ class Callback extends Component<Props, State> {
         clientId: this.state.socketSession,
         lastSessionId: ""
       };
-      socket.emit("whoami", socketClient);
+      if(socketClient.clientId && socketClient.did && socketClient.clientId !== "" && socketClient.did !== "") socket.emit("whoami", socketClient);
     });
 
     socket.on("presentation", (msg: any) => {

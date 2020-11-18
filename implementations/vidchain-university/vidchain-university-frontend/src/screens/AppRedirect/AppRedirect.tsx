@@ -68,7 +68,7 @@ class AppRedirect extends Component<Props, State> {
         clientId: this.state.socketSession,
         lastSessionId: this.state.sessionId,
       };
-      socket.emit("whoami", socketClient);
+      if(socketClient.clientId && socketClient.did && socketClient.lastSessionId && socketClient.clientId !== "" && socketClient.did !== "" && socketClient.lastSessionId !== "") socket.emit("whoami", socketClient);
     });
 
     socket.on("largeFamilyPresentation", (msg: any) => {
