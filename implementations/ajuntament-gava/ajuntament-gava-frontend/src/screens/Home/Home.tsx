@@ -35,6 +35,12 @@ class Home extends Component<Props, State> {
     await client.getToken();
   }
 
+  request(){
+    this.props.history.push({
+      pathname: "/request"
+    });
+  }
+
 
   render() {
     return (
@@ -83,7 +89,7 @@ class Home extends Component<Props, State> {
                       <div id="menufoto2Sede"><img src={require("../../assets/images/0_25_1.jpg")} alt="" /></div>
                   </div>
                   <ul className="estiloFlecha">
-                      <a title="" href="../../sta/CarpetaPublic/doEvent?APP_CODE=STA&amp;PAGE_CODE=PTS_INITRAMITACION">Presentació de noves sol·licituds</a><br/>
+                      <a title="" href='javascript:void(0)' onClick={() => this.request()}>Presentació de noves sol·licituds</a><br/>
                       <a title="" href="../../sta/CarpetaPublic/doEvent?APP_CODE=STA&amp;PAGE_CODE=PTS_REUDOCS">Presentació de documents habitualment sol·licitats</a><br/>
                       <a title="" href="../../sta/CarpetaPublic/doEvent?APP_CODE=STA&amp;PAGE_CODE=PTS_EXPEDOCUMENTS">Certificacions i justificants</a><br/>
                       <a title="" href="../../sta/CarpetaPublic/doEvent?APP_CODE=STA&amp;PAGE_CODE=PTS_EXPEDIENTES">Consulta i seguiment dels seus expedients</a><br/>

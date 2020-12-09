@@ -17,7 +17,7 @@ export class PresentationsService {
    * Request Verifiable presentation
    * An authorization token is requested and it is used to request a Verifiable Presentation
    */
-  async handleRequest(body: MsgPresentationReady): Promise<any> {s
+  async handleRequest(body: MsgPresentationReady): Promise<any> {
     const token = await vidchain.getAuthzToken();
     const response = await vidchain.requestVP(
       token,
