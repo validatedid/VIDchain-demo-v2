@@ -44,7 +44,7 @@ class Request extends Component<Props, State> {
     await client.callback();
     await client.getToken({
       scopes: {
-        request: ["openid", "VerifiableIdCredential", "BankAttestation"]
+        request: ["openid", "BankAttestation"]
       },
     });
   }
