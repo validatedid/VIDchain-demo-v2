@@ -103,8 +103,8 @@ class VidchainIdentity extends Component<Props, State> {
       const response = await governmentBackend.getToken(
         {
             code: code,
-            client_id: config.CLIENT_ID,
-            redirect_uri: config.REDIRECT_CALLBACK,
+            client_id: config.VIDCHAIN_CLIENT_ID,
+            redirect_uri: config.VIDCHAIN_REDIRECT_CALLBACK,
             grant_type: "authorization_code",
           }
       );

@@ -10,14 +10,14 @@ interface Props {
 }
 
 interface State {
-  name: string;
+  credentialSubjectCredential: any;
 }
 
 class Form extends Component<Props, State> {
   constructor(props: any) {
     super(props);
     this.state = {
-      name: "",
+		credentialSubjectCredential: {},
     };
   }
 
@@ -29,7 +29,10 @@ class Form extends Component<Props, State> {
         if(jwt){
             const presentation: PresentationPayload = utils.decodeJWT(jwt);
             console.log(presentation.vp);
-            const credential: VerifiableCredential = presentation.vp.verifiableCredential[0] as VerifiableCredential;
+			const credential: any = presentation.vp.verifiableCredential[0];
+			this.setState({
+				credentialSubjectCredential: credential.credentialSubject
+			});
         }
       }
 
@@ -41,6 +44,7 @@ class Form extends Component<Props, State> {
 
 
   render() {
+	  const {credentialSubjectCredential} = this.state;
     return (
       <div>
         <div id="cabecera">
@@ -116,53 +120,49 @@ class Form extends Component<Props, State> {
 			</tr>
 		</table>
 		</p>
-		
-		
-		<div id="DocuNumFisica" className="display:none">
-		<input type="hidden" id="Acronym" name="Acronym" value="ES"/>
-		<table >
-				<tr>
-				<td width="15%">
-					<label>Documento:</label>
-						<div className="display: none"></div>
-					</td>						
-					<td valign="top"><span className="campoHoriz"> 
-					<select className="inputReadOnly" name="IFTipoDoc" id="IFTipoDoc">
-						<option value="NIF">NIF/NIE</option>
-						<option value="PS">Pasaporte</option>
-					</select>
-					<input type="text"
-						className="inputReadOnly" id="IFDocuNum"
-						name="docuNum"
-						value="073213155" /> <input
-						type="text" className="inputReadOnly" 
-						id="IFDigito" name="ctrlDigit"
-						value="S" /> 
-						</span>
-					</td>
-					
-				</tr>
-			</table>
-		</div>
+
 		<div id="DocuNumJuridica" className="display:none">
 		<input type="hidden" id="IJAcronym" name="IJAcronym" value="ES"/>
 		<table >
 				<tr>
 				<td width="15%">
-					<label>Documento:</label>
+					<label>DID:</label>
 					<div className="display: none"></div>
 				</td>					
 				<td valign="top"><span className="campoHoriz">
-				<select  className="inputReadOnly" name="IJTipoDoc" id="IJTipoDoc">
-						<option value="CIF">CIF</option>						
-					</select>
-				 <input  className="width: 5.625em" type="text" id="IJCIF" name="CIF" value="073213155" />
-					<input className="inputReadOnly" type="text" id="IJCIFCtrlDigit" name="IJCIFCtrlDigit"
-						value="S" /></span>
+				 <input  className="inputDID" type="text" id="IJCIF" name="CIF" value={credentialSubjectCredential.id} />
+				 </span>
 				</td>				
 				</tr>
 			</table>
 		</div>
+
+		<div id="InteresadaFisica">
+			<p>
+			<table className="width: 100%;">
+				<tr>
+					<td className="width: 15%;"><label >Birthdate:</label></td>
+					<td><span className="campoHoriz">
+					<table cellPadding="0" cellSpacing="0">
+						<tr>
+							<td><input  className="inputReadOnly" type="text" id="IFNombre" name="nombre"
+								value={credentialSubjectCredential.birthdate} /> <label>Birthdate</label></td>
+						</tr>
+						<tr>
+							<td>
+							<div id="IFNombreCombo"></div>
+							</td>
+						</tr>
+					</table>
+					</span>
+					</td>
+					</tr>
+					</table>
+			</p>
+		</div>
+		
+		
+		
 		
 		<div id="InteresadaFisica">
 			<p>
@@ -173,7 +173,7 @@ class Form extends Component<Props, State> {
 					<table cellPadding="0" cellSpacing="0">
 						<tr>
 							<td><input  className="inputReadOnly" type="text" id="IFNombre" name="nombre"
-								value="ALEJANDRO" /> <label>Nombre</label></td>
+								value={credentialSubjectCredential.given_name} /> <label>Nombre</label></td>
 						</tr>
 						<tr>
 							<td>
@@ -185,7 +185,7 @@ class Form extends Component<Props, State> {
 					<table cellPadding="0" cellSpacing="0">
 						<tr>
 							<td><input className="inputReadOnly" type="text" id="IFApellido1"  name="apellido1"
-								value="BEAN" /> <label>Primer Apellido</label></td>
+								value={credentialSubjectCredential.family_name} /> <label>Primer Apellido</label></td>
 						</tr>
 						<tr>
 							<td>
