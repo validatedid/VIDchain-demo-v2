@@ -12,16 +12,11 @@ interface Props {
 }
 
 interface State {
-  name: string;
+
 }
 
 class Request extends Component<Props, State> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      name: "",
-    };
-  }
+  
 
   componentDidMount() {
     var clientValid = OpenIDClient.getInstance().getClient();
@@ -49,8 +44,7 @@ class Request extends Component<Props, State> {
     await client.callback();
     await client.getToken({
       scopes: {
-        request: ["openid", "offline"],
-        require: ["openid", "offline"],
+        request: ["openid", "VerifiableIdCredential", "BankAttestation"]
       },
     });
   }

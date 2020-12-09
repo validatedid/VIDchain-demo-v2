@@ -130,7 +130,7 @@ class VidchainIdentity extends Component<Props, State> {
   goToRequest() {
     const { access_token, refresh_token, id_token } = this.state;
     this.props.history.push({
-      pathname: "/request",
+      pathname: "/form",
       state: {
         access_token: access_token,
         refresh_token: refresh_token,

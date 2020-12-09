@@ -1,9 +1,12 @@
 import React, { Component } from "react";
 import "./Form.css";
+import * as utils from '../../utils/utils';
+import { PresentationPayload, VerifiableCredential } from "../../interfaces/IPresentation";
 
 
 interface Props {
   history?: any;
+  location: any;
 }
 
 interface State {
@@ -19,6 +22,16 @@ class Form extends Component<Props, State> {
   }
 
   componentDidMount() {
+    const {id_token} = this.props.location.state;
+    if(id_token){
+        const decodedIdToken = utils.decodeJWT(id_token);
+        const jwt = decodedIdToken.jwt;
+        if(jwt){
+            const presentation: PresentationPayload = utils.decodeJWT(jwt);
+            console.log(presentation.vp);
+            const credential: VerifiableCredential = presentation.vp.verifiableCredential[0] as VerifiableCredential;
+        }
+      }
 
   }
 
