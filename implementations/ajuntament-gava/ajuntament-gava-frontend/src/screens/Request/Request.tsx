@@ -33,7 +33,9 @@ class Request extends Component<Props, State> {
   }
 
   submit(){
-      console.log("submit");
+      this.props.history.push({
+        pathname: "/form"
+      });
   }
 
   async loginWithValid() {

@@ -6,6 +6,7 @@ import Profile from "./screens/Profile/Profile";
 import Request from "./screens/Request/Request";
 import Callback from "./screens/Callback/Callback";
 import VidchainIdentity from "./screens/VidchainIdentity/VidchainIdentity";
+import Form from "./screens/Form/Form";
 const dotenv = require("dotenv");
 // importing .env variables
 
@@ -24,6 +25,7 @@ function App() {
           <Route exact path="/request" component={Request} />
           <Route path="/callback" component={Callback} />
           <Route path="/login" component={VidchainIdentity} />
+          <Route path="/form" component={Form} />
         </Switch>
       </BrowserRouter>
     </div>
