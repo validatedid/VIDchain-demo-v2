@@ -58,7 +58,7 @@ class Request extends Component<Props, State> {
         <div className="content-area ovt_panel widget-area standard detalle actionsClassName">
 		
 		<h3 className="has-actions actionsClassName">
-			<div className="detail-title">Alta al Padró d'Habitants</div>
+			<div className="detail-title">Subvenció Impost de Construccions i Obres ( ICIO)</div>
 		</h3>
 			<div className="ovt_frame">
 				<div className="ovt_contenido">
@@ -71,15 +71,7 @@ class Request extends Component<Props, State> {
 			Finalitat:
 				</td>
 			<td className="valorAtributo altoPAuto">
-				<p>Inscripció al padró municipal d'habitants dels residents al municipi de Gavà</p>
-		</td>
-		</tr>
-	<tr className="field custom-row ">
-		<td className="etiquetaAtributo">
-			Qui ho pot Presentar:
-				</td>
-			<td className="valorAtributo altoPAuto">
-				<ul><li>Persona interessada</li><li>Representant de l'interessat</li><li>Persona que representa al menor d'edat</li></ul>
+				<p>Subvenció Impost de Construccions, instal·lacions i obres (ICIO)</p>
 		</td>
 		</tr>
 	<tr className="field custom-row ">
@@ -90,28 +82,20 @@ class Request extends Component<Props, State> {
 				<p>Es pot fer tot l'any</p>
 		</td>
 		</tr>
+		<tr className="field custom-row">
+		<td className="etiquetaAtributo">
+			Òrgan Gestor:
+				</td>
+			<td className="valorAtributo altoPAuto">
+				<p>Departament de Gestió Tributaria</p>
+		</td>
+		</tr>
 	<tr className="field custom-row ">
 		<td className="etiquetaAtributo">
 			Presentació:
 				</td>
 			<td className="valorAtributo altoPAuto">
-				OAC Ajuntament
-		</td>
-		</tr>
-	<tr className="field custom-row ">
-		<td className="etiquetaAtributo">
-			Òrgan Gestor:
-				</td>
-			<td className="valorAtributo altoPAuto">
-				Oficina d'Atenció Ciutadana (OAC)
-		</td>
-		</tr>
-	<tr className="field custom-row ">
-		<td className="etiquetaAtributo">
-			Termini de resolució:
-				</td>
-			<td className="valorAtributo altoPAuto">
-				<p>L'establert per la llei de procediment administratiu</p>
+			<p>OAC Ajuntament</p>
 		</td>
 		</tr>
 	<tr className="field custom-row ">
@@ -119,23 +103,7 @@ class Request extends Component<Props, State> {
 			Efecte del silenci Administratiu:
 				</td>
 			<td className="valorAtributo altoPAuto">
-				Estimatori
-		</td>
-		</tr>
-	<tr className="field custom-row ">
-		<td className="etiquetaAtributo">
-			Recursos:
-				</td>
-			<td className="valorAtributo altoPAuto">
-				<p>Alçada i reposició</p>
-		</td>
-		</tr>
-	<tr className="field custom-row ">
-		<td className="etiquetaAtributo">
-			Normativa bàsica:
-				</td>
-			<td className="valorAtributo altoPAuto">
-				<ul><li>Llei 4/1996, de 10 de gener, per la qual es modifica la Llei 7/1985, de 2 abril, reguladora de Bases del Règim Local,en els seus articles relacionats amb el Padró d'habitants.</li><li>Real Decret 1690/1986, d'11 de juliol, pel que s'aprova el Reglament de Població i Demarcació Territorial de les Entitats Locals.</li><li>Resolució de 16 de març de 2015, de la Subsecretaria, per la que es publica la Resolució de 30 de gener de 2015, de la Presidència de l'INE i de la Direcció General de Coordinació de Competències amb les CCAA i les entitats locals, en relació amb instruccions tècniques als Ajuntaments sobre gestió del padró municipal.</li><li>RD 240/2007 sobre entrada, lliure circulació i residència a España de ciutadans dels Estats membres de la UE i altres Estats part de l'acord sobre l'Espai Econòmic Europeu.</li></ul>
+			<p>Desestimatori</p>
 		</td>
 		</tr>
 	<tr className="field custom-row ">
@@ -143,7 +111,7 @@ class Request extends Component<Props, State> {
 			Pagament de taxes:
 				</td>
 			<td className="valorAtributo altoPAuto">
-				No aplica taxa
+				<p>No aplica taxa</p>
 		</td>
 		</tr>
 	<tr className="field custom-row ">
@@ -151,7 +119,14 @@ class Request extends Component<Props, State> {
 			Informació Addicional:
 				</td>
 			<td className="valorAtributo altoPAuto">
-				<p><strong>Documentació a adjuntar en cada cas:</strong></p><ul><li>Document acreditatiu de la identitat de tots els majors d'edat que s'empadronin</li><li>Document que acrediti la titularitat de l'habitatge (escriptura de propietat o contracte de lloguer, amb l'últim rebut pagat on han de constar les dades completes per poder identificar el lloguer)</li><li>En cas que s'empadroni en un domicili on ja resideixin altres persones, haurà d'adjuntar autorització del titular de l'habitatge o del contracte de lloguer, i document acreditatiu de la identitat del mateix</li><li><strong>Si s'empadronen menors:</strong></li><li>Llibre de família o partida de naixement, en cas que s'empadronin amb els dos progenitors</li><li>Resolució judicial de custòdia o autorització de laltre progenitor, en cas que el/s menors s'empadronin amb un dels progenitors</li><li>Resolució judicial en cas de tutel·la, acolliment, adopció</li><li><strong>Si s'actúa en representació:</strong></li></ul><ul><li>Autorització de representació signada pel representat</li><li>Còpia del document d'identitat del representat</li></ul><p>Haurá d'informar del nivell de formació de totes les persones que s'empadronen i de l'últim municipi on estan empadronats.</p><p>&nbsp;</p><p></p>
+				<p>Uns dels requisits és que la llicència d’obres hagi estat demanada per:</p><ul>
+					<li>- Efectuar obres de restitució, d’adaptació i de millora de guals i de voreres a la via pública.</li>
+					<li>- Reparacions derivades del fenómen d’aluminosi, patologies estructurals o incendi.</li>
+					<li>- Les millores d’aïllament tèrmic exigible, en les cobertes o façanes d’edificis preexistents.</li>
+					<li>- Instal·lacions destinades a l’aprofitament de les aigües de pluja i la seva reutilització per a la neteja, el rec, etc. (canalització, dipòsits, basses, etc).</li>
+					<br/>
+					<p>Altres requisits es haver pagar la taxa i l'Impost i que la sol·licitud de la subvenció s'haura de realitzar de manera simultànea a la sol·licitud de la llicència d'obres i juntament amb el justificant del número de compte bancari</p>
+					</ul>
 		</td>
 		</tr>
 	<tr className="field custom-row ">
@@ -159,9 +134,7 @@ class Request extends Component<Props, State> {
 			Documentació relacionada:
 				</td>
 			<td className="valorAtributo altoPAuto columns">
-<a target="_blank" href="/sta/docs/GetDocumentServlet?CUD=12656030747455626053&amp;HASH_CUD=bd67c1813b0463de3c74d25953b581a7dec5bca4&amp;APP_CODE=STA" className="link-icon pdfLink">AutoritzacioMenorsDomiciliDiferentProgenitorsPadroHabitants</a> 
-<a target="_blank" href="/sta/docs/GetDocumentServlet?CUD=12656030203244117763&amp;HASH_CUD=0dd74b1baa2c1a1b6dc7c0686805dada02f7af71&amp;APP_CODE=STA" className="link-icon pdfLink">AutoritzacioMenorsUnSolProgenitorPadroHabitants</a> 
-<a target="_blank" href="/sta/docs/GetDocumentServlet?CUD=13064405731717663214&amp;HASH_CUD=617aa39a5492883342d7801bb323af2c3a4a2de8&amp;APP_CODE=STA" className="link-icon pdfLink">Sol·licitudGenerica</a>
+		<a target="_blank" href="" className="link-icon pdfLink">VidBankingCredential</a> 
 		</td>
 		</tr>
 	<tr className="field custom-row ">
@@ -179,6 +152,10 @@ class Request extends Component<Props, State> {
 					<td className="ancho12">
 					<b>Alt:</b></td><td>Amb sistema Vàlid</td>
 				</tr>
+				<tr>
+					<td className="ancho12">
+					<b>Alt:</b></td><td>Amb sistema VIDwallet</td>
+				</tr>
 				</tbody></table>
 		</td>
 		</tr>
@@ -187,7 +164,8 @@ class Request extends Component<Props, State> {
 			Documents a Presentar:
 				</td>
 			<td className="valorAtributo ">
-	<table><tbody><tr><td><strong>Documentació requerida</strong></td></tr><tr> <td>- Autorització titular habitatge padró habitants</td></tr><tr> <td>- Autorització de representació</td></tr><tr> <td>- Autorització menors amb un sol progenitor padró d'habitants</td></tr><tr> <td>- Autorització menors amb domicili diferent dels progenitors padró habitants</td></tr><tr> <td>- Declaració responsable progenitor inscripció o canvi domicili menors al Padró Habitants</td></tr><tr> <td>- DNI</td></tr><tr> <td>- Número d'Identitat d'Estranger (NIE)</td></tr><tr> <td>- Passaport</td></tr><tr> <td>- Targeta d'Identitat d'Estranger (TIE)</td></tr><tr> <td>- Escriptura de propietat</td></tr><tr> <td>- Contracte de lloguer</td></tr><tr> <td>- Rebut de lloguer</td></tr><tr> <td>- Llibre de família</td></tr><tr> <td>- Conveni regulador custòdia menors</td></tr><tr> <td>- Resolució judicial custòdia menors</td></tr></tbody></table>
+	<table><tbody><tr><td><strong>Documentació requerida</strong></td></tr><tr> 
+			<td>- Bank details</td></tr></tbody></table>
 		</td>
 		</tr>
 	
