@@ -1,10 +1,5 @@
 import React, { Component } from "react";
 import "./Form.css";
-import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
-import Official from "../../components/Official/Official";
-import { OpenIDClient } from "../../libs/openid-connect/client";
-import { VidchainClient } from "../../libs/openid-connect/vidchainClient";
 
 
 interface Props {
@@ -35,7 +30,6 @@ class Form extends Component<Props, State> {
   render() {
     return (
       <div>
-        {/* <Official></Official> */}
         <div id="cabecera">
             <div className="titulo">
             
@@ -49,10 +43,10 @@ class Form extends Component<Props, State> {
         <div className="FormMain" >	
         <h1>Certificado de Área Básica de Salud (ABS)</h1>
 					
-					<ul className="pasos" >
-						<li id="primero" className="primero" ><a href="#">1. Rellenar formulario</a></li>
-						<li className="desactivado"><a href="#">2. Firmar</a></li>
-						<li className="ultimo desactivado" ><a  href="#">3. Descargar justificante</a></li>
+					<ul className="pasos textPrimero" >
+						<li id="primero" className="primero" >1. Rellenar formulario</li>
+						<li className="desactivado">2. Firmar</li>
+						<li className="ultimo desactivado" >3. Descargar justificante</li>
 					</ul>
 					<div className="clear"></div>
 					
@@ -62,12 +56,13 @@ class Form extends Component<Props, State> {
 					<div className="subtextoCabecera">			
 						<p>Certificado de Área Básica de Salud</p>	
 					</div>
+                    <br/><br/>
 <h2>Datos de la persona interesada</h2>
 
 <div id="selectorPersonaTramite">
 	<table className="formularioSol" width="100%">
 		<tr>
-			<td className="width:18.750em" ><label className="width: 25em">Para este trámite, usted actúa en calidad de:</label></td>
+			<td className="rowDatos"><label className="rowDatosText">Para este trámite, usted actúa en calidad de:</label></td>
 		
 			<td valign="middle">
 			<table className="formularioSol">
@@ -190,13 +185,6 @@ class Form extends Component<Props, State> {
 						<tr>
 							<td><input className="inputReadOnly" type="text" id="IFApellido2"  name="apellido2"
 								value="" /> <label>Segundo Apellido</label> <label></label></td>
-						</tr>
-						<tr>
-							<td>
-							<div id="IFApellido2Combo" className="display: none"><input
-								type="text" className="inputReadOnly"
-								 id="IFApellido2Text" name="IFApellido2Text" /></div>
-							</td>
 						</tr>
 					</table>
 					</span></td>
