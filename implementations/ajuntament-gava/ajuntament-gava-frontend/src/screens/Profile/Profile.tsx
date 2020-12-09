@@ -51,12 +51,12 @@ class Profile extends Component<Props, State> {
   }
 
   async loginWithVIDChain() {
+    localStorage.setItem("userPass", "login");
     var client = VidchainClient.getInstance().getClient();
     await client.callback();
     await client.getToken({
       scopes: {
         request: ["openid", "offline"],
-        require: ["openid", "offline"],
       },
     });
   }

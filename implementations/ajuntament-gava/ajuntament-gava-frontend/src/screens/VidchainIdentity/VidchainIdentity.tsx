@@ -48,64 +48,47 @@ class VidchainIdentity extends Component<Props, State> {
   }
 
   async componentDidMount() {
-    var client = VidchainClient.getInstance().getClient();
-    try {
-      await client.callback();
-    } catch (error) {
-      console.log(error);
-    }
-    let token = await client.checkToken({
-      scopes: {
-        request: ["openid", "offline"],
-        require: ["openid", "offline"],
-      },
-    });
-    if (token !== null) {
-      this.setState({
-        access_token: token.access_token,
-        refresh_token: token.refresh_token,
-        id_token: token.id_token,
-        expires: token.expires,
-      });
-   
-    const userInfo: UserInfo = JSON.parse(sessionStorage.getItem("userInfo") || "");
-    const did = utils.getUserDid(this.state.id_token);
-    userInfo.did = did;
-    console.log(JSON.stringify(userInfo));
-
-    let credentialSubject: ICredentialData = {
-        id: userInfo.did,
-        firstName: userInfo.name || "-",
-        lastName: userInfo.surnames || "-",
-        dateOfBirth: "-",
-        placeOfBirth:  "-",
-        gender:  "-",
-        currentAddress: "-",
-        city:  "-",
-        state: userInfo.countryCode || "-",
-        zip: "-",
+    const code = new URLSearchParams(this.props.location.search).get("code");
+    if(code){
+      const token = await this.getAuthToken(code);
+      if (token !== null) {
+        this.setState({
+          access_token: token.access_token,
+          refresh_token: token.refresh_token,
+          id_token: token.id_token,
+          expires: token.expires,
+        });
       }
-      /**
-       *  VIDCHAIN API REQUEST: Generate VerifiableID
-       * An authorization token is requested and it is used to request the generation of a verifiableID
-       */
-      const authToken = await vidchain.getAuthzToken();
-      await vidchain.generateVerifiableID(authToken, credentialSubject);
+      if (localStorage.getItem("userPass") && token) {
+          localStorage.clear();
+          const userInfo: UserInfo = JSON.parse(sessionStorage.getItem("userInfo") || "");
+          const did = utils.getUserDid(this.state.id_token);
+          userInfo.did = did;
+          console.log(JSON.stringify(userInfo));
 
-      // const credential: CredentialData = {
-      //   type: ["VerifiableCredential", "LargeFamilyCard"],
-      //   issuer: config.DID,
-      //   id: "https://example.com/credential/2390",
-      //   credentialSubject: {
-      //     id: this.state.userInfo.did,
-      //     name: "Large Family Card",
-      //   },
-      // };
-      // await vidchain.generateVerifiableCredential(
-      //   token,
-      //   credential
-      // );
-      this.goToProfile(userInfo);
+          let credentialSubject: ICredentialData = {
+              id: userInfo.did,
+              firstName: userInfo.name || "-",
+              lastName: userInfo.surnames || "-",
+              dateOfBirth: "-",
+              placeOfBirth:  "-",
+              gender:  "-",
+              currentAddress: "-",
+              city:  "-",
+              state: userInfo.countryCode || "-",
+              zip: "-",
+            }
+            /**
+             *  VIDCHAIN API REQUEST: Generate VerifiableID
+             * An authorization token is requested and it is used to request the generation of a verifiableID
+             */
+            const authToken = await vidchain.getAuthzToken();
+            await vidchain.generateVerifiableID(authToken, credentialSubject);
+            this.goToProfile(userInfo);
+      }
+      else {
+        this.goToRequest();
+      }
     }
     else{
         this.setState({
@@ -115,12 +98,43 @@ class VidchainIdentity extends Component<Props, State> {
    
   }
 
+  async getAuthToken(code: string){
+    try {
+      const response = await governmentBackend.getToken(
+        {
+            code: code,
+            client_id: config.CLIENT_ID,
+            redirect_uri: config.REDIRECT_CALLBACK,
+            grant_type: "authorization_code",
+          }
+      );
+      return response;
+    } catch (error) {
+      this.setState({
+        error: true
+      })
+    }
+  }
+
+
   goToProfile(userInfo: UserInfo) {
     const { access_token, refresh_token, id_token } = this.state;
     this.props.history.push({
       pathname: "/profile",
       state: {
         userData: userInfo,
+      },
+    });
+  }
+
+  goToRequest() {
+    const { access_token, refresh_token, id_token } = this.state;
+    this.props.history.push({
+      pathname: "/request",
+      state: {
+        access_token: access_token,
+        refresh_token: refresh_token,
+        id_token: id_token
       },
     });
   }

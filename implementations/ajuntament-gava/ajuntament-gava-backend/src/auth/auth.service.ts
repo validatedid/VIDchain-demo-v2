@@ -45,5 +45,32 @@ export class AuthService {
     console.log("to logout");
     await externals.get(config.IDENTITY_PROVIDER+"/o/oauth2/logout?token="+token);
   }
+
+  async getToken(url:string, body: any): Promise<any> {
+    const headers = {
+        "Content-Type": 'application/x-www-form-urlencoded',
+    }
+    try{
+      const bodyWithSecret = {
+        ...body,
+        client_secret: config.VIDCHAIN_CLIENT_SECRET
+      }
+      const response = await externals.postWithHeader(
+        bodyWithSecret,
+        url,
+        headers
+      );
+      if (!response || !response.data.access_token) {
+          throw new Error(
+            ` auth: Error retrieving the Access Token: ${response.status}`
+          );
+      }
+
+      return response.data;
+  }
+  catch(error){
+    throw new Error("error");
+  }
+  }
   
 }

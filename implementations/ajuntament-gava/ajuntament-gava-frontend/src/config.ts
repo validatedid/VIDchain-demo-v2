@@ -14,7 +14,6 @@ const BACKEND_URL =
   process.env.REACT_APP_BACKEND_URL || "undefined";
 const BACKEND_WS = process.env.REACT_APP_WS_URL || "undefined";
 const API_KEY = process.env.REACT_APP_API_KEY || "undefined";
-const VIDCHAIN_CLIENT_SECRET = process.env.REACT_APP_VIDCHAIN_CLIENT_SECRET || "undefined";
 
 
 //Legal Entity
@@ -48,7 +47,6 @@ export {
   BACKEND_WS,
   VIDCHAIN_IDENTITY_PROVIDER,
   VIDCHAIN_CLIENT_ID,
-  VIDCHAIN_CLIENT_SECRET,
   VIDCHAIN_REDIRECT_CALLBACK,
   DID
 };
