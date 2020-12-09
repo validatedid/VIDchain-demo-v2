@@ -141,12 +141,12 @@ class Form extends Component<Props, State> {
 			<p>
 			<table className="width: 100%;">
 				<tr>
-					<td className="width: 15%;"><label >Birthdate:</label></td>
+					<td className="width: 15%;"><label >Bank Account IBAN:</label></td>
 					<td><span className="campoHoriz">
 					<table cellPadding="0" cellSpacing="0">
 						<tr>
-							<td><input  className="inputReadOnly" type="text" id="IFNombre" name="nombre"
-								value={credentialSubjectCredential.birthdate} /> <label>Birthdate</label></td>
+							<td><input  className="inputDID" type="text" id="IFNombre" name="nombre"
+								value={credentialSubjectCredential.bank_account ? credentialSubjectCredential.bank_account.identifiers[1].identification :  '-'} /> <label>IBAN</label></td>
 						</tr>
 						<tr>
 							<td>
