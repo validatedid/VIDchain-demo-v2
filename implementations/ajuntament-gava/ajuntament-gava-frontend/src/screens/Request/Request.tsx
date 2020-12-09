@@ -4,6 +4,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import Official from "../../components/Official/Official";
 import { OpenIDClient } from "../../libs/openid-connect/client";
+import { VidchainClient } from "../../libs/openid-connect/vidchainClient";
 
 
 interface Props {
@@ -23,7 +24,9 @@ class Request extends Component<Props, State> {
   }
 
   componentDidMount() {
-    var client = OpenIDClient.getInstance().getClient();
+    var clientValid = OpenIDClient.getInstance().getClient();
+    var client = VidchainClient.getInstance().getClient();
+    clientValid.wipeTokens();
     client.wipeTokens();
     localStorage.clear();
     sessionStorage.clear();
@@ -39,6 +42,17 @@ class Request extends Component<Props, State> {
     await client.getToken();
   }
 
+  async loginWithVIDChain() {
+    var client = VidchainClient.getInstance().getClient();
+    await client.callback();
+    await client.getToken({
+      scopes: {
+        request: ["openid", "offline"],
+        require: ["openid", "offline"],
+      },
+    });
+  }
+
 
   render() {
     return (
@@ -46,49 +60,14 @@ class Request extends Component<Props, State> {
         <Official></Official>
         <Header></Header>
         <div className="content-area ovt_panel widget-area standard detalle">
-	
-	
-	
-	
-	
 		
 		<h3 className="has-actions">
 			<div className="detail-title">Alta al Padró d'Habitants</div>
-				
-			
-			
 		</h3>
-			
-		
-	
-	
-	
-		
-		
-				
 			<div className="ovt_frame">
 				<div className="ovt_contenido ">
-					
-											
-					
-					
-					
 					<div className="detalle">
-					
 						<div id="informacionTramite">
-	
-
-
-
-
-
-
-
-
-
-	
-	
-			
 		<table className="tableInfoDetalle large">
 		<caption>datos de la subsección</caption>
 			<tbody><tr className="field custom-row ">
@@ -184,123 +163,8 @@ class Request extends Component<Props, State> {
 			Documentació relacionada:
 				</td>
 			<td className="valorAtributo altoPAuto columns">
-				 
-
-
-
-
-
-
-
-
-
-
-
-
 <a target="_blank" href="/sta/docs/GetDocumentServlet?CUD=12656030747455626053&amp;HASH_CUD=bd67c1813b0463de3c74d25953b581a7dec5bca4&amp;APP_CODE=STA" className="link-icon pdfLink">AutoritzacioMenorsDomiciliDiferentProgenitorsPadroHabitants</a> 
-
-
-
-
-
-
-
-
-
-
-
-
 <a target="_blank" href="/sta/docs/GetDocumentServlet?CUD=12656030203244117763&amp;HASH_CUD=0dd74b1baa2c1a1b6dc7c0686805dada02f7af71&amp;APP_CODE=STA" className="link-icon pdfLink">AutoritzacioMenorsUnSolProgenitorPadroHabitants</a> 
-
-
-
-
-
-
-
-
-
-
-
-
-<a target="_blank" href="/sta/docs/GetDocumentServlet?CUD=13064405116166126100&amp;HASH_CUD=b4eb6dfa3b9b7693ca18369928afe5a6f426614b&amp;APP_CODE=STA" className="link-icon pdfLink">AutoritzacioTitularHabitatge</a> 
-
-
-
-
-
-
-
-
-
-
-
-
-<a target="_blank" href="/sta/docs/GetDocumentServlet?CUD=13064405572202773571&amp;HASH_CUD=4fff02c5e7e7129c1c17bb2979319906a99ae2b0&amp;APP_CODE=STA" className="link-icon pdfLink">AutoritzacioTramitsPadroHabitants</a> 
-
-
-
-
-
-
-
-
-
-
-
-
-<a target="_blank" href="/sta/docs/GetDocumentServlet?CUD=12656030672620776006&amp;HASH_CUD=3afc91144449e585087ef6f631f22ababef02374&amp;APP_CODE=STA" className="link-icon pdfLink">AutoritzacionMenoresDomicilioDiferenteProgenitoresPadronHabitantes</a> 
-
-
-
-
-
-
-
-
-
-
-
-
-<a target="_blank" href="/sta/docs/GetDocumentServlet?CUD=12656030273233610571&amp;HASH_CUD=577b54bcb0a8b3554c9548a1f86dda115597d65e&amp;APP_CODE=STA" className="link-icon pdfLink">AutoritzacionMenoresUnSoloProgenitorPadronHabitantes</a> 
-
-
-
-
-
-
-
-
-
-
-
-
-<a target="_blank" href="/sta/docs/GetDocumentServlet?CUD=13064405105464500075&amp;HASH_CUD=531a1f49337d0b7e386985a82d2a68c6fb0f2045&amp;APP_CODE=STA" className="link-icon pdfLink">DeclaracioResponsableProgenitorCanviDomiciliMenorsAportantResolucioJudicial</a> 
-
-
-
-
-
-
-
-
-
-
-
-
-<a target="_blank" href="/sta/docs/GetDocumentServlet?CUD=13064405512750066536&amp;HASH_CUD=d2483a6b3f8ca77af0641d34616c137635fd453a&amp;APP_CODE=STA" className="link-icon pdfLink">DeclaracioResponsableProgenitorCanvidomiciliMenorsSenseResolucioJudicial</a> 
-
-
-
-
-
-
-
-
-
-
-
-
 <a target="_blank" href="/sta/docs/GetDocumentServlet?CUD=13064405731717663214&amp;HASH_CUD=617aa39a5492883342d7801bb323af2c3a4a2de8&amp;APP_CODE=STA" className="link-icon pdfLink">Sol·licitudGenerica</a>
 		</td>
 		</tr>
@@ -320,9 +184,6 @@ class Request extends Component<Props, State> {
 					<b>Alt:</b></td><td>Amb sistema Vàlid</td>
 				</tr>
 				</tbody></table>
-						
-		 	
-		 
 		</td>
 		</tr>
 	<tr className="field custom-row ">
@@ -330,142 +191,49 @@ class Request extends Component<Props, State> {
 			Documents a Presentar:
 				</td>
 			<td className="valorAtributo ">
-				
-
-
-
- 
-
-
-
-
-
-
-	 
-	 
 	<table><tbody><tr><td><strong>Documentació requerida</strong></td></tr><tr> <td>- Autorització titular habitatge padró habitants</td></tr><tr> <td>- Autorització de representació</td></tr><tr> <td>- Autorització menors amb un sol progenitor padró d'habitants</td></tr><tr> <td>- Autorització menors amb domicili diferent dels progenitors padró habitants</td></tr><tr> <td>- Declaració responsable progenitor inscripció o canvi domicili menors al Padró Habitants</td></tr><tr> <td>- DNI</td></tr><tr> <td>- Número d'Identitat d'Estranger (NIE)</td></tr><tr> <td>- Passaport</td></tr><tr> <td>- Targeta d'Identitat d'Estranger (TIE)</td></tr><tr> <td>- Escriptura de propietat</td></tr><tr> <td>- Contracte de lloguer</td></tr><tr> <td>- Rebut de lloguer</td></tr><tr> <td>- Llibre de família</td></tr><tr> <td>- Conveni regulador custòdia menors</td></tr><tr> <td>- Resolució judicial custòdia menors</td></tr></tbody></table>
 		</td>
 		</tr>
 	
 		</tbody></table>
-	
-
-
-
-
 <ul className="catalogo-links">	
 		<li className="catalogo-link">
 					<div className="catalogo-type main-element">
 						<div className="dt-icon mouse"></div>
-						
-
- 
-
-
-
-
-
 Tramitació Registre Electrònic</div>
 					 
-
-
-
-
-
-
-
 	<div className="acceso-tramites tramitar">
-		
-
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-	
-
-	
-	
 		<div className="texto-descriptivo ">Seleccione como desea identificarse:</div>
-	
-
-	
-	
-
-
 			<ul className="catalogo-accesos">
-				
-			
-			
-			
-			
+            <li className="vidchain">
+					<div className="acceso-title acceso-mark vidchain main-element" onClick={()=> this.loginWithVIDChain()}>
+Identificació en VIDwallet</div>
+				</li>
 				<li className="cert">
 					<div className="acceso-title acceso-mark certificate main-element" onClick={()=> this.submit()}>
-
- 
-
-
-
-
-
 Identificació per a persones jurídiques o representants</div>
 				</li>
-			
-			
-				
 				<li className="valid">
 					<div className="acceso-title acceso-mark valid main-element" onClick={()=> this.submit()}>
-
- 
-
-
-
-
-
 Identificació per a persones fisiques</div>
 				</li>
-			
-			
-			
 		</ul>
 	</div>
 </li>	
 			<li className="catalogo-link">
 				<div className="catalogo-type main-element">
 					<div className="dt-icon user"></div>
-					
-
- 
-
-
-
-
-
 <a target="__blank" href="../../sta/CarpetaPublic/doEvent?APP_CODE=STA&amp;PAGE_CODE=PTS_PRESENCIAL">Tramitració Presencial</a>
 				</div>
 			</li>
 		</ul>	
 
-		
 	</div>
-	
-					
 					</div>
 					
 				</div>
 			</div>
-			
-		
-	
+
 </div>
 				
 

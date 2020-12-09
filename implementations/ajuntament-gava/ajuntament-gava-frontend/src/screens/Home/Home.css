@@ -6,9 +6,10 @@
   border-radius: 5px;
   background-color: #ed1b23;
   margin-bottom: 30px;
+  margin-left: 40%;
 }
 .sign_in_vidchain > a {
-  color: #fff;
+  color: #fff !important;
   background-color: #ed1b23;
   font-size: 14px;
   text-transform: uppercase;
