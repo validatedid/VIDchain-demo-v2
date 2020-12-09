@@ -55,13 +55,13 @@ class Request extends Component<Props, State> {
       <div className="page">
         <Official></Official>
         <Header></Header>
-        <div className="content-area ovt_panel widget-area standard detalle">
+        <div className="content-area ovt_panel widget-area standard detalle actionsClassName">
 		
-		<h3 className="has-actions">
+		<h3 className="has-actions actionsClassName">
 			<div className="detail-title">Alta al Padró d'Habitants</div>
 		</h3>
 			<div className="ovt_frame">
-				<div className="ovt_contenido ">
+				<div className="ovt_contenido">
 					<div className="detalle">
 						<div id="informacionTramite">
 		<table className="tableInfoDetalle large">

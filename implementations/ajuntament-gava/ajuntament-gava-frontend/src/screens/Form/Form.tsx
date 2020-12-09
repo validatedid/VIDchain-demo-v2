@@ -22,8 +22,8 @@ class Form extends Component<Props, State> {
   }
 
   componentDidMount() {
-    const {id_token} = this.props.location.state;
-    if(id_token){
+    if(this.props.location.state && this.props.location.state.id_token){
+		const {id_token} = this.props.location.state;
         const decodedIdToken = utils.decodeJWT(id_token);
         const jwt = decodedIdToken.jwt;
         if(jwt){
