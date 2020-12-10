@@ -134,7 +134,9 @@ class Request extends Component<Props, State> {
 			Documentació relacionada:
 				</td>
 			<td className="valorAtributo altoPAuto columns">
-		<a target="_blank" href="" className="link-icon pdfLink">VidBankingCredential</a> 
+		<a target="_blank" href="" className="link-icon pdfLink">Banking Credential</a> 
+		<br/>
+		<a target="_blank" href="" className="link-icon pdfLink">Verifiable eID</a> 
 		</td>
 		</tr>
 	<tr className="field custom-row ">
@@ -165,6 +167,7 @@ class Request extends Component<Props, State> {
 				</td>
 			<td className="valorAtributo ">
 	<table><tbody><tr><td><strong>Documentació requerida</strong></td></tr><tr> 
+			<td>- ID</td></tr><tr>
 			<td>- Bank details</td></tr></tbody></table>
 		</td>
 		</tr>

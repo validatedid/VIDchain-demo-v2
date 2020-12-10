@@ -71,7 +71,7 @@ class Home extends Component<Props, State> {
                       <span><a title="" href="../../sta/CarpetaPublic/doEvent?APP_CODE=STA&amp;PAGE_CODE=PTS_CITAPREVIAOAC">Demana cita per ser atès presencialment</a></span><br/><br/>També es pot
                           contactar amb l’Ajuntament a través de correu electrònic a ajuntament@gava.cat o mitjançant Internet a la seu electrònica https://eseu.gava.cat.</p>
               </div>
-              <div className="mod_ppal_sede">
+              <div className="mod_ppal_sede sedeLeft">
                   <div id="colJSede">
                       <div id="menufoto2Sede"><img src={require("../../assets/images/3_24_1.jpg")} alt=""/></div>
                   </div>
@@ -85,7 +85,7 @@ class Home extends Component<Props, State> {
                       <a title="" href="../../sta/CarpetaPublic/doEvent?APP_CODE=STA&amp;PAGE_CODE=PTS_AYUDA">Ajuda a la seu</a><br/>
                   </ul>
               </div>
-              <div className="mod_ppal_sede">
+              <div className="mod_ppal_sede sedeLeft">
                   <div id="colJSede">
                       <div id="menufoto2Sede"><img src={require("../../assets/images/0_25_1.jpg")} alt="" /></div>
                   </div>
@@ -99,7 +99,7 @@ class Home extends Component<Props, State> {
                       <a title="" href="../../sta/CarpetaPublic/doEvent?APP_CODE=STA&amp;PAGE_CODE=PTS_NOTIFICACIONES">Accés a la bústia de notificacions</a><br/>
                   </ul>
               </div>
-              <div className="mod_ppal_sede">
+              <div className="mod_ppal_sede sedeLeft">
                   <div id="colJSede">
                       <div id="menufoto2Sede"><img src={require("../../assets/images/0_26_1.jpg" )} alt=""/></div>
                   </div>
