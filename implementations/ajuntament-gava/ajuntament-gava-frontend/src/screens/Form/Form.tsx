@@ -63,7 +63,7 @@ class Form extends Component<Props, State> {
             </div>					
         </div>
         <div className="FormMain" >	
-        <h1>Certificate of Basic Health Area</h1>
+        <h1>Construction and Installations Tax Grant</h1>
 					
 					<ul className="pasos textPrimero" >
 						<li id="primero" className="primero" >1. Fill out form</li>
@@ -76,7 +76,7 @@ class Form extends Component<Props, State> {
 						<span className="obligatorio">&nbsp;&nbsp;</span> = Required fields</div>
 					<p className="clear"></p>
 					<div className="subtextoCabecera">			
-						<p>Certificate of Basic Health Area</p>	
+						<p>Construction and Installations Tax Grant</p>	
 					</div>
                     <br/><br/>
 <h2>Data of the requester</h2>
