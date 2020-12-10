@@ -28,9 +28,7 @@ const DID = "did:vid:0x7BA121a4ae5A78995d4942e099aDC55842eA40B6";
 
 const grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 const scope = "vidchain profile entity";
-//const scope = "vidchain profile test entity";
 
-//const CLIENT_ID = "city-test";
 const CLIENT_ID = "mygov.gava.cat";
 
 const VIDCHAIN_CLIENT_ID = "gava";
