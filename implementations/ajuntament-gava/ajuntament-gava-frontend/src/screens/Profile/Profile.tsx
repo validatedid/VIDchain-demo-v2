@@ -39,7 +39,7 @@ class Profile extends Component<Props, State> {
     this.setState({
       userInfo
     });
-    sessionStorage.setItem("userInfo", JSON.stringify(userInfo));
+    localStorage.setItem("userInfo", JSON.stringify(userInfo));
     console.log(userInfo.did);
     if (userInfo.did !== undefined && userInfo.did !== "") {
       this.setState({

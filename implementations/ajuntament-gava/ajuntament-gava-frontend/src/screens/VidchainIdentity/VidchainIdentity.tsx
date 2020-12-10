@@ -59,9 +59,9 @@ class VidchainIdentity extends Component<Props, State> {
           expires: token.expires,
         });
       }
-      if (localStorage.getItem("userPass") && token) {
-          localStorage.clear();
-          const userInfo: UserInfo = JSON.parse(sessionStorage.getItem("userInfo") || "");
+      if (localStorage.getItem("userInfo") && token) {
+          // localStorage.clear();
+          const userInfo: UserInfo = JSON.parse(localStorage.getItem("userInfo") || "");
           const did = utils.getUserDid(this.state.id_token);
           userInfo.did = did;
           console.log(JSON.stringify(userInfo));
