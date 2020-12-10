@@ -156,7 +156,7 @@ class Request extends Component<Props, State> {
 				</tr>
 				<tr>
 					<td className="ancho12">
-					<b>Alt:</b></td><td>Amb sistema VIDwallet</td>
+					<b>Alt:</b></td><td>Amb sistemas SSI</td>
 				</tr>
 				</tbody></table>
 		</td>
@@ -184,7 +184,7 @@ Tramitació Registre Electrònic</div>
 			<ul className="catalogo-accesos">
             <li className="vidchain">
 					<div className="acceso-title acceso-mark vidchain main-element" onClick={()=> this.loginWithVIDChain()}>
-Identificació en VIDwallet</div>
+Identificació en SSI</div>
 				</li>
 				<li className="cert">
 					<div className="acceso-title acceso-mark certificate main-element" onClick={()=> this.submit()}>
