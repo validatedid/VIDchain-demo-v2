@@ -28,9 +28,13 @@ class Form extends Component<Props, State> {
         const jwt = decodedIdToken.jwt;
         if(jwt){
             const presentation: PresentationPayload = utils.decodeJWT(jwt);
-			console.log(presentation.vp);
 			//The second credenntial is the Bank Attestation
-			const credential: any = presentation.vp.verifiableCredential[1];
+			let credential: any = presentation.vp.verifiableCredential[0];
+			
+			if(credential.type[1] !== 'VidBankingCredential'){
+				credential = presentation.vp.verifiableCredential[1];
+			}
+			console.log(credential);
 			this.setState({
 				credentialSubjectCredential: credential.credentialSubject
 			});
