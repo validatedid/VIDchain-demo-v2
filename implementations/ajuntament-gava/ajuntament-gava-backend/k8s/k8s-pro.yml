@@ -75,7 +75,7 @@ spec:
         - name: CLIENT_SECRET
           valueFrom:
             secretKeyRef:
-              name: gavius-client-secret
+              name: ajuntament-gava-client-secret
               key: client-secret
         - name: VIDCHAIN_CLIENT_SECRET
           valueFrom:
