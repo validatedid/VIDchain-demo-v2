@@ -504,6 +504,7 @@ stages:
       env:
         API_KEY: $(API_KEY_GAVA)
         CLIENT_SECRET: $(CLIENT_KEY_GAVA)
+        
     - task: Docker@2
       displayName: Login ACR
       inputs:

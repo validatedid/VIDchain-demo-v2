@@ -77,11 +77,11 @@ spec:
             secretKeyRef:
               name: ajuntament-gava-client-secret
               key: client-secret
-         - name: VIDCHAIN_CLIENT_SECRET
+        - name: VIDCHAIN_CLIENT_SECRET
           valueFrom:
             secretKeyRef:
-              name: ajuntament-gava-vidchain-client-secret
-              key: vidchain-client-secret
+              name: vidchain-client-secret
+              key: client-secret
       restartPolicy: Always
 ---
 
