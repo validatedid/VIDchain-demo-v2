@@ -158,7 +158,7 @@ class Profile extends Component<Props, State> {
                     className="collect-button"
                     onClick={() => this.loginWithVIDChain()}
                   >
-                    Descàrrega el teu myGov ID
+                    Download your myGov ID
                   </Button>
                 )}
               </form>
@@ -168,19 +168,19 @@ class Profile extends Component<Props, State> {
                 <div className="service">
                   <br />
                   <h5 className="eID-text">
-                    <b>Descàrrega les teves dades.</b>
+                    <b>Download your data.</b>
                   </h5>
                   <br></br>
                   <h5 className="eID-text">
                     <i>
-                      Tens una credencial de família nombrosa
+                    You have a large family credential
                     </i>
                   </h5>
                   <button
                     className="custom-button"
                     onClick={() => this.generateCredential()}
                   >
-                    <b>Descarregar</b>
+                    <b>Download</b>
                   </button>
                 </div>
               </div>

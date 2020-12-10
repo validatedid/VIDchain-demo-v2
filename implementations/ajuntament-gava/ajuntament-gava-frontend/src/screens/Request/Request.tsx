@@ -58,80 +58,80 @@ class Request extends Component<Props, State> {
         <div className="content-area ovt_panel widget-area standard detalle actionsClassName">
 		
 		<h3 className="has-actions actionsClassName">
-			<div className="detail-title">Subvenció Impost de Construccions i Obres ( ICIO)</div>
+			<div className="detail-title">Construction works Tax Grant</div>
 		</h3>
 			<div className="ovt_frame">
 				<div className="ovt_contenido">
 					<div className="detalle">
 						<div id="informacionTramite">
 		<table className="tableInfoDetalle large">
-		<caption>datos de la subsección</caption>
+		<caption>subsection data</caption>
 			<tbody><tr className="field custom-row ">
 		<td className="etiquetaAtributo">
-			Finalitat:
+			Purpose:
 				</td>
 			<td className="valorAtributo altoPAuto">
-				<p>Subvenció Impost de Construccions, instal·lacions i obres (ICIO)</p>
+				<p>Construction and Installations Tax Grant</p>
 		</td>
 		</tr>
 	<tr className="field custom-row ">
 		<td className="etiquetaAtributo">
-			Terminis de Presentació:
+			Submission Deadlines:
 				</td>
 			<td className="valorAtributo altoPAuto">
-				<p>Es pot fer tot l'any</p>
+				<p>It can be done all year round</p>
 		</td>
 		</tr>
 		<tr className="field custom-row">
 		<td className="etiquetaAtributo">
-			Òrgan Gestor:
+			Managing Body:
 				</td>
 			<td className="valorAtributo altoPAuto">
-				<p>Departament de Gestió Tributaria</p>
+				<p>Department of Tax Management</p>
 		</td>
 		</tr>
 	<tr className="field custom-row ">
 		<td className="etiquetaAtributo">
-			Presentació:
+			Presentation:
 				</td>
 			<td className="valorAtributo altoPAuto">
-			<p>OAC Ajuntament</p>
+			<p>OAC Council</p>
 		</td>
 		</tr>
 	<tr className="field custom-row ">
 		<td className="etiquetaAtributo">
-			Efecte del silenci Administratiu:
+			Effect of Administrative Silence:
 				</td>
 			<td className="valorAtributo altoPAuto">
-			<p>Desestimatori</p>
+			<p>Disappointing</p>
 		</td>
 		</tr>
 	<tr className="field custom-row ">
 		<td className="etiquetaAtributo">
-			Pagament de taxes:
+			Payment of fees:
 				</td>
 			<td className="valorAtributo altoPAuto">
-				<p>No aplica taxa</p>
+				<p>No fee applies</p>
 		</td>
 		</tr>
 	<tr className="field custom-row ">
 		<td className="etiquetaAtributo">
-			Informació Addicional:
+			Additional information:
 				</td>
 			<td className="valorAtributo altoPAuto">
-				<p>Uns dels requisits és que la llicència d’obres hagi estat demanada per:</p><ul>
-					<li>- Efectuar obres de restitució, d’adaptació i de millora de guals i de voreres a la via pública.</li>
-					<li>- Reparacions derivades del fenómen d’aluminosi, patologies estructurals o incendi.</li>
-					<li>- Les millores d’aïllament tèrmic exigible, en les cobertes o façanes d’edificis preexistents.</li>
-					<li>- Instal·lacions destinades a l’aprofitament de les aigües de pluja i la seva reutilització per a la neteja, el rec, etc. (canalització, dipòsits, basses, etc).</li>
+				<p>One of the requirements is that the building permit has been applied for by:</p><ul>
+					<li>- Carry out works to restore, adapt and improve fords and sidewalks on public roads.</li>
+					<li>- Repairs due to the phenomenon of aluminosis, structural pathologies or fire.</li>
+					<li>- Improvements in thermal insulation required, on the roofs or facades of pre-existing buildings.</li>
+					<li>- Facilities for the use of rainwater and its reuse for cleaning, irrigation, etc. (piping, tanks, ponds, etc.).</li>
 					<br/>
-					<p>Altres requisits es haver pagar la taxa i l'Impost i que la sol·licitud de la subvenció s'haura de realitzar de manera simultànea a la sol·licitud de la llicència d'obres i juntament amb el justificant del número de compte bancari</p>
+					<p>Other requirements are to have paid the fee and the tax and that the application for the grant must be made simultaneously with the application for the works license and together with the receipt of the bank account number</p>
 					</ul>
 		</td>
 		</tr>
 	<tr className="field custom-row ">
 		<td className="etiquetaAtributo">
-			Documentació relacionada:
+			Related documentation:
 				</td>
 			<td className="valorAtributo altoPAuto columns">
 		<a target="_blank" href="" className="link-icon pdfLink">Banking Credential</a> 
@@ -141,32 +141,32 @@ class Request extends Component<Props, State> {
 		</tr>
 	<tr className="field custom-row ">
 		<td className="etiquetaAtributo">
-			Nivell d'identificació del sol·licitant:
+			Applicant identification level:
 				</td>
 			<td className="valorAtributo ">
 				<table cellPadding="0" cellSpacing="10">
 				<tbody><tr>
 					<td className="ancho12" valign="top">
-					<b>Alt:</b></td>
-					<td valign="top">Certificat digital reconegut i signatura electrònica</td>
+					<b>High:</b></td>
+					<td valign="top">Recognized digital certificate and electronic signature</td>
 				</tr>
 				<tr>
 					<td className="ancho12">
-					<b>Alt:</b></td><td>Amb sistema Vàlid</td>
+					<b>High:</b></td><td>With Valid system</td>
 				</tr>
 				<tr>
 					<td className="ancho12">
-					<b>Alt:</b></td><td>Amb sistemas SSI</td>
+					<b>High:</b></td><td>With SSI systems</td>
 				</tr>
 				</tbody></table>
 		</td>
 		</tr>
 	<tr className="field custom-row ">
 		<td className="etiquetaAtributo">
-			Documents a Presentar:
+			Documents to Present:
 				</td>
 			<td className="valorAtributo ">
-	<table><tbody><tr><td><strong>Documentació requerida</strong></td></tr><tr> 
+	<table><tbody><tr><td><strong>Required documentation</strong></td></tr><tr> 
 			<td>- ID</td></tr><tr>
 			<td>- Bank details</td></tr></tbody></table>
 		</td>
@@ -177,22 +177,23 @@ class Request extends Component<Props, State> {
 		<li className="catalogo-link">
 					<div className="catalogo-type main-element">
 						<div className="dt-icon mouse"></div>
-Tramitació Registre Electrònic</div>
+Electronic Registration Procedure</div>
 					 
 	<div className="acceso-tramites tramitar">
-		<div className="texto-descriptivo ">Seleccione como desea identificarse:</div>
+		<div className="texto-descriptivo ">Select how to identify:</div>
 			<ul className="catalogo-accesos">
             <li className="vidchain">
 					<div className="acceso-title acceso-mark vidchain main-element" onClick={()=> this.loginWithVIDChain()}>
-Identificació en SSI</div>
+SSI</div>
 				</li>
 				<li className="cert">
 					<div className="acceso-title acceso-mark certificate main-element" onClick={()=> this.submit()}>
-Identificació per a persones jurídiques o representants</div>
+Identification for legal entities or representatives
+</div>
 				</li>
 				<li className="valid">
 					<div className="acceso-title acceso-mark valid main-element" onClick={()=> this.submit()}>
-Identificació per a persones fisiques</div>
+Identification for individuals</div>
 				</li>
 		</ul>
 	</div>
@@ -200,7 +201,8 @@ Identificació per a persones fisiques</div>
 			<li className="catalogo-link">
 				<div className="catalogo-type main-element">
 					<div className="dt-icon user"></div>
-<a target="__blank" href="../../sta/CarpetaPublic/doEvent?APP_CODE=STA&amp;PAGE_CODE=PTS_PRESENCIAL">Tramitració Presencial</a>
+<a target="__blank" href="../../sta/CarpetaPublic/doEvent?APP_CODE=STA&amp;PAGE_CODE=PTS_PRESENCIAL">
+Face-to-face processing</a>
 				</div>
 			</li>
 		</ul>	
