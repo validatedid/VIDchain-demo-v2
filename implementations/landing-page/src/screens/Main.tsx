@@ -29,7 +29,7 @@ const htmlString = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "ht
       <!-- lp:insertions start head -->
       <link href="//builder-assets.unbounce.com/published-css/main-7b78720.z.css" rel="stylesheet" media="screen" type="text/css" />
       <meta property='og:title' content='http://unbouncepages.com/vidchain-demo/'/>
-      <script type="text/javascript">window.ub = {"page":{"id":"09542cfc-a0b7-4675-9fac-543f8bede0e4","variantId":"a","usedAs":"main","name":"VIDchain demo","url":"http://unbouncepages.com/vidchain-demo/","dimensions":{"desktop":{"height":3734,"width":940},"mobile":{"height":4761,"width":320},"mobileMaxWidth":600}},"hooks":{"beforeFormSubmit":[],"afterFormSubmit":[]}};</script><script>window.ub.page.lightboxTriggers = [{"selector":"#lp-pom-button-991","sizes":{"desktop":{"height":360,"width":640},"mobile":{"width":320,"height":360}},"isExternal":false}];</script><script>window.ub.page.webFonts = ['Raleway:700,500,600,regular,800,900','Montserrat:600,500','PT Serif:regular'];</script><!-- lp:insertions end head -->
+      <script type="text/javascript">window.ub = {"page":{"id":"09542cfc-a0b7-4675-9fac-543f8bede0e4","variantId":"a","usedAs":"main","name":"VIDchain","url":"http://unbouncepages.com/vidchain-demo/","dimensions":{"desktop":{"height":3734,"width":940},"mobile":{"height":4761,"width":320},"mobileMaxWidth":600}},"hooks":{"beforeFormSubmit":[],"afterFormSubmit":[]}};</script><script>window.ub.page.lightboxTriggers = [{"selector":"#lp-pom-button-991","sizes":{"desktop":{"height":360,"width":640},"mobile":{"width":320,"height":360}},"isExternal":false}];</script><script>window.ub.page.webFonts = ['Raleway:700,500,600,regular,800,900','Montserrat:600,500','PT Serif:regular'];</script><!-- lp:insertions end head -->
       <script type="text/javascript">window.ub=window.ub||{};window.ub.domain={"wordpressEnabled":true};</script>
       <script async src="https://d34qb8suadcc4g.cloudfront.net/ub.js?1605293159" type="text/javascript"></script>
    </head>
@@ -49,7 +49,9 @@ const htmlString = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "ht
             <div class="lp-element lp-pom-text nlh" id="lp-pom-text-87">
                <p style="line-height: 18px;"><span style="font-style: normal;"><span style="font-weight: 500;"><span style="font-family: Raleway;"><span style="font-size: 12px; color: rgb(123, 120, 138);">Carrer Aragó, 179 - 4th floor 08011 Barcelona (Spain)</span><span style="font-size: 12px; color: rgb(145, 147, 150);"><br></span></span></span></span></p>
             </div>
-            <a class="lp-element lp-pom-button" id="lp-pom-button-178" href="#lp-pom-block-648" target="_self"><span class="label">Start tutorial</span></a><a class="lp-element lp-pom-button" id="lp-pom-button-179" href="#lp-pom-block-376" target="_self"><span class="label">About</span></a>
+            
+            <a class="lp-element lp-pom-button" id="lp-pom-button-178" href="/tutorial" target="_self"><span class="label">Start tutorial</span></a><a class="lp-element lp-pom-button" id="lp-pom-button-179" href="#lp-pom-block-648" target="_self"><span class="label">About</span></a>
+
             <div class="lp-element lp-pom-text nlh" id="lp-pom-text-378">
                <h2 style="line-height: 38px; text-align: center;"><span style="font-size: 32px;"><span style="font-family: Raleway; font-weight: 600; font-style: normal;"><span style="color: rgb(234, 232, 241);">Join the change, let's start getting your first digital credentials!</span></span></span><span style="font-size: 36px;"><span style="font-family: Montserrat; font-weight: 500; font-style: normal;"><span style="color: rgb(38, 30, 154);"><br></span></span></span></h2>
             </div>
