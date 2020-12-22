@@ -2,15 +2,14 @@ import React, { Component } from 'react';
 import Timeline from '../components/Timeline';
 import './Tutorial.css';
 import * as config from "../config/config";
-
-const logoVidchain = require("../assets/images/VIDchain_horizontal.png");
-const logoValidated = require("../assets/images/validated_white.png");
-const logoApp = require("../assets/images/VIDchain_vertical.png");
-const logoIOS = require("../assets/images/appleAppStore@3x.png");
-const logoAndroid = require("../assets/images/playStore@3x.png");
-const logoUniversity = require("../assets/images/logo_uni.png");
-const logoGovernment = require("../assets/images/logoCity.png");
-const logoNotification = require("../assets/images/icon_notification.png");
+import logoVidchain from "../assets/images/VIDchain_horizontal.png";
+import logoValidated from "../assets/images/validated_white.png";
+import logoApp from "../assets/images/VIDchain_vertical.png";
+import logoIOS from "../assets/images/appleAppStore@3x.png";
+import logoAndroid from "../assets/images/playStore@3x.png";
+import logoUniversity from "../assets/images/logo_uni.png";
+import logoGovernment from "../assets/images/logoCity.png";
+import logoNotification from "../assets/images/icon_notification.png";
 
 interface Props {
 
@@ -110,7 +109,6 @@ class Tutorial extends Component<Props, State> {
         </div>
         
       </div>
-    <iframe title="video"  style={{marginLeft: "2%", marginTop: "2%"}} width="96%" height="810" src="https://www.youtube.com/embed/eRxVWeX389w" frameBorder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
       <div className="center">
           <div className="desktop_start" onClick={() => this.continue()}>
             <div className="desktop_start_btn">{step === 0 ? "Start Tutorial" : "Continue"}</div>

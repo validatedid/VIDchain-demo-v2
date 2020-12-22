@@ -1,9 +1,8 @@
 import React from "react";
 import './Timeline.css';
-
-const logoUniversity = require("../assets/images/logo_uni.png");
-const logoGovernment = require("../assets/images/logoCity.png");
-const logoVidchain = require("../assets/images/icon_notification.png");
+import logoUniversity from "../assets/images/logo_uni.png";
+import logoGovernment from "../assets/images/logoCity.png";
+import logoVidchain from "../assets/images/icon_notification.png";
 
 const Timeline = ({
     step,
