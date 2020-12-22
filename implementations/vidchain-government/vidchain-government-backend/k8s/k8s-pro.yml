@@ -67,7 +67,7 @@ spec:
             secretKeyRef:
               name: government-client-secret
               key: client-secret
-         - name: IDENTITY_PROVIDER
+        - name: IDENTITY_PROVIDER
           valueFrom:
             configMapKeyRef:
               name: government-backend-configmap
