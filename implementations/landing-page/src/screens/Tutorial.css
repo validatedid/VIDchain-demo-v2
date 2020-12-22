@@ -1,0 +1,125 @@
+
+
+.step-body-background {
+  background-color: white !important;
+  width: 80%;
+  margin-left: 10%;
+  margin-top: -35px;
+}
+@media only screen and (max-width: 750px) {
+  .step-body-background {
+    background-color: white !important;
+    width: 100%;
+    margin-top: -35px;
+    margin-left: 0;
+  }
+}
+.custom-container {
+  width: 100%;
+  margin-top: 50px;
+}
+.live-products-header {
+  background: white;
+  text-align: center;
+  width: 100%;
+  margin-top: -120px;
+}
+.live-products-header>h4{
+  color: #00bf71;
+  font-size: 32px;
+  font-family: "TTNorms-Bold";
+}
+.live-products-header>p  {
+  color: black;
+  font-size: 18px;
+  font-family: "TTNorms-Regular";
+}
+.logo {
+  width: 360px;
+  margin-top: 25px;
+}
+.logoValidated {
+  width: 264px;
+  margin-left: 50px;
+}
+.center {
+  display: flex;
+  justify-content: center;
+}
+a {
+  color: #337ab7;
+  text-decoration: none;
+}
+.step1_mobile,
+.mobile_start {
+  display: none;
+}
+.step-body p {
+  color: black;
+  font-family: "TTNorms-Regular";
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: -0.42px;
+  line-height: 21px;
+  text-align: center;
+}
+.links {
+  display: flex;
+  justify-content: center;
+  margin: 30px;
+}
+.playstore {
+  align-items: self-start;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-content: space-between;
+}
+.step {
+  display: flex;
+  /* background: grey; */
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+}
+.step-body .heading {
+  font-weight: 700;
+  margin-left: 20px;
+}
+.step .heading {
+  color: #00bf71;
+  font-family: "TTNorms-Bold";
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 0;
+}
+.has-image-right {
+  max-width: 600px;
+}
+.container {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+}
+#footer {
+  background: #00bf71;
+  color: white;
+  text-align: start;
+}
+
+.desktop_start_btn, .mobile_start_btn {
+  box-shadow: 5px 5px 10px #c3c3c3;
+  width: 280px;
+  color: white;
+  background: #00bf71;
+  height: 70px;
+  line-height: 70px;
+  font-size: 24px;
+  border-radius: 10px;
+  border: 1px solid white;
+  text-align: center;
+  margin-top: 20px;
+  cursor: pointer;
+}
