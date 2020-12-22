@@ -38,13 +38,17 @@ function strB64enc(input) {
 }
 
 function extractVCfromPresentation(credential) {
-  let jwtObject = JSON.stringify(credential.data.encrypted);
-  jwtObject = jwtObject.substring(
-    jwtObject.lastIndexOf("[") + 1,
-    jwtObject.lastIndexOf("]")
-  );
-  jwtObject = jwtObject.substring(1, jwtObject.length - 1);
-  return decodeJWT(jwtObject);
+  let jwtObject = strB64dec(credential.data.decrypted);
+  // console.log("read jwtob");
+  // console.log(jwtObject);
+  // console.log("--");
+  // console.log(JSON.stringify(jwtObject));
+  // jwtObject = jwtObject.substring(
+  //   jwtObject.lastIndexOf("[") + 1,
+  //   jwtObject.lastIndexOf("]")
+  // );
+  // jwtObject = jwtObject.substring(1, jwtObject.length - 1);
+  return decodeJWT(jwtObject.verifiableCredential[0]);
 }
 
 export { decodeJWT, strB64dec, strB64enc, extractVCfromPresentation };

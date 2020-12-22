@@ -1,59 +1,14 @@
 
-#bienvenida {
-  border-left: 1px solid #c2bebe;
-  border-right: 1px solid #c2bebe;
-  padding-left: 235px;
-  background-image: url(../../assets/images/bienvenida.jpg);
-  background-repeat: no-repeat;
-}
-p{
-  text-align: justify;
-  font-size: 12px !important;
-}
-h3{
-  text-align: left;
-  font-size: 14px !important;
-  text-emphasis: bold;
-}
-.mod_ppal_sede {
-  width: 33%!important;
-  float: left !important
-}
-.mod_ppal_sede ul {
-  margin: 0.3em;
-}
-.mod_ppal_sede ul li {
-  margin-top: 0;
-  margin-right: 0;
-  margin-bottom: 0.2em;
-  margin-left: 1.6em;
-  padding-top: 0.1em;
-  padding-right: 0;
-  padding-bottom: 0.1em;
-  font-size: 14px;
-  list-style-position: outside;
-  list-style-image: url(/skin/pts/images/cuadri.gif);
-}
-.mod_ppal_sede ul li a:hover {
-  color: #333333 !important;
-}
-.mod_ppal_sede ul li a:link {
-  color: #333333 !important;
-}
-
-.mod_ppal_sede ul li a:visited {
-  color: #333333 !important;
-}
-
 .sign_in_vidchain {
   display: inline-block;
   width: auto;
   border-radius: 5px;
   background-color: #ed1b23;
   margin-bottom: 30px;
+  margin-left: 40%;
 }
 .sign_in_vidchain > a {
-  color: #fff;
+  color: #fff !important;
   background-color: #ed1b23;
   font-size: 14px;
   text-transform: uppercase;
@@ -66,29 +21,9 @@ h3{
 .sign_in_vidchain > a > i {
   padding-right: 5px;
 }
-.language_area .btn.btn-default,
-.language_area .btn.btn-default:focus {
-  border: 0 solid transparent;
-  border-radius: 0;
-  color: #fff;
-  background-color: #2c3e50;
-  -webkit-transition-duration: 500ms;
-  transition-duration: 500ms;
+.page {
+  text-align: center;
 }
-
-.language_area .btn.btn-default:hover {
-  background-color: #fff;
-  color: #2c3e50;
-}
-
-.language_area .btn.btn-default i:first-child {
-  padding-right: 5px;
-}
-
-.language_area .btn.btn-default i:last-child {
-  padding-left: 5px;
-}
-.contendorHome{
-  width: 83%;
-  margin: 0 auto;
+.sedeLeft {
+  padding-left: 5%;
 }

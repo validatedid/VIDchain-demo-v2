@@ -31,26 +31,30 @@ export class EventsGateway
     this.logger.log(`Client disconnected:     ${client.id}`);
   }
 
-  @SubscribeMessage("connectClient")
-  connectClientEvent(@MessageBody() msg: any): void {
-    this.logger.log(`Websocket frontend connected:    ${msg}`);
-  }
-
   /**
    *  whoami ws message is used to store socket clientId -  did pair in a database so when the presentation is ready, the backend knows who has to aim the callback response.
    */
   @SubscribeMessage("whoami")
-  handleSesssion(@MessageBody() msg: any): void {
+  async handleSesssion(@MessageBody() msg: any): Promise<void> {
     this.logger.log(
       `This message has been sent by ${msg.did} whose socket clientId is now ${msg.clientId}`
     );
     const body = {
       did: msg.did,
-      clientId: msg.clientId,
+      value: {
+        clientId: msg.clientId,
+        lastSessionId: msg.sessionId
+      }
     };
-    axios
-      .post(config.BASE_URL + "/users", body)
-      .catch((error) => console.log(error));
+    if (body.value.clientId) await axios
+      .post(config.BASE_URL + "/users", body);
+    //Check if value already exists, in the sessions DB. Meaning the VP has already been done
+    const path = `${config.BASE_URL}/users/sessions`;
+    const response = await axios.get(path.concat(msg.sessionId));
+    this.logger.log(`From session got: ${JSON.stringify(response.data)}`);
+    if(response.data){
+      this.handlePresentationEvent(response.data);
+    }
   }
 
   /**
@@ -61,14 +65,23 @@ export class EventsGateway
     this.logger.log(`Credential presentation:    ${credential}`);
     const jwt = extractVCfromPresentation(credential);
     const id = JSON.stringify(jwt.vc.credentialSubject.id);
-    const did = id.substring(1, id.length - 1);
+    const did = `${id.substring(1, id.length - 1)}`;
     const path = `${config.BASE_URL}/users/`;
     console.log("Reach Redis at endpoint: " + path.concat(did));
     const response = await axios.get(path.concat(did));
-    const clientId = response.data;
+    console.log(
+      "RESPONSE " + JSON.stringify(response.data)
+    );
+    const clientId = response.data.clientId;
     console.log(
       "Retrived from Redis clientId " + clientId + " for user " + did
     );
+    if(response.data.lastSessionId){
+      const lastSessionId = response.data.lastSessionId;
+      await axios.put(config.BASE_URL + "/sessions", {sessionId: lastSessionId, data: credential});
+      console.log("Sessions db updated ");
+    }
+    
     //
     /**
      *  If different kind of presentations are handled by the backend entity, different messages should be emitted depending to avoid cross ws notifications

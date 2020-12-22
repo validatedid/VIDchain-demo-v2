@@ -73,6 +73,14 @@ function decodeJWT(token: any) {
   }
 }
 
+function isMobileOrTablet() {
+  if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    return true
+  } else {
+    return false
+  }
+}
+
 export {
   randomString,
   getUserDid,
@@ -80,4 +88,5 @@ export {
   strB64dec,
   strB64enc,
   decodeJWT,
+  isMobileOrTablet
 };

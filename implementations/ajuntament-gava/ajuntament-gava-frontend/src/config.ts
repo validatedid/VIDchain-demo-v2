@@ -28,15 +28,10 @@ const DID = "did:vid:0x7BA121a4ae5A78995d4942e099aDC55842eA40B6";
 
 const grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 const scope = "vidchain profile entity";
-//const scope = "vidchain profile test entity";
 
-//const CLIENT_ID = "city-test";
 const CLIENT_ID = "mygov.gava.cat";
-const CLIENT_NAME = "Your City";
-const CLIENT_SECRET = "25d77ac947b00f8b34162901bc7c078c10bcb702";
 
 const VIDCHAIN_CLIENT_ID = "gava";
-const VIDCHAIN_CLIENT_SECRET = "secret";
 
 export {
   Entity,
@@ -46,12 +41,10 @@ export {
   IDENTITY_PROVIDER,
   REDIRECT_CALLBACK,
   CLIENT_ID,
-  CLIENT_SECRET,
   BACKEND_URL,
   BACKEND_WS,
   VIDCHAIN_IDENTITY_PROVIDER,
   VIDCHAIN_CLIENT_ID,
-  VIDCHAIN_CLIENT_SECRET,
   VIDCHAIN_REDIRECT_CALLBACK,
   DID
 };

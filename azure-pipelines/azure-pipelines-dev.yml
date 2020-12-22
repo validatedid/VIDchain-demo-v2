@@ -25,6 +25,10 @@ variables:
   universityFrontendRepoEndpoint: 'k8scrvidchaindev.azurecr.io/university-frontend'
   landingRepo: 'demo-landing'
   landingRepoEndpoint: 'k8scrvidchaindev.azurecr.io/demo-landing'
+  gaviusFrontendRepo: 'ajuntament-gava-frontend'
+  gaviusFrontendRepoEndpoint: 'k8scrvidchaindev.azurecr.io/ajuntament-gava-frontend'
+  gaviusBackendRepo: 'ajuntament-gava-backend'
+  gaviusBackendRepoEndpoint: 'k8scrvidchaindev.azurecr.io/ajuntament-gava-backend'
 
   # Dockerfiles
   governmentBackendDocker: 'implementations/vidchain-government/vidchain-government-backend/Dockerfile'
@@ -32,6 +36,8 @@ variables:
   universityBackendDocker: 'implementations/vidchain-university/vidchain-university-backend/Dockerfile'
   universityFrontendDocker: 'implementations/vidchain-university/vidchain-university-frontend/Dockerfile'
   landingDocker: 'implementations/landing-page/Dockerfile'
+  gaviusFrontendDocker: 'implementations/ajuntament-gava/ajuntament-gava-frontend/Dockerfile'
+  gaviusBackendDocker: 'implementations/ajuntament-gava/ajuntament-gava-backend/Dockerfile'
 
   # Kubernetes YAML
   governmentBackendKubernetes: 'implementations/vidchain-government/vidchain-government-backend/k8s/k8s-dev.yml'
@@ -39,10 +45,13 @@ variables:
   universityBackendKubernetes: 'implementations/vidchain-university/vidchain-university-backend/k8s/k8s-dev.yml'
   universityFrontendKubernetes: 'implementations/vidchain-university/vidchain-university-frontend/k8s/k8s-dev.yml'
   landingKubernetes: 'implementations/landing-page/k8s/k8s-dev.yml'
+  gaviusFrontendKubernetes: 'implementations/ajuntament-gava/ajuntament-gava-frontend/k8s/k8s-dev.yml'
+  gaviusBackendKubernetes: 'implementations/ajuntament-gava/ajuntament-gava-backend/k8s/k8s-dev.yml'
 
   # Configmaps
   governmentBackendConfigMap: 'implementations/vidchain-government/vidchain-government-backend/k8s/configmap-dev.yml'
   universityBackendConfigMap: 'implementations/vidchain-university/vidchain-university-backend/k8s/configmap-dev.yml'
+  gaviusBackendConfigMap: 'implementations/ajuntament-gava/ajuntament-gava-backend/k8s/configmap-dev.yml'
 
   # Kubernetes namespace
   namespace: 'development'
@@ -53,6 +62,8 @@ variables:
   tagUniversityBackend: '$(Build.BuildNumber)'
   tagUniversityFrontend: '$(Build.BuildNumber)'
   tagLanding: '$(Build.BuildNumber)'
+  tagGaviusFrontend: '$(Build.BuildNumber)'
+  tagGaviusBackend: '$(Build.BuildNumber)'
 
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
@@ -63,6 +74,8 @@ variables:
   checkUniversityBackendFiles: '("azure-pipelines/azure-pipelines-dev.yml" "vidchain-university/vidchain-university-backend")'
   checkUniversityFrontendFiles: '("azure-pipelines/azure-pipelines-dev.yml" "vidchain-university/vidchain-university-frontend")'
   checkLandingFiles: '("azure-pipelines/azure-pipelines-dev.yml" "landing-page/")'
+  checkGaviusFrontendFiles: '("azure-pipelines/azure-pipelines-dev.yml" "ajuntament-gava/ajuntament-gava-frontend")'
+  checkGaviusBackendFiles: '("azure-pipelines/azure-pipelines-dev.yml" "ajuntament-gava/ajuntament-gava-backend")'
 
 stages:
 - stage: Build
@@ -192,7 +205,7 @@ stages:
     steps:
     - bash: |
         cp ./implementations/vidchain-government/vidchain-government-frontend/envs/.env.development ./implementations/vidchain-government/vidchain-government-frontend/.env
-        echo "API_KEY:$API_KEY" >> ./implementations/vidchain-government/vidchain-government-frontend/.env
+        echo -e "\nREACT_APP_API_KEY=$API_KEY" >> ./implementations/vidchain-government/vidchain-government-frontend/.env
       name: load_env_variables_file
       displayName: 'load env vars'
       env:
@@ -339,7 +352,7 @@ stages:
     steps:
     - bash: |
         cp ./implementations/vidchain-university/vidchain-university-frontend/envs/.env.development ./implementations/vidchain-university/vidchain-university-frontend/.env
-        echo "API_KEY:$API_KEY" >> ./implementations/vidchain-university/vidchain-university-frontend/.env
+        echo -e "\nREACT_APP_API_KEY=$API_KEY" >> ./implementations/vidchain-university/vidchain-university-frontend/.env
       name: load_env_variables_file
       displayName: 'load env vars'
       env:
@@ -442,6 +455,155 @@ stages:
         tags: |
           $(tagLanding)
           latest
+  - job: CheckChangesGaviusFrontend
+    displayName: 'Checking changes in GaviusFrontend'
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - bash: |
+        declare -a files=$(checkGaviusFrontendFiles)
+        echo "This script detects if there's any change in:"
+        for f in "${files[@]}"
+        do
+            echo ">>> $f"
+        done
+        echo "********** CHANGES **********"
+        CHANGED_FILES=$(git diff HEAD HEAD~ --name-only)
+        BUILD_REQUIRED=false
+        for f in "${files[@]}" 
+        do 
+            for FILE in $CHANGED_FILES
+            do
+            if [[ $FILE == *$f* ]]; then
+                echo ">>> $FILE >>> CHANGED"
+                BUILD_REQUIRED=true
+                break
+            fi
+            done
+        done
+        if [ $BUILD_REQUIRED = true ]; then
+            echo "Build required."
+            echo "##vso[task.setvariable variable=SOURCE_CODE_CHANGED;isOutput=true]true"
+        else
+            echo "There are no changes that require building a new image."
+            echo "##vso[task.setvariable variable=SOURCE_CODE_CHANGED;isOutput=true]false"
+        fi
+      name: check_changes
+      displayName: 'Check changed files in GaviusFrontend'
+  - job: BuildGaviusFrontend
+    displayName: 'Build Gavius Frontend'
+    pool:
+      vmImage: $(vmImageName)
+    dependsOn: CheckChangesGaviusFrontend
+    condition: eq(dependencies.CheckChangesGaviusFrontend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
+    steps:
+    - bash: |
+        cp ./implementations/ajuntament-gava/ajuntament-gava-frontend/envs/.env.development ./implementations/ajuntament-gava/ajuntament-gava-frontend/.env
+        echo -e "\nREACT_APP_API_KEY=$API_KEY" >> ./implementations/ajuntament-gava/ajuntament-gava-frontend/.env
+        echo -e "\nREACT_APP_VIDCHAIN_CLIENT_SECRET=$CLIENT_SECRET" >> ./implementations/ajuntament-gava/ajuntament-gava-frontend/.env
+      name: load_env_variables_file
+      displayName: 'load env vars'
+      env:
+        API_KEY: $(API_KEY_GAVA)
+        CLIENT_SECRET: $(CLIENT_KEY_GAVA)
+    - task: Docker@2
+      displayName: Login ACR
+      inputs:
+        command: login
+        containerRegistry: $(dockerRegistryServiceConnection)
+    - script: "docker pull $(gaviusFrontendRepoEndpoint):latest"
+      displayName: Pull latest for layer caching
+      continueOnError: true # for first build, no cache
+    - task: Docker@2
+      displayName: "build --cache-from=$(gaviusFrontendRepoEndpoint):latest"
+      inputs:
+        containerRegistry: '$(dockerRegistryServiceConnection)'
+        repository: '$(gaviusFrontendRepo)'
+        command: 'build'
+        Dockerfile: $(gaviusFrontendDocker)
+        arguments: '--cache-from=$(gaviusFrontendRepoEndpoint):latest' 
+        tags: |
+          $(tagGaviusFrontend)
+          latest
+    - task: Docker@2
+      displayName: "push"
+      inputs:
+        command: push
+        containerRegistry: "$(dockerRegistryServiceConnection)"
+        repository: $(gaviusFrontendRepo) 
+        tags: |
+          $(tagGaviusFrontend)
+          latest
+  - job: CheckChangesGaviusBackend
+    displayName: 'Checking if there are changes in GaviusBackend'
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - bash: |
+        declare -a files=$(checkGaviusBackendFiles)
+        echo "This script detects if there's any change in:"
+        for f in "${files[@]}"
+        do
+            echo ">>> $f"
+        done
+        echo "********** CHANGES **********"
+        CHANGED_FILES=$(git diff HEAD HEAD~ --name-only)
+        BUILD_REQUIRED=false
+        for f in "${files[@]}" 
+        do 
+            for FILE in $CHANGED_FILES
+            do
+            if [[ $FILE == *$f* ]]; then
+                echo ">>> $FILE >>> CHANGED"
+                BUILD_REQUIRED=true
+                break
+            fi
+            done
+        done
+        if [ $BUILD_REQUIRED = true ]; then
+            echo "Build required."
+            echo "##vso[task.setvariable variable=SOURCE_CODE_CHANGED;isOutput=true]true"
+        else
+            echo "There are no changes that require building a new image."
+            echo "##vso[task.setvariable variable=SOURCE_CODE_CHANGED;isOutput=true]false"
+        fi
+      name: check_changes
+      displayName: 'Check changed files in GaviusBackend'          
+  - job: BuildGaviusBackend
+    displayName: 'Build Gavius Backend'
+    pool:
+      vmImage: $(vmImageName)
+    dependsOn: CheckChangesGaviusBackend
+    condition: eq(dependencies.CheckChangesGaviusBackend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
+    steps:
+    - task: Docker@2
+      displayName: Login ACR
+      inputs:
+        command: login
+        containerRegistry: $(dockerRegistryServiceConnection)
+    - script: "docker pull $(gaviusBackendRepoEndpoint):latest"
+      displayName: Pull latest for layer caching
+      continueOnError: true # for first build, no cache
+    - task: Docker@2
+      displayName: "build --cache-from=$(gaviusBackendRepoEndpoint):latest"
+      inputs:
+        containerRegistry: '$(dockerRegistryServiceConnection)'
+        repository: '$(gaviusBackendRepo)'
+        command: 'build'
+        Dockerfile: $(gaviusBackendDocker)
+        arguments: '--cache-from=$(gaviusBackendRepoEndpoint):latest' 
+        tags: |
+          $(tagGaviusBackend)
+          latest
+    - task: Docker@2
+      displayName: "push"
+      inputs:
+        command: push
+        containerRegistry: "$(dockerRegistryServiceConnection)"
+        repository: $(gaviusBackendRepo) 
+        tags: |
+          $(tagGaviusBackend)
+          latest        
 - stage: Deploy
   displayName: 'Deploy stage'
   dependsOn: Build
@@ -559,3 +721,51 @@ stages:
               manifests: $(landingKubernetes)
               containers: |
                 $(landingRepoEndpoint):$(tagLanding)
+  - deployment: DeployGaviusFrontend
+    displayName: 'Deploy Gavius Frontend'
+    condition: eq(stageDependencies.Build.CheckChangesGaviusFrontend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
+    pool:
+      vmImage: $(vmImageName)
+    environment: 'production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          - task: KubernetesManifest@0
+            displayName: Create/update deployment
+            inputs:              
+              kubernetesServiceConnection: $(kubernetesServiceConnection)
+              namespace: $(namespace)
+              manifests: $(gaviusFrontendKubernetes)
+              containers: |
+                $(gaviusFrontendRepoEndpoint):$(tagGaviusFrontend)
+  - deployment: DeployGaviusBackend
+    displayName: 'Deploy Gavius Backend'
+    condition: eq(stageDependencies.Build.CheckChangesGaviusBackend.outputs['check_changes.SOURCE_CODE_CHANGED'], 'true')
+    pool:
+      vmImage: $(vmImageName)
+    environment: 'production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          - task: Kubernetes@1
+            displayName: Create/update configmap
+            inputs:
+              connectionType: Azure Resource Manager
+              azureSubscriptionEndpoint: $(azureSubscriptionEndpoint) 
+              azureResourceGroup: $(azureResourceGroup)
+              kubernetesCluster: $(kubernetesCluster)
+              command: apply
+              arguments: -f $(gaviusBackendConfigMap) -n $(namespace)
+          - task: KubernetesManifest@0
+            displayName: Create/update deployment
+            inputs:              
+              kubernetesServiceConnection: $(kubernetesServiceConnection)
+              namespace: $(namespace)
+              manifests: $(gaviusBackendKubernetes)
+              containers: |
+                $(gaviusBackendRepoEndpoint):$(tagGaviusBackend)
+

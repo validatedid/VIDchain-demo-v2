@@ -9,6 +9,8 @@ import * as vidchain from "../../apis/vidchain";
 import { OpenIDClient } from "../../libs/openid-connect/client";
 import * as utils from "../../utils/utils";
 import * as config from "../../config";
+import { verifiableKYC } from "../../interfaces/dtos";
+import { PresentationPayload, VerifiableCredential } from "../../interfaces/IPresentation";
 
 
 interface Props {
@@ -22,20 +24,7 @@ interface State {
   did: string;
   largeFamily: boolean;
   hasVerifiableId: boolean;
-  firstName: string;
-  lastName: string;
-  dateOfBirth: string;
-  personalNumber: string;
-  documentType: string;
-  nationality: string;
-  stateIssuer: string;
-  dateOfExpiry: string;
-  placeOfBirth: string;
-  gender: string;
-  currentAddress: string;
-  city: string;
-  state: string;
-  zip: string;
+  verifiableKYC: verifiableKYC;
   fakeLogin: boolean;
 }
 
@@ -46,80 +35,59 @@ class Profile extends Component<Props, State> {
       user: {} as ICredentialData,
       largeFamily: false,
       did: "",
-      firstName: "",
-      lastName: "",
-      dateOfBirth: "",
-      personalNumber: "",
-      documentType: "",
-      nationality: "",
-      stateIssuer: "",
-      dateOfExpiry: "",
-      placeOfBirth: "",
-      gender: "",
-      currentAddress: "",
-      city: "",
-      state: "",
-      zip: "",
+      verifiableKYC: {} as verifiableKYC,
       hasVerifiableId: false,
       fakeLogin: false,
     };
   }
 
   componentDidMount() {
-    if (localStorage.getItem("userPass")) {
-      this.setState({
-        did: "Not yet provided",
-        firstName: sessionStorage.getItem("firstName") || "Not provided",
-        lastName: sessionStorage.getItem("lastName") || "Not provided",
-        dateOfBirth: sessionStorage.getItem("dateOfBirth") || "Not provided",
-        placeOfBirth: sessionStorage.getItem("placeOfBirth") || "Not provided",
-        personalNumber:
-          sessionStorage.getItem("personalNumber") || "Not provided",
-        documentType: sessionStorage.getItem("documentType") || "Not provided",
-        nationality: sessionStorage.getItem("nationality") || "Not provided",
-        stateIssuer: sessionStorage.getItem("stateIssuer") || "Not provided",
-        dateOfExpiry: sessionStorage.getItem("dateOfExpiry") || "Not provided",
-        gender: sessionStorage.getItem("gender") || "Not provided",
-        currentAddress: "Arago 179",
-        city: "Barcelona",
-        state: "Barcelona",
-        zip: "08011",
-        fakeLogin: true,
-      });
-    } else {
-      this.setState({
-        hasVerifiableId: true,
-        did:
-          utils.getUserDid(this.props.location.state.id_token) ||
-          "Not provided",
-        firstName:
-          this.props.location.state.verifiableKYC.name || "Not provided",
-        lastName:
-          this.props.location.state.verifiableKYC.surname || "Not provided",
-        dateOfBirth:
-          this.props.location.state.verifiableKYC.dateOfBirth || "Not provided",
-        placeOfBirth:
-          this.props.location.state.verifiableKYC.placeOfBirth ||
-          "Not provided",
-        personalNumber:
-          this.props.location.state.verifiableKYC.personalNumber ||
-          "Not provided",
-        documentType:
-          this.props.location.state.verifiableKYC.documentType ||
-          "Not provided",
-        nationality:
-          this.props.location.state.verifiableKYC.nationality || "Not provided",
-        stateIssuer:
-          this.props.location.state.verifiableKYC.stateIssuer || "Not provided",
-        dateOfExpiry:
-          this.props.location.state.verifiableKYC.dateOfExpiry ||
-          "Not provided",
-        gender: this.props.location.state.verifiableKYC.sex || "Not provided",
-        currentAddress: "Arago 179",
-        city: "Barcelona",
-        state: "Barcelona",
-        zip: "08011",
-      });
+    const {id_token, fakeLogin} = this.props.location.state;
+    if (fakeLogin) {
+      if(id_token){
+        this.setState({
+          did: utils.getUserDid(id_token),
+          verifiableKYC: utils.generateFakeCredential(),
+          hasVerifiableId: true,
+        });
+      }
+      else{
+        this.setState({
+          did: "Not yet provided",
+          verifiableKYC: utils.generateFakeCredential(),
+          fakeLogin: true,
+        });
+      }
+    }
+    else{
+    if(id_token){
+        const decodedIdToken = utils.decodeJWT(id_token);
+        const jwt = decodedIdToken.jwt;
+        if(jwt){
+            const presentation: PresentationPayload = utils.decodeJWT(jwt);
+            const credential: VerifiableCredential = presentation.vp.verifiableCredential[0] as VerifiableCredential;
+            this.setState({
+              verifiableKYC: {
+                id: credential.credentialSubject.id as string,
+                documentNumber: credential.credentialSubject.documentNumber as string,
+                documentType: credential.credentialSubject.documentType as string,
+                name: credential.credentialSubject.firstName as string,
+                surname: credential.credentialSubject.lastName as string,
+                fullName: credential.credentialSubject.fullName as string,
+                nationality: credential.credentialSubject.nationality as string,
+                stateIssuer: credential.credentialSubject.stateIssuer as string,
+                issuingAuthority: credential.credentialSubject.issuingAuthority as string,
+                dateOfExpiry: credential.credentialSubject.dateOfExpiry as string,
+                dateOfBirth: credential.credentialSubject.dateOfBirth as string,
+                placeOfBirth: credential.credentialSubject.placeOfBirth as string,
+                sex: credential.credentialSubject.gender as string,
+                personalNumber: credential.credentialSubject.personalNumber as string,
+              },
+            did: utils.getUserDid(this.props.location.state.id_token),
+            hasVerifiableId: true,
+          });
+        }
+      }
     }
     if (this.state.did !== "") {
       this.setState({
@@ -131,13 +99,13 @@ class Profile extends Component<Props, State> {
   }
 
   async loginWithVIDChain() {
+    localStorage.setItem("userPass", "fakePass");
     var client = OpenIDClient.getInstance().getClient();
     await client.callback();
     await client.getToken({
       scopes: {
-        request: ["openid", "offline"],
-        require: ["openid", "offline"],
-      },
+        request: ["openid"]
+      }, 
     });
   }
   /**
@@ -167,17 +135,10 @@ class Profile extends Component<Props, State> {
   render() {
     const {
       did,
-      firstName,
-      lastName,
-      dateOfBirth,
-      personalNumber,
-      documentType,
-      nationality,
-      stateIssuer,
-      dateOfExpiry,
-      largeFamily,
       hasVerifiableId,
       fakeLogin,
+      verifiableKYC,
+      largeFamily
     } = this.state;
     return (
       <div>
@@ -197,35 +158,35 @@ class Profile extends Component<Props, State> {
                 </div>
                 <div className="form-row">
                   <h4>Name: </h4>
-                  <p className="welcome">&nbsp;{firstName}</p>
+                  <p className="welcome">&nbsp;{verifiableKYC.name}</p>
                 </div>
                 <div className="form-row">
                   <h4>Surname: </h4>
-                  <p className="welcome">&nbsp;{lastName}</p>
+                  <p className="welcome">&nbsp;{verifiableKYC.surname}</p>
                 </div>
                 <div className="form-row">
                   <h4>Date Of Birth: </h4>
-                  <p className="welcome">&nbsp;{dateOfBirth}</p>
+                  <p className="welcome">&nbsp;{verifiableKYC.dateOfBirth}</p>
                 </div>
                 <div className="form-row">
                   <h4>Document number: </h4>
-                  <p className="welcome">&nbsp;{personalNumber}</p>
+                  <p className="welcome">&nbsp;{verifiableKYC.personalNumber}</p>
                 </div>
                 <div className="form-row">
                   <h4>Document type: </h4>
-                  <p>&nbsp;{documentType}</p>
+                  <p>&nbsp;{verifiableKYC.documentType}</p>
                 </div>
                 <div className="form-row">
                   <h4>Nationality: </h4>
-                  <p className="welcome">&nbsp;{nationality}</p>
+                  <p className="welcome">&nbsp;{verifiableKYC.nationality}</p>
                 </div>
                 <div className="form-row">
                   <h4>State Issuer: </h4>
-                  <p className="welcome">&nbsp;{stateIssuer}</p>
+                  <p className="welcome">&nbsp;{verifiableKYC.stateIssuer}</p>
                 </div>
                 <div className="form-row">
                   <h4>Date of expiry: </h4>
-                  <p className="welcome">&nbsp;{dateOfExpiry}</p>
+                  <p className="welcome">&nbsp;{verifiableKYC.dateOfExpiry}</p>
                 </div>
                 {!hasVerifiableId && fakeLogin && (
                   <Button

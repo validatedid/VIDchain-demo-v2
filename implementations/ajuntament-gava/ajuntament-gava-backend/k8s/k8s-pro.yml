@@ -62,11 +62,26 @@ spec:
             configMapKeyRef:
               name: ajuntament-gava-backend-configmap
               key: IDENTITY_PROVIDER
+        - name: VIDCHAIN_IDENTITY_PROVIDER
+          valueFrom:
+            configMapKeyRef:
+              name: ajuntament-gava-backend-configmap
+              key: VIDCHAIN_IDENTITY_PROVIDER
         - name: API_KEY
           valueFrom:
             secretKeyRef:
               name: ajuntament-gava-api-key
               key: api-key
+        - name: CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: ajuntament-gava-client-secret
+              key: client-secret
+        - name: VIDCHAIN_CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: vidchain-client-secret
+              key: client-secret
       restartPolicy: Always
 ---
 

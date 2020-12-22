@@ -10,18 +10,11 @@ export class VidchainClient {
   private client: any;
 
   private constructor() {
-    const nonce = utils.randomString(24);
-    const state = utils.randomString(24);
     let configFile = {
       client_id: config.VIDCHAIN_CLIENT_ID,
-      client_secret: config.VIDCHAIN_CLIENT_SECRET,
       token: config.VIDCHAIN_IDENTITY_PROVIDER + "/oauth2/token",
       authorization: config.VIDCHAIN_IDENTITY_PROVIDER + "/oauth2/auth",
       redirect_uri: config.VIDCHAIN_REDIRECT_CALLBACK,
-      scopes: {
-        request: ["openid", "offline"],
-        require: ["openid", "offline"],
-      },
       response_type: "code",
       debug: true,
     };

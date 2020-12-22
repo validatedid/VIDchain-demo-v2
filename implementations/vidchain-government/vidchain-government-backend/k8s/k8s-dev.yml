@@ -57,11 +57,21 @@ spec:
             configMapKeyRef:
               name: government-backend-configmap
               key: WS_URL
+        - name: IDENTITY_PROVIDER
+          valueFrom:
+            configMapKeyRef:
+              name: government-backend-configmap
+              key: IDENTITY_PROVIDER
         - name: API_KEY
           valueFrom:
             secretKeyRef:
               name: government-api-key
               key: api-key
+        - name: CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: government-client-secret
+              key: client-secret
       restartPolicy: Always
 ---
 

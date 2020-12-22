@@ -1,0 +1,90 @@
+/********* GLOBAL *******************/
+/**********************************************************************************************************************************/
+body{ font-family: Helvetica;}
+a{}
+a:hover{}
+
+
+
+/********* ZONA MEDIA *******************/
+/**********************************************************************************************************************************/
+
+#navegacion {}
+
+/********* ZONA MEDIA *******************/
+/**********************************************************************************************************************************/
+#contenedorWebapps { min-width: 960px; background: white;}
+.errorPage #contenedorWebapps{ min-width: 300px; }
+
+
+/********* BARRA LATERAL *******************/
+/**********************************************************************************************************************************/
+#barraLateralIzquierda{}
+#navegacionVertical{}
+
+
+/********* CONTENIDO *******************/
+/**********************************************************************************************************************************/
+#contenido{}
+
+.ovt_panel .inner-panel
+{
+    border: 1px solid #EEEEEE;
+    margin: 10px;
+    padding: 10px;
+}
+
+
+/********* FOOTER *******************/
+/**********************************************************************************************************************************/
+#footerPri{}
+#footerPri a, #footerPri a:visited, #footerPri a:link {}
+#footerPri a:hover {}
+
+
+/***** FOOTER MENU ********/
+#footerMenu{}
+#footerMenu .GroupsContainer {}
+#footerMenu h4 {}
+.GroupsContainer ul {}
+#footerMenu li {}
+.FirstLevelGroup {margin: 15px;}
+
+/***** FOOTER CONTENT ********/
+#footerContent {    text-align: center; }
+#footerContent li {list-style-type: none;}
+
+/************************************/
+/************* WIDGETS **************/
+/************************************/
+
+.ovt_panel .inner-panel {}
+
+/* TITULO APARTADO del widget  */
+.divInfoCabecera {}
+
+
+
+
+/************************************/
+/********** COLORES ************/
+/************************************/
+
+a , .Link { color: steelblue; /* #3693BB;*/ }
+a:hover , .Link:hover { color: #00B7F3; }
+
+/* TITULO APARTADO del widget  */
+.divInfoCabecera { color: gray; }
+
+/* ELEMENTO de MENU SELECIONADO */
+li.itemMenuSelected a {	color: gray !important }
+
+/* TITULOS ACORDEON */
+/*.ui-accordion .ui-accordion-header { color: #E30079;  }*/
+
+.ui-accordion-header  { color: #E30079;  } 
+
+/*Formularios y detalles*/
+.tableInfoDetalle, .form-data {	color: black;}
+
+/*********************************/

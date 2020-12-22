@@ -1,0 +1,17 @@
+.FormMain {
+    background-color: white !important;
+    margin-left: 5px;
+    padding: 20px;
+}
+.textPrimero {
+    color: white !important;
+}
+.rowDatos {
+    
+}
+.rowDatosText {
+    width: 50%;
+}
+.inputDID{
+    width: 300%;
+}

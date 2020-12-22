@@ -1,5 +1,5 @@
 import { Injectable, Logger, HttpStatus, HttpException } from "@nestjs/common";
-import { SocketClient } from "../interfaces/dtos";
+import { SocketClient, SessionClient, UserSession, SessionData } from "../interfaces/dtos";
 import Redis from "ioredis";
 
 @Injectable()
@@ -10,13 +10,18 @@ export class UsersService {
     host: process.env.REDIS_URL,
     keyPrefix: "university-user:",
   });
+  private readonly sessionRedis = new Redis({
+    port: process.env.REDIS_PORT, // Redis port
+    host: process.env.REDIS_URL,
+    keyPrefix: "university-user-session:",
+  });
 
   /**
    *  Store SocketClient, i.e. did - clientId pair
    */
   async createUser(body: SocketClient): Promise<any> {
     try {
-      await this.userRedis.set(body.did, body.clientId);
+      await this.userRedis.set(body.did, JSON.stringify(body.value));
       this.logger.debug("Successfully user session creation");
       const currentSession = await this.getUser(body.did);
       this.logger.debug("currentSession: " + JSON.stringify(currentSession));
@@ -32,10 +37,56 @@ export class UsersService {
     }
   }
 
+  async createSession(body: SessionClient): Promise<any> {
+    try {
+      await this.sessionRedis.set(body.sessionId, JSON.stringify({}));
+
+      const currentSession: UserSession = await this.getUser(body.did);
+      const updatedSession: UserSession = {
+        clientId: currentSession.clientId,
+        lastSessionId: body.sessionId
+      }
+      await this.userRedis.set(body.did, JSON.stringify(updatedSession));
+      return "Successfully session creation";
+    } catch (e) {
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: "Error while creating the session",
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
+  async editSession(body: SessionData): Promise<any> {
+    try {
+      await this.sessionRedis.set(body.sessionId, JSON.stringify(body.data));
+      return "Successfully session insertion";
+    } catch (e) {
+      throw new HttpException(
+        {
+          status: HttpStatus.INTERNAL_SERVER_ERROR,
+          error: "Error updatind the session",
+        },
+        HttpStatus.INTERNAL_SERVER_ERROR
+      );
+    }
+  }
+
   /**
    *  Retrieve socket clientId
    */
-  async getUser(did: string): Promise<string> {
-    return await this.userRedis.get(did);
+  async getUser(did: string): Promise<any> {
+    const user = await this.userRedis.get(did);
+    return JSON.parse(user);
+  }
+
+   /**
+   *  Retrieve socket clientId
+   */
+  async getSession(sessionId: string): Promise<any> {
+    const session = await this.sessionRedis.get(sessionId);
+    return JSON.parse(session);
   }
 }

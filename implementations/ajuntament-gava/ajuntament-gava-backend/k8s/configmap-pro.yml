@@ -10,3 +10,4 @@ data:
   REDIS_PORT: "6379"
   WS_URL: "https://try.vidchain.net"
   IDENTITY_PROVIDER: "https://identitats-pre.aoc.cat"
+  VIDCHAIN_IDENTITY_PROVIDER: "https://api.vidchain.net"

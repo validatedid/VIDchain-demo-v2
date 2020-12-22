@@ -13,6 +13,7 @@ import { verifiableKYC } from "../../interfaces/dtos";
 import { Ring } from "react-spinners-css";
 import { ICredentialData } from "../../interfaces/dtos";
 import * as config from "../../config";
+import { strB64dec } from "../../utils/utils";
 
 interface Props {
   history: any;
@@ -47,18 +48,9 @@ class Callback extends Component<Props, State> {
   }
 
   async componentDidMount() {
-    var client = OpenIDClient.getInstance().getClient();
-    try {
-      await client.callback();
-    } catch (error) {
-      console.log(error);
-    }
-    let token = await client.checkToken({
-      scopes: {
-        request: ["openid", "offline"],
-        require: ["openid", "offline"],
-      },
-    });
+    const code = new URLSearchParams(this.props.location.search).get("code");
+    if(code){
+    const token = await this.getAuthToken(code);
     if (token !== null) {
       this.setState({
         access_token: token.access_token,
@@ -67,39 +59,17 @@ class Callback extends Component<Props, State> {
         expires: token.expires,
       });
     }
-    if (localStorage.getItem("userPass")) {
+
+    if (localStorage.getItem("userPass") && token) {
       localStorage.clear();
-      this.setState({
-        verifiableKYC: {
-          id: utils.getUserDid(this.state.id_token),
-          documentNumber:
-            sessionStorage.getItem("documentNumber") || "Not provided",
-          documentType:
-            sessionStorage.getItem("documentType") || "Not provided",
-          name: sessionStorage.getItem("firstName") || "Not provided",
-          surname: sessionStorage.getItem("lastName") || "Not provided",
-          fullName: sessionStorage.getItem("fullName") || "Not provided",
-          nationality: sessionStorage.getItem("nationality") || "Not provided",
-          stateIssuer: sessionStorage.getItem("stateIssuer") || "Not provided",
-          issuingAuthority:
-            sessionStorage.getItem("issuingAuthority") || "Not provided",
-          dateOfExpiry:
-            sessionStorage.getItem("dateOfExpiry") || "Not provided",
-          dateOfBirth: sessionStorage.getItem("dateOfBirth") || "Not provided",
-          placeOfBirth:
-            sessionStorage.getItem("placeOfBirth") || "Not provided",
-          sex: sessionStorage.getItem("gender") || "Not provided",
-          personalNumber:
-            sessionStorage.getItem("personalNumber") || "Not provided",
-        },
-      });
+      const verifiableKYC = utils.generateFakeCredential();
       let credentialSubject: ICredentialData = {
-        id: this.state.verifiableKYC.id,
-        firstName: this.state.verifiableKYC.name,
-        lastName: this.state.verifiableKYC.surname,
-        dateOfBirth: this.state.verifiableKYC.dateOfBirth,
-        placeOfBirth: this.state.verifiableKYC.placeOfBirth,
-        gender: this.state.verifiableKYC.sex,
+        id: utils.getUserDid(token.id_token),
+        firstName: verifiableKYC.name,
+        lastName: verifiableKYC.surname,
+        dateOfBirth: verifiableKYC.dateOfBirth,
+        placeOfBirth: verifiableKYC.placeOfBirth,
+        gender: verifiableKYC.sex,
         currentAddress: "Arago 179",
         city: "Barcelona",
         state: "Barcelona",
@@ -111,19 +81,41 @@ class Callback extends Component<Props, State> {
        */
       const authToken = await vidchain.getAuthzToken();
       await vidchain.generateVerifiableID(authToken, credentialSubject);
-      this.goToProfile();
+      this.goToProfileFake();
     } else {
       this.setState({
         showCallback: true,
       });
-      this.initiateSocket();
+        this.goToProfile();
+    }
+    //   this.initiateSocket();
       /**
        *  VIDCHAIN API REQUEST: Claim Verifiable Presentation (forwarded to backend)
        * The request of a Verifiable presentation is handled in the backend so as to process the whole flow there and receive a response from the API in a callback
        */
-      governmentBackend.claimVP(utils.getUserDid(this.state.id_token), "Login");
+      //governmentBackend.claimVP(utils.getUserDid(this.state.id_token), "Login");
     }
   }
+
+  async getAuthToken(code: string){
+    try {
+      const response = await governmentBackend.getToken(
+        {
+            code: code,
+            client_id: config.CLIENT_ID,
+            redirect_uri: config.REDIRECT_CALLBACK,
+            grant_type: "authorization_code",
+          }
+      );
+      return response;
+    } catch (error) {
+      this.setState({
+        error: true
+      })
+    }
+  }
+
+
 
   async initiateSocket() {
     const socket = io(config.BACKEND_WS, {
@@ -143,7 +135,7 @@ class Callback extends Component<Props, State> {
     });
 
     socket.on("presentation", (msg: any) => {
-      let presentation = msg.data.encrypted;
+      let presentation = strB64dec(msg.data.decrypted);
 
       let details = utils.decodeJWT(presentation.verifiableCredential[0]);
 
@@ -173,17 +165,29 @@ class Callback extends Component<Props, State> {
   }
 
   goToProfile() {
-    const { access_token, refresh_token, id_token, verifiableKYC } = this.state;
+    const { access_token, refresh_token, id_token } = this.state;
+    this.props.history.push({
+      pathname: "/profile",
+      state: {
+        access_token: access_token,
+        refresh_token: refresh_token,
+        id_token: id_token
+      },
+    });
+  }
+  goToProfileFake() {
+    const { access_token, refresh_token, id_token } = this.state;
     this.props.history.push({
       pathname: "/profile",
       state: {
         access_token: access_token,
         refresh_token: refresh_token,
         id_token: id_token,
-        verifiableKYC: verifiableKYC,
+        fakeLogin: true
       },
     });
   }
+
 
   render() {
     const { access_token, error, showCallback } = this.state;

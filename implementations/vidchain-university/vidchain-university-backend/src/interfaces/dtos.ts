@@ -19,6 +19,7 @@ export interface Presentation {
 
 export interface IAttributeData {
   encrypted: any;
+  decrypted?: string;
 }
 
 export interface VerifiablePresentation {
@@ -52,5 +53,17 @@ export interface CredentialData {
 
 export interface SocketClient {
   did: string;
+  value: UserSession;
+}
+export interface UserSession {
   clientId: any;
+  lastSessionId: string;
+}
+export interface SessionClient {
+  did: string;
+  sessionId: string;
+}
+export interface SessionData{
+  sessionId: string;
+  data: any;
 }

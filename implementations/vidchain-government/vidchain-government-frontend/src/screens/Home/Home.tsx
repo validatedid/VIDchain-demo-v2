@@ -35,32 +35,19 @@ class Home extends Component<Props, State> {
     await client.callback();
     await client.getToken({
       scopes: {
-        request: ["openid", "offline"],
-        require: ["openid", "offline"],
-      },
+        request: ["openid", "VerifiableIdCredential"]
+      }, 
     });
   }
 
   async login() {
-    this.props.history.push({
-      pathname: "/profile",
-    });
-  }
-
-  async loadFakeUser() {
     if (this.state.name.toLowerCase() === "santi") {
-      localStorage.setItem("userPass", "true");
-      sessionStorage.setItem("firstName", "Santi");
-      sessionStorage.setItem("lastName", "Casas");
-      sessionStorage.setItem("dateOfBirth", "01/01/1990");
-      sessionStorage.setItem("placeOfBirth", "Barcelona");
-      sessionStorage.setItem("documentNumber", "BAB188000");
-      sessionStorage.setItem("documentType", "Carnet de Identidad");
-      sessionStorage.setItem("nationality", "ESP");
-      sessionStorage.setItem("stateIssuer", "ESP");
-      sessionStorage.setItem("dateOfExpiry", "10/10/2020");
-      sessionStorage.setItem("gender", "Male");
-      this.login();
+      this.props.history.push({
+        pathname: "/profile",
+        state: {
+          fakeLogin: true
+        }
+      });
     }
   }
 
@@ -106,7 +93,7 @@ class Home extends Component<Props, State> {
                 <Button
                   variant="primary"
                   type="submit"
-                  onClick={() => this.loadFakeUser()}
+                  onClick={() => this.login()}
                 >
                   Submit
                 </Button>

@@ -1,0 +1,466 @@
+.calendarTable
+{
+	border: 1px solid silver;
+	margin-bottom: 10px;
+	table-layout: fixed;
+    width: 100%;  
+    min-width: 700px;
+    cursor: default;	
+	border-spacing: 0;
+	border-collapse: separate;
+}
+.calendarTable td, .calendarTable th	 {padding: 0px;}
+
+.calendarTable > caption
+{
+    color: #C81444;
+    font-weight: bold;
+    padding: 5px 10px 2px 5px;
+    text-align: left;
+    display: table-caption;
+}
+
+
+
+table.calLegend
+{
+	width: 100%;
+	line-height: 16px;
+	margin: 15px 0;	
+}
+
+table.calLegend td.firstRow { width: 30px;}
+table.calLegend td.secondRow {}
+table.calLegend td.lastRow {width: 110px; text-align: right; padding-right: 20px; line-height: 35px;}
+table.calLegend td.lastRow a {height: 35px; display: block;}
+
+
+
+.pdfLinkContainer
+{
+}
+
+
+.lengendBox
+{
+    height: 10px;
+	width: 20px;
+	box-shadow: 1px 1px 2px darkgray;
+} 
+
+.normalPeriodLegend
+{
+    background-color: DodgerBlue;
+    border: 1px solid Navy;
+}
+
+.addrPeriodLegend
+{
+	background-color:tomato;
+    border: 1px solid red;
+}
+.adeudoPlazosPeriodLegend
+{
+	background-color: yellow;
+    border: 1px solid goldenrod;
+}
+.plazosPeriodLegend
+{
+	background-color: MediumPurple;
+    border: 1px solid black;
+}
+
+.emptyPeriodLegend
+{
+	background-color: whitesmoke;
+    border: 1px solid silver;
+	height: 10px;
+	width: 20px;
+}
+
+
+
+.calendarTable th
+{
+    background: url("../img/webapps/buttons/button-Gris.png") no-repeat scroll -2px -2px transparent;
+    /*border-bottom: 1px solid silver;*/
+    border-right: 1px solid silver;
+    height: 15px;
+    padding-bottom: 0;
+    text-align: center;
+	line-height: 17px;    
+}
+.calendarTable th:last-child {border-right: 0px;}
+
+.monthTitle
+{
+    font-size: 11px;
+    color: dimgray;
+    width: 50px;
+    position: relative;
+    text-align: center;
+    padding-bottom: 0px; 
+    text-shadow: 1px 1px 1px white;  	
+}
+
+
+
+td.tipoIngresoTitle
+{
+    border-bottom:    1px solid white;
+    border-left: 1px solid white;
+    
+    color: white;
+    height: 81px;
+    padding: 2px;
+    text-align: center;
+}
+tr:first-child .tipoIngresoTitle {    border-top: 1px solid white;}
+
+td.tipoIngresoTitle span.main-title
+{
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 13px;    
+    text-shadow: 1px 1px 1px #383838;
+}
+.tipoIngresoTitle span.count
+{
+    font-size: 10px;
+    font-weight: normal;
+}
+tr.clickable:hover td.tipoIngresoTitle span.main-title
+{
+	color: Gainsboro;
+}
+
+
+tr.odd td.tipoIngresoTitle {background-color: #C81444;}
+tr.even td.tipoIngresoTitle {background-color: darkgray;}
+
+tr:hover.clickable td {cursor: pointer;}
+
+tr.odd td.period {background-color: white;}
+tr.even td.period {background-color: white;}
+tr:hover.odd.clickable td.period {background-color: whitesmoke;}
+tr:hover.even.clickable td.period {background-color: whitesmoke;}
+
+
+.period
+{
+	border-bottom: 1px dotted lightgrey;
+	border-right: 1px dotted lightgrey;
+}
+.period:last-child {border-right: 0px;}
+tr:last-child .period {border-bottom: 0px;}
+
+
+
+.periodLayout
+{
+	height: 84px;
+	width: 100%;
+	border-spacing: 0;	
+	border-collapse: collapse;
+}
+.periodLayout td {padding: 0px;}
+
+.period.empty
+{
+	/*background-color: #F4F4F4;*/
+}
+
+.period tr { height:25%;}
+.period td { border-bottom: 1px solid transparent; position: relative;}
+
+.period .barBox
+{
+    background-color: DodgerBlue;
+    border-color: #11528E;
+}
+.period.rogados .plazos .barBox
+{
+    background-color: MediumPurple;
+    border-color: Black;
+    color: white;
+}
+.period.rogados .adeudosPlazo .fechaBox
+{
+    background-color: yellow;
+    border-color: goldenrod;
+}
+
+.barBox
+{
+    border-style: solid;    
+	display: block;
+    height: 12px;
+   	color: white;
+    font-size: 10px;
+    font-weight: bold;
+    line-height: 12px; 
+    padding: 0;   
+    margin-top: -7px;
+    position: absolute;
+    margin-bottom: 0;
+	box-shadow: 1px 1px 2px gray;        
+}
+.plazos .barBox {margin-top: -6px;}
+
+.IE8down .barBox {margin-top: 4px;}  
+.IE8down .plazos .barBox {margin-top: 5px;} 
+
+
+
+.inside
+{
+    border-width: 1px;
+    text-align: center;
+}
+
+.full
+{
+    border-width: 1px 0;
+}
+
+.tale
+{
+    border-width: 1px 1px 1px 0;
+}
+
+.nouse
+{
+    border-width: 1px 0 1px 1px;
+}
+span.nouse span {
+    z-index: 1;
+    position: absolute;
+}
+
+
+.diasFlot {
+    position: absolute;
+    right: 2px;
+}
+.underTitle {
+    left: 0;
+    position: absolute;
+    top: -12px;
+    width: 100px;
+    color: dimgrey;
+}
+
+.adeudoTxt
+{
+    line-height: 8px;
+    margin-left: 7px;
+    position: absolute;
+    text-align: left;
+    top: 0;
+}
+.IE9up .adeudoTxt {margin-left: 12px;} 
+
+
+.fechaBox
+{
+    background-color: tomato;
+    border: 1px solid red;
+    color: dimgrey;
+    display: block;
+    font-family: Arial;
+    font-size: 10px;
+    font-weight: bold;
+    height: 8px;
+    margin-bottom: 9px;
+    padding: 0;
+    position: absolute;
+    text-align: center;
+    margin-top: -4px;
+    width: 8px;	
+	box-shadow: 1px 1px 2px gray;    
+}
+.adeudosPlazo .fechaBox {margin-top: -9px;} 
+
+.IE8down .fechaBox {    margin-top: 6px;} 
+.IE8down .adeudosPlazo .fechaBox {margin-top: 3px;} 
+
+
+.f1st
+{
+}
+
+.f2nd
+{
+	margin-left: 12px;
+}
+
+.f3rd
+{
+	margin-left: 12px;
+}
+
+.incType0 td.tipoIngresoTitle { background-color: #838B83 }
+.incType1 td.tipoIngresoTitle { background-color: salmon }
+.incType2 td.tipoIngresoTitle { background-color: indianred }
+.incType3 td.tipoIngresoTitle { background-color: lightgreen }
+.incType4 td.tipoIngresoTitle { background-color: LightSeaGreen }
+.incType5 td.tipoIngresoTitle { background-color: brown }
+.incType6 td.tipoIngresoTitle { background-color: LightPink }
+.incType7 td.tipoIngresoTitle { background-color: DarkOrange }
+.incType8 td.tipoIngresoTitle { background-color: darkslategray }
+.incType9 td.tipoIngresoTitle { background-color: darkorchid }
+
+
+.incType0 td.period { background-color: whiteSmoke }
+.incType1 td.period { background-color: white }
+.incType2 td.period { background-color: white }
+.incType3 td.period { background-color: white }
+.incType4 td.period { background-color: white }
+.incType5 td.period { background-color: white }
+.incType6 td.period { background-color: white }
+.incType7 td.period { background-color: white }
+.incType8 td.period { background-color: white }
+.incType9 td.period { background-color: white }
+
+
+
+.BarOffset0      { margin-left:  0px; }
+.BarOffset5      { margin-left:  2px; }
+.BarOffset10     { margin-left:  5px; }
+.BarOffset15     { margin-left:  7px; }
+.BarOffset20     { margin-left: 10px; }
+.BarOffset25     { margin-left: 12px; }
+.BarOffset30     { margin-left: 14px; }
+.BarOffset35     { margin-left: 17px; }
+.BarOffset40     { margin-left: 19px; }
+.BarOffset45     { margin-left: 21px; }
+.BarOffset50     { margin-left: 24px; }
+.BarOffset55     { margin-left: 27px; }
+.BarOffset60     { margin-left: 29px; }
+.BarOffset65     { margin-left: 31px; }
+.BarOffset70     { margin-left: 34px; }
+.BarOffset75     { margin-left: 36px; }
+.BarOffset80     { margin-left: 38px; }
+.BarOffset85     { margin-left: 41px; }
+.BarOffset90     { margin-left: 43px; }
+.BarOffset95     { margin-left: 46px; }
+.BarOffset100    { margin-left: 49px; }
+
+.BarDuration0      { width:  1px; }
+.BarDuration5      { width:  4px; }
+.BarDuration10     { width:  7px; }
+.BarDuration15     { width:  9px; }
+.BarDuration20     { width: 12px; }
+.BarDuration25     { width: 14px; }
+.BarDuration30     { width: 16px; }
+.BarDuration35     { width: 19px; }
+.BarDuration40     { width: 21px; }
+.BarDuration45     { width: 23px; }
+.BarDuration50     { width: 26px; }
+.BarDuration55     { width: 29px; }
+.BarDuration60     { width: 31px; }
+.BarDuration65     { width: 33px; }
+.BarDuration70     { width: 36px; }
+.BarDuration75     { width: 38px; }
+.BarDuration80     { width: 40px; }
+.BarDuration85     { width: 43px; }
+.BarDuration90     { width: 45px; }
+.BarDuration95     { width: 48px; }
+.BarDuration100    { width: 51px; }
+
+
+/*
+.secondHalf.PortionStart0   { margin-left:  0px; width: 50px; }
+.secondHalf.PortionStart5   { margin-left:  3px; width: 47px; }
+.secondHalf.PortionStart10  { margin-left:  6px; width: 44px; }
+.secondHalf.PortionStart15  { margin-left:  8px; width: 42px; }
+.secondHalf.PortionStart20  { margin-left: 11px; width: 39px; }
+.secondHalf.PortionStart25  { margin-left: 13px; width: 37px; }
+.secondHalf.PortionStart30  { margin-left: 15px; width: 35px; }
+.secondHalf.PortionStart35  { margin-left: 18px; width: 32px; }
+.secondHalf.PortionStart40  { margin-left: 20px; width: 30px; }
+.secondHalf.PortionStart45  { margin-left: 22px; width: 28px; }
+.secondHalf.PortionStart50  { margin-left: 25px; width: 25px; }
+.secondHalf.PortionStart55  { margin-left: 28px; width: 22px; }
+.secondHalf.PortionStart60  { margin-left: 30px; width: 20px; }
+.secondHalf.PortionStart65  { margin-left: 32px; width: 18px; }
+.secondHalf.PortionStart70  { margin-left: 35px; width: 15px; }
+.secondHalf.PortionStart75  { margin-left: 37px; width: 13px; }
+.secondHalf.PortionStart80  { margin-left: 39px; width: 11px; }
+.secondHalf.PortionStart85  { margin-left: 42px; width:  8px; }
+.secondHalf.PortionStart90  { margin-left: 44px; width:  6px; }
+.secondHalf.PortionStart95  { margin-left: 47px; width:  3px; }
+.secondHalf.PortionStart100 { margin-left: 49px; width:  1px; }
+
+.firstHalf.PortionEnd0      { width:  1px; }
+.firstHalf.PortionEnd5      { width:  3px; }
+.firstHalf.PortionEnd10     { width:  6px; }
+.firstHalf.PortionEnd15     { width:  8px; }
+.firstHalf.PortionEnd20     { width: 11px; }
+.firstHalf.PortionEnd25     { width: 13px; }
+.firstHalf.PortionEnd30     { width: 15px; }
+.firstHalf.PortionEnd35     { width: 18px; }
+.firstHalf.PortionEnd40     { width: 20px; }
+.firstHalf.PortionEnd45     { width: 22px; }
+.firstHalf.PortionEnd50     { width: 25px; }
+.firstHalf.PortionEnd55     { width: 28px; }
+.firstHalf.PortionEnd60     { width: 30px; }
+.firstHalf.PortionEnd65     { width: 32px; }
+.firstHalf.PortionEnd70     { width: 35px; }
+.firstHalf.PortionEnd75     { width: 37px; }
+.firstHalf.PortionEnd80     { width: 39px; }
+.firstHalf.PortionEnd85     { width: 42px; }
+.firstHalf.PortionEnd90     { width: 44px; }
+.firstHalf.PortionEnd95     { width: 47px; }
+.firstHalf.PortionEnd100    { width: 50px; }
+*/
+
+.secondHalf.PortionStart0   { margin-left:  0px; width: 50px; }
+.secondHalf.PortionStart5   { margin-left:  3px; width: 47px; }
+.secondHalf.PortionStart10  { margin-left:  6px; width: 44px; }
+.secondHalf.PortionStart15  { margin-left:  8px; width: 42px; }
+.secondHalf.PortionStart20  { margin-left: 11px; width: 39px; }
+.secondHalf.PortionStart25  { margin-left: 13px; width: 37px; }
+.secondHalf.PortionStart30  { margin-left: 15px; width: 35px; }
+.secondHalf.PortionStart35  { margin-left: 18px; width: 32px; }
+.secondHalf.PortionStart40  { margin-left: 20px; width: 30px; }
+.secondHalf.PortionStart45  { margin-left: 22px; width: 28px; }
+.secondHalf.PortionStart50  { margin-left: 25px; width: 25px; }
+.secondHalf.PortionStart55  { margin-left: 28px; width: 22px; }
+.secondHalf.PortionStart60  { margin-left: 30px; width: 20px; }
+.secondHalf.PortionStart65  { margin-left: 32px; width: 18px; }
+.secondHalf.PortionStart70  { margin-left: 35px; width: 15px; }
+.secondHalf.PortionStart75  { margin-left: 37px; width: 13px; }
+.secondHalf.PortionStart80  { margin-left: 39px; width: 11px; }
+.secondHalf.PortionStart85  { margin-left: 42px; width:  8px; }
+.secondHalf.PortionStart90  { margin-left: 44px; width:  6px; }
+.secondHalf.PortionStart95  { margin-left: 47px; width:  3px; }
+.secondHalf.PortionStart100 { margin-left: 49px; width:  1px; }
+
+.firstHalf.PortionEnd0      { width:  1px; }
+.firstHalf.PortionEnd5      { width:  3px; }
+.firstHalf.PortionEnd10     { width:  6px; }
+.firstHalf.PortionEnd15     { width:  8px; }
+.firstHalf.PortionEnd20     { width: 11px; }
+.firstHalf.PortionEnd25     { width: 13px; }
+.firstHalf.PortionEnd30     { width: 15px; }
+.firstHalf.PortionEnd35     { width: 18px; }
+.firstHalf.PortionEnd40     { width: 20px; }
+.firstHalf.PortionEnd45     { width: 22px; }
+.firstHalf.PortionEnd50     { width: 25px; }
+.firstHalf.PortionEnd55     { width: 28px; }
+.firstHalf.PortionEnd60     { width: 30px; }
+.firstHalf.PortionEnd65     { width: 32px; }
+.firstHalf.PortionEnd70     { width: 35px; }
+.firstHalf.PortionEnd75     { width: 37px; }
+.firstHalf.PortionEnd80     { width: 39px; }
+.firstHalf.PortionEnd85     { width: 42px; }
+.firstHalf.PortionEnd90     { width: 44px; }
+.firstHalf.PortionEnd95     { width: 47px; }
+.firstHalf.PortionEnd100    { width: 50px; }
+
+
+
+
+
+

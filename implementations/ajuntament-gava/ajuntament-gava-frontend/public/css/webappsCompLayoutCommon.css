@@ -1,0 +1,257 @@
+/* boton procesar cesta en componente de menu */
+.tablaBotonCesta { text-align: center }
+.filaBotonCesta
+{
+    padding: 0;
+    height: 21px;
+    font-size: 14px;
+    font-weight: normal;
+    font-family: Tahoma;
+    background: #FFFFFF url(../img/webapps/buttons/boton_cesta_mid.png) repeat-x 0px 0px;
+    color: #FFFFFF;
+}
+.botonCesta
+{
+    vertical-align: top;
+    text-align: center;
+    padding-top: 0px;
+    font-size: 8px;
+    width: 19px;
+    height: 21px;
+    background: #FFFFFF url(../img/webapps/buttons/boton_cesta.png) no-repeat 0px 0px;
+}
+.botonCestaTransparente
+{
+    vertical-align: top;
+    text-align: center;
+    padding-top: 0px;
+    padding-left: 2px;
+    font-weight: bold;
+    font-size: 8px;
+    color: #000000;
+    width: 18px;
+    height: 18px;
+    background: transparent url(../img/webapps/components/cesta_p.png) no-repeat 0px 2px;
+}
+.inicioBotonCesta
+{
+    width: 5px;
+    height: 21px;
+    padding: 0;
+    background: #FFFFFF url(../img/webapps/buttons/boton_cesta_ini.png) no-repeat 0px 0px;
+}
+.centroBotonCesta
+{
+    padding-right: 10px;
+    padding-left: 10px;
+}
+.centroBotonCesta a
+{
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: bold;
+}
+.finBotonCesta
+{
+    width: 5px;
+    height: 21px;
+    padding: 0;
+    background: #FFFFFF url(../img/webapps/buttons/boton_cesta_fin.png) no-repeat 0px 0px;
+}
+/*********************/
+/* calendario fiscal */
+/*********************/
+.tablaCalFiscal
+{
+    /* tabla exterior, separacion entre meses */
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.filaMeses td table    tr.filaNombreMeses
+{
+    /* fila con los nombres de los meses, texto blanco sobre fondo azul */
+    font-weight: bold;
+    background-color: #60A5C5;
+    color: #FFFFFF;
+}
+.filaMeses
+{
+    /* fila cuatrimestre, contendra una tabla por mes */
+    vertical-align: top;
+    background-color: transparent;
+}
+.filaMeses td { text-align: center }
+.filaMeses td table { border-bottom: 1px solid #660000 }
+.filaMeses td table    tr td
+{
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 3px;
+    padding-right: 3px;
+    font-family: Tahoma;
+    font-size: 11px;
+}
+.celdaDiaSemana
+{
+    text-align: center;
+    vertical-align: top;
+    background-color: transparent;
+    font-weight: bold;
+    color: #C60000;
+    border-bottom: 1px solid #660000;
+}
+.celdaDiaLaborable
+{
+    width: 15px;
+    text-align: center;
+    color: #000000;
+    border: 1px solid #f6f6f6;
+}
+.celdaDiaFestivo
+{
+    width: 15px;
+    text-align: center;
+    color: #FF0000;
+    border: 1px solid #f6f6f6;
+}
+.celdaDiaLaborable a
+{
+    text-decoration: none;
+    font-weight: bold;
+}
+.celdaDiaFestivo a
+{
+    text-decoration: none;
+    font-weight: bold;
+}
+.celdaNombreTipoIngreso
+{
+    font-family: Tahoma;
+    font-size: 11px;
+    font-weight: normal;
+    text-align: left;
+    color: #000000;
+}
+.celdaColorTipoIngreso
+{
+    font-size: 6px;
+    border: 1px solid #000000;
+}
+/* objetos tributarios */
+/* div para contener el cajetin */
+.divCajetin
+{
+    background-color: #F8F8F8;
+    border: 1px solid #DDDDDD;
+    color: #000000;
+    line-height: 14px;
+    margin: 15px 5px;
+    padding: 4px;
+    text-align: left;
+    max-height: 400px;
+    overflow: auto;
+    
+}
+.divCajetin pre {  }
+
+
+.accion-cajetin
+{
+    display: block;
+    float: right;
+    margin: -7px 10px 7px;
+}
+
+
+
+/* wizards proceso cesta */
+.divPasos
+{
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+.tablaPasos tr td
+{
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    vertical-text-align: middle;
+    height: 21px;
+}
+.tablaPasos tr td.pasoSel
+{
+    background-color: #1C6AE0;
+    font-weight: bold;
+    color: #FFFFFF;
+}
+.tablaPasos tr td.iniSel
+{
+    width: 10px;
+    background: transparent url(../img/webapps/wizards/iniSel.png) no-repeat 0px 50%;
+}
+.tablaPasos tr td.finSel
+{
+    width: 10px;
+    background: transparent url(../img/webapps/wizards/finSel.png) no-repeat 0px 50%;
+}
+.tablaPasos tr td.iniNoSel
+{
+    width: 10px;
+    background: transparent url(../img/webapps/wizards/iniNoSel.png) no-repeat 0px 50%;
+}
+.tablaPasos tr td.finNoSel
+{
+    width: 10px;
+    background: transparent url(../img/webapps/wizards/finNoSel.png) no-repeat 0px 50%;
+}
+.tablaPasos tr td.separador { width: 5px }
+.tablaPasos tr td.pasoNoSel
+{
+    background-color: #F8F8F8;
+    font-family: Tahoma;
+    font-size: 11px;
+    font-weight: normal;
+    color: #000000;
+    border-bottom: 1px solid #d8dfea;
+    border-top: 1px solid #d8dfea;
+}
+.textoFelicitacion
+{
+    /* accion completada con exito */
+    color: #22944e;
+    font-size: 18px;
+    font-weight: bold;
+}
+/* estilos para span */
+.spanEjecutiva
+{
+    color: #FF0000;
+    font-weight: bold;
+}
+.spanVoluntaria { color: #0000FF }
+
+.pendiente {color: red; font-weight: bold;}
+.cobrado {color: green; font-weight: bold;}
+
+.subestadoRecibo, .importePendiente { color: red; font-size: 95%; }
+
+
+
+
+/* <-- Validadores */
+.basicVal
+{
+    color: red;
+    font-weight: bold;
+    display: none;
+}
+.invalidField { background-color: #FFCC99 }
+.salirContainer
+{
+    margin-right: 10px;
+    margin-left: 30px;
+}

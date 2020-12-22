@@ -1,0 +1,10 @@
+.catalogo-accesos .acceso-mark.vidchain {
+    background-image: url('../../assets/images/vidwallet.png');
+    padding-left: 5em;
+}
+.vidchain {
+    left: 15px
+}
+.actionsClassName {
+    background-color: white;
+}

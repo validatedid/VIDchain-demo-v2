@@ -1,4 +1,6 @@
 import { decode as atob, encode } from "base-64";
+import { verifiableKYC } from "../interfaces/dtos";
+
 const jwtDecode = require("jwt-decode");
 
 function randomString(length: number) {
@@ -69,4 +71,24 @@ function decodeJWT(token: any) {
   }
 }
 
-export { randomString, getUserDid, strB64dec, strB64enc, decodeJWT };
+function generateFakeCredential(): verifiableKYC{
+  const verifiableCredentialFake: verifiableKYC = {
+    id: "Not yet provided",
+    name: "Santi",
+    surname: "Casas",
+    fullName: "Santi Casas",
+    dateOfBirth: "01/01/1990",
+    placeOfBirth: "Barcelona",
+    personalNumber: "123344",
+    documentType: "Carnet de Identidad",
+    nationality: "ESP",
+    stateIssuer: "ESP",
+    dateOfExpiry: "10/10/2020",
+    sex: "Male",
+    documentNumber: "1234455",
+    issuingAuthority: "ESP",
+  }
+  return verifiableCredentialFake;
+}
+
+export { randomString, getUserDid, strB64dec, strB64enc, decodeJWT, generateFakeCredential};
