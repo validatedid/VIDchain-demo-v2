@@ -2271,3 +2271,6 @@ only screen and (max-width: 600px) and (min-resolution: 193dpi) {
 		background-image: url(//d9hhrg4mnvzow.cloudfront.net/unbouncepages.com/vidchain-demo/a2260569-screenshot-2020-08-28-laurel-template_11gb0u01e00u0000000028.png);
 	}
 }
+
+@import url('https://fonts.googleapis.com/css?family=Raleway:regular,bold,italic&subset=latin,latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:regular,bold,italic&subset=latin,latin-ext');
