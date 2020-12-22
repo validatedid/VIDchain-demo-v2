@@ -9,7 +9,6 @@ import logoUniversity from "../assets/images/logo_uni.png";
 import logoGovernment from "../assets/images/logoCity.png";
 import logoNotification from "../assets/images/icon_notification.png";
 import kyc from "../assets/images/kyc.png"
-import clapping from "../assets/images/clapping.svg"
 
 interface Props {
   location: any;
@@ -95,12 +94,7 @@ class Tutorial extends Component<Props, State> {
                 <img src={logoNotification} style={{width: "60px", height:"60px"}} alt="logo vidchain app"/>
               </a>
             </div>}
-            {step !== 0 && <div className="playstore">
-              <a href="https://play.google.com/store/apps/details?id=com.validatedid.wallet">
-                <img src={logoNotification} style={{width: "60px", height:"60px", marginLeft:"300px"}} alt="logo vidchain app"/>
-              </a>
-            </div>}
-          <img src={logoAndroid} style={{width:"121px",marginRight:"50px", marginLeft:"-150px"}}/>
+            {step === 0 && <img src={logoAndroid} style={{width:"121px",marginRight:"50px", marginLeft:"-150px"}}/>}
         </div>
         <div className="step step-body">
           <div id="download">
@@ -117,7 +111,7 @@ class Tutorial extends Component<Props, State> {
             </div>}
         </div>
           </div>
-          <img src={kyc} style={{width:"121px", marginRight:"100px"}}/>
+          {step === 1 && <img src={kyc} style={{width:"121px", marginRight:"100px"}}/>}
         </div>
         <div className="step step-body">
           <div>
@@ -135,7 +129,7 @@ class Tutorial extends Component<Props, State> {
             </div>}
             </div>
           </div>
-          <img src={logoGovernment} style={{width: "200px", height:"200px", marginRight: "25px"}} alt="logo government"/>
+          {step === 2 && <img src={logoGovernment} style={{width: "200px", height:"200px", marginRight: "25px"}} alt="logo government"/>}
         </div>
         <div className="step step-body">
           <div>
@@ -153,7 +147,7 @@ class Tutorial extends Component<Props, State> {
             </div>}
             </div>
           </div>
-          <img src={logoUniversity} style={{height:"200px", width:"200px", marginRight: "25px"}} alt="logo university"/>
+          {step === 3 && <img src={logoUniversity} style={{height:"200px", width:"200px", marginRight: "25px"}} alt="logo university"/>}
         </div>
         {step === 4 && <div>
           <div>
@@ -169,7 +163,8 @@ class Tutorial extends Component<Props, State> {
             </div>
             </div>
           </div>
-        </div>}
+        </div>
+        }
       </div>
         <footer id="footer">
           <h4 style={{fontFamily: "Raleway", marginLeft: "0px"}}>Powered by:</h4>
@@ -185,4 +180,4 @@ class Tutorial extends Component<Props, State> {
 }
 
 
-export default Tutorial;
+export default Tutorial
