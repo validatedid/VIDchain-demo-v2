@@ -118,10 +118,11 @@ const htmlString = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "ht
                <div class="lp-element lp-pom-text nlh" id="lp-pom-text-990">
                   <h2 style="line-height: 43px; text-align: center;"><span style="color: rgb(234, 232, 241);"><span style="font-style: normal;"><span style="font-weight: 700;"><span style="font-family: Raleway;"><span style="font-size: 32px;">Unlock The Potential</span></span></span></span></span></h2>
                </div>
-               <a class="lp-element lp-pom-button" id="lp-pom-button-991" href="clkn/rel/a-2-lightbox.html" target="_blank" data-params="true"><span class="label"></span></a>
+               <a class="lp-element lp-pom-button" id="lp-pom-button-991" href="https://www.youtube.com/embed/eRxVWeX389w" target="_blank" data-params="true"><span class="label"></span></a>
                <div class="lp-element lp-pom-text nlh" id="lp-pom-text-992">
                   <h3 style="text-align: center; line-height: 20px; letter-spacing: 2px;"><span style="font-style: normal;"><span style="font-weight: 800;"><span style="font-family: Raleway;"><strong><span style="font-size: 11px; color: rgb(123, 120, 138);">WATCH VIDEO</span></strong></span></span></span></h3>
                </div>
+
                <div class="lp-element lp-pom-text nlh" id="lp-pom-text-993">
                   <p style="line-height: 26px; text-align: center;"><span style="color: rgb(123, 120, 138);"><span style="font-family: Raleway; font-weight: 500; font-style: normal;"><span style="font-size: 16px;"><strong>With VIDchain</strong></span></span><span style="font-family: Raleway; font-weight: 500; font-style: normal;"><span style="font-size: 16px;">&nbsp;we're offering secure identity solutions that allow a more digital and sustainable world guaranteeing privacy, rights, and freedoms to people.</span></span></span></p>
                </div>
