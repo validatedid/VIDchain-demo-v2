@@ -13,8 +13,8 @@ body {
   .entry {
     display: inline-block;
     vertical-align: top;
-    background: #00bf71;
-    color: #06182E;
+    background:rgba(21, 26, 53, 1);
+    color: #00bf71;
     padding: 30px;
     font-size: 12px;
     text-align: center;
@@ -133,7 +133,7 @@ body {
   
   .bar {
     height: 4px;
-    background: #00bf71;
+    background: rgba(21, 26, 53, 1);
     width: 100%;
     position: relative;
     top: 13px;

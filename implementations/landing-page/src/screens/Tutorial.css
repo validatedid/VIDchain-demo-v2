@@ -24,7 +24,7 @@
     margin-top: -120px;
   }
   .live-products-header>h4{
-    color: #00bf71;
+    color: rgba(21, 26, 53, 1);
     font-size: 32px;
     font-family: Raleway;
   }
@@ -87,7 +87,7 @@
     margin-left: 20px;
   }
   .step .heading {
-    color: #00bf71;
+    color: rgba(21, 26, 53, 1);
     font-family: Raleway;
     font-size: 20px;
     font-weight: 500;
@@ -103,7 +103,7 @@
     margin-left: auto;
   }
   #footer {
-    background: #00bf71;
+    background: rgba(21, 26, 53, 1);
     color: white;
     text-align: start;
   }
@@ -112,7 +112,7 @@
     box-shadow: 5px 5px 10px #c3c3c3;
     width: 140px;
     color: white;
-    background: #00bf71;
+    background: rgba(21, 26, 53, 1);
     height: 35px;
     line-height: 35px;
     font-size: 12px;

@@ -167,11 +167,11 @@ class Tutorial extends Component<Props, State> {
         }
       </div>
         <footer id="footer">
-          <h4 style={{fontFamily: "Raleway", marginLeft: "0px"}}>Powered by:</h4>
+          <br/>
+          <h5 style={{fontFamily: "Raleway", marginLeft: "0px"}}>Powered by:</h5>
           <a href="https://www.validatedid.com">
             <img className="logoValidated" src={logoValidated} alt="ValidatedID" />
           </a>
-          <br/>
           <p style={{float: "right"}}>Copyright 2020, Validated ID, S.L.</p>
     </footer>
     </div>
