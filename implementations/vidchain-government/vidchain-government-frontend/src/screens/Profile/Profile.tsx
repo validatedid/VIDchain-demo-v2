@@ -11,6 +11,7 @@ import * as utils from "../../utils/utils";
 import * as config from "../../config";
 import { verifiableKYC } from "../../interfaces/dtos";
 import { PresentationPayload, VerifiableCredential } from "../../interfaces/IPresentation";
+import { Modal } from "react-bootstrap";
 
 
 interface Props {
@@ -26,6 +27,7 @@ interface State {
   hasVerifiableId: boolean;
   verifiableKYC: verifiableKYC;
   fakeLogin: boolean;
+  popUpisOpen: boolean;
 }
 
 class Profile extends Component<Props, State> {
@@ -38,6 +40,7 @@ class Profile extends Component<Props, State> {
       verifiableKYC: {} as verifiableKYC,
       hasVerifiableId: false,
       fakeLogin: false,
+      popUpisOpen: false
     };
   }
 
@@ -131,6 +134,12 @@ class Profile extends Component<Props, State> {
       largeFamily: true,
     });
   }
+
+  openModal = () => this.setState({ popUpisOpen: true });
+  closeModal = () => {
+    this.setState({ popUpisOpen: false });
+    window.location.replace("/tutorial?step=3");
+  };
 
   render() {
     const {
@@ -236,6 +245,17 @@ class Profile extends Component<Props, State> {
                 </div>
               </div>
             )}
+            <Modal show={this.state.popUpisOpen} onHide={this.closeModal} style={{opacity:1}}>
+              <Modal.Header closeButton>
+                <Modal.Title>Good Job!</Modal.Title>
+                    </Modal.Header>
+                      <Modal.Body>You have completed this step successfully.</Modal.Body>
+                      <Modal.Footer>
+                        <Button variant="secondary" onClick={this.closeModal}>
+                          Go back to tutorial
+                        </Button>
+              </Modal.Footer>
+            </Modal>
           </div>
         </div>
         <div className="footer">
