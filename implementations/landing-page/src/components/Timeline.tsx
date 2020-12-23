@@ -5,6 +5,12 @@ import logoGovernment from "../assets/images/logoCity.png";
 import logoVidchain from "../assets/images/icon_notification.png";
 import kyc from "../assets/images/kyc.png";
 
+const getStep = (number: Number, index: Number): string => {
+    if(number === index) return "entryCurrent";
+    if(number > index) return  "entry";
+    return "entryNoSelected";
+};
+
 const Timeline = ({
     step,
   }) => (
@@ -12,7 +18,7 @@ const Timeline = ({
         <div className="bar"></div>
         <div className="timeline">
         <a href="#download">
-            <div className="entry">
+            <div className={getStep(step,0)}>
                 <h1>Step 0</h1>
                 <h2>VIDchain Wallet</h2>
                 <div className="img-container">
@@ -22,7 +28,7 @@ const Timeline = ({
             </div>
         </a>
         <a href="#download">
-            <div className={step >= 1 ? "entry" : "entryNoSelected"}>
+            <div className={getStep(step,1)}>
                 <h1>Step 1</h1>
                 <h2>VerifiableID</h2>
                 <div className="img-container">
@@ -32,7 +38,7 @@ const Timeline = ({
             </div>
         </a>
         <a href="/demo/government">
-            <div className={step >= 2 ? "entry" : "entryNoSelected"}>
+            <div className={getStep(step,2)}>
                 <h1>Step 2</h1>
                 <h2>Government of Freedonia</h2>
                 <div className="img-container">
@@ -42,7 +48,7 @@ const Timeline = ({
             </div>
         </a>
         <a href="/demo/university">
-            <div className={step >= 3 ? "entry" : "entryNoSelected"}>
+            <div className={getStep(step,3)}>
             <h1>Step 3</h1>
                 <h2>University</h2>
                 <div className="img-container">
