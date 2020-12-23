@@ -132,7 +132,9 @@ class Profile extends Component<Props, State> {
     );
     this.setState({
       largeFamily: true,
+      popUpisOpen: true
     });
+    this.openModal();
   }
 
   openModal = () => this.setState({ popUpisOpen: true });
