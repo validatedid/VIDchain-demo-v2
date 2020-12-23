@@ -12,6 +12,7 @@ import { ICredentialSubject } from "../../interfaces/ICredentialSubject";
 import * as config from "../../config";
 import { verifiableKYC } from "../../interfaces/dtos";
 import { PresentationPayload, VerifiableCredential } from "../../interfaces/IPresentation";
+import { Modal } from "react-bootstrap";
 
 interface Props {
   did: string;
@@ -32,6 +33,7 @@ interface State {
   socketSession: string;
   type: string;
   data: any;
+  popUpisOpen: boolean;
 }
 
 class Profile extends Component<Props, State> {
@@ -48,7 +50,8 @@ class Profile extends Component<Props, State> {
       socketSession: "",
       verifiableKYC: {} as verifiableKYC,
       type: "",
-      data: {}
+      data: {},
+      popUpisOpen: false,
     };
     this.initiateSocket();
   }
@@ -125,7 +128,9 @@ class Profile extends Component<Props, State> {
     socket.on("largeFamilyPresentation", (msg: any) => {
       this.setState({
         largeFamily: true,
+        popUpisOpen:true
       });
+      this.openModal();
     });
   }
 
@@ -178,6 +183,12 @@ class Profile extends Component<Props, State> {
     }
     universityBackend.claimVP(did, "LargeFamilyCard", redirectUri);
   }
+
+  openModal = () => this.setState({ popUpisOpen: true });
+  closeModal = () => {
+    this.setState({ popUpisOpen: false });
+    window.location.replace("/tutorial?step=4");
+  };
 
   render() {
     const {
@@ -399,6 +410,17 @@ class Profile extends Component<Props, State> {
                           Accepted request. Discount applied.{" "}
                         </h2>
                       )}
+                      <Modal show={this.state.popUpisOpen} onHide={this.closeModal} style={{opacity:1}}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>Good Job!</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>You have completed this step successfully.</Modal.Body>
+                      <Modal.Footer>
+                        <Button variant="secondary" onClick={this.closeModal}>
+                          Go back to tutorial
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
                     </form>
                   </div>
                 </div>
