@@ -94,7 +94,7 @@ body {
   .entryNoSelected:before {
     content: '';
     display: block;
-    background: #06182E;
+    background: #eee;
     width: 5px;
     height: 20px;
     position: absolute;
