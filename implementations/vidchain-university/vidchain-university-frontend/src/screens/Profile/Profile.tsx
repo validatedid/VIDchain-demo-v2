@@ -187,7 +187,7 @@ class Profile extends Component<Props, State> {
   openModal = () => this.setState({ popUpisOpen: true });
   closeModal = () => {
     this.setState({ popUpisOpen: false });
-    window.location.replace("/tutorial?step=4");
+    window.location.replace("/demo/tutorial?step=4");
   };
 
   render() {
