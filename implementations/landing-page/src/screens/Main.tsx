@@ -9,8 +9,6 @@ import spinnerQuarter from "../assets/images/e9f173fc-recurso-3.svg";
 import logoVidchain from "../assets/images/3531224b-vidchain.svg";
 import logoGooglePlay from "../assets/images/a6acde6a-google-play.svg";
 import logoIOS from "../assets/images/b6b7988d-app-store.svg";
-import freedonia from "../assets/images/e076bd14-freedonia.svg";
-import university from "../assets/images/ed205e7d-acme.svg";
 
 
 const htmlString = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -124,7 +122,7 @@ const htmlString = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "ht
                </div>
 
                <div class="lp-element lp-pom-text nlh" id="lp-pom-text-993">
-                  <p style="line-height: 26px; text-align: center;"><span style="color: rgb(123, 120, 138);"><span style="font-family: Raleway; font-weight: 500; font-style: normal;"><span style="font-size: 16px;"><strong>With VIDchain</strong></span></span><span style="font-family: Raleway; font-weight: 500; font-style: normal;"><span style="font-size: 16px;">&nbsp;we're offering secure identity solutions that allow a more digital and sustainable world guaranteeing privacy, rights, and freedoms to people.</span></span></span></p>
+                  <p style="line-height: 26px; text-align: center;"><span style="color: rgb(123, 120, 138);"><span style="font-family: Raleway; font-weight: 500; font-style: normal;"><span style="font-size: 16px;"><strong>With VIDchain</strong></span></span><span style="font-family: Raleway; font-weight: 500; font-style: normal;"><span style="font-size: 16px;">&nbsp;we're offering secure identity solutions that allow a more digital and sustainable world guaranteeing privacy, rights, and freedom to people.</span></span></span></p>
                </div>
                <div class="lp-element lp-pom-box" id="lp-pom-box-1008">
                   <div id="lp-pom-box-1008-color-overlay"></div>

@@ -47,13 +47,13 @@ class Tutorial extends Component<Props, State> {
 
   redirectTo(step: number){
     if(step === 0){
-      window.location.replace("/tutorial?step=1");
+      window.location.replace("/demo/tutorial?step=1");
       this.setState({
         step: 1,
       });
     }
     if(step === 1){
-      window.location.replace("/tutorial?step=2");
+      window.location.replace("/demo/tutorial?step=2");
       this.setState({
         step: 2,
       });
@@ -65,7 +65,7 @@ class Tutorial extends Component<Props, State> {
       window.location.replace(config.UNIVERSITY_URL);
     }
     if(step === 4){
-      window.location.replace("/tutorial");
+      window.location.replace("/demo/tutorial");
     }
   }
   render() {
