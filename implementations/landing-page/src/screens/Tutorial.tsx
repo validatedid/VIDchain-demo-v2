@@ -79,7 +79,7 @@ class Tutorial extends Component<Props, State> {
           <div id="download">
             <h3 className="heading"><b>Step 0 - Download VIDwallet</b></h3>
             {step === 0 && <p className="has-image-right">
-              You can download VIDwallet in GooglePlay. The application is currently available only for Android. An iOS version will be released soon in the App Store. Find VIDwallet in GooglePlay by just clicking on VIDwallet icon.
+            Find VIDwallet in GooglePlay just clicking on VIDwallet icon.<br/> The application is currently available only for Android.<br/> An iOS version will be released soon in the App Store. 
             </p>}
             <div className="center">
             {step === 0 && <div className="desktop_start" onClick={() => this.continue()}>
@@ -95,13 +95,13 @@ class Tutorial extends Component<Props, State> {
                 <img src={logoNotification} style={{width: "60px", height:"60px"}} alt="logo vidchain app"/>
               </a>
             </div>}
-            {step === 0 && <img src={logoAndroid} style={{width:"121px",marginRight:"50px", marginLeft:"-150px"}}/>}
+            {step === 0 && <img src={logoAndroid} style={{width:"121px",marginRight:"50px", marginLeft:"-300px"}}/>}
         </div>
         <div className="step step-body">
           <div id="download">
             <h3 className="heading"><b>Step 1 - Verify your ID</b></h3>
             {step === 1 && <p className="has-image-right">
-              Once you have your VIDwallet, go to Credentials and create a new Credential verifying your ID. By completing the process, you will have verified your identity document and the liveness prove to assure you are the owner of the document using the VIDchain wallet. Then, you will receive a Verifiable Credential that you can use to identify yourself in other entities.
+              Once you have installed VIDwallet, go to Credentials and create a new credential verifying your ID. By completing this process, you will have verified either your identity card or passport and your liveness. Afterwards, you will receive a Verifiable Credential that you can use to identify yourself later on.
             </p>}
             <div className="center">
             {step === 1 && <div className="desktop_start" onClick={() => this.continue()}>
@@ -118,8 +118,8 @@ class Tutorial extends Component<Props, State> {
           <div>
             <h3 className="heading"><b>Step 2 - Government of Freedonia</b></h3>
             {step === 2 && <p className="has-image-right">
-              Access to you government portal, using the Verifiable eID that you hold in your wallet to probe who you are.
-              Once you have access to the portal you can use the government services, and request other credentials like for example a Large Family credential that you can use in other entities to apply for discounts.
+              Go to Goverment of Freedonia and sign in using the Verifiable eID that you hold in your wallet.
+              Once you have accessed to the portal you can request the Large Family credential that you can use in other entities to apply for discounts.
             </p>}
             <div className="center">
             {step === 2 && <div className="desktop_start" onClick={() => this.continue()}>
@@ -136,8 +136,7 @@ class Tutorial extends Component<Props, State> {
           <div>
             <h3 className="heading"><b>Step 3 - ACME University</b></h3>
             {step === 3 && <p className="has-image-right">
-              Access to ACME University where you are already enrolled into a course and after sign-in with VIDchain you will be able to use the university services, like request your diploma degree 
-              or apply for a discount using the Large Family credential that you got from your government.
+              Go to ACME University and sign in with VIDchain once more. Here you can request a new credential, namely your Student card. To complete this tutorial, apply for a discount on your student fee presenting the Large Family credential  you already hold in your wallet.
             </p>}
             <div className="center">
             {step === 3 && <div className="desktop_start" onClick={() => this.continue()}>

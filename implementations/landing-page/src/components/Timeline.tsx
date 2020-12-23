@@ -20,20 +20,20 @@ const Timeline = ({
         <a href="#download">
             <div className={getStep(step,0)}>
                 <h1>Step 0</h1>
-                <h2>VIDchain Wallet</h2>
+                <h2>Download VIDwallet</h2>
                 <div className="img-container">
                     <img src={logoVidchain} className="logoTimeline" alt="vidchain logo"/> 
-                    <p>Install the VIDchain App<br/>and create your Verifiable eID</p>
+                    <p>Install VIDwallet App<br/>in your smartphone</p>
                 </div>
             </div>
         </a>
         <a href="#download">
             <div className={getStep(step,1)}>
                 <h1>Step 1</h1>
-                <h2>VerifiableID</h2>
+                <h2>Get your Verifiable eID</h2>
                 <div className="img-container">
                     <img src={kyc} className="logoTimeline" alt="vidchain logo"/> 
-                    <p>Get your first credential<br/>by proving your liveliness and verifying your ID.</p>
+                    <p>Get your first credential by proving<br/> liveliness and verifying your identity</p>
                 </div>
             </div>
         </a>
@@ -43,7 +43,7 @@ const Timeline = ({
                 <h2>Government of Freedonia</h2>
                 <div className="img-container">
                     <img src={logoGovernment} className="logoTimeline" alt="government logo"/> 
-                    <p>Access to your government account<br/>with VIDchain and use their services</p>
+                    <p>Access to Government of Freedonia<br/>with VIDchain and request Large Family Credential</p>
                 </div>
             </div>
         </a>
@@ -53,7 +53,7 @@ const Timeline = ({
                 <h2>University</h2>
                 <div className="img-container">
                     <img src={logoUniversity} className="logoTimeline" alt="university logo"/> 
-                    <p>Access to your university portal<br/>and get your diploma</p>
+                    <p>Access to ACME university and request a discount<br/>  presenting your Large Family Credential</p>
                 </div>
             </div>
         </a>
