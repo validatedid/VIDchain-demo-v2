@@ -1,5 +1,5 @@
 .step-body-background {
-    background-color: white !important;
+    background-color: rgba(21, 26, 53, 1) !important;
     width: 80%;
     margin-left: 10%;
     margin-top: -35px;
@@ -7,7 +7,7 @@
   }
   @media only screen and (max-width: 750px) {
     .step-body-background {
-      background-color: white !important;
+      background-color: rgba(21, 26, 53, 1) !important;
       width: 100%;
       margin-top: -35px;
       margin-left: 0;
@@ -18,7 +18,7 @@
     margin-top: 50px;
   }
   .live-products-header {
-    background: white;
+    background: rgba(21, 26, 53, 1);
     text-align: center;
     width: 100%;
     margin-top: -120px;
@@ -54,7 +54,7 @@
     display: none;
   }
   .step-body p {
-    color: black;
+    color: white;
     font-family: Raleway;
     font-size: 17px;
     font-weight: 500;
@@ -87,7 +87,7 @@
     margin-left: 20px;
   }
   .step .heading {
-    color: rgba(21, 26, 53, 1);
+    color: white;
     font-family: Raleway;
     font-size: 20px;
     font-weight: 500;
@@ -112,7 +112,7 @@
     box-shadow: 5px 5px 10px #c3c3c3;
     width: 140px;
     color: white;
-    background: rgba(21, 26, 53, 1);
+    background: #00bf71;
     height: 35px;
     line-height: 35px;
     font-size: 12px;

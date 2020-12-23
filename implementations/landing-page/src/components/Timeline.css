@@ -13,15 +13,15 @@ body {
   .entry {
     display: inline-block;
     vertical-align: top;
-    background:rgba(21, 26, 53, 1);
-    color: #00bf71;
+    background: #00bf71;
+    color: rgba(21, 26, 53, 1);
     padding: 30px;
     font-size: 12px;
     text-align: center;
     align-items: center;
     align-content: center;
     position: relative;
-    border-top: 4px solid #06182E;
+    border-top: 4px solid #00bf71;
     border-radius: 3px;
     min-width: 200px;
     max-width: 500px;
@@ -59,7 +59,7 @@ body {
     width: 7px;
     height: 7px;
     border-radius: 6px;
-    border: 3px solid #06182E;
+    border: 3px solid #00bf71;
     position: absolute;
     left: 50%;
     top: -30px;
@@ -69,7 +69,7 @@ body {
   .entry:before {
     content: '';
     display: block;
-    background: #06182E;
+    background: #00bf71;
     width: 5px;
     height: 20px;
     position: absolute;
@@ -133,7 +133,7 @@ body {
   
   .bar {
     height: 4px;
-    background: rgba(21, 26, 53, 1);
+    background: #00bf71;
     width: 100%;
     position: relative;
     top: 13px;

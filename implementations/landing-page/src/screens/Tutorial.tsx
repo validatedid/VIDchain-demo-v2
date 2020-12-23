@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import Timeline from '../components/Timeline';
 import './Tutorial.css';
 import * as config from "../config/config";
-import logoVidchain from "../assets/images/VIDchain_horizontal.png";
 import logoValidated from "../assets/images/validated_white.png";
 import logoAndroid from "../assets/images/playStore@3x.png";
 import logoUniversity from "../assets/images/logo_uni.png";
 import logoGovernment from "../assets/images/logoCity.png";
 import logoNotification from "../assets/images/icon_notification.png";
-import kyc from "../assets/images/kyc.png"
+import kyc from "../assets/images/kyc.png";
+import logoVidchain from "../assets/images/3531224b-vidchain.svg";
+
 
 interface Props {
   location: any;
@@ -71,7 +72,7 @@ class Tutorial extends Component<Props, State> {
     const {step} = this.state;
   return (
     <div className="step-body-background">
-      <img className="logo" src={logoVidchain} alt="logo vidchain"/>
+      <img className="logo" src={logoVidchain} width="180" height="30" style={{marginLeft:"-100px"}}/>
         <Timeline step={step}/>
         <div className="step-body">
         <div className="step step-body">
