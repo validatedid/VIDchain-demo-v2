@@ -23,8 +23,8 @@ body {
     position: relative;
     border-top: 10px solid #00bf71;
     border-radius: 3px;
-    min-width: 200px;
-    max-width: 500px;
+    min-width: 100px;
+    max-width: 160px;
     margin: 20px;
   }
   .entryNoSelected {
@@ -40,8 +40,8 @@ body {
     position: relative;
     border-top: 4px solid #06182E;
     border-radius: 3px;
-    min-width: 200px;
-    max-width: 500px;
+    min-width: 100px;
+    max-width: 160px;
     margin: 20px;
   }
   .entryCurrent {
@@ -57,8 +57,8 @@ body {
     position: relative;
     border-top: 10px solid #00bf71;
     border-radius: 3px;
-    min-width: 200px;
-    max-width: 500px;
+    min-width: 100px;
+    max-width: 160px;
     margin: 20px;
   }
   .entry .entryNoSelected .entryCurrent img {
