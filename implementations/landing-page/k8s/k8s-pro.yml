@@ -66,4 +66,8 @@ spec:
       - path: /demo(/|$)(.*)
         backend:
           serviceName: demo-landing-service
-          servicePort: 3028       
+          servicePort: 3028
+      - path: /
+        backend:
+          serviceName: demo-landing-service
+          servicePort: 3028        
