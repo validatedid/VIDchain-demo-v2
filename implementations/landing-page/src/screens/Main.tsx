@@ -48,7 +48,7 @@ const htmlString = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "ht
                <p style="line-height: 18px;"><span style="font-style: normal;"><span style="font-weight: 500;"><span style="font-family: Raleway;"><span style="font-size: 12px; color: rgb(123, 120, 138);">Carrer Aragó, 179 - 4th floor 08011 Barcelona (Spain)</span><span style="font-size: 12px; color: rgb(145, 147, 150);"><br></span></span></span></span></p>
             </div>
             
-            <a class="lp-element lp-pom-button" id="lp-pom-button-178" href="/demo/tutorial" target="_self"><span class="label">Start tutorial</span></a><a class="lp-element lp-pom-button" id="lp-pom-button-179" href="#lp-pom-box-979" target="_self"><span class="label">About</span></a>
+            <a class="lp-element lp-pom-button" id="lp-pom-button-178" href="/demo/tutorial" target="_self"><span class="label">Start tutorial</span></a><a class="lp-element lp-pom-button" id="lp-pom-button-179" href="#lp-pom-box-979" target="_self"></a>
 
             <div class="lp-element lp-pom-text nlh" id="lp-pom-text-539">
                <p><span style="font-family: Raleway; font-weight: 400; font-style: normal; color: rgb(123, 120, 138);"><span style="font-size: 12px;">Powered by&nbsp;</span><span style="font-size: 12px;">Validated ID</span></span></p>
