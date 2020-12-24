@@ -67,3 +67,4 @@ spec:
         backend:
           serviceName: demo-landing-service
           servicePort: 3028           
+# PENDING TO REDIRECT /
