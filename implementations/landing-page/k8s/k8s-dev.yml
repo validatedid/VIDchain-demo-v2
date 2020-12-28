@@ -53,6 +53,10 @@ metadata:
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/server-snippet: |
+      location ~ ^/$ {
+          return 302 /demo;
+      }
     nginx.ingress.kubernetes.io/rewrite-target: /demo/$2
 spec:
   tls:
@@ -66,5 +70,4 @@ spec:
       - path: /demo(/|$)(.*)
         backend:
           serviceName: demo-landing-service
-          servicePort: 3028           
-# PENDING TO REDIRECT /
+          servicePort: 3028  
