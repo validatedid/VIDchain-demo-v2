@@ -46,6 +46,7 @@ stages:
       displayName: 'retrieve $(packageJson) version'
   - job: BuildGaviusBackend
     displayName: 'Build Gavius Backend'
+    dependsOn: GetShortCommit
     pool:
       vmImage: $(vmImageName)
     steps:
