@@ -1,0 +1,114 @@
+trigger:
+  branches:
+    include:
+      - development
+  paths:
+    include:
+      - implementations/ajuntament-gava/ajuntament-gava-backend
+
+pr: none
+
+resources:
+- repo: self
+
+variables:
+  # Set demo global version - manually
+  major: 0
+  minor: 1
+  # Docker Buildkit improves image build performance
+  DOCKER_BUILDKIT: 1
+  # Image repository
+  gaviusBackendRepo: 'ajuntament-gava-backend'
+  gaviusBackendRepoEndpoint: 'k8scrvidchaindev.azurecr.io/ajuntament-gava-backend'
+  # Dockerfiles
+  gaviusBackendDocker: 'implementations/ajuntament-gava/ajuntament-gava-backend/Dockerfile'
+  # Kubernetes YAML
+  gaviusBackendKubernetes: 'implementations/ajuntament-gava/ajuntament-gava-backend/k8s/k8s-dev.yml'
+  # Configmaps
+  gaviusBackendConfigMap: 'implementations/ajuntament-gava/ajuntament-gava-backend/k8s/configmap-dev.yml'
+  # Kubernetes namespace
+  namespace: 'development'
+  # Image tagging: application version - build
+  tagGaviusBackend: '$(Build.BuildNumber)'
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+stages:
+- stage: Build
+  displayName: 'Build stage'
+  jobs:
+  - job: GetShortCommit
+    displayName: 'retrieve commit hash'
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - script: |
+        commit=$(Build.SourceVersion)
+        shortCommit=${commit:0:7}
+        echo "##vso[build.updatebuildnumber]$(major).$(minor).$(Build.BuildId)-commit.$shortCommit"
+      displayName: 'retrieve $(packageJson) version'
+  - job: BuildGaviusBackend
+    displayName: 'Build Gavius Backend'
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - task: Docker@2
+      displayName: Login ACR
+      inputs:
+        command: login
+        containerRegistry: $(dockerRegistryServiceConnection)
+    - script: "docker pull $(gaviusBackendRepoEndpoint):latest"
+      displayName: Pull latest for layer caching
+      continueOnError: true # for first build, no cache
+    - task: Docker@2
+      displayName: "build --cache-from=$(gaviusBackendRepoEndpoint):latest"
+      inputs:
+        containerRegistry: '$(dockerRegistryServiceConnection)'
+        repository: '$(gaviusBackendRepo)'
+        command: 'build'
+        Dockerfile: $(gaviusBackendDocker)
+        arguments: '--cache-from=$(gaviusBackendRepoEndpoint):latest' 
+        tags: |
+          $(tagGaviusBackend)
+          latest
+    - task: Docker@2
+      displayName: "push"
+      inputs:
+        command: push
+        containerRegistry: "$(dockerRegistryServiceConnection)"
+        repository: $(gaviusBackendRepo) 
+        tags: |
+          $(tagGaviusBackend)
+          latest        
+- stage: Deploy
+  displayName: 'Deploy stage'
+  dependsOn: Build
+  jobs:
+  - deployment: DeployGaviusBackend
+    displayName: 'Deploy Gavius Backend'
+    pool:
+      vmImage: $(vmImageName)
+    environment: 'production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          - task: Kubernetes@1
+            displayName: Create/update configmap
+            inputs:
+              connectionType: Azure Resource Manager
+              azureSubscriptionEndpoint: $(azureSubscriptionEndpoint) 
+              azureResourceGroup: $(azureResourceGroup)
+              kubernetesCluster: $(kubernetesCluster)
+              command: apply
+              arguments: -f $(gaviusBackendConfigMap) -n $(namespace)
+          - task: KubernetesManifest@0
+            displayName: Create/update deployment
+            inputs:              
+              kubernetesServiceConnection: $(kubernetesServiceConnection)
+              namespace: $(namespace)
+              manifests: $(gaviusBackendKubernetes)
+              containers: |
+                $(gaviusBackendRepoEndpoint):$(tagGaviusBackend)
+

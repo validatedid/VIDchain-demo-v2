@@ -1,0 +1,109 @@
+trigger:
+  branches:
+    include:
+      - development
+  paths:
+    include:
+      - implementations/vidchain-government/vidchain-government-frontend
+
+pr: none
+
+resources:
+- repo: self
+
+variables:
+  # Set demo global version - manually
+  major: 0
+  minor: 1
+  # Docker Buildkit improves image build performance
+  DOCKER_BUILDKIT: 1
+  # Image repository
+  governmentFrontendRepo: 'government-frontend'
+  governmentFrontendRepoEndpoint: 'k8scrvidchaindev.azurecr.io/government-frontend'
+  # Dockerfiles
+  governmentFrontendDocker: 'implementations/vidchain-government/vidchain-government-frontend/Dockerfile'
+  # Kubernetes YAML
+  governmentFrontendKubernetes: 'implementations/vidchain-government/vidchain-government-frontend/k8s/k8s-dev.yml'
+  # Kubernetes namespace
+  namespace: 'development'
+  # Image tagging: application version - build
+  tagGovernmentFrontend: '$(Build.BuildNumber)'
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+  
+stages:
+- stage: Build
+  displayName: 'Build stage'
+  jobs:
+  - job: GetShortCommit
+    displayName: 'retrieve commit hash'
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - script: |
+        commit=$(Build.SourceVersion)
+        shortCommit=${commit:0:7}
+        echo "##vso[build.updatebuildnumber]$(major).$(minor).$(Build.BuildId)-commit.$shortCommit"
+      displayName: 'retrieve $(packageJson) version'
+  - job: BuildGovernmentFrontend
+    displayName: 'Build Government Frontend'
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - bash: |
+        cp ./implementations/vidchain-government/vidchain-government-frontend/envs/.env.development ./implementations/vidchain-government/vidchain-government-frontend/.env
+        echo -e "\nREACT_APP_API_KEY=$API_KEY" >> ./implementations/vidchain-government/vidchain-government-frontend/.env
+      name: load_env_variables_file
+      displayName: 'load env vars'
+      env:
+        API_KEY: $(API_KEY_GOVERNMENT)
+    - task: Docker@2
+      displayName: Login ACR
+      inputs:
+        command: login
+        containerRegistry: $(dockerRegistryServiceConnection)
+    - script: "docker pull $(governmentFrontendRepoEndpoint):latest"
+      displayName: Pull latest for layer caching
+      continueOnError: true # for first build, no cache
+    - task: Docker@2
+      displayName: "build --cache-from=$(governmentFrontendRepoEndpoint):latest"
+      inputs:
+        containerRegistry: '$(dockerRegistryServiceConnection)'
+        repository: '$(governmentFrontendRepo)'
+        command: 'build'
+        Dockerfile: $(governmentFrontendDocker)
+        arguments: '--cache-from=$(governmentFrontendRepoEndpoint):latest' 
+        tags: |
+          $(tagGovernmentFrontend)
+          latest
+    - task: Docker@2
+      displayName: "push"
+      inputs:
+        command: push
+        containerRegistry: "$(dockerRegistryServiceConnection)"
+        repository: $(governmentFrontendRepo) 
+        tags: |
+          $(tagGovernmentFrontend)
+          latest        
+- stage: Deploy
+  displayName: 'Deploy stage'
+  dependsOn: Build
+  jobs:
+  - deployment: DeployGovernmentFrontend
+    displayName: 'Deploy Government Frontend'
+    pool:
+      vmImage: $(vmImageName)
+    environment: 'development'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          - task: KubernetesManifest@0
+            displayName: Create/update deployment
+            inputs:              
+              kubernetesServiceConnection: $(kubernetesServiceConnection)
+              namespace: $(namespace)
+              manifests: $(governmentFrontendKubernetes)
+              containers: |
+                $(governmentFrontendRepoEndpoint):$(tagGovernmentFrontend)
