@@ -46,6 +46,7 @@ stages:
       displayName: 'retrieve $(packageJson) version'
   - job: BuildGovernmentBackend
     displayName: 'Build Government Backend'
+    dependsOn: GetShortCommit
     pool:
       vmImage: $(vmImageName)
     steps:

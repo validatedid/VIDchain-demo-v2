@@ -44,6 +44,7 @@ stages:
       displayName: 'retrieve $(packageJson) version'
   - job: BuildUniversityFrontend
     displayName: 'Build University Frontend'
+    dependsOn: GetShortCommit
     pool:
       vmImage: $(vmImageName)
     steps:
