@@ -44,6 +44,7 @@ stages:
       displayName: 'retrieve $(packageJson) version'
   - job: BuildLandingDemo
     displayName: 'Build Landing demo'
+    dependsOn: GetShortCommit
     pool:
       vmImage: $(vmImageName)
     steps:
