@@ -12,9 +12,6 @@ resources:
 - repo: self
 
 variables:
-  # Set demo global version - manually
-  major: 0
-  minor: 1
   # Docker Buildkit improves image build performance
   DOCKER_BUILDKIT: 1
   # Image repository
@@ -43,7 +40,7 @@ stages:
     - script: |
         commit=$(Build.SourceVersion)
         shortCommit=${commit:0:7}
-        echo "##vso[build.updatebuildnumber]$(major).$(minor).$(Build.BuildId)-commit.$shortCommit"
+        echo "##vso[build.updatebuildnumber]$(Build.BuildId)-commit.$shortCommit"
       displayName: 'retrieve $(packageJson) version'
   - job: BuildUniversityFrontend
     displayName: 'Build University Frontend'
