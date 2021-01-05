@@ -7,7 +7,7 @@ This repository contains two demo projects:
 
 ## Get VIDChain wallet and test the available demos
 
-The _.apk_ is currently available for Android. Get it on [VIDwallet in Google Play](https://play.google.com/store/apps/details?id=com.validatedid.wallet). Once you got your wallet, you will find the demos running at: [vidchain tutorial](https://try.vidchain.net/tutorial).
+The _.apk_ is currently available for Android. Get it on [VIDwallet in Google Play](https://play.google.com/store/apps/details?id=com.validatedid.wallet). Once you got your wallet, you will find the demos running at: [vidchain tutorial](https://try.vidchain.net/demo/tutorial).
 
 
 ## Run the apps locally
