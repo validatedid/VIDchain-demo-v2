@@ -12,9 +12,6 @@ resources:
 - repo: self
 
 variables:
-  # Set demo global version - manually
-  major: 0
-  minor: 1
   # Docker Buildkit improves image build performance
   DOCKER_BUILDKIT: 1
   # Image repository
@@ -35,6 +32,16 @@ stages:
 - stage: Build
   displayName: 'Build stage'
   jobs:
+  - job: GetShortCommit
+    displayName: 'retrieve commit hash'
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - script: |
+        commit=$(Build.SourceVersion)
+        shortCommit=${commit:0:7}
+        echo "##vso[build.updatebuildnumber]$(Build.BuildId)-commit.$shortCommit"
+      displayName: 'retrieve $(packageJson) version'
   - job: BuildGaviusFrontend
     displayName: 'Build Gavius Frontend'
     pool:
