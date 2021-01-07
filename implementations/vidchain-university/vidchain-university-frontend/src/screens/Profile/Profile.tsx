@@ -128,8 +128,8 @@ class Profile extends Component<Props, State> {
     socket.on("largeFamilyPresentation", (msg: any) => {
       this.setState({
         largeFamily: true,
-        popUpisOpen:true
       });
+      if (localStorage.getItem("tutorial")) this.setState({ popUpisOpen: true });
       this.openModal();
     });
   }
@@ -187,6 +187,7 @@ class Profile extends Component<Props, State> {
   openModal = () => this.setState({ popUpisOpen: true });
   closeModal = () => {
     this.setState({ popUpisOpen: false });
+    localStorage.clear();
     window.location.replace("/demo/tutorial?step=4");
   };
 
