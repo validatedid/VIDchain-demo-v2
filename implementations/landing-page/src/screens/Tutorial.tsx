@@ -37,7 +37,7 @@ class Tutorial extends Component<Props, State> {
         step: parseInt(code),
       });
     }
-    localStorage.setItem("tutorial","true");
+    sessionStorage.setItem("tutorial", "true");
   }
   
   continue(){

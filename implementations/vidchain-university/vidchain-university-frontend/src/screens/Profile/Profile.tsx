@@ -129,7 +129,7 @@ class Profile extends Component<Props, State> {
       this.setState({
         largeFamily: true,
       });
-      if (localStorage.getItem("tutorial")) {
+      if (sessionStorage.getItem("tutorial")) {
         this.openModal();
       }
     });
@@ -188,7 +188,7 @@ class Profile extends Component<Props, State> {
   openModal = () => this.setState({ popUpisOpen: true });
   closeModal = () => {
     this.setState({ popUpisOpen: false });
-    localStorage.clear();
+    sessionStorage.clear();
     window.location.replace("/demo/tutorial?step=4");
   };
 

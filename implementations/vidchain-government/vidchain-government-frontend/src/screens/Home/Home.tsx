@@ -26,10 +26,10 @@ class Home extends Component<Props, State> {
   componentDidMount() {
     var client = OpenIDClient.getInstance().getClient();
     client.wipeTokens();
-    var tutorial = localStorage.getItem("tutorial");
+    var tutorial = sessionStorage.getItem("tutorial");
     localStorage.clear();
     sessionStorage.clear();
-    if (tutorial) localStorage.setItem("tutorial", tutorial);
+    if (tutorial) sessionStorage.setItem("tutorial", tutorial);
   }
 
   async loginWithVIDChain() {
