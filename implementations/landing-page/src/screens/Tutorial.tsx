@@ -16,14 +16,14 @@ interface Props {
 }
 
 interface State {
-  step: number
+  step: number;
 }
 
 class Tutorial extends Component<Props, State> {
   constructor(props: any) {
     super(props);
     this.state = {
-      step: +(sessionStorage.getItem("step") || 0)
+      step: +(sessionStorage.getItem("step") || 0),
     };
   }
 
@@ -37,8 +37,9 @@ class Tutorial extends Component<Props, State> {
         step: parseInt(code),
       });
     }
-
+    sessionStorage.setItem("tutorial", "true");
   }
+  
   continue(){
     const {step} = this.state;
     sessionStorage.setItem("step", String(step+1))
