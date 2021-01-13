@@ -25,11 +25,8 @@ const htmlString = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "ht
       <style title="page-styles" type="text/css" data-page-type="main_desktop"></style>
       <style title="page-styles" type="text/css" data-page-type="main_mobile"></style>
       <!-- lp:insertions start head -->
-      <link href="//builder-assets.unbounce.com/published-css/main-7b78720.z.css" rel="stylesheet" media="screen" type="text/css" />
-      <meta property='og:title' content='http://unbouncepages.com/vidchain-demo/'/>
+      <link href="/main-7b78720.z.css" rel="stylesheet" media="screen" type="text/css" />
 
-      <script type="text/javascript">window.ub=window.ub||{};window.ub.domain={"wordpressEnabled":true};</script>
-      <script async src="https://d34qb8suadcc4g.cloudfront.net/ub.js?1605293159" type="text/javascript"></script>
    </head>
    <body class="lp-pom-body">
       <!-- lp:insertions start body:before --><!-- lp:insertions end body:before -->
@@ -49,7 +46,6 @@ const htmlString = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "ht
             </div>
             
             <a class="lp-element lp-pom-button" id="lp-pom-button-178" href="/demo/tutorial" target="_self"><span class="label">Start tutorial</span></a><a class="lp-element lp-pom-button" id="lp-pom-button-179" href="#lp-pom-box-979" target="_self"></a>
-
             <div class="lp-element lp-pom-text nlh" id="lp-pom-text-539">
                <p><span style="font-family: Raleway; font-weight: 400; font-style: normal; color: rgb(123, 120, 138);"><span style="font-size: 12px;">Powered by&nbsp;</span><span style="font-size: 12px;">Validated ID</span></span></p>
             </div>
@@ -110,7 +106,6 @@ const htmlString = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "ht
             <div class="lp-element lp-pom-image" id="lp-pom-image-947">
                <div class="lp-pom-image-container" style="overflow: hidden;"><img src="`+logoIOS+`" alt="" loading="lazy"></div>
             </div>
-
             <div class="lp-element lp-pom-box" id="lp-pom-box-979">
                <div id="lp-pom-box-979-color-overlay"></div>
                <div class="lp-element lp-pom-text nlh" id="lp-pom-text-990">
@@ -120,7 +115,6 @@ const htmlString = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "ht
                <div class="lp-element lp-pom-text nlh" id="lp-pom-text-992">
                   <h3 style="text-align: center; line-height: 20px; letter-spacing: 2px;"><span style="font-style: normal;"><span style="font-weight: 800;"><span style="font-family: Raleway;"><strong><span style="font-size: 11px; color: rgb(123, 120, 138);">WATCH VIDEO</span></strong></span></span></span></h3>
                </div>
-
                <div class="lp-element lp-pom-text nlh" id="lp-pom-text-993">
                   <p style="line-height: 26px; text-align: center;"><span style="color: rgb(123, 120, 138);"><span style="font-family: Raleway; font-weight: 500; font-style: normal;"><span style="font-size: 16px;"><strong>With VIDchain</strong></span></span><span style="font-family: Raleway; font-weight: 500; font-style: normal;"><span style="font-size: 16px;">&nbsp;we're offering secure identity solutions that allow a more digital and sustainable world guaranteeing privacy, rights, and freedom to people.</span></span></span></p>
                </div>
