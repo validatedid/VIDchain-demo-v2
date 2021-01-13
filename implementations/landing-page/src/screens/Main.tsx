@@ -128,9 +128,6 @@ const htmlString = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "ht
             <div class="lp-element lp-pom-box" id="lp-pom-box-1012">
                <div id="lp-pom-box-1012-color-overlay"></div>
             </div>
-            <div class="lp-element lp-pom-box" id="lp-pom-box-1014">
-               <div id="lp-pom-box-1014-color-overlay"></div>
-            </div>
             <div class="lp-element lp-pom-box" id="lp-pom-box-1016">
                <div id="lp-pom-box-1016-color-overlay"></div>
             </div>
