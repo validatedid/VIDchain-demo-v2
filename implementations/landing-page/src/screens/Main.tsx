@@ -11,25 +11,7 @@ import logoGooglePlay from "../assets/images/a6acde6a-google-play.svg";
 import logoIOS from "../assets/images/b6b7988d-app-store.svg";
 
 
-const htmlString = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-   <head>
-      <META http-equiv="Content-Type" content="text/html; charset=UTF-8" >
-      <!--09542cfc-a0b7-4675-9fac-543f8bede0e4 a-->
-      <title></title>
-      <meta name="keywords" content="">
-      <meta name="description" content="">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="lp-version" content="v6.23.8">
-      <style title="page-styles" type="text/css" data-page-type="main_desktop"></style>
-      <style title="page-styles" type="text/css" data-page-type="main_mobile"></style>
-      <!-- lp:insertions start head -->
-      <link href="/main-7b78720.z.css" rel="stylesheet" media="screen" type="text/css" />
-
-   </head>
-   <body class="lp-pom-body">
-      <!-- lp:insertions start body:before --><!-- lp:insertions end body:before -->
+const htmlString = `
       <div class="lp-element lp-pom-root" id="lp-pom-root">
          <div id="lp-pom-root-color-overlay"></div>
          <div class="lp-positioned-content">
@@ -144,9 +126,7 @@ const htmlString = `<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "ht
             <div id="lp-pom-block-951-color-overlay"></div>
             <div class="lp-pom-block-content"></div>
          </div>
-      </div>
-   </body>
-</html>`;
+      </div>`;
 
 interface Props {
 
