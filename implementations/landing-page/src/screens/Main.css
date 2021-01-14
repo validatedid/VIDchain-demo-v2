@@ -1,7 +1,8 @@
 body {
 	color: #151a35;
+	
+	
 }
-
 a {
 	color: #151a35;
 	text-decoration: none;
@@ -35,7 +36,7 @@ a {
 
 #lp-pom-text-87 {
 	left: 551px;
-	top: 3631px;
+	top: 2631px;
 	display: block;
 	background: rgba(255, 255, 255, 0);
 	border-style: none;
@@ -104,13 +105,12 @@ a {
 	padding-top: 0px;
 	border-radius: 0px;
 	min-width: 940px;
-	height: 3734px;
 }
 
 #lp-pom-block-8 {
 	display: block;
 	background: rgba(21, 26, 53, 1);
-	background-image: url(//d9hhrg4mnvzow.cloudfront.net/unbouncepages.com/vidchain-demo/3de15d9e-fondo-08.svg);
+	background-image: url("../assets/images/3de15d9e-fondo-08.svg");
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-size: cover;
@@ -326,7 +326,7 @@ a {
 #lp-pom-block-951 {
 	display: block;
 	background: rgba(255, 255, 255, 0);
-	background-image: url(//d9hhrg4mnvzow.cloudfront.net/unbouncepages.com/vidchain-demo/86da6627-recurso-13.svg);
+	background-image: url("../assets/images/86da6627-recurso-13.svg");
 	background-repeat: no-repeat;
 	background-position: center center;
 	border-style: none none none none;
@@ -406,7 +406,7 @@ a {
 	top: 1964px;
 	z-index: 39;
 	width: 940px;
-	height: 474px;
+	height: 47px;
 	position: absolute;
 }
 
@@ -436,7 +436,7 @@ a {
 	text-shadow: none;
 	box-shadow: none;
 	background-color: rgba(255, 255, 255, 0);
-	background-image: url(//d9hhrg4mnvzow.cloudfront.net/unbouncepages.com/vidchain-demo/932c2565-recurso-1_1000000000000000000028.png);
+	background-image: url("../assets/images/932c2565-recurso-1_1000000000000000000028.png");
 	color: #C263D2;
 	border-width: undefinedpx;
 	border-color: undefined;
@@ -657,7 +657,7 @@ a {
 	border-style: none;
 	border-radius: 0px;
 	left: 59px;
-	top: 3652px;
+	top: 2652px;
 	z-index: 8;
 	width: 139px;
 	height: 22px;
@@ -670,7 +670,7 @@ a {
 	border-style: none;
 	border-radius: 0px;
 	left: 425px;
-	top: 3631px;
+	top: 2631px;
 	z-index: 6;
 	width: 81px;
 	height: 20px;
@@ -683,7 +683,7 @@ a {
 	border-style: none;
 	border-radius: 0px;
 	left: 763px;
-	top: 3631px;
+	top: 2631px;
 	z-index: 5;
 	width: 176px;
 	height: 35px;
@@ -694,7 +694,7 @@ a {
 	display: block;
 	background: rgba(255, 255, 255, 0);
 	left: 0px;
-	top: 3622px;
+	top: 2622px;
 	z-index: 45;
 	position: absolute;
 }
@@ -705,7 +705,7 @@ a {
 	border-style: none;
 	border-radius: 0px;
 	left: 3px;
-	top: 3560px;
+	top: 2560px;
 	z-index: 48;
 	width: 934px;
 	height: 2px;
@@ -936,7 +936,7 @@ a {
 	text-shadow: none;
 	box-shadow: none;
 	background-color: rgba(242, 194, 194, 0);
-	background-image: url(//d9hhrg4mnvzow.cloudfront.net/unbouncepages.com/vidchain-demo/932c2565-recurso-1_1000000000000000000028.png);
+	background-image: url("../assets/images/932c2565-recurso-1_1000000000000000000028.png");
 	color: #C263D2;
 }
 
@@ -944,7 +944,7 @@ a {
 	text-shadow: none;
 	box-shadow: none;
 	background-color: rgba(230, 161, 161, 0);
-	background-image: url(//d9hhrg4mnvzow.cloudfront.net/unbouncepages.com/vidchain-demo/932c2565-recurso-1_1000000000000000000028.png);
+	background-image: url("../assets/images/932c2565-recurso-1_1000000000000000000028.png");
 	color: #C263D2;
 }
 
@@ -969,7 +969,6 @@ a {
 	background: none;
 	top: 0;
 	width: 100%;
-	height: 3734px;
 	min-height: 100%;
 }
 
@@ -1038,7 +1037,7 @@ a {
 #lp-pom-box-979-color-overlay {
 	position: absolute;
 	background: none;
-	height: 474px;
+	height: 47px;
 	width: 940px;
 }
 
@@ -1086,12 +1085,11 @@ a {
 		padding-top: 0px;
 		border-radius: 0px;
 		min-width: 320px;
-		height: 4761px;
 	}
 	#lp-pom-block-8 {
 		display: block;
 		background: rgba(21, 26, 53, 1);
-		background-image: url(//d9hhrg4mnvzow.cloudfront.net/unbouncepages.com/vidchain-demo/3de15d9e-fondo-08.svg);
+		background-image: url("../assets/images/3de15d9e-fondo-08.svg");
 		background-repeat: no-repeat;
 		background-position: left top;
 		background-size: cover;
@@ -1103,7 +1101,6 @@ a {
 		margin-bottom: 0px;
 		border-radius: 0px;
 		width: 100%;
-		height: 986px;
 		position: relative;
 	}
 	#lp-pom-text-9 {
@@ -1393,7 +1390,7 @@ a {
 	#lp-pom-block-951 {
 		display: block;
 		background: rgba(255, 255, 255, 0);
-		background-image: url(//d9hhrg4mnvzow.cloudfront.net/unbouncepages.com/vidchain-demo/86da6627-recurso-13.svg);
+		background-image: url("../assets/images/86da6627-recurso-13.svg");
 		background-repeat: no-repeat;
 		background-position: center center;
 		border-style: none none none none;
@@ -1451,24 +1448,7 @@ a {
 		height: 1px;
 		position: absolute;
 	}
-	#lp-pom-block-648 {
-		display: block;
-		background: rgba(255, 255, 255, 0);
-		background-image: url(//d9hhrg4mnvzow.cloudfront.net/unbouncepages.com/vidchain-demo/a2260569-screenshot-2020-08-28-laurel-template_10hg0a00go0a0000000028.png);
-		background-repeat: no-repeat;
-		background-position: left center;
-		background-size: cover;
-		border-style: none none none none;
-		border-width: undefinedpx;
-		border-color: none;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 0px;
-		border-radius: 0px;
-		width: 100%;
-		height: 360px;
-		position: relative;
-	}
+
 	#lp-pom-box-979 {
 		display: block;
 		background: rgba(255, 255, 255, 0);
@@ -1480,7 +1460,7 @@ a {
 		top: 2449px;
 		z-index: 39;
 		width: 940px;
-		height: 474px;
+		height: 47px;
 		position: absolute;
 	}
 	#lp-pom-text-990 {
@@ -1512,7 +1492,7 @@ a {
 		text-shadow: none;
 		box-shadow: none;
 		background-color: rgba(255, 255, 255, 0);
-		background-image: url(//d9hhrg4mnvzow.cloudfront.net/unbouncepages.com/vidchain-demo/932c2565-recurso-1_1000000000000000000028.png);
+		background-image: url("../assets/images/932c2565-recurso-1_1000000000000000000028.png");
 		color: #C263D2;
 		border-width: undefinedpx;
 		border-color: undefined;
@@ -1726,7 +1706,7 @@ a {
 		border-style: none;
 		border-radius: 0px;
 		left: 20px;
-		top: 4546px;
+		top: 2546px;
 		z-index: 7;
 		width: 200px;
 		height: 35px;
@@ -1752,7 +1732,7 @@ a {
 		border-style: none;
 		border-radius: 0px;
 		left: 20px;
-		top: 4520px;
+		top: 2520px;
 		z-index: 8;
 		width: 139px;
 		height: 22px;
@@ -1764,7 +1744,7 @@ a {
 		border-style: none;
 		border-radius: 0px;
 		left: 20px;
-		top: 4615px;
+		top: 2615px;
 		z-index: 6;
 		width: 195px;
 		height: 20px;
@@ -1776,7 +1756,7 @@ a {
 		border-style: none;
 		border-radius: 0px;
 		left: 20px;
-		top: 4678px;
+		top: 2678px;
 		z-index: 5;
 		width: 300px;
 		height: 17px;
@@ -1790,7 +1770,7 @@ a {
 		display: block;
 		background: rgba(255, 255, 255, 0);
 		left: 10px;
-		top: 4440px;
+		top: 2440px;
 		z-index: 45;
 		position: absolute;
 	}
@@ -1800,7 +1780,7 @@ a {
 		border-style: none;
 		border-radius: 0px;
 		left: 10px;
-		top: 4440px;
+		top: 2440px;
 		z-index: 48;
 		width: 934px;
 		height: 2px;
@@ -2000,14 +1980,14 @@ a {
 		text-shadow: none;
 		box-shadow: none;
 		background-color: rgba(242, 194, 194, 0);
-		background-image: url(//d9hhrg4mnvzow.cloudfront.net/unbouncepages.com/vidchain-demo/932c2565-recurso-1_1000000000000000000028.png);
+		background-image: url("../assets/images/932c2565-recurso-1_1000000000000000000028.png");
 		color: #C263D2;
 	}
 	#lp-pom-button-991:active {
 		text-shadow: none;
 		box-shadow: none;
 		background-color: rgba(230, 161, 161, 0);
-		background-image: url(//d9hhrg4mnvzow.cloudfront.net/unbouncepages.com/vidchain-demo/932c2565-recurso-1_1000000000000000000028.png);
+		background-image: url("../assets/images/932c2565-recurso-1_1000000000000000000028.png");
 		color: #C263D2;
 	}
 	#lp-pom-button-991 .label {
@@ -2028,7 +2008,6 @@ a {
 		background: none;
 		top: 0;
 		width: 100%;
-		height: 4761px;
 		min-height: 100%;
 	}
 	#lp-pom-block-8-color-overlay {
@@ -2089,7 +2068,7 @@ a {
 	#lp-pom-box-979-color-overlay {
 		position: absolute;
 		background: none;
-		height: 474px;
+		height: 47px;
 		width: 940px;
 	}
 	#lp-pom-box-1008-color-overlay {
@@ -2124,19 +2103,6 @@ a {
 	}
 }
 
-@media only screen and (max-width: 600px) and (-webkit-min-device-pixel-ratio: 1.1),
-only screen and (max-width: 600px) and (min-resolution: 97dpi) {
-	#lp-pom-block-648 {
-		background-image: url(//d9hhrg4mnvzow.cloudfront.net/unbouncepages.com/vidchain-demo/a2260569-screenshot-2020-08-28-laurel-template_10yv0k00xc0k0000000028.png);
-	}
-}
-
-@media only screen and (max-width: 600px) and (-webkit-min-device-pixel-ratio: 2.1),
-only screen and (max-width: 600px) and (min-resolution: 193dpi) {
-	#lp-pom-block-648 {
-		background-image: url(//d9hhrg4mnvzow.cloudfront.net/unbouncepages.com/vidchain-demo/a2260569-screenshot-2020-08-28-laurel-template_11gb0u01e00u0000000028.png);
-	}
-}
 
 @import url('https://fonts.googleapis.com/css?family=Raleway:regular,bold,italic&subset=latin,latin-ext');
 @import url('https://fonts.googleapis.com/css?family=Montserrat:regular,bold,italic&subset=latin,latin-ext');
