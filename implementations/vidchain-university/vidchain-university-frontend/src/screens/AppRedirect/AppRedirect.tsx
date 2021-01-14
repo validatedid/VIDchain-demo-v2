@@ -5,7 +5,6 @@ import { Redirect } from "react-router-dom";
 import * as utils from "../../utils/utils";
 import * as universityBackend from "../../apis/universityBackend";
 import io from "socket.io-client";
-import HeaderLogin from "../../components/HeaderLogin/HeaderLogin";
 import { Ring } from "react-spinners-css";
 import * as config from "../../config";
 import { strB64dec } from "../../utils/utils";
@@ -103,7 +102,6 @@ class AppRedirect extends Component<Props, State> {
     if (did != null) {
       return (
         <div>
-          <HeaderLogin></HeaderLogin>
           <div className="fullContent">
             <section id="inner-headline">
               <div className="container">

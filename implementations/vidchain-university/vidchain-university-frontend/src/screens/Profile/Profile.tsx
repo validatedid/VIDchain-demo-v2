@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import HeaderLogin from "../../components/HeaderLogin/HeaderLogin";
 import Footer from "../../components/Footer/Footer";
 import "./Profile.css";
 import * as utils from "../../utils/utils";
@@ -202,7 +201,6 @@ class Profile extends Component<Props, State> {
     } = this.state;
     return (
       <div>
-        <HeaderLogin></HeaderLogin>
         <div className="fullContent">
           <section id="inner-headline">
             <div className="container">
