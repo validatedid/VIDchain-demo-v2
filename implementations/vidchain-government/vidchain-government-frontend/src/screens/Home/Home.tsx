@@ -56,10 +56,8 @@ class Home extends Component<Props, State> {
   render() {
     return (
       <div>
-        <Official></Official>
-        <Header></Header>
         <div className="content">
-          <div className="login_form">
+          {/* <div className="login_form">
             <h4 className="mt-0">Access services</h4>
             <br />
             <p>
@@ -101,7 +99,7 @@ class Home extends Component<Props, State> {
                 </Button>
               </Form>
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="footer">
           <Footer></Footer>
