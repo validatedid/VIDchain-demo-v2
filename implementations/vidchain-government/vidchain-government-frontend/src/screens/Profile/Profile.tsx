@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./Profile.css";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import Official from "../../components/Official/Official";
 import { ICredentialData, CredentialData } from "../../interfaces/dtos";
 import { Button } from "react-bootstrap";
 import * as vidchain from "../../apis/vidchain";
@@ -155,7 +154,6 @@ class Profile extends Component<Props, State> {
     } = this.state;
     return (
       <div>
-        <Official></Official>
         <Header></Header>
         <div className="content">
           <div className="wrapper">

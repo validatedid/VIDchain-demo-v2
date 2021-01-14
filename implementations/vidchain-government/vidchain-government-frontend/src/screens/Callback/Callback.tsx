@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./Callback.css";
 import { OpenIDClient } from "../../libs/openid-connect/client";
 import { Redirect } from "react-router-dom";
-import Official from "../../components/Official/Official";
 import Header from "../../components/Header/Header";
 import io from "socket.io-client";
 import Footer from "../../components/Footer/Footer";
@@ -194,7 +193,6 @@ class Callback extends Component<Props, State> {
     if (access_token != null && !error) {
       return (
         <div>
-          <Official></Official>
           <Header></Header>
           <div className="content">
             {showCallback && (

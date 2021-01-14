@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import "./Home.css";
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import Official from "../../components/Official/Official";
+import {SignInButton} from "../../components/SignInButton/SignInButton";
 import { OpenIDClient } from "../../libs/openid-connect/client";
-import { Form, Button } from "react-bootstrap";
-// @ts-ignore
+import {Container} from '@material-ui/core';
+
+
 
 interface Props {
   history?: any;
@@ -14,6 +15,8 @@ interface Props {
 interface State {
   name: string;
 }
+
+
 
 class Home extends Component<Props, State> {
   constructor(props: any) {
@@ -56,54 +59,15 @@ class Home extends Component<Props, State> {
   render() {
     return (
       <div>
-        <div className="content">
-          {/* <div className="login_form">
-            <h4 className="mt-0">Access services</h4>
-            <br />
-            <p>
-              You can manage all the city services from this website:
-              subscriptions, taxes...
-            </p>
-            <div className="sign_in_vidchain">
-              <a
-                className="btn btn-default"
-                href="#"
-                role="button"
-                onClick={() => this.loginWithVIDChain()}
-              >
-                <i className="fa fa-check-square-o"></i>Sign in with ViDChain
-              </a>
-            </div>
-            <div>
-              <p>or</p>
-              <Form className="login_manual_form">
-                <div className="form-group">
-                  <i className="fa fa-user"></i>
-                  <Form.Control
-                    placeholder="Username"
-                    onChange={(event: any) =>
-                      this.setState({ name: event.target.value })
-                    }
-                  />
-                </div>
-                <div className="form-group">
-                  <i className="fa fa-lock" aria-hidden="true"></i>
-                  <Form.Control type="password" placeholder="Password" />
-                </div>
-                <Button
-                  variant="primary"
-                  type="submit"
-                  onClick={() => this.login()}
-                >
-                  Submit
-                </Button>
-              </Form>
-            </div>
-          </div> */}
-        </div>
-        <div className="footer">
-          <Footer></Footer>
-        </div>
+        <Header></Header>
+        <Container className="content">
+          <h1 className="title">Welcome to <br/>Freedonia</h1>
+          <h5 className="subtitle">You can manage all the city services from <br/>this website: subscriptions, taxes...</h5>
+          <SignInButton variant="contained" color="primary" onClick={() => this.loginWithVIDChain()}>
+            Sign in with VIDchain
+          </SignInButton>
+        </Container>
+        <Footer></Footer>
       </div>
     );
   }
