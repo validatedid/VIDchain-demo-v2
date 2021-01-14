@@ -10,6 +10,7 @@
   font-style: normal;
   color: rgb(21, 26, 53);
   font-size: 72px;
+  width: 30%;
 }
 .subtitle {
   font-weight: 300; 
@@ -17,9 +18,5 @@
   color: rgb(21, 26, 53); 
   font-size: 16px;
   margin-top: 2%;
-}
-.buttonSignIn {
-  margin-top: 22%;
-  background-color: yellow;
-  color: black;
+  width: 25%;
 }

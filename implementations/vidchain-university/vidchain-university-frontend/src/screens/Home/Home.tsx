@@ -37,7 +37,7 @@ class Home extends Component<Props, State> {
         <Header></Header>
         <div  className="content">
           <div className="subcontent"></div>
-          <h1 className="title"><b>Welcome to <br/>ACME university</b></h1>
+          <h1 className="title"><b>Welcome to ACME university</b></h1>
           <h5 className="subtitle"><b>We're happy to have you onboard. Get now your diploma.</b></h5>
         </div>
         <SignInButton variant="contained" color="primary" onClick={() => this.loginWithVIDChain()}>

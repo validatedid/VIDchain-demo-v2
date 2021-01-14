@@ -36,6 +36,7 @@
     align-self: center;
     left: 20%;
     top: 40%;
+    width: 30%;
     position: relative;
   }
   .subtitle {
@@ -46,9 +47,4 @@
     left: 20%;
     top: 50%;
     position: relative;
-  }
-  .buttonSignIn {
-    margin-top: 22%;
-    background-color: yellow;
-    color: black;
   }

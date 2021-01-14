@@ -61,8 +61,8 @@ class Home extends Component<Props, State> {
       <div>
         <Header></Header>
         <Container className="content">
-          <h1 className="title">Welcome to <br/>Freedonia</h1>
-          <h5 className="subtitle">You can manage all the city services from <br/>this website: subscriptions, taxes...</h5>
+          <h1 className="title">Welcome to Freedonia</h1>
+          <h5 className="subtitle">You can manage all the city services from this website: subscriptions, taxes...</h5>
           <SignInButton variant="contained" color="primary" onClick={() => this.loginWithVIDChain()}>
             Sign in with VIDchain
           </SignInButton>

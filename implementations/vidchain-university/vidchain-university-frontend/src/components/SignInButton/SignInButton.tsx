@@ -1,11 +1,9 @@
 import {Button} from '@material-ui/core';
 import { withStyles} from '@material-ui/core/styles';
-import { green, purple } from '@material-ui/core/colors';
 
 export const SignInButton = withStyles((theme) => ({
     root: {
-    width: '16%',
-    height: '41px',
+    padding: '1%',
     position: 'absolute',
     marginTop: '2%',
     left: '42%',
