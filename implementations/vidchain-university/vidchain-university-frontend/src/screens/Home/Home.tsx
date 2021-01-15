@@ -26,7 +26,7 @@ class Home extends Component<Props, State> {
     await client.callback();
     await client.getToken({
       scopes: {
-        request: ["openid", "VerifiableIdCredential", "VidFacebookCredential", "VidGoogleCredential"]
+        request: ["openid", "VerifiableIdCredential"]
       }, 
     });
   }
