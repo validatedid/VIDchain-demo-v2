@@ -12,6 +12,9 @@ import { verifiableKYC } from "../../interfaces/dtos";
 import { PresentationPayload, VerifiableCredential } from "../../interfaces/IPresentation";
 import { Modal } from "react-bootstrap";
 
+import profileIcon from "../../assets/profileIcon.svg";
+import largeFamilyIcon from "../../assets/iconLargeFamily.svg";
+
 
 interface Props {
   user: string;
@@ -23,9 +26,7 @@ interface State {
   user: ICredentialData;
   did: string;
   largeFamily: boolean;
-  hasVerifiableId: boolean;
   verifiableKYC: verifiableKYC;
-  fakeLogin: boolean;
   popUpisOpen: boolean;
 }
 
@@ -37,31 +38,12 @@ class Profile extends Component<Props, State> {
       largeFamily: false,
       did: "",
       verifiableKYC: {} as verifiableKYC,
-      hasVerifiableId: false,
-      fakeLogin: false,
       popUpisOpen: false
     };
   }
 
   componentDidMount() {
-    const {id_token, fakeLogin} = this.props.location.state;
-    if (fakeLogin) {
-      if(id_token){
-        this.setState({
-          did: utils.getUserDid(id_token),
-          verifiableKYC: utils.generateFakeCredential(),
-          hasVerifiableId: true,
-        });
-      }
-      else{
-        this.setState({
-          did: "Not yet provided",
-          verifiableKYC: utils.generateFakeCredential(),
-          fakeLogin: true,
-        });
-      }
-    }
-    else{
+    const {id_token} = this.props.location.state;
     if(id_token){
         const decodedIdToken = utils.decodeJWT(id_token);
         const jwt = decodedIdToken.jwt;
@@ -85,30 +67,12 @@ class Profile extends Component<Props, State> {
                 sex: credential.credentialSubject.gender as string,
                 personalNumber: credential.credentialSubject.personalNumber as string,
               },
-            did: utils.getUserDid(this.props.location.state.id_token),
-            hasVerifiableId: true,
+            did: utils.getUserDid(this.props.location.state.id_token)
           });
         }
       }
-    }
-    if (this.state.did !== "") {
-      this.setState({
-        hasVerifiableId: true,
-      });
-    }
     var client = OpenIDClient.getInstance().getClient();
     client.wipeTokens();
-  }
-
-  async loginWithVIDChain() {
-    localStorage.setItem("userPass", "fakePass");
-    var client = OpenIDClient.getInstance().getClient();
-    await client.callback();
-    await client.getToken({
-      scopes: {
-        request: ["openid"]
-      }, 
-    });
   }
   /**
    *  VIDCHAIN API REQUEST: Generate Verifiable Credential
@@ -147,8 +111,6 @@ class Profile extends Component<Props, State> {
   render() {
     const {
       did,
-      hasVerifiableId,
-      fakeLogin,
       verifiableKYC,
       largeFamily
     } = this.state;
@@ -199,18 +161,9 @@ class Profile extends Component<Props, State> {
                   <h4>Date of expiry: </h4>
                   <p className="welcome">&nbsp;{verifiableKYC.dateOfExpiry}</p>
                 </div>
-                {!hasVerifiableId && fakeLogin && (
-                  <Button
-                    type="button"
-                    className="collect-button"
-                    onClick={() => this.loginWithVIDChain()}
-                  >
-                    Get official government ID
-                  </Button>
-                )}
               </form>
             </div>
-            {hasVerifiableId && !largeFamily && (
+            {!largeFamily && (
               <div className="services">
                 <div className="service">
                   <br />
@@ -233,7 +186,7 @@ class Profile extends Component<Props, State> {
                 </div>
               </div>
             )}
-            {hasVerifiableId && largeFamily && (
+            {largeFamily && (
               <div className="services">
                 <div className="service">
                   <br />
