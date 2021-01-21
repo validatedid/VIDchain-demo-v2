@@ -19,8 +19,9 @@ p {
   margin-top: 2%;
 }
 
-div.spinnerContainer {
+.spinnerContainer {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 100;
 }
