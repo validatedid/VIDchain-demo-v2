@@ -1,5 +1,6 @@
 import React from 'react';
 import "./ProfilePanel.css";
+import {Container} from '@material-ui/core';
 import { verifiableKYC } from "../../interfaces/dtos";
 
 type Props = {
@@ -12,7 +13,7 @@ type Props = {
 const ProfilePanel = (props: Props) => {
   const {title, userData, did, icon} = props;
   return (
-    <div>
+    <Container className="containerProfile">
         <div className="panelTitle">
             {title}
         </div>
@@ -64,7 +65,7 @@ const ProfilePanel = (props: Props) => {
                 </div>
             </div>
         </div>
-    </div>
+    </Container>
   );
 };
 

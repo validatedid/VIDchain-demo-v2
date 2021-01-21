@@ -83,12 +83,11 @@ class Callback extends Component<Props, State> {
     const { access_token, error } = this.state;
     if (access_token != null && !error) {
       return (
-        <div>
+        <div className="home">
           <Header></Header>
           <div className="content">
               <div className="wrapper">
-                <h2>We have sent you a request to your wallet,</h2>
-                <h2>please provide your Verifiable ID.</h2>
+                <h4>{"We have sent you a request to your wallet,\n please provide your Verifiable ID"}</h4>
                 <div className="spinnerContainer">
                   <Ring color="red" />
                 </div>

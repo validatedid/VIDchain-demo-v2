@@ -58,7 +58,7 @@ class Home extends Component<Props, State> {
 
   render() {
     return (
-      <div>
+      <div className="home">
         <Header></Header>
         <Container className="content">
           <h1 className="title">Welcome to Freedonia</h1>

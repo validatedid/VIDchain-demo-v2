@@ -20,3 +20,9 @@
   margin-top: 2%;
   width: 25%;
 }
+.home {
+  background-image: url("../../assets/images/backgroundImage.svg");
+  background-repeat: no-repeat;
+  height: 100%;
+  min-height: 100vh;
+}
