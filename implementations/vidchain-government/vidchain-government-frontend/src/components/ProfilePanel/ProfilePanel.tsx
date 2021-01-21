@@ -1,15 +1,16 @@
 import React from 'react';
 import "./ProfilePanel.css";
+import { verifiableKYC } from "../../interfaces/dtos";
 
 type Props = {
   title: string;
-  data: any;
+  did: string;
+  userData: verifiableKYC;
   icon: any;
-  functionClickButton?: any;
 };
 
 const ProfilePanel = (props: Props) => {
-  const {title, data, icon} = props;
+  const {title, userData, did, icon} = props;
   return (
     <div>
         <div className="panelTitle">
@@ -25,8 +26,42 @@ const ProfilePanel = (props: Props) => {
             />
             </div>
             <div className="panelMainContent">
-            <h3 className="panelBodyTitle">{title}</h3>
-            <p className="panelBodyText">{JSON.stringify(data)}</p>
+                <div className="form-row">
+                  <h3 className="panelBodyTitle">DID: </h3>
+                  <p className="panelBodyText">&nbsp;{did}</p>
+                </div>
+                <div className="form-row">
+                  <h3 className="panelBodyTitle">Name: </h3>
+                  <p className="panelBodyText">&nbsp;{userData.name}</p>
+                </div>
+                <div className="form-row">
+                  <h3 className="panelBodyTitle">Surname: </h3>
+                  <p className="panelBodyText">&nbsp;{userData.surname}</p>
+                </div>
+                <div className="form-row">
+                  <h3 className="panelBodyTitle">Date Of Birth: </h3>
+                  <p className="panelBodyText">&nbsp;{userData.dateOfBirth}</p>
+                </div>
+                <div className="form-row">
+                  <h3 className="panelBodyTitle">Document number: </h3>
+                  <p className="panelBodyText">&nbsp;{userData.personalNumber}</p>
+                </div>
+                <div className="form-row">
+                  <h3 className="panelBodyTitle">Document type: </h3>
+                  <p>&nbsp;{userData.documentType}</p>
+                </div>
+                <div className="form-row">
+                  <h3 className="panelBodyTitle">Nationality: </h3>
+                  <p className="panelBodyText">&nbsp;{userData.nationality}</p>
+                </div>
+                <div className="form-row">
+                  <h3 className="panelBodyTitle">State Issuer: </h3>
+                  <p className="panelBodyText">&nbsp;{userData.stateIssuer}</p>
+                </div>
+                <div className="form-row">
+                  <h3 className="panelBodyTitle">Date of expiry: </h3>
+                  <p className="panelBodyText">&nbsp;{userData.dateOfExpiry}</p>
+                </div>
             </div>
         </div>
     </div>

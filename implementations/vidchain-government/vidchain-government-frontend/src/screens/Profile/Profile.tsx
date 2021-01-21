@@ -125,48 +125,13 @@ class Profile extends Component<Props, State> {
         <div className="content">
           <div className="wrapper">
             <div className="serviceCard">
-              <div className="image-holder">
-                <img src={require("../../assets/images/card.png")} alt="" />
-              </div>
-              <form action="">
-                <h3 className="eID-text">Your profile</h3>
-                <div className="form-row">
-                  <h4>DID: </h4>
-                  <p className="welcome">&nbsp;{did}</p>
-                </div>
-                <div className="form-row">
-                  <h4>Name: </h4>
-                  <p className="welcome">&nbsp;{verifiableKYC.name}</p>
-                </div>
-                <div className="form-row">
-                  <h4>Surname: </h4>
-                  <p className="welcome">&nbsp;{verifiableKYC.surname}</p>
-                </div>
-                <div className="form-row">
-                  <h4>Date Of Birth: </h4>
-                  <p className="welcome">&nbsp;{verifiableKYC.dateOfBirth}</p>
-                </div>
-                <div className="form-row">
-                  <h4>Document number: </h4>
-                  <p className="welcome">&nbsp;{verifiableKYC.personalNumber}</p>
-                </div>
-                <div className="form-row">
-                  <h4>Document type: </h4>
-                  <p>&nbsp;{verifiableKYC.documentType}</p>
-                </div>
-                <div className="form-row">
-                  <h4>Nationality: </h4>
-                  <p className="welcome">&nbsp;{verifiableKYC.nationality}</p>
-                </div>
-                <div className="form-row">
-                  <h4>State Issuer: </h4>
-                  <p className="welcome">&nbsp;{verifiableKYC.stateIssuer}</p>
-                </div>
-                <div className="form-row">
-                  <h4>Date of expiry: </h4>
-                  <p className="welcome">&nbsp;{verifiableKYC.dateOfExpiry}</p>
-                </div>
-              </form>
+              <ProfilePanel 
+                title="Your Profile"
+                userData={verifiableKYC}
+                did={did}
+                icon={profileIcon}
+                />
+             
             </div>
             {!largeFamily && (
               <ServicePanel 
