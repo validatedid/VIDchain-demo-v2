@@ -121,13 +121,20 @@ class Profile extends Component<Props, State> {
     } = this.state;
     return (
       <div className="profileHome">
-        {/* <Header></Header> */}
-        <ProfilePanel 
-          title="Your Profile"
-          userData={verifiableKYC}
-          did={did}
-          icon={profileIcon}
-          />
+        <Header></Header>
+        <div className="titleProfile">
+        <h1>{'Welcome to your'}</h1>
+        <h1 style={{top: '32%'}}>{'Freedonia Citizen Portal'}</h1>
+        <h6>Here you can check your profile details and manage your activity within the Freedonia Citizen</h6>
+        </div>
+        <div className="panels">
+          <ProfilePanel 
+            title="Your Profile"
+            userData={verifiableKYC}
+            did={did}
+            icon={profileIcon}
+            />
+          </div>
         
       {/* {!largeFamily && (
         <ServicePanel 

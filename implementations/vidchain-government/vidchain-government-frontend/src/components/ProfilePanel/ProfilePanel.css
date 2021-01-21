@@ -1,13 +1,81 @@
 
   
   .containerProfile{
-    position: absolute;
-    width: 1221px;
-    height: 498px;
-    left: 109px;
-    top: 513px;
-    
+    width: 80%;
     background: #F2F2F2;
     box-shadow: 2px 2px 12px #D6D6D6;
     border-radius: 3px;
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    
+  }
+  .panelTitle {
+    position: absolute;
+    width: 80%;
+    height: 10%;
+    background: linear-gradient(270deg, #E61B72 0%, #F9B95A 100.45%);
+    border-radius: 2px 2px 0px 0px;
+    display: flex;
+    align-items: center;
+  }
+  .titlePanel {
+    position: relative;
+    color: #FFFFFF;
+    left: 100px
+  }
+  .titleBody {
+    font-weight: bold;
+    font-size: 18px;
+    color: #7B788A;
+    margin-bottom: -1%;
+    
+  }
+  .textBody {
+    font-size: 16px;
+    color: #7B788A;
+  }
+  .panelBody {
+    flex-direction: row;
+    display: flex;
+    margin-top: 10%;
+  }
+  .panelMainContent {
+    margin-top: -5%;
+  }
+  .panelImageContainer {
+    position: absolute;
+    z-index: 1;
+    opacity: 0.1;
+    top: 100%;
+    right: 0%;
+    margin-top: -6.5rem;
+    margin-right: -3.5rem;
+  }
+
+  @media only screen and (min-width: 768px) {
+    .panelBody {
+      flex-direction: row;
+      padding: 2rem 2rem;
+    }
+  }
+  
+  
+  @media only screen and (min-width: 768px) {
+    .panelImageContainer {
+      position: static;
+      padding-right: 1rem;
+      opacity: 1;
+      margin: 0;
+    }
+  }
+  
+  .panelImage {
+    width: 10rem;
+  }
+  
+  @media only screen and (min-width: 768px) {
+    .panelImage {
+      width: auto;
+    }
   }
