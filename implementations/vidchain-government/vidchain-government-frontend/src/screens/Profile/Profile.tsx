@@ -136,30 +136,15 @@ class Profile extends Component<Props, State> {
             />
           </div>
         
-      {/* {!largeFamily && (
-        <ServicePanel 
+        {/* <ServicePanel 
           title="Request your Large Family credential"
           description="You can use it wherever you go: Public Service Providers, Universities, Schools..."
           requirements="In order to get this discount in your students ffees you will have to prove you are in a Large Family"
           credentialName="Present your Large Family Card Credential"
           icon={largeFamilyIcon}
           functionClickButton={this.generateCredential}
-        />
-      )}
-      {largeFamily && (
-        <div className="services">
-          <div className="service">
-            <br />
-            <h5 className="eID-text">
-              <i>Your credential has been sent.</i>
-            </h5>
-            <br></br>
-            <h4 className="eID-text">
-              <b>Check your wallet.</b>
-            </h4>
-          </div>
-        </div>
-      )} */}
+          hasBeenRequested={largeFamily}
+        /> */}
             <Modal show={this.state.popUpisOpen} onHide={this.closeModal} style={{opacity:1}}>
               <Modal.Header closeButton>
                 <Modal.Title>Good Job!</Modal.Title>

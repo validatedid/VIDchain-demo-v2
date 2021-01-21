@@ -7,11 +7,12 @@ type Props = {
   requirements: string;
   credentialName: string;
   icon: any;
+  hasBeenRequested: boolean;
   functionClickButton: any;
 };
 
 const ServicePanel = (props: Props) => {
-  const {title, description, requirements, credentialName, icon} = props;
+  const {title, description, requirements, credentialName, icon, hasBeenRequested} = props;
   return (
     <div>
         <div className="panelTitle">
@@ -26,6 +27,7 @@ const ServicePanel = (props: Props) => {
                 className="panelImage"
             />
             </div>
+            {!hasBeenRequested && (
             <div className="panelMainContent">
                 <h3 className="panelBodyTitle">Description:</h3>
                 <p className="panelBodyText">{description}</p>
@@ -33,6 +35,21 @@ const ServicePanel = (props: Props) => {
                 <p className="panelBodyText">{requirements}</p>
                 <p className="panelBodyText">{credentialName} issued by Government of Freedonia</p>
             </div>
+            )}
+            {hasBeenRequested && (
+            <div className="services">
+                <div className="service">
+                  <br />
+                  <h5 className="eID-text">
+                    <i>Your credential has been sent.</i>
+                  </h5>
+                  <br></br>
+                  <h4 className="eID-text">
+                    <b>Check your wallet.</b>
+                  </h4>
+                </div>
+            </div>
+        )}
         </div>
     </div>
   );
