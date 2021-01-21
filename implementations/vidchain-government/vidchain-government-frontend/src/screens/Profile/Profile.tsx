@@ -11,9 +11,12 @@ import * as config from "../../config";
 import { verifiableKYC } from "../../interfaces/dtos";
 import { PresentationPayload, VerifiableCredential } from "../../interfaces/IPresentation";
 import { Modal } from "react-bootstrap";
+import ProfilePanel from "../../components/ProfilePanel/ProfilePanel";
+import ServicePanel from "../../components/ServicePanel/ServicePanel";
 
-import profileIcon from "../../assets/profileIcon.svg";
-import largeFamilyIcon from "../../assets/iconLargeFamily.svg";
+import profileIcon from "../../assets/images/profileIcon.svg";
+import largeFamilyIcon from "../../assets/images/iconLargeFamily.svg";
+
 
 
 interface Props {
@@ -40,6 +43,8 @@ class Profile extends Component<Props, State> {
       verifiableKYC: {} as verifiableKYC,
       popUpisOpen: false
     };
+
+    this.generateCredential = this.generateCredential.bind(this);
   }
 
   componentDidMount() {
@@ -164,27 +169,14 @@ class Profile extends Component<Props, State> {
               </form>
             </div>
             {!largeFamily && (
-              <div className="services">
-                <div className="service">
-                  <br />
-                  <h5 className="eID-text">
-                    <b>Request your Large Family credential.</b>
-                  </h5>
-                  <br></br>
-                  <h5 className="eID-text">
-                    <i>
-                      You can use it wherever you go: Public Service Providers,
-                      Universities, Schools,...
-                    </i>
-                  </h5>
-                  <button
-                    className="custom-button"
-                    onClick={() => this.generateCredential()}
-                  >
-                    <b>Get Large Family credential</b>
-                  </button>
-                </div>
-              </div>
+              <ServicePanel 
+                title="Request your Large Family credential"
+                description="You can use it wherever you go: Public Service Providers, Universities, Schools..."
+                requirements="In order to get this discount in your students ffees you will have to prove you are in a Large Family"
+                credentialName="Present your Large Family Card Credential"
+                icon={largeFamilyIcon}
+                functionClickButton={this.generateCredential}
+              />
             )}
             {largeFamily && (
               <div className="services">
