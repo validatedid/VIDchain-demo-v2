@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Profile.css";
+import {Typography, Grid} from '@material-ui/core';
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import { ICredentialData, CredentialData } from "../../interfaces/dtos";
@@ -120,31 +121,41 @@ class Profile extends Component<Props, State> {
       largeFamily
     } = this.state;
     return (
-      <div className="profileHome">
-        <Header></Header>
-        <div className="titleProfile">
-        <h1>{'Welcome to your'}</h1>
-        <h1 style={{top: '32%'}}>{'Freedonia Citizen Portal'}</h1>
-        <h6>Here you can check your profile details and manage your activity within the Freedonia Citizen</h6>
-        </div>
-        <div className="panels">
-          <ProfilePanel 
-            title="Your Profile"
-            userData={verifiableKYC}
-            did={did}
-            icon={profileIcon}
+      <Grid container 
+        direction="column"
+        justify="space-between"
+        alignItems="baseline"
+        className="profileHome">
+        <Grid item>
+           <Header />
+        </Grid>
+        <Grid item className="titleProfile">
+          <Typography variant="h1">{'Welcome to your'}</Typography>
+          <Typography variant="h1">{'Freedonia Citizen Portal'}</Typography>
+          <Typography variant="h6">Here you can check your profile details and manage your activity within the Freedonia Citizen</Typography>
+        </Grid>
+        <Grid container
+          direction="column"
+          justify="space-between"
+          alignItems="center" 
+          className="panels">
+            <ProfilePanel 
+              title="Your Profile"
+              userData={verifiableKYC}
+              did={did}
+              icon={profileIcon}
             />
-          </div>
-        
-        {/* <ServicePanel 
-          title="Request your Large Family credential"
-          description="You can use it wherever you go: Public Service Providers, Universities, Schools..."
-          requirements="In order to get this discount in your students ffees you will have to prove you are in a Large Family"
-          credentialName="Present your Large Family Card Credential"
-          icon={largeFamilyIcon}
-          functionClickButton={this.generateCredential}
-          hasBeenRequested={largeFamily}
-        /> */}
+            <ServicePanel 
+              title="Request your Large Family credential"
+              description="You can use it wherever you go: Public Service Providers, Universities, Schools..."
+              requirements="In order to get this discount in your students ffees you will have to prove you are in a Large Family"
+              credentialName="Present your Large Family Card Credential"
+              icon={largeFamilyIcon}
+              functionClickButton={this.generateCredential}
+              hasBeenRequested={largeFamily}
+            />
+          </Grid>
+
             <Modal show={this.state.popUpisOpen} onHide={this.closeModal} style={{opacity:1}}>
               <Modal.Header closeButton>
                 <Modal.Title>Good Job!</Modal.Title>
@@ -156,7 +167,7 @@ class Profile extends Component<Props, State> {
                         </Button>
               </Modal.Footer>
             </Modal>
-      </div>
+      </Grid>
     );
   }
 }

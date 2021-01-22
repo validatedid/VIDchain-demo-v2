@@ -1,4 +1,5 @@
 import React from 'react';
+import {Typography, Grid} from '@material-ui/core';
 import "./ServicePanel.css";
 
 type Props = {
@@ -14,44 +15,39 @@ type Props = {
 const ServicePanel = (props: Props) => {
   const {title, description, requirements, credentialName, icon, hasBeenRequested} = props;
   return (
-    <div>
-        <div className="panelTitle">
-            {title}
-        </div>
-        <div className="panelBody">
-            <div className="panelImageContainer">
+    <Grid className="containerProfile">
+        
+        <Grid xs={12} className="panelTitle">
+            <Typography variant="h5" className="titlePanel">
+                {title}
+            </Typography>
+        </Grid>
+        <Grid xs={12} container
+            direction="row"
+            justify="space-between"
+            alignItems="flex-start"
+            className="panelBody">
+            <Grid item xs={1}></Grid>
+            <Grid item xs={2}>
             <img
                 src={icon}
                 alt=""
                 role="presentation"
                 className="panelImage"
             />
-            </div>
-            {!hasBeenRequested && (
-            <div className="panelMainContent">
-                <h3 className="panelBodyTitle">Description:</h3>
-                <p className="panelBodyText">{description}</p>
-                <h3 className="panelBodyTitle">Requirements:</h3>
-                <p className="panelBodyText">{requirements}</p>
-                <p className="panelBodyText">{credentialName} issued by Government of Freedonia</p>
-            </div>
-            )}
-            {hasBeenRequested && (
-            <div className="services">
-                <div className="service">
-                  <br />
-                  <h5 className="eID-text">
-                    <i>Your credential has been sent.</i>
-                  </h5>
-                  <br></br>
-                  <h4 className="eID-text">
-                    <b>Check your wallet.</b>
-                  </h4>
-                </div>
-            </div>
-        )}
-        </div>
-    </div>
+            </Grid>
+            <Grid item xs={9}>
+              <div className="panelMainContent">
+                  <h3 className="titleBody">Description:</h3>
+                  <p className="textBody">{description}</p>
+                  <h3 className="titleBody">Requirements:</h3>
+                  <p className="textBody">{requirements}</p>
+                  <p className="textBody">{credentialName} issued by Government of Freedonia</p>
+              </div>
+
+            </Grid>
+            </Grid>
+    </Grid>
   );
 };
 

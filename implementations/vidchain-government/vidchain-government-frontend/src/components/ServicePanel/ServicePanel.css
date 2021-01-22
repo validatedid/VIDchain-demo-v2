@@ -1,127 +1,44 @@
-.panelTitle {
-    background: #fffe;
-    padding: 0.75rem 1.25rem;
-    color: #444;
-    font-size: 1.125rem;
-  }
+
   
-  @media only screen and (min-width: 768px) {
-    .panelTitle {
-      padding: 1rem 2rem;
-      font-size: 1.25rem;
-    }
-  }
-  
-  .panelMainContent {
-    flex-grow: 1;
-    z-index: 1;
-  }
-  
-  .panelBody {
+  .containerProfile{
+    width: 80%;
+    background: #F2F2F2;
+    box-shadow: 2px 2px 12px #D6D6D6;
+    border-radius: 3px;
     display: flex;
-    background: #fff;
-    padding: 1rem 1.25rem;
-    color: #444;
-    flex-wrap: nowrap;
+    align-self: center;
     flex-direction: column;
-    position: relative;
-    overflow: hidden;
+    margin-bottom: 5%;
   }
-  
-  @media only screen and (min-width: 768px) {
-    .panelBody {
-      flex-direction: row;
-      padding: 2rem 2rem;
-    }
-  }
-  
-  .panelImageContainer {
+  .panelTitle {
     position: absolute;
-    z-index: 1;
-    opacity: 0.1;
-    top: 100%;
-    right: 0%;
-    margin-top: -6.5rem;
-    margin-right: -3.5rem;
-  }
-  
-  @media only screen and (min-width: 768px) {
-    .panelImageContainer {
-      position: static;
-      padding-right: 1rem;
-      opacity: 1;
-      margin: 0;
-    }
-  }
-  
-  .panelImage {
-    width: 10rem;
-  }
-  
-  @media only screen and (min-width: 768px) {
-    .panelImage {
-      width: auto;
-    }
-  }
-  
-  .panelButtonContainer {
+    width: 80%;
+    height: 5%;
+    background: linear-gradient(270deg, #E61B72 0%, #F9B95A 100.45%);
+    border-radius: 2px 2px 0px 0px;
     display: flex;
     align-items: center;
-    justify-content: flex-start;
-    flex-shrink: 0;
-    z-index: 2;
   }
-  
-  @media only screen and (min-width: 768px) {
-    .panelButtonContainer {
-      width: 240px;
-      justify-content: center;
-    }
+  .panelBody {
+    flex-direction: row;
+    display: flex;
+    margin-top: 10%;
   }
-  
-  .panelBodyTitle {
-    margin: 0;
-    font-size: 1.4rem;
+  .titlePanel {
+    position: relative;
+    color: #FFFFFF;
+    left: 100px
   }
-  
-  .panelBodyText {
-    font-size: 1rem;
-    line-height: 1.4;
+  .titleBody {
+    font-weight: bold;
+    font-size: 18px;
+    color: #7B788A;
+    margin-bottom: -1%;
   }
-  
-  .panelLink {
-    margin: 0;
-    text-decoration: none;
-    background-color: #ffd617;
-    box-sizing: border-box;
-    color: #000;
-    display: inline-block;
-    font: normal normal 400 1rem/1.25rem Arial, sans-serif;
-    font-weight: 600;
-    padding: 0.75rem 1rem;
-    text-align: center;
+  .textBody {
+    font-size: 16px;
+    color: #7B788A;
   }
-  
-  @media only screen and (min-width: 768px) {
-    .panelLink {
-      width: 100%;
-      max-width: 14rem;
-    }
+  .panelImage {
+
   }
-  
-  .panelLink:focus,
-  .panelLink:hover {
-    color: #000;
-  }
-  
-  .panelLink:focus {
-    outline: 3px solid #000;
-    outline-offset: -3px;
-  }
-  
-  .panelLink:active,
-  .panelLink:hover {
-    border: 2px solid #000;
-    padding: calc(0.75rem - 2px) calc(1rem - 2px);
-  }
-  

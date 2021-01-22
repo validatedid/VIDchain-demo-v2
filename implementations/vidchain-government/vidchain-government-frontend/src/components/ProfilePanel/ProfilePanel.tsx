@@ -13,15 +13,20 @@ type Props = {
 const ProfilePanel = (props: Props) => {
   const {title, userData, did, icon} = props;
   return (
-    <Grid className="containerProfile" justify="space-between">
+    <Grid className="containerProfile">
         
         <Grid xs={12} className="panelTitle">
             <Typography variant="h5" className="titlePanel">
                 {title}
             </Typography>
         </Grid>
-        <Grid xs={12} className="panelBody">
-            <Grid item xs={2} className="panelImageContainer">
+        <Grid xs={12} container
+            direction="row"
+            justify="space-between"
+            alignItems="flex-start"
+            className="panelBody">
+            <Grid item xs={1}></Grid>
+            <Grid item xs={2}>
             <img
                 src={icon}
                 alt=""
@@ -29,7 +34,7 @@ const ProfilePanel = (props: Props) => {
                 className="panelImage"
             />
             </Grid>
-            <Grid item xs={10}>
+            <Grid item xs={9}>
                 <div className="panelMainContent">
                   <h6 className="titleBody">DID: </h6>
                   <p className="textBody">{did}</p>
