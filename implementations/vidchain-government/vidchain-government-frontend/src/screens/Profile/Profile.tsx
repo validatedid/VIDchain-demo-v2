@@ -151,6 +151,7 @@ class Profile extends Component<Props, State> {
               requirements="In order to get this discount in your students ffees you will have to prove you are in a Large Family"
               credentialName="Present your Large Family Card Credential"
               icon={largeFamilyIcon}
+              textButton="Get large family credential"
               functionClickButton={this.generateCredential}
               hasBeenRequested={largeFamily}
             />

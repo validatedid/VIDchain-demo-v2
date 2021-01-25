@@ -1,6 +1,7 @@
 import React from 'react';
-import {Typography, Grid} from '@material-ui/core';
+import {Typography, Grid, Button} from '@material-ui/core';
 import "./ServicePanel.css";
+import {CredentialButton} from '../CredentialButton/CredentialButton';
 
 type Props = {
   title: string;
@@ -10,10 +11,11 @@ type Props = {
   icon: any;
   hasBeenRequested: boolean;
   functionClickButton: any;
+  textButton: string;
 };
 
 const ServicePanel = (props: Props) => {
-  const {title, description, requirements, credentialName, icon, hasBeenRequested} = props;
+  const {title, description, requirements, credentialName, icon, hasBeenRequested, functionClickButton, textButton} = props;
   return (
     <Grid className="containerProfile">
         
@@ -46,7 +48,11 @@ const ServicePanel = (props: Props) => {
               </div>
 
             </Grid>
+              
             </Grid>
+              <CredentialButton variant="contained" onClick={functionClickButton}>
+                Sign in with VIDchain
+              </CredentialButton>
     </Grid>
   );
 };
