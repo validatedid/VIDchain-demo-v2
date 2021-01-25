@@ -4,12 +4,13 @@ import "./Header.css";
 class Header extends Component {
   render() {
     return (
-      <header className="header">
+      <header className="headerBackground">
         <img
           className="logoHeader"
           src={require("../../assets/images/logoHeader.svg")}
           alt="Logo of the City"
         />
+        <p className="powered">Powered by Validated ID</p>
       </header>
     );
   }
