@@ -130,7 +130,7 @@ class Profile extends Component<Props, State> {
         <Grid item>
            <Header />
         </Grid>
-        <Grid item className="titleHome">
+        <Grid item className="titleProfile">
           <Typography variant="h1">{"Welcome to your\nFreedonia Citizen Portal"}</Typography>
           {/* <Typography variant="h1">{'Freedonia Citizen Portal'}</Typography> */}
           <Typography variant="h6">Here you can check your profile details and manage your activity within the Freedonia Citizen</Typography>

@@ -6,7 +6,7 @@ export const SignInButton = withStyles((theme) => ({
     padding: '1%',
     position: 'absolute',
     marginTop: '5%',
-    left: '25%',
+    left: '35%',
     display: 'block',
     borderStyle: 'none',
     borderRadius: '1px',

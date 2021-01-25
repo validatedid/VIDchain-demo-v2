@@ -65,7 +65,7 @@ class Home extends Component<Props, State> {
           justify="space-between"
           alignItems="flex-start"
           className="content">
-          <Grid item className="titleProfile">
+          <Grid item className="titleHome">
             <Typography variant="h1">{"Welcome to Freedonia"}</Typography>
             <Typography variant="h6">You can manage all the city services from this website: subscriptions, taxes...</Typography>
           </Grid>

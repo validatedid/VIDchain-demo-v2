@@ -1,11 +1,27 @@
-
+.titleHome {
+  
+}
 
 .titleHome h1{
-  width: 50%
+  margin-top: 25%;
+  margin-left: 13%;
+  width: 60%
 }
 .titleHome h6{
+  margin-left: 13%;
   width: 40%;
 }
+/* .titleProfile {
+  width: 80%
+}
+
+.titleProfile h1{
+  margin-top: 15%;
+  margin-left: 13%;
+}
+.titleProfile h6{
+  margin-left: 13%;
+}  */
 .home {
   background-image: url("../../assets/images/backgroundImage.svg");
   background-repeat: no-repeat;
