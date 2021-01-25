@@ -12,6 +12,7 @@ type Props = {
 
 const ProfilePanel = (props: Props) => {
   const {title, userData, did, icon} = props;
+  console.log(userData);
   return (
     <Grid className="containerProfile">
         

@@ -15,7 +15,7 @@ type Props = {
 };
 
 const ServicePanel = (props: Props) => {
-  const {title, description, requirements, credentialName, icon, hasBeenRequested, functionClickButton, textButton} = props;
+  const {title, description, requirements, credentialName, icon, hasBeenRequested,textButton, functionClickButton} = props;
   return (
     <Grid className="containerProfile">
         
@@ -39,20 +39,30 @@ const ServicePanel = (props: Props) => {
             />
             </Grid>
             <Grid item xs={9}>
+            {!hasBeenRequested &&
               <div className="panelMainContent">
                   <h3 className="titleBody">Description:</h3>
                   <p className="textBody">{description}</p>
                   <h3 className="titleBody">Requirements:</h3>
                   <p className="textBody">{requirements}</p>
-                  <p className="textBody">{credentialName} issued by Government of Freedonia</p>
+                  <p className="textBody"><b>{credentialName} </b>issued by Government of Freedonia</p>
               </div>
+            }
+            {hasBeenRequested &&
+              <div className="panelMainContent">
+                  <h3 className="titleBody">Credential sent</h3>
+                  <p className="textBody">Check your wallet</p>
+              </div>
+            }
 
             </Grid>
               
             </Grid>
-              <CredentialButton variant="contained" onClick={functionClickButton}>
-                Sign in with VIDchain
-              </CredentialButton>
+              {!hasBeenRequested &&
+                <CredentialButton variant="contained" onClick={functionClickButton}>
+                  {textButton}
+                </CredentialButton>
+              }
     </Grid>
   );
 };
