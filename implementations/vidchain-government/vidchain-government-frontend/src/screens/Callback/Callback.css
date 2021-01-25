@@ -1,8 +1,10 @@
-.content {
+.contentCallback {
+  position: absolute;
   flex-grow: 1;
   align-items: center;
   text-align: center;
-  left: 20%;
+  left: 8%;
+  top: 30%;
 }
 
 

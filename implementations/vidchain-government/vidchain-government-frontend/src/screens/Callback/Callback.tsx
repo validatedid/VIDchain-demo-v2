@@ -7,6 +7,7 @@ import * as governmentBackend from "../../apis/governmentBackend";
 import { Ring } from "react-spinners-css";
 import * as config from "../../config";
 
+
 interface Props {
   history: any;
   location: any;
@@ -85,7 +86,7 @@ class Callback extends Component<Props, State> {
       return (
         <div className="home">
           <Header></Header>
-          <div className="content">
+          <div className="contentCallback">
               <div className="wrapper">
                 <h4>{"We have sent you a request to your wallet,\n please provide your Verifiable ID"}</h4>
                 <div className="spinnerContainer">
