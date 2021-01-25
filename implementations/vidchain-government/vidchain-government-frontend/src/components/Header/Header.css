@@ -2,6 +2,9 @@
   position: relative;
   width: 290px;
   height: 83px;
-  margin-top: 5%;
-  left: 20%;
+  margin-top: 10%;
+}
+.header{
+  position: absolute;
+  left: 10%;
 }

@@ -3,28 +3,17 @@
   height: 100%;
   min-height: 100vh;
 }
+.titleProfile {
+  width: 80%
+}
 
-/* .titleProfile h1{
-  font-family: TT Norms;
-  font-style: bold;
-  font-weight: normal;
-  font-size: 50px;
-  line-height: 72px;
-  font-feature-settings: 'liga' off;
-  color: #151A35;
-  position: absolute;
+.titleProfile h1{
+  margin-top: 15%;
+  margin-left: 13%;
 }
 .titleProfile h6{
-  font-family: TT Norms;
-  font-style: bold;
-  font-weight: normal;
-  font-size: 28px;
-  line-height: 72px;
-  font-feature-settings: 'liga' off;
-  color: #151A35;
-  position: absolute;
-  left: 10%;
-} */
+  margin-left: 13%;
+} 
 .panels{
   display: flex;
   align-self: center;
