@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Home.css";
-import {Container} from '@material-ui/core';
+import {Grid, Typography} from '@material-ui/core';
 import Header from "../../components/Header/Header";
 import {SignInButton} from "../../components/SignInButton/SignInButton";
 import Footer from "../../components/Footer/Footer";
@@ -34,15 +34,23 @@ class Home extends Component<Props, State> {
   render() {
     return (
       <div>
-        <Header></Header>
-        <div  className="content">
+        <Header />
+        <Grid container 
+          direction="column"
+          justify="space-between"
+          alignItems="flex-start"
+          className="content">
+        <Grid item className="content">
           <div className="subcontent"></div>
           <h1 className="title"><b>Welcome to ACME university</b></h1>
           <h5 className="subtitle"><b>We're happy to have you onboard. Get now your diploma.</b></h5>
-        </div>
-        <SignInButton variant="contained" color="primary" onClick={() => this.loginWithVIDChain()}>
-            Sign in with VIDchain
-          </SignInButton>
+          </Grid>
+          <Grid item>
+            <SignInButton variant="contained" color="primary" onClick={() => this.loginWithVIDChain()}>
+                Sign in with VIDchain
+              </SignInButton>
+          </Grid>
+          </Grid>
         <Footer></Footer>
       </div>
     );
