@@ -1,8 +1,17 @@
+/* .logoHeader{
+  position: relative;
+  width: 290px;
+  height: 83px;
+  margin-top: 5%;
+  left: 50%;
+  background-color: red;
+} */
 .logoHeader{
   position: relative;
   width: 290px;
   height: 83px;
   margin-top: 10%;
+  
 }
 .header{
   position: absolute;

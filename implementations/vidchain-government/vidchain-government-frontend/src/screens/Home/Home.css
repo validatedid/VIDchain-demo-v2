@@ -1,24 +1,12 @@
-.content {
-  position: relative;
-  width: 290px;
-  height: 83px;
-  margin-top: 5%;
-  left: 12%;
+.titleProfile {
+  
 }
-.title {
-  font-weight: 300;
-  font-style: normal;
-  color: rgb(21, 26, 53);
-  font-size: 72px;
-  width: 30%;
+
+.titleProfile h1{
+  width: 50%
 }
-.subtitle {
-  font-weight: 300; 
-  font-style: normal; 
-  color: rgb(21, 26, 53); 
-  font-size: 16px;
-  margin-top: 2%;
-  width: 25%;
+.titleProfile h6{
+  width: 40%;
 }
 .home {
   background-image: url("../../assets/images/backgroundImage.svg");

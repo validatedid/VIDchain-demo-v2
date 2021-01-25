@@ -56,6 +56,7 @@ class Profile extends Component<Props, State> {
         if(jwt){
             const presentation: PresentationPayload = utils.decodeJWT(jwt);
             const credential: VerifiableCredential = presentation.vp.verifiableCredential[0] as VerifiableCredential;
+            console.log(credential);
             this.setState({
               verifiableKYC: {
                 id: credential.credentialSubject.id as string,

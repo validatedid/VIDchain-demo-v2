@@ -4,7 +4,7 @@ import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
 import {SignInButton} from "../../components/SignInButton/SignInButton";
 import { OpenIDClient } from "../../libs/openid-connect/client";
-import {Container} from '@material-ui/core';
+import {Grid, Typography} from '@material-ui/core';
 
 
 
@@ -59,14 +59,22 @@ class Home extends Component<Props, State> {
   render() {
     return (
       <div className="home">
-        <Header></Header>
-        <Container className="content">
-          <h1 className="title">Welcome to Freedonia</h1>
-          <h5 className="subtitle">You can manage all the city services from this website: subscriptions, taxes...</h5>
-          <SignInButton variant="contained" color="primary" onClick={() => this.loginWithVIDChain()}>
-            Sign in with VIDchain
-          </SignInButton>
-        </Container>
+        <Header />
+        <Grid container 
+          direction="column"
+          justify="space-between"
+          alignItems="flex-start"
+          className="content">
+          <Grid item className="titleProfile">
+            <Typography variant="h1">{"Welcome to Freedonia"}</Typography>
+            <Typography variant="h6">You can manage all the city services from this website: subscriptions, taxes...</Typography>
+          </Grid>
+          <Grid item>
+            <SignInButton variant="contained" color="primary" onClick={() => this.loginWithVIDChain()}>
+              Sign in with VIDchain
+            </SignInButton>
+            </Grid>
+          </Grid>
         <Footer></Footer>
       </div>
     );
