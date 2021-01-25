@@ -23,7 +23,7 @@ interface State {
   refresh_token: string;
   id_token: string;
   expires: number;
-  verifiableKYC: verifiableKYC;
+  error: boolean;
   socketSession: string;
 }
 
@@ -35,7 +35,7 @@ class Callback extends Component<Props, State> {
       refresh_token: "",
       id_token: "",
       expires: 0,
-      verifiableKYC: {} as verifiableKYC,
+      error: false,
       socketSession: "",
     };
   }
@@ -43,9 +43,7 @@ class Callback extends Component<Props, State> {
   async componentDidMount() {
     const code = new URLSearchParams(this.props.location.search).get("code");
     if(code){
-      
       const token = await this.getAuthToken(code);
-
       if (token !== null) {
         this.setState({
           access_token: token.access_token,
@@ -54,20 +52,11 @@ class Callback extends Component<Props, State> {
           expires: token.expires,
         });
 
-        this.parseResponse();
+        this.goToProfile();
       }
-
-        this.initiateSocket();
+      this.initiateSocket();
         
     }
-  }
-
-  parseResponse(){
-    /**
-     *  This information is not used here, just want to login
-     */
-    this.goToProfile();
-
   }
 
   async getAuthToken(code: string){
@@ -82,7 +71,9 @@ class Callback extends Component<Props, State> {
       );
       return response;
     } catch (error) {
-      console.log(error);
+      this.setState({
+        error: true
+      })
     }
   }
 
@@ -104,33 +95,33 @@ class Callback extends Component<Props, State> {
       if(socketClient.clientId && socketClient.did && socketClient.clientId !== "" && socketClient.did !== "") socket.emit("whoami", socketClient);
     });
 
-    socket.on("presentation", (msg: any) => {
-      let presentation = strB64dec(msg.data.decrypted);
+    // socket.on("presentation", (msg: any) => {
+    //   let presentation = strB64dec(msg.data.decrypted);
 
-      let details = utils.decodeJWT(presentation.verifiableCredential[0]);
-      this.setState({
-        verifiableKYC: {
-          id: details.vc.credentialSubject.id,
-          documentNumber: details.vc.credentialSubject.documentNumber,
-          documentType: details.vc.credentialSubject.documentType,
-          name: details.vc.credentialSubject.firstName,
-          surname: details.vc.credentialSubject.lastName,
-          fullName: details.vc.credentialSubject.fullName,
-          nationality: details.vc.credentialSubject.nationality,
-          stateIssuer: details.vc.credentialSubject.stateIssuer,
-          issuingAuthority: details.vc.credentialSubject.issuingAuthority,
-          dateOfExpiry: details.vc.credentialSubject.dateOfExpiry,
-          dateOfBirth: details.vc.credentialSubject.dateOfBirth,
-          placeOfBirth: details.vc.credentialSubject.placeOfBirth,
-          sex: details.vc.credentialSubject.gender,
-          personalNumber: details.vc.credentialSubject.personalNumber,
-        },
-      });
+    //   let details = utils.decodeJWT(presentation.verifiableCredential[0]);
+    //   this.setState({
+    //     verifiableKYC: {
+    //       id: details.vc.credentialSubject.id,
+    //       documentNumber: details.vc.credentialSubject.documentNumber,
+    //       documentType: details.vc.credentialSubject.documentType,
+    //       name: details.vc.credentialSubject.firstName,
+    //       surname: details.vc.credentialSubject.lastName,
+    //       fullName: details.vc.credentialSubject.fullName,
+    //       nationality: details.vc.credentialSubject.nationality,
+    //       stateIssuer: details.vc.credentialSubject.stateIssuer,
+    //       issuingAuthority: details.vc.credentialSubject.issuingAuthority,
+    //       dateOfExpiry: details.vc.credentialSubject.dateOfExpiry,
+    //       dateOfBirth: details.vc.credentialSubject.dateOfBirth,
+    //       placeOfBirth: details.vc.credentialSubject.placeOfBirth,
+    //       sex: details.vc.credentialSubject.gender,
+    //       personalNumber: details.vc.credentialSubject.personalNumber,
+    //     },
+    //   });
       /**
        *  This information is not used here, just want to login
        */
-      this.goToProfile();
-    });
+    //   this.goToProfile();
+    // });
   }
 
   goToProfile() {

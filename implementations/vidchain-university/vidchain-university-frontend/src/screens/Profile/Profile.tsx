@@ -21,9 +21,6 @@ interface Props {
 }
 
 interface State {
-  access_token: string;
-  refresh_token: string;
-  id_token: string;
   did: string;
   verifiableKYC: verifiableKYC;
   largeFamily: boolean;
@@ -39,9 +36,6 @@ class Profile extends Component<Props, State> {
   constructor(props: any) {
     super(props);
     this.state = {
-      access_token: "",
-      refresh_token: "",
-      id_token: "",
       did: utils.getUserDid(this.props.location.state.id_token),
       largeFamily: false,
       discountRequested: false,
@@ -53,6 +47,9 @@ class Profile extends Component<Props, State> {
       popUpisOpen: false,
     };
     this.initiateSocket();
+    this.generateCredential = this.generateCredential.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.gotBackToTutorial = this.gotBackToTutorial.bind(this);
   }
 
   componentDidMount() {
@@ -62,7 +59,6 @@ class Profile extends Component<Props, State> {
         if(jwt){
             const presentation: PresentationPayload = utils.decodeJWT(jwt);
             const credential: VerifiableCredential = presentation.vp.verifiableCredential[0] as VerifiableCredential;
-            console.log(JSON.stringify(credential));
             this.setState({
               verifiableKYC: {
                 id: credential.credentialSubject.id as string,
@@ -83,13 +79,7 @@ class Profile extends Component<Props, State> {
             did: utils.getUserDid(this.props.location.state.id_token),
           });
         }
-        // this.setState({
-        //   access_token: this.props.location.state.access_token,
-        //   refresh_token: this.props.location.state.refresh_token,
-        //   id_token: this.props.location.state.id_token,
-        //   did: utils.getUserDid(this.props.location.state.id_token),
-        //   verifiableKYC: this.props.location.state.verifiableKYC,
-        // });
+
       }
       if(this.props.location.state.did){
         this.setState({
@@ -97,8 +87,6 @@ class Profile extends Component<Props, State> {
           type: this.props.location.state.type,
           data: this.props.location.state.data,
         });
-        console.log(this.state.type);
-        console.log(this.state.data);
 
       }
   }
@@ -188,8 +176,13 @@ class Profile extends Component<Props, State> {
   closeModal = () => {
     this.setState({ popUpisOpen: false });
     sessionStorage.clear();
-    window.location.replace("/demo/tutorial?step=4");
+    
   };
+
+  gotBackToTutorial = () => {
+    sessionStorage.clear();
+    window.location.replace("/demo/tutorial?step=4");
+  }
 
   render() {
     const {
