@@ -1,17 +1,14 @@
 import React, { Component } from "react";
 import "./Profile.css";
-import {Typography, Grid} from '@material-ui/core';
+import {Typography, Grid, Dialog, DialogActions, DialogTitle, DialogContent, Button, DialogContentText} from '@material-ui/core';
 import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
 import { ICredentialData, CredentialData } from "../../interfaces/dtos";
-import { Button } from "react-bootstrap";
 import * as vidchain from "../../apis/vidchain";
 import { OpenIDClient } from "../../libs/openid-connect/client";
 import * as utils from "../../utils/utils";
 import * as config from "../../config";
 import { verifiableKYC } from "../../interfaces/dtos";
 import { PresentationPayload, VerifiableCredential } from "../../interfaces/IPresentation";
-import { Modal } from "react-bootstrap";
 import ProfilePanel from "../../components/ProfilePanel/ProfilePanel";
 import ServicePanel from "../../components/ServicePanel/ServicePanel";
 
@@ -46,6 +43,8 @@ class Profile extends Component<Props, State> {
     };
 
     this.generateCredential = this.generateCredential.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.gotBackToTutorial = this.gotBackToTutorial.bind(this);
   }
 
   componentDidMount() {
@@ -56,7 +55,6 @@ class Profile extends Component<Props, State> {
         if(jwt){
             const presentation: PresentationPayload = utils.decodeJWT(jwt);
             const credential: VerifiableCredential = presentation.vp.verifiableCredential[0] as VerifiableCredential;
-            console.log(credential);
             this.setState({
               verifiableKYC: {
                 id: credential.credentialSubject.id as string,
@@ -111,15 +109,20 @@ class Profile extends Component<Props, State> {
   openModal = () => this.setState({ popUpisOpen: true });
   closeModal = () => {
     this.setState({ popUpisOpen: false });
+    
+  };
+
+  gotBackToTutorial = () => {
     sessionStorage.clear();
     window.location.replace("/demo/tutorial?step=3");
-  };
+  }
 
   render() {
     const {
       did,
       verifiableKYC,
-      largeFamily
+      largeFamily,
+      popUpisOpen
     } = this.state;
     return (
       <Grid container 
@@ -127,9 +130,11 @@ class Profile extends Component<Props, State> {
         justify="space-between"
         alignItems="baseline"
         className="profileHome">
+
         <Grid item>
            <Header />
         </Grid>
+        
         <Grid item className="titleProfile">
           <Typography variant="h1">{"Welcome to your\nFreedonia Citizen Portal"}</Typography>
           {/* <Typography variant="h1">{'Freedonia Citizen Portal'}</Typography> */}
@@ -146,6 +151,7 @@ class Profile extends Component<Props, State> {
               did={did}
               icon={profileIcon}
             />
+            
             <ServicePanel 
               title="Request your Large Family credential"
               description="You can use it wherever you go: Public Service Providers, Universities, Schools..."
@@ -154,21 +160,30 @@ class Profile extends Component<Props, State> {
               icon={largeFamilyIcon}
               textButton="Get large family credential"
               functionClickButton={this.generateCredential}
-              hasBeenRequested={largeFamily}
-            />
-          </Grid>
+              hasBeenRequested={largeFamily} />
 
-            <Modal show={this.state.popUpisOpen} onHide={this.closeModal} style={{opacity:1}}>
-              <Modal.Header closeButton>
-                <Modal.Title>Good Job!</Modal.Title>
-                    </Modal.Header>
-                      <Modal.Body>You have completed this step successfully.</Modal.Body>
-                      <Modal.Footer>
-                        <Button variant="secondary" onClick={this.closeModal}>
-                          Go back to tutorial
-                        </Button>
-              </Modal.Footer>
-            </Modal>
+            <Dialog
+              open={popUpisOpen}
+              onClose={this.closeModal}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">{"Good Job!"}</DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                You have completed this step successfully.
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={this.closeModal} color="primary">
+                  Cancel
+                </Button>
+                <Button onClick={this.gotBackToTutorial} color="primary" autoFocus>
+                Go back to tutorial
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </Grid>
       </Grid>
     );
   }
