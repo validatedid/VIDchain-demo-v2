@@ -39,22 +39,54 @@ const ProfilePanel = (props: Props) => {
                 <div className="panelMainContent">
                   <h6 className="titleBody">DID: </h6>
                   <p className="textBody">{did}</p>
-                  <h6 className="titleBody">Name: </h6>
-                  <p className="textBody">{userData.name}</p>
-                  <h6 className="titleBody">Surname: </h6>
-                  <p className="textBody">{userData.surname}</p>
-                  <h6 className="titleBody">Date Of Birth: </h6>
-                  <p className="textBody">{userData.dateOfBirth}</p>
-                  <h6 className="titleBody">Document Number: </h6>
-                  <p className="textBody">{userData.personalNumber}</p>
-                  <h6 className="titleBody">Document Type: </h6>
-                  <p className="textBody">{userData.documentType}</p>
-                  <h6 className="titleBody">Nationality: </h6>
-                  <p className="textBody">{userData.nationality}</p>
-                  <h6 className="titleBody">State Issuer: </h6>
-                  <p className="textBody">{userData.stateIssuer}</p>
-                  <h6 className="titleBody">Date of expiry: </h6>
-                  <p className="textBody">{userData.dateOfExpiry}</p>
+                  {userData.name && 
+                     <div>
+                      <h6 className="titleBody">Name: </h6>
+                      <p className="textBody">{userData.name}</p>
+                    </div>
+                  }
+                  {userData.surname && 
+                     <div>
+                      <h6 className="titleBody">Surname: </h6>
+                      <p className="textBody">{userData.surname}</p>
+                    </div>
+                  }
+                  {userData.dateOfBirth && 
+                    <div>
+                      <h6 className="titleBody">Date Of Birth: </h6>
+                      <p className="textBody">{userData.dateOfBirth}</p>
+                    </div>
+                  }
+                  {userData.personalNumber && 
+                    <div>
+                      <h6 className="titleBody">Document Number: </h6>
+                      <p className="textBody">{userData.personalNumber}</p>
+                    </div>
+                  }
+                  {userData.documentType && 
+                    <div>
+                      <h6 className="titleBody">Document Type: </h6>
+                      <p className="textBody">{userData.documentType}</p>
+                    </div>
+                  }
+                  {userData.nationality && 
+                      <div>
+                        <h6 className="titleBody">Nationality: </h6>
+                        <p className="textBody">{userData.nationality}</p>
+                      </div>
+                    }
+                    {userData.stateIssuer && 
+                      <div>
+                        <h6 className="titleBody">State Issuer: </h6>
+                        <p className="textBody">{userData.stateIssuer}</p>
+                      </div>
+                    }
+                    {userData.dateOfExpiry && 
+                      <div>
+                        <h6 className="titleBody">Date of expiry: </h6>
+                        <p className="textBody">{userData.dateOfExpiry}</p>
+                      </div>
+                    }
                   </div>
             </Grid>
         </Grid>

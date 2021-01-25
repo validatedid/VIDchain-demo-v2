@@ -62,7 +62,7 @@ class Profile extends Component<Props, State> {
                 id: credential.credentialSubject.id as string,
                 documentNumber: credential.credentialSubject.documentNumber as string,
                 documentType: credential.credentialSubject.documentType as string,
-                name: credential.credentialSubject.firstName as string,
+                name: (credential.credentialSubject.firstName ? credential.credentialSubject.firstName : credential.credentialSubject.name) as string,
                 surname: credential.credentialSubject.lastName as string,
                 fullName: credential.credentialSubject.fullName as string,
                 nationality: credential.credentialSubject.nationality as string,
