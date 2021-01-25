@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Header.css";
 
+
 class Header extends Component {
   render() {
     return (
@@ -10,6 +11,7 @@ class Header extends Component {
           src={require("../../assets/images/logoHeader.svg")}
           alt="Logo of the Univeristy"
         />
+        <p className="powered">Powered by Validated ID</p>
       </header>
     );
   }
