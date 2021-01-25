@@ -10,6 +10,7 @@ import io from "socket.io-client";
 import { Ring } from "react-spinners-css";
 import * as config from "../../config";
 import { strB64dec } from "../../utils/utils";
+import Header from "../../components/Header/Header";
 
 interface Props {
   history: any;
@@ -41,29 +42,24 @@ class Callback extends Component<Props, State> {
 
   async componentDidMount() {
     const code = new URLSearchParams(this.props.location.search).get("code");
-    if(code){
+    // if(code){
       
-      const token = await this.getAuthToken(code);
+    //   const token = await this.getAuthToken(code);
 
-      if (token !== null) {
-        this.setState({
-          access_token: token.access_token,
-          refresh_token: token.refresh_token,
-          id_token: token.id_token,
-          expires: token.expires,
-        });
+    //   if (token !== null) {
+    //     this.setState({
+    //       access_token: token.access_token,
+    //       refresh_token: token.refresh_token,
+    //       id_token: token.id_token,
+    //       expires: token.expires,
+    //     });
 
-        this.parseResponse();
-      }
+    //     this.parseResponse();
+    //   }
 
-        this.initiateSocket();
-        /**
-         *  VIDCHAIN API REQUEST: Claim Verifiable Presentation (forwarded to backend)
-         * The request of a Verifiable presentation must be handled in the backend so as to receive a response from the API in a callback
-         */
-        //universityBackend.claimVP(utils.getUserDid(this.state.id_token), "Login", "");
+    //     this.initiateSocket();
         
-    }
+    // }
   }
 
   parseResponse(){
@@ -153,45 +149,19 @@ class Callback extends Component<Props, State> {
     const { access_token } = this.state;
     if (access_token != null) {
       return (
-        <div>
-          <div className="fullContent">
-            <section id="inner-headline">
-              <div className="container">
-                <div className="row">
-                  <div className="col-lg-12">
-                    <h2 className="pageTitle">Authenticate</h2>
-                  </div>
-                </div>
+        <div >
+        <Header></Header>
+        <div className="contentCallback">
+              <h4>{"We have sent you a request to your wallet,\n please provide your Verifiable ID"}</h4>
+              <div className="spinnerContainer">
+                <Ring color="red" />
               </div>
-            </section>
-            <section id="content">
-              <div className="container">
-                <div className="row">
-                  <div className="col-md-12">
-                    <div className="about-logo">
-                      <br></br>
-                      <br></br>
-                      <br></br>
-                      <h3>
-                        We have sent you a request to your wallet. Please,
-                        provide your Verifiable ID.
-                      </h3>
-                      <br></br>
-                      <p>Waiting to receive your credential...</p>
-                      <br></br>
-                      <br></br>
-                      <div className="spinnerContainer">
-                        <Ring color="orange" />
-                      </div>
-                      <br></br>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
+              <p>Waiting to receive your credential...</p>
+        </div>
+        <div className="footer">
           <Footer></Footer>
         </div>
+      </div>
       );
     } else {
       return <Redirect to="/" />;
