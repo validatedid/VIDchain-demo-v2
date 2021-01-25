@@ -42,24 +42,24 @@ class Callback extends Component<Props, State> {
 
   async componentDidMount() {
     const code = new URLSearchParams(this.props.location.search).get("code");
-    // if(code){
+    if(code){
       
-    //   const token = await this.getAuthToken(code);
+      const token = await this.getAuthToken(code);
 
-    //   if (token !== null) {
-    //     this.setState({
-    //       access_token: token.access_token,
-    //       refresh_token: token.refresh_token,
-    //       id_token: token.id_token,
-    //       expires: token.expires,
-    //     });
+      if (token !== null) {
+        this.setState({
+          access_token: token.access_token,
+          refresh_token: token.refresh_token,
+          id_token: token.id_token,
+          expires: token.expires,
+        });
 
-    //     this.parseResponse();
-    //   }
+        this.parseResponse();
+      }
 
-    //     this.initiateSocket();
+        this.initiateSocket();
         
-    // }
+    }
   }
 
   parseResponse(){
