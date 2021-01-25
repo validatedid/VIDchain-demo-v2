@@ -4,7 +4,7 @@ import "./Header.css";
 class Header extends Component {
   render() {
     return (
-      <header>
+      <header className="headerBackground">
         <img
           className="logoHeader"
           src={require("../../assets/images/logoHeader.svg")}

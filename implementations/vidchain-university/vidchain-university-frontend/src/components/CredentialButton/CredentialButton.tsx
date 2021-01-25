@@ -8,7 +8,7 @@ export const CredentialButton = withStyles((theme) => ({
     borderStyle: 'none',
     width: '285.17px',
     height: '46px',
-    background: '#E61B72',
+    background: '#9D56BE',
     borderRadius: '4px',
     color: '#ffffff',
     left: '25%',
