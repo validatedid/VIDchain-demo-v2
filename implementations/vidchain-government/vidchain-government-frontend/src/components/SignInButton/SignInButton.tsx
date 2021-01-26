@@ -4,9 +4,9 @@ import { withStyles} from '@material-ui/core/styles';
 export const SignInButton = withStyles((theme) => ({
     root: {
     padding: '1%',
+    height: '5%',
     position: 'absolute',
     marginTop: '5%',
-    left: '35%',
     display: 'block',
     borderStyle: 'none',
     borderRadius: '1px',

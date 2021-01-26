@@ -42,8 +42,8 @@ class Home extends Component<Props, State> {
           className="content">
         <Grid item className="content">
           <div className="subcontent"></div>
-          <h1 className="title"><b>Welcome to ACME university</b></h1>
-          <h5 className="subtitle"><b>We're happy to have you onboard. Get now your diploma.</b></h5>
+          <Typography variant="h2"className="title"><b>Welcome to ACME university</b></Typography> 
+          <Typography variant="h6" className="subtitle"><b>We're happy to have you onboard. Get now your diploma.</b></Typography>
           </Grid>
           <Grid item>
             <SignInButton variant="contained" color="primary"  className="buttonSignIn" onClick={() => this.loginWithVIDChain()}>

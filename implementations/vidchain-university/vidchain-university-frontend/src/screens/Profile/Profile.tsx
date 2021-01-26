@@ -211,7 +211,7 @@ class Profile extends Component<Props, State> {
         </Grid>
         
         <Grid item className="titleProfile">
-          <Typography variant="h1">{"Welcome to your\nStudent Portal"}</Typography>
+          <Typography variant="h2">{"Welcome to your\nStudent Portal"}</Typography>
           {/* <Typography variant="h1">{'Freedonia Citizen Portal'}</Typography> */}
           <Typography variant="h6">Here you can check your profile details and manage your activity within the University</Typography>
         </Grid>

@@ -18,6 +18,8 @@
     border-radius: 2px 2px 0px 0px;
     display: flex;
     align-items: center;
+    padding-top: 2%;
+    padding-bottom: 2%;
   }
   .panelBody {
     flex-direction: row;
@@ -27,7 +29,7 @@
   .titlePanel {
     position: relative;
     color: #FFFFFF;
-    left: 100px
+    left: 5%
   }
   .titleBody {
     font-weight: bold;
@@ -39,6 +41,17 @@
     font-size: 16px;
     color: #7B788A;
   }
+  
+  
+  @media only screen and (max-width: 768px) {
   .panelImage {
-
+    margin-top: 15%;
+    margin-left: 35%;
   }
+  .panelMainContent {
+    text-align: center;
+  }
+  .buttonCredential {
+    position: absolute;
+  }
+}

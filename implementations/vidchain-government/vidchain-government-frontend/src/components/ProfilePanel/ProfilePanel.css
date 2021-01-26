@@ -27,7 +27,7 @@
   .titlePanel {
     position: relative;
     color: #FFFFFF;
-    left: 100px
+    left: 5%
   }
   .titleBody {
     font-weight: bold;
@@ -41,5 +41,13 @@
   }
   .panelMainContent {
     margin-bottom: 5%;
-
+  }
+  @media only screen and (max-width: 768px) {
+    .panelImage {
+      margin-top: 15%;
+      margin-left: 35%;
+    }
+    .panelMainContent {
+      text-align: center;
+    }
   }
