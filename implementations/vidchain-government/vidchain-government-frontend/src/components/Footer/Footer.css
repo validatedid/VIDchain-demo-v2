@@ -1,12 +1,13 @@
 .logoFooter{
   position: relative;
-  width: 190px;
-  height: 43px;
+  width: 100px;
+  height: 25px;
   padding-bottom: 20px;
 }
 .textFooter{
   font-size: 12px;
   color: white;
+  padding-bottom: 20px;
 }
 .footer {
   clear: both;
