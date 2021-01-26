@@ -1,166 +1,30 @@
-.modal {
-  z-index: 100000;
+.titleHome {
+  
 }
-.ModalHeader {
-  justify-content: center;
-  background-color: #00bf71;
-  color: white;
+
+.titleHome h1{
+  margin-top: 25%;
+  margin-left: 13%;
+  width: 60%
 }
-.ModalTitle {
-  justify-content: center;
-  font-size: 18px;
+.titleHome h6{
+  margin-left: 13%;
+  width: 40%;
 }
-.ModalBody {
-  text-align: center;
-  background-color: white;
-  color: black;
+/* .titleProfile {
+  width: 80%
 }
-.content {
-  text-align: center;
-  margin: auto;
-  width: 100%;
+
+.titleProfile h1{
+  margin-top: 15%;
+  margin-left: 13%;
+}
+.titleProfile h6{
+  margin-left: 13%;
+}  */
+.home {
+  background-image: url("../../assets/images/backgroundImage.svg");
+  background-repeat: no-repeat;
   height: 100%;
-  border: none;
-  /* margin-top: -1.5%;
-  margin-bottom: -1.5%; */
-}
-
-.footer {
-  clear: both;
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-.login_form {
-  border: 0px solid #f6f6f6;
-  width: 100%;
-  padding: 17px 30px;
-  position: relative;
-}
-.sign_in_vidchain {
-  display: inline-block;
-  width: auto;
-  border-radius: 5px;
-  background-color: #00bf71;
-  margin-left: 10px;
-}
-.sign_in_vidchain > a {
-  color: #fff;
-  background-color: #00bf71;
-  font-size: 14px;
-  text-transform: uppercase;
-}
-.sign_in_vidchain > a:hover,
-.sign_in_vidchain > a:focus {
-  background-color: #00bf71;
-  color: rgba(255, 255, 255, 0.9);
-}
-.sign_in_vidchain > a > i {
-  padding-right: 5px;
-}
-
-.language_area .btn.btn-default,
-.language_area .btn.btn-default:focus {
-  border: 0 solid transparent;
-  border-radius: 0;
-  color: #fff;
-  background-color: #2c3e50;
-  -webkit-transition-duration: 500ms;
-  transition-duration: 500ms;
-}
-
-.language_area .btn.btn-default:hover {
-  background-color: #fff;
-  color: #2c3e50;
-}
-
-.language_area .btn.btn-default i:first-child {
-  padding-right: 5px;
-}
-
-.language_area .btn.btn-default i:last-child {
-  padding-left: 5px;
-}
-
-.login_manual_form .form-group {
-  margin-bottom: 15px;
-  text-align: center;
-}
-
-.login_manual_form .form-group > i {
-  background-color: #f6f6f6;
-  color: #7f8c8d;
-  padding: 15px;
-  font-size: 14px;
-  display: inline-block;
-}
-
-.login_manual_form .form-group > input {
-  border: medium none;
-  width: 35%;
-  padding: 10px;
-  display: inline-block;
-  border-bottom: 1px solid #f6f6f6;
-}
-
-.login_manual_form button {
-  background-color: #dd042b;
-  color: #fff;
-  width: 200px;
-  -webkit-transition-duration: 500ms;
-  transition-duration: 500ms;
-  border: none;
-  text-transform: uppercase;
-}
-.login_manual_form button:hover,
-.login_manual_form button:focus {
-  background-color: #2c3e50;
-  color: #fff;
-}
-.login_manual_form .form-group > input#login_submit:hover {
-  background-color: #a85409;
-}
-.login_manual_form > p {
-  color: #6f6f6f;
-  margin: 0;
-  padding: 15px 0;
-  position: relative;
-  z-index: 1;
-}
-
-.login_manual_form form .form-group:last-child {
-  margin-bottom: 5px;
-}
-.form-group {
-  text-align: center;
-}
-
-.forget_pass {
-  display: inline-block;
-}
-
-.forget_pass > a {
-  margin-top: 10px;
-  color: #6f6f6f;
-  display: inline-block;
-}
-
-.forget_pass > a:hover {
-  color: #3498db;
-}
-
-.forget_pass > a > i {
-  padding-right: 15px;
-}
-
-.forget_pass.one {
-  padding-right: 30px;
-}
-
-.forget_pass.login {
-  position: absolute;
-  width: auto;
-  height: auto;
-  bottom: 30px;
-  right: 30px;
+  min-height: 100vh;
 }

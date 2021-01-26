@@ -7,10 +7,10 @@ import { verifiableKYC } from "../../interfaces/dtos";
 import * as utils from "../../utils/utils";
 import * as universityBackend from "../../apis/universityBackend";
 import io from "socket.io-client";
-import HeaderLogin from "../../components/HeaderLogin/HeaderLogin";
 import { Ring } from "react-spinners-css";
 import * as config from "../../config";
 import { strB64dec } from "../../utils/utils";
+import Header from "../../components/Header/Header";
 
 interface Props {
   history: any;
@@ -23,7 +23,7 @@ interface State {
   refresh_token: string;
   id_token: string;
   expires: number;
-  verifiableKYC: verifiableKYC;
+  error: boolean;
   socketSession: string;
 }
 
@@ -35,7 +35,7 @@ class Callback extends Component<Props, State> {
       refresh_token: "",
       id_token: "",
       expires: 0,
-      verifiableKYC: {} as verifiableKYC,
+      error: false,
       socketSession: "",
     };
   }
@@ -43,9 +43,7 @@ class Callback extends Component<Props, State> {
   async componentDidMount() {
     const code = new URLSearchParams(this.props.location.search).get("code");
     if(code){
-      
       const token = await this.getAuthToken(code);
-
       if (token !== null) {
         this.setState({
           access_token: token.access_token,
@@ -54,25 +52,11 @@ class Callback extends Component<Props, State> {
           expires: token.expires,
         });
 
-        this.parseResponse();
+        this.goToProfile();
       }
-
-        this.initiateSocket();
-        /**
-         *  VIDCHAIN API REQUEST: Claim Verifiable Presentation (forwarded to backend)
-         * The request of a Verifiable presentation must be handled in the backend so as to receive a response from the API in a callback
-         */
-        //universityBackend.claimVP(utils.getUserDid(this.state.id_token), "Login", "");
+      this.initiateSocket();
         
     }
-  }
-
-  parseResponse(){
-    /**
-     *  This information is not used here, just want to login
-     */
-    this.goToProfile();
-
   }
 
   async getAuthToken(code: string){
@@ -87,7 +71,9 @@ class Callback extends Component<Props, State> {
       );
       return response;
     } catch (error) {
-      console.log(error);
+      this.setState({
+        error: true
+      })
     }
   }
 
@@ -109,33 +95,33 @@ class Callback extends Component<Props, State> {
       if(socketClient.clientId && socketClient.did && socketClient.clientId !== "" && socketClient.did !== "") socket.emit("whoami", socketClient);
     });
 
-    socket.on("presentation", (msg: any) => {
-      let presentation = strB64dec(msg.data.decrypted);
+    // socket.on("presentation", (msg: any) => {
+    //   let presentation = strB64dec(msg.data.decrypted);
 
-      let details = utils.decodeJWT(presentation.verifiableCredential[0]);
-      this.setState({
-        verifiableKYC: {
-          id: details.vc.credentialSubject.id,
-          documentNumber: details.vc.credentialSubject.documentNumber,
-          documentType: details.vc.credentialSubject.documentType,
-          name: details.vc.credentialSubject.firstName,
-          surname: details.vc.credentialSubject.lastName,
-          fullName: details.vc.credentialSubject.fullName,
-          nationality: details.vc.credentialSubject.nationality,
-          stateIssuer: details.vc.credentialSubject.stateIssuer,
-          issuingAuthority: details.vc.credentialSubject.issuingAuthority,
-          dateOfExpiry: details.vc.credentialSubject.dateOfExpiry,
-          dateOfBirth: details.vc.credentialSubject.dateOfBirth,
-          placeOfBirth: details.vc.credentialSubject.placeOfBirth,
-          sex: details.vc.credentialSubject.gender,
-          personalNumber: details.vc.credentialSubject.personalNumber,
-        },
-      });
+    //   let details = utils.decodeJWT(presentation.verifiableCredential[0]);
+    //   this.setState({
+    //     verifiableKYC: {
+    //       id: details.vc.credentialSubject.id,
+    //       documentNumber: details.vc.credentialSubject.documentNumber,
+    //       documentType: details.vc.credentialSubject.documentType,
+    //       name: details.vc.credentialSubject.firstName,
+    //       surname: details.vc.credentialSubject.lastName,
+    //       fullName: details.vc.credentialSubject.fullName,
+    //       nationality: details.vc.credentialSubject.nationality,
+    //       stateIssuer: details.vc.credentialSubject.stateIssuer,
+    //       issuingAuthority: details.vc.credentialSubject.issuingAuthority,
+    //       dateOfExpiry: details.vc.credentialSubject.dateOfExpiry,
+    //       dateOfBirth: details.vc.credentialSubject.dateOfBirth,
+    //       placeOfBirth: details.vc.credentialSubject.placeOfBirth,
+    //       sex: details.vc.credentialSubject.gender,
+    //       personalNumber: details.vc.credentialSubject.personalNumber,
+    //     },
+    //   });
       /**
        *  This information is not used here, just want to login
        */
-      this.goToProfile();
-    });
+    //   this.goToProfile();
+    // });
   }
 
   goToProfile() {
@@ -154,46 +140,19 @@ class Callback extends Component<Props, State> {
     const { access_token } = this.state;
     if (access_token != null) {
       return (
-        <div>
-          <HeaderLogin></HeaderLogin>
-          <div className="fullContent">
-            <section id="inner-headline">
-              <div className="container">
-                <div className="row">
-                  <div className="col-lg-12">
-                    <h2 className="pageTitle">Authenticate</h2>
-                  </div>
-                </div>
+        <div >
+        <Header></Header>
+        <div className="contentCallback">
+              <h4>{"We have sent you a request to your wallet,\n please provide your Verifiable ID"}</h4>
+              <div className="spinnerContainer">
+                <Ring color="red" />
               </div>
-            </section>
-            <section id="content">
-              <div className="container">
-                <div className="row">
-                  <div className="col-md-12">
-                    <div className="about-logo">
-                      <br></br>
-                      <br></br>
-                      <br></br>
-                      <h3>
-                        We have sent you a request to your wallet. Please,
-                        provide your Verifiable ID.
-                      </h3>
-                      <br></br>
-                      <p>Waiting to receive your credential...</p>
-                      <br></br>
-                      <br></br>
-                      <div className="spinnerContainer">
-                        <Ring color="orange" />
-                      </div>
-                      <br></br>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
+              <p>Waiting to receive your credential...</p>
+        </div>
+        <div className="footer">
           <Footer></Footer>
         </div>
+      </div>
       );
     } else {
       return <Redirect to="/" />;

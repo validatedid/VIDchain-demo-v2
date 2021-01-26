@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import "./AppRedirect.css";
 import Footer from "../../components/Footer/Footer";
+import Header from "../../components/Header/Header";
 import { Redirect } from "react-router-dom";
 import * as utils from "../../utils/utils";
 import * as universityBackend from "../../apis/universityBackend";
 import io from "socket.io-client";
-import HeaderLogin from "../../components/HeaderLogin/HeaderLogin";
 import { Ring } from "react-spinners-css";
 import * as config from "../../config";
 import { strB64dec } from "../../utils/utils";
@@ -101,47 +101,21 @@ class AppRedirect extends Component<Props, State> {
   render() {
     const { did } = this.state;
     if (did != null) {
-      return (
-        <div>
-          <HeaderLogin></HeaderLogin>
-          <div className="fullContent">
-            <section id="inner-headline">
-              <div className="container">
-                <div className="row">
-                  <div className="col-lg-12">
-                    <h2 className="pageTitle">Validating</h2>
-                  </div>
-                </div>
+      return(
+      <div className="home">
+        <Header></Header>
+        <div className="contentCallback">
+              <h4>{"Validating"}</h4>
+              <div className="spinnerContainer">
+                <Ring color="red" />
               </div>
-            </section>
-            <section id="content">
-              <div className="container">
-                <div className="row">
-                  <div className="col-md-12">
-                    <div className="about-logo">
-                      <br></br>
-                      <br></br>
-                      <br></br>
-                      <h3>
-                        We are processing your query.
-                      </h3>
-                      <br></br>
-                      <p>Waiting to validate your credential...</p>
-                      <br></br>
-                      <br></br>
-                      <div className="spinnerContainer">
-                        <Ring color="orange" />
-                      </div>
-                      <br></br>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </section>
-          </div>
+              <p>We are processing your query...</p>
+        </div>
+        <div className="footer">
           <Footer></Footer>
         </div>
-      );
+      </div>
+     );
     } else {
       return <Redirect to="/" />;
     }

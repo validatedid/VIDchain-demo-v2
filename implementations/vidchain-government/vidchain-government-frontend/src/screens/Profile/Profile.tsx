@@ -1,17 +1,20 @@
 import React, { Component } from "react";
 import "./Profile.css";
+import {Typography, Grid, Dialog, DialogActions, DialogTitle, DialogContent, Button, DialogContentText} from '@material-ui/core';
 import Header from "../../components/Header/Header";
-import Footer from "../../components/Footer/Footer";
-import Official from "../../components/Official/Official";
 import { ICredentialData, CredentialData } from "../../interfaces/dtos";
-import { Button } from "react-bootstrap";
 import * as vidchain from "../../apis/vidchain";
 import { OpenIDClient } from "../../libs/openid-connect/client";
 import * as utils from "../../utils/utils";
 import * as config from "../../config";
 import { verifiableKYC } from "../../interfaces/dtos";
 import { PresentationPayload, VerifiableCredential } from "../../interfaces/IPresentation";
-import { Modal } from "react-bootstrap";
+import ProfilePanel from "../../components/ProfilePanel/ProfilePanel";
+import ServicePanel from "../../components/ServicePanel/ServicePanel";
+
+import profileIcon from "../../assets/images/profileIcon.svg";
+import largeFamilyIcon from "../../assets/images/iconLargeFamily.svg";
+
 
 
 interface Props {
@@ -24,9 +27,7 @@ interface State {
   user: ICredentialData;
   did: string;
   largeFamily: boolean;
-  hasVerifiableId: boolean;
   verifiableKYC: verifiableKYC;
-  fakeLogin: boolean;
   popUpisOpen: boolean;
 }
 
@@ -38,31 +39,16 @@ class Profile extends Component<Props, State> {
       largeFamily: false,
       did: "",
       verifiableKYC: {} as verifiableKYC,
-      hasVerifiableId: false,
-      fakeLogin: false,
       popUpisOpen: false
     };
+
+    this.generateCredential = this.generateCredential.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    this.gotBackToTutorial = this.gotBackToTutorial.bind(this);
   }
 
   componentDidMount() {
-    const {id_token, fakeLogin} = this.props.location.state;
-    if (fakeLogin) {
-      if(id_token){
-        this.setState({
-          did: utils.getUserDid(id_token),
-          verifiableKYC: utils.generateFakeCredential(),
-          hasVerifiableId: true,
-        });
-      }
-      else{
-        this.setState({
-          did: "Not yet provided",
-          verifiableKYC: utils.generateFakeCredential(),
-          fakeLogin: true,
-        });
-      }
-    }
-    else{
+    const {id_token} = this.props.location.state;
     if(id_token){
         const decodedIdToken = utils.decodeJWT(id_token);
         const jwt = decodedIdToken.jwt;
@@ -74,7 +60,7 @@ class Profile extends Component<Props, State> {
                 id: credential.credentialSubject.id as string,
                 documentNumber: credential.credentialSubject.documentNumber as string,
                 documentType: credential.credentialSubject.documentType as string,
-                name: credential.credentialSubject.firstName as string,
+                name: (credential.credentialSubject.firstName ? credential.credentialSubject.firstName : credential.credentialSubject.name) as string,
                 surname: credential.credentialSubject.lastName as string,
                 fullName: credential.credentialSubject.fullName as string,
                 nationality: credential.credentialSubject.nationality as string,
@@ -86,30 +72,12 @@ class Profile extends Component<Props, State> {
                 sex: credential.credentialSubject.gender as string,
                 personalNumber: credential.credentialSubject.personalNumber as string,
               },
-            did: utils.getUserDid(this.props.location.state.id_token),
-            hasVerifiableId: true,
+            did: utils.getUserDid(this.props.location.state.id_token)
           });
         }
       }
-    }
-    if (this.state.did !== "") {
-      this.setState({
-        hasVerifiableId: true,
-      });
-    }
     var client = OpenIDClient.getInstance().getClient();
     client.wipeTokens();
-  }
-
-  async loginWithVIDChain() {
-    localStorage.setItem("userPass", "fakePass");
-    var client = OpenIDClient.getInstance().getClient();
-    await client.callback();
-    await client.getToken({
-      scopes: {
-        request: ["openid"]
-      }, 
-    });
   }
   /**
    *  VIDCHAIN API REQUEST: Generate Verifiable Credential
@@ -141,131 +109,82 @@ class Profile extends Component<Props, State> {
   openModal = () => this.setState({ popUpisOpen: true });
   closeModal = () => {
     this.setState({ popUpisOpen: false });
+    
+  };
+
+  gotBackToTutorial = () => {
     sessionStorage.clear();
     window.location.replace("/demo/tutorial?step=3");
-  };
+  }
 
   render() {
     const {
       did,
-      hasVerifiableId,
-      fakeLogin,
       verifiableKYC,
-      largeFamily
+      largeFamily,
+      popUpisOpen
     } = this.state;
     return (
-      <div>
-        <Official></Official>
-        <Header></Header>
-        <div className="content">
-          <div className="wrapper">
-            <div className="serviceCard">
-              <div className="image-holder">
-                <img src={require("../../assets/images/card.png")} alt="" />
-              </div>
-              <form action="">
-                <h3 className="eID-text">Your profile</h3>
-                <div className="form-row">
-                  <h4>DID: </h4>
-                  <p className="welcome">&nbsp;{did}</p>
-                </div>
-                <div className="form-row">
-                  <h4>Name: </h4>
-                  <p className="welcome">&nbsp;{verifiableKYC.name}</p>
-                </div>
-                <div className="form-row">
-                  <h4>Surname: </h4>
-                  <p className="welcome">&nbsp;{verifiableKYC.surname}</p>
-                </div>
-                <div className="form-row">
-                  <h4>Date Of Birth: </h4>
-                  <p className="welcome">&nbsp;{verifiableKYC.dateOfBirth}</p>
-                </div>
-                <div className="form-row">
-                  <h4>Document number: </h4>
-                  <p className="welcome">&nbsp;{verifiableKYC.personalNumber}</p>
-                </div>
-                <div className="form-row">
-                  <h4>Document type: </h4>
-                  <p>&nbsp;{verifiableKYC.documentType}</p>
-                </div>
-                <div className="form-row">
-                  <h4>Nationality: </h4>
-                  <p className="welcome">&nbsp;{verifiableKYC.nationality}</p>
-                </div>
-                <div className="form-row">
-                  <h4>State Issuer: </h4>
-                  <p className="welcome">&nbsp;{verifiableKYC.stateIssuer}</p>
-                </div>
-                <div className="form-row">
-                  <h4>Date of expiry: </h4>
-                  <p className="welcome">&nbsp;{verifiableKYC.dateOfExpiry}</p>
-                </div>
-                {!hasVerifiableId && fakeLogin && (
-                  <Button
-                    type="button"
-                    className="collect-button"
-                    onClick={() => this.loginWithVIDChain()}
-                  >
-                    Get official government ID
-                  </Button>
-                )}
-              </form>
-            </div>
-            {hasVerifiableId && !largeFamily && (
-              <div className="services">
-                <div className="service">
-                  <br />
-                  <h5 className="eID-text">
-                    <b>Request your Large Family credential.</b>
-                  </h5>
-                  <br></br>
-                  <h5 className="eID-text">
-                    <i>
-                      You can use it wherever you go: Public Service Providers,
-                      Universities, Schools,...
-                    </i>
-                  </h5>
-                  <button
-                    className="custom-button"
-                    onClick={() => this.generateCredential()}
-                  >
-                    <b>Get Large Family credential</b>
-                  </button>
-                </div>
-              </div>
-            )}
-            {hasVerifiableId && largeFamily && (
-              <div className="services">
-                <div className="service">
-                  <br />
-                  <h5 className="eID-text">
-                    <i>Your credential has been sent.</i>
-                  </h5>
-                  <br></br>
-                  <h4 className="eID-text">
-                    <b>Check your wallet.</b>
-                  </h4>
-                </div>
-              </div>
-            )}
-            <Modal show={this.state.popUpisOpen} onHide={this.closeModal} style={{opacity:1}}>
-              <Modal.Header closeButton>
-                <Modal.Title>Good Job!</Modal.Title>
-                    </Modal.Header>
-                      <Modal.Body>You have completed this step successfully.</Modal.Body>
-                      <Modal.Footer>
-                        <Button variant="secondary" onClick={this.closeModal}>
-                          Go back to tutorial
-                        </Button>
-              </Modal.Footer>
-            </Modal>
-          </div>
-        </div>
-        <div className="footer">
-          <Footer></Footer>
-        </div>
-      </div>
+      <Grid container 
+        direction="column"
+        justify="space-between"
+        alignItems="baseline"
+        className="profileHome">
+
+        <Grid item>
+           <Header />
+        </Grid>
+        
+        <Grid item className="titleProfile">
+          <Typography variant="h1">{"Welcome to your\nFreedonia Citizen Portal"}</Typography>
+          {/* <Typography variant="h1">{'Freedonia Citizen Portal'}</Typography> */}
+          <Typography variant="h6">Here you can check your profile details and manage your activity within the Freedonia Citizen</Typography>
+        </Grid>
+        <Grid container
+          direction="column"
+          justify="space-between"
+          alignItems="center" 
+          className="panels">
+            <ProfilePanel 
+              title="Your Profile"
+              userData={verifiableKYC}
+              did={did}
+              icon={profileIcon}
+            />
+            
+            <ServicePanel 
+              title="Request your Large Family credential"
+              description="You can use it wherever you go: Public Service Providers, Universities, Schools..."
+              requirements="In order to get this discount in your students ffees you will have to prove you are in a Large Family"
+              credentialName="Present your Large Family Card Credential"
+              icon={largeFamilyIcon}
+              textButton="Get large family credential"
+              functionClickButton={this.generateCredential}
+              hasBeenRequested={largeFamily} />
+
+            <Dialog
+              open={popUpisOpen}
+              onClose={this.closeModal}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">{"Good Job!"}</DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                You have completed this step successfully.
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={this.closeModal} color="primary">
+                  Cancel
+                </Button>
+                <Button onClick={this.gotBackToTutorial} color="primary" autoFocus>
+                Go back to tutorial
+                </Button>
+              </DialogActions>
+            </Dialog>
+          </Grid>
+      </Grid>
     );
   }
 }

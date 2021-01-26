@@ -14,7 +14,6 @@ const basename = publicUrl ? new URL(publicUrl).pathname : "";
 function App() {
   dotenv.config();
   return (
-    <div className="App">
       <BrowserRouter basename={basename}>
         <Switch>
           <Route exact path="/" component={Home} />
@@ -22,7 +21,6 @@ function App() {
           <Route path="/callback" component={Callback} />
         </Switch>
       </BrowserRouter>
-    </div>
   );
 }
 

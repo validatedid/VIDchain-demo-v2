@@ -1,62 +1,28 @@
-.logo-image {
+/* .logoHeader{
+  position: relative;
+  width: 290px;
+  height: 83px;
+  margin-top: 5%;
+  left: 50%;
+  background-color: red;
+} */
+.logoHeader{
+  position: relative;
+  width: 290px;
+  height: 83px;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  left: 10%;
+  
 }
-.flex-row.row {
+.headerBackground {
+  position: absolute;
+  width: 100%;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: row;
 }
-.flex-row.row > [class*="col-"] {
-  display: flex;
-  flex-direction: column;
-}
-.flex-row.row:after,
-.flex-row.row:before {
-  display: flex;
-}
-.flex-row .thumbnail,
-.flex-row .caption {
-  flex: 1 0 auto;
-  flex-direction: column;
-}
-.flex-text {
-  flex-grow: 1;
-}
-
-.featured-services .thumbnail {
-  padding: 0px;
-}
-
-.featured-services .thumbnail .caption h5 {
-  font-size: 1.1em;
-}
-
-.featured-services .thumbnail img {
-  margin-right: auto;
-  margin-left: auto;
-  display: block;
-  max-width: 100%;
-  height: auto;
-  background-color: #e4e9eb;
-}
-
-.featured-services .thumbnail {
-  -moz-transition: all 0.3s;
-  -webkit-transition: all 0.3s;
-  transition: all 0.3s;
-}
-
-.featured-services .thumbnail:hover {
-  -moz-transform: scale(1.1);
-  -webkit-transform: scale(1.1);
-  transform: scale(1.05);
-  box-shadow: 0 10px 20px -12px rgba(0, 0, 0, 0.42),
-    0 3px 20px 0px rgba(0, 0, 0, 0.12), 0 8px 10px -5px rgba(0, 0, 0, 0.2);
-}
-
-#infoSection .card-header {
-  border: 0px;
-}
-
-.accordion-toggle.text-white a,
-.accordion-toggle.text-white::after {
-  color: #fff;
+.powered {
+  position: relative;
+  left: 60%;
+  color: black;
 }

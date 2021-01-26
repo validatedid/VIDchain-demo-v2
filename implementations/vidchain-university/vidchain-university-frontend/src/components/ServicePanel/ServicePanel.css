@@ -1,0 +1,44 @@
+
+  
+  .containerProfile{
+    width: 80%;
+    background: #F2F2F2;
+    box-shadow: 2px 2px 12px #D6D6D6;
+    border-radius: 3px;
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    margin-bottom: 5%;
+  }
+  .panelTitle {
+    position: absolute;
+    width: 80%;
+    height: 5%;
+    background: #7B788A;
+    border-radius: 2px 2px 0px 0px;
+    display: flex;
+    align-items: center;
+  }
+  .panelBody {
+    flex-direction: row;
+    display: flex;
+    margin-top: 10%;
+  }
+  .titlePanel {
+    position: relative;
+    color: #FFFFFF;
+    left: 100px
+  }
+  .titleBody {
+    font-weight: bold;
+    font-size: 18px;
+    color: #7B788A;
+    margin-bottom: -1%;
+  }
+  .textBody {
+    font-size: 16px;
+    color: #7B788A;
+  }
+  .panelImage {
+
+  }
