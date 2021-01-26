@@ -4,16 +4,28 @@
   min-height: 100vh;
 }
 .titleProfile {
-  width: 80%
+  width: 70%
 }
 
-.titleProfile h1{
+.titleProfile h2{
   margin-top: 15%;
   margin-left: 13%;
 }
 .titleProfile h6{
   margin-left: 13%;
 } 
+@media only screen and (max-width: 768px) {
+  .titleProfile {
+    width: 100%
+  }
+  
+  .titleProfile h2{
+    margin-top: 35%;
+  }
+  .titleProfile h6{
+
+  } 
+}
 .panels{
   display: flex;
   align-self: center;
