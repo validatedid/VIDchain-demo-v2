@@ -1,27 +1,34 @@
-.titleHome {
-  
-}
 
-.titleHome h1{
-  margin-top: 25%;
-  margin-left: 13%;
-  width: 60%
+.titleHome h2{
+  margin-top: 30%;
+  margin-left: 22%;
+  width: 70%
 }
 .titleHome h6{
-  margin-left: 13%;
-  width: 40%;
+  margin-left: 22%;
+  width: 60%;
 }
-/* .titleProfile {
-  width: 80%
+.buttonSignIn {
+  left: 35%;
+} 
+@media only screen and (max-width: 768px) {
+  
+  .titleHome h2{
+    margin-top: 50%;
+    margin-left: 10%;
+    width: 90%
+  }
+  .titleHome h6{
+    margin-left: 8%;
+    margin-right: 5%;
+    width: 90%;
+  }
+  .buttonSignIn {
+    left: 25%;
+  } 
 }
 
-.titleProfile h1{
-  margin-top: 15%;
-  margin-left: 13%;
-}
-.titleProfile h6{
-  margin-left: 13%;
-}  */
+
 .home {
   background-image: url("../../assets/images/backgroundImage.svg");
   background-repeat: no-repeat;

@@ -66,11 +66,11 @@ class Home extends Component<Props, State> {
           alignItems="flex-start"
           className="content">
           <Grid item className="titleHome">
-            <Typography variant="h1">{"Welcome to Freedonia"}</Typography>
+            <Typography variant="h2">{"Welcome to Freedonia"}</Typography>
             <Typography variant="h6">You can manage all the city services from this website: subscriptions, taxes...</Typography>
           </Grid>
           <Grid item>
-            <SignInButton variant="contained" color="primary" onClick={() => this.loginWithVIDChain()}>
+            <SignInButton variant="contained" className="buttonSignIn" color="primary" onClick={() => this.loginWithVIDChain()}>
               Sign in with VIDchain
             </SignInButton>
             </Grid>
