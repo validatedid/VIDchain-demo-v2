@@ -17,7 +17,7 @@ const ProfilePanel = (props: Props) => {
     <Grid className="containerProfile">
         
         <Grid xs={12} className="panelTitle">
-            <Typography variant="h5" className="titlePanel">
+            <Typography variant="h6" className="titlePanel">
                 {title}
             </Typography>
         </Grid>
@@ -26,8 +26,8 @@ const ProfilePanel = (props: Props) => {
             justify="space-between"
             alignItems="flex-start"
             className="panelBody">
-            <Grid item xs={1}></Grid>
-            <Grid item xs={2}>
+            <Grid item sm={1} xs={12}></Grid>
+            <Grid item sm={2} xs={12}>
             <img
                 src={icon}
                 alt=""
@@ -35,7 +35,7 @@ const ProfilePanel = (props: Props) => {
                 className="panelImage"
             />
             </Grid>
-            <Grid item xs={9}>
+            <Grid item sm={9} xs={12}>
                 <div className="panelMainContent">
                   <h6 className="titleBody">DID: </h6>
                   <p className="textBody">{did}</p>
