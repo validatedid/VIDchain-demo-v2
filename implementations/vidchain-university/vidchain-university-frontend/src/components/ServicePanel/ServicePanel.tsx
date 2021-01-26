@@ -11,6 +11,7 @@ type Props = {
   description2: string;
   icon: any;
   hasBeenRequested: boolean;
+  hasBeenValidated: boolean;
   subtitle3?: string;
   description3?: string;
   credentialName?: string;
@@ -19,7 +20,7 @@ type Props = {
 };
 
 const ServicePanel = (props: Props) => {
-  const {title, subtitle1, subtitle2, subtitle3,description1, description2,description3, credentialName, icon, hasBeenRequested,textButton, functionClickButton} = props;
+  const {title, subtitle1, subtitle2, subtitle3,description1, description2,description3, credentialName, icon, hasBeenValidated, hasBeenRequested,textButton, functionClickButton} = props;
   return (
     <Grid className="containerProfile">
         
@@ -60,10 +61,16 @@ const ServicePanel = (props: Props) => {
                   }
               </div>
             }
-            {hasBeenRequested &&
+            {(hasBeenRequested && !hasBeenValidated) &&
               <div className="panelMainContent">
                   <h3 className="titleBody">Credential sent</h3>
                   <p className="textBody">Check your wallet</p>
+              </div>
+            }
+            {hasBeenValidated &&
+              <div className="panelMainContent">
+                  <h3 className="titleBody">Done</h3>
+                  <p className="textBody">Credential received!</p>
               </div>
             }
 

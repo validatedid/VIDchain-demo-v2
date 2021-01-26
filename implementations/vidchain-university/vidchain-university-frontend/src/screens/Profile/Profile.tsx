@@ -232,6 +232,7 @@ class Profile extends Component<Props, State> {
               subtitle3="Institution"
               description3="ACME Uniiversity - Computer Science Department"
               icon={iconCourse}
+              hasBeenValidated={false}
               hasBeenRequested={false} />
 
           <ServicePanel 
@@ -247,6 +248,7 @@ class Profile extends Component<Props, State> {
               icon={iconProfile}
               textButton="Get Student card credential"
               functionClickButton={this.generateCredential}
+              hasBeenValidated={false}
               hasBeenRequested={studentCard} />
 
           <ServicePanel 
@@ -261,6 +263,7 @@ class Profile extends Component<Props, State> {
               icon={iconLargeFamily}
               textButton="Apply for a discount"
               functionClickButton={this.claimVP}
+              hasBeenValidated={largeFamily}
               hasBeenRequested={discountRequested} />
 
             <Dialog
