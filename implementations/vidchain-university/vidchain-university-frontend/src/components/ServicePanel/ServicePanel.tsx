@@ -24,12 +24,12 @@ const ServicePanel = (props: Props) => {
   return (
     <Grid className="containerProfile">
         
-        <Grid xs={12} className="panelTitle">
+        <Grid item xs={12} className="panelTitle">
             <Typography variant="h6" className="titlePanel">
                 {title}
             </Typography>
         </Grid>
-        <Grid xs={12} container
+        <Grid container
             direction="row"
             justify="space-between"
             alignItems="flex-start"
