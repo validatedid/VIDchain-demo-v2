@@ -46,8 +46,10 @@ export class EventsGateway
         lastSessionId: msg.sessionId
       }
     };
-    if (body.value.clientId) await axios
-      .post(config.BASE_URL + "/users", body);
+    //Store the user in DB
+    if (body.value.clientId){
+      await axios.post(config.BASE_URL + "/users", body);
+    }
     //Check if value already exists, in the sessions DB. Meaning the VP has already been done
     const path = `${config.BASE_URL}/users/sessions`;
     const response = await axios.get(path.concat(msg.sessionId));

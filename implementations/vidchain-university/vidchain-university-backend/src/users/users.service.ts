@@ -6,23 +6,22 @@ import Redis from "ioredis";
 export class UsersService {
   private readonly logger = new Logger(UsersService.name);
   private readonly userRedis = new Redis({
-    port: process.env.REDIS_PORT, // Redis port
+    port: process.env.REDIS_PORT, 
     host: process.env.REDIS_URL,
     keyPrefix: "university-user:",
   });
   private readonly sessionRedis = new Redis({
-    port: process.env.REDIS_PORT, // Redis port
+    port: process.env.REDIS_PORT, 
     host: process.env.REDIS_URL,
     keyPrefix: "university-user-session:",
   });
 
   /**
-   *  Store SocketClient, i.e. did - clientId pair
+   *  Store SocketClient, i.e. did - socketClient pair
    */
   async createUser(body: SocketClient): Promise<any> {
     try {
       await this.userRedis.set(body.did, JSON.stringify(body.value));
-      this.logger.debug("Successfully user session creation");
       const currentSession = await this.getUser(body.did);
       this.logger.debug("currentSession: " + JSON.stringify(currentSession));
       return "Successfully user session creation";

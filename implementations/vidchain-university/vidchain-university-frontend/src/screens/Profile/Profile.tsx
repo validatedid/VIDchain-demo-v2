@@ -51,14 +51,15 @@ class Profile extends Component<Props, State> {
       data: {},
       popUpisOpen: false,
     };
-    this.initiateSocket();
+    
     this.generateCredential = this.generateCredential.bind(this);
     this.claimVP = this.claimVP.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.gotBackToTutorial = this.gotBackToTutorial.bind(this);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+      await this.initiateSocket();
       if(this.props.location.state.id_token){
         const decodedIdToken = utils.decodeJWT(this.props.location.state.id_token);
         const jwt = decodedIdToken.jwt;
@@ -98,12 +99,14 @@ class Profile extends Component<Props, State> {
   }
 
   async initiateSocket() {
+    console.log("in socket");
     const socket = io(config.BACKEND_WS, {
       path: "/universityws",
       transports: ["websocket"],
     });
 
     socket.on("connect", () => {
+      console.log("connect");
       this.setState({
         socketSession: socket.id,
       });
@@ -119,6 +122,7 @@ class Profile extends Component<Props, State> {
     });
 
     socket.on("largeFamilyPresentation", (msg: any) => {
+      console.log("receive");
       this.setState({
         largeFamily: true,
       });
