@@ -5,9 +5,14 @@
 .titleHome{
   color: white;
   text-align: center;
-  width: 40%;
+  width: 50%;
 }
 .content {
   position: absolute;
   top: 25%;
+}
+.panels{
+
+  position: relative;
+  margin-top: 5%;
 }

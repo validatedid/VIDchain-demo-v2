@@ -6,7 +6,8 @@ import {NextButton} from '../NextButton/NextButton';
 type Props = {
   title: string;
   panelText: string;
-  icon: any;
+  iconOn: any;
+  iconOff: any;
   stepPanel: number;
   stepSelected: number;
   textButton: string;
@@ -14,18 +15,28 @@ type Props = {
 };
 
 const Panel = (props: Props) => {
-  const {title, panelText, icon, stepPanel, stepSelected, textButton, functionClickButton} = props;
+  const {title, panelText, iconOn, iconOff, stepPanel, stepSelected, textButton, functionClickButton} = props;
   return (
-    <Grid xs={12} container
-        direction="row"
-        justify="space-between"
-        alignItems="flex-start"
-        className="containerProfile">
-            <Grid item xs={12} className="panelTitle">
-                <Typography variant="h6">
-                    {title}
-                </Typography>
+    <div className="containerProfile">
+        <Grid xs={12} container
+            direction="row"
+            alignItems="flex-start"
+            className="panelBody">
+              <Grid item>
+                <img
+                    src={iconOn}
+                    alt=""
+                    role="presentation"
+                    className="panelImage"
+                />
+                </Grid>
+              <Grid item className="panelTitle">
+              <Typography variant="h5">{`Step ${stepPanel}`}</Typography>
+                <Typography variant="h5">{title}</Typography>
+              </Grid>
+
             </Grid>
+            
          {/* <Grid xs={12} className="panelTitle">
             <Typography variant="h6" className="titlePanel">
                 {title}
@@ -70,7 +81,7 @@ const Panel = (props: Props) => {
                   {textButton}
                 </CredentialButton>
               } */}
-    </Grid>
+    </div>
   );
 };
 
