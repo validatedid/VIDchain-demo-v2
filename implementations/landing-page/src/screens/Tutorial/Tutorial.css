@@ -22,7 +22,14 @@
   top: 25%;
 }
 .panels{
-
   position: relative;
   margin-top: 5%;
+}
+@media only screen and (max-width: 768px) {
+  .content {
+    top: 15%;
+  }
+  .titleHome{
+    width: 84%;
+  }
 }

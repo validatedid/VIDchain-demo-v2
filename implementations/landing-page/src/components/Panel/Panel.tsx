@@ -22,7 +22,7 @@ const Panel = (props: Props) => {
             direction="row"
             alignItems="flex-start"
             className="panelBody">
-              <Grid item>
+              <Grid item xs={11}>
                 <img
                     src={stepSelected === stepPanel ? iconOn : iconOff}
                     alt=""
@@ -30,11 +30,11 @@ const Panel = (props: Props) => {
                     className="panelImage"
                 />
                 </Grid>
-              <Grid item className={stepSelected === stepPanel ? "panelTitleOn" : "panelTitle"}>
+              <Grid item xs={10} className={stepSelected === stepPanel ? "panelTitleOn" : "panelTitle"}>
                 <Typography variant="h5">{`Step ${stepPanel}`}</Typography>
                 <Typography variant="h5">{title}</Typography>
               </Grid>
-              <Grid item className={stepSelected === stepPanel ? "bodyTextOn" : "bodyTextOff"}>
+              <Grid item xs={12} className={stepSelected === stepPanel ? "bodyTextOn" : "bodyTextOff"}>
                 <p>{panelText}</p>
                 <NextButton className="buttonPanel" variant="contained" onClick={functionClickButton}>
                   {textButton}
