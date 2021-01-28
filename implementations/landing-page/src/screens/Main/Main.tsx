@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
 import './Main.css';
-import * as config from "../../config/config";
 import ReactHtmlParser from 'react-html-parser';
+
 import iphone from "../../assets/images/f11a0677-iphone-walet_10000000ex0tt000004028.png";
 import spinnerFull from "../../assets/images/fe38d7b7-recurso-4.svg";
 import spinnerHalf from "../../assets/images/3a24678c-recurso-2.svg";
@@ -128,48 +127,6 @@ const htmlString = `
          </div>
       </div>`;
 
-interface Props {
-
+export default function Main () {
+   return <div>{ ReactHtmlParser(htmlString) }</div>;
 }
-
-interface State {
-  step: number
-}
-
-class Main extends Component<Props, State> {
-  constructor(props: any) {
-    super(props);
-    this.state = {
-      step: +(sessionStorage.getItem("step") || 0)
-    };
-  }
-
-  componentDidMount() {
-
-  }
-
-  continue(){
-    const {step} = this.state;
-    sessionStorage.setItem("step", String(step+1))
-    this.redirectTo(step);
-    this.setState(prevState => {
-      return {step: prevState.step + 1}
-   })
-    
-  }
-  redirectTo(step: number){
-    if(step === 0){
-      window.open(config.GOVERNMENT_URL);
-    }
-    if(step === 1){
-      window.open(config.UNIVERSITY_URL);
-    }
-  }
-  render() {
-    const {step} = this.state;
-  return <div>{ ReactHtmlParser(htmlString) }</div>;
-  }
-}
-
-
-export default Main;
