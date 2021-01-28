@@ -20,12 +20,14 @@
         height: 190px;
         text-align: center;
         justify-content: center;
+        margin-bottom: 5%;
     }
     .containerProfileOn{
         width: 84%;
         height: 375px;
         text-align: center;
         justify-content: center;
+        margin-bottom: 5%;
     }
 }
 .panelBody {
@@ -63,14 +65,15 @@
 .bodyTextOn {
     font-size: 17px;
     color: #767486;
-    width: 90%;
+    width: 80%;
 }
 .bodyTextOn p {
-    margin-left: 17%;
+    margin-left: 18%;
     margin-top: 4%;
+    margin-right: 5%;
 }
 .buttonPanel {
-    left: 17%;
+    left: 18%;
 }
 .bodyTextOff {
     visibility: hidden;
