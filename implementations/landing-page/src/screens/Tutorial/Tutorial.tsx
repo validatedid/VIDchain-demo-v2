@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Timeline from '../../components/Timeline';
 import './Tutorial.css';
 import {Grid, Typography} from '@material-ui/core';
-
 import * as config from "../../config/config";
 import logoValidated from "../../assets/images/validated_white.png";
 import logoAndroid from "../../assets/images/playStore@3x.png";
@@ -11,7 +10,13 @@ import logoGovernment from "../../assets/images/logoCity.png";
 import logoNotification from "../../assets/images/icon_notification.png";
 import kyc from "../../assets/images/kyc.png";
 
+import downloadWalletIcon from "../../assets/images/downloadWalletIcon.svg";
+import verifyIcon from "../../assets/images/verifyIcon.svg";
+import governmentIcon from "../../assets/images/governmentIcon.svg";
+import universityIcon from "../../assets/images/universityIcon.svg";
+
 import Header from '../../components/Header/Header';
+import Panel from '../../components/Panel/Panel';
 
 
 interface Props {
@@ -28,6 +33,8 @@ class Tutorial extends Component<Props, State> {
     this.state = {
       step: +(sessionStorage.getItem("step") || 0),
     };
+
+    this.continue = this.continue.bind(this);
   }
 
   componentDidMount() {
@@ -85,10 +92,47 @@ render() {
           <Grid item className="titleHome">
             <Typography variant="h4">{"Test VIDchain user journey demo by taking the following steps in order"}</Typography>
           </Grid>
-          <Grid item></Grid>
-          <Grid item></Grid>
-          <Grid item></Grid>
-          <Grid item></Grid>
+          <Grid container
+            direction="column"
+            justify="space-between"
+            alignItems="center" 
+            className="panels">
+            <Panel 
+                title="Download VIDwallet"
+                panelText="Find VIDwallet in GooglePlay just clicking on VIDwallet icon. The application is currently available only for Android. An iOS version will be released soon in the App Store."
+                stepPanel={0}
+                stepSelected={step}
+                icon={downloadWalletIcon}
+                textButton="Next"
+                functionClickButton={this.continue}/>
+
+            <Panel 
+                title="Verify your ID"
+                panelText="Once you have innstalled VIDwallet, go to Credentials and create a new credential verifyinng your ID. By completing this process, you will have verified either your identity card or passport and your liveness. Afterwards, you will receive a Verifiable Credential that you can use to identify yourself later on."
+                stepPanel={1}
+                stepSelected={step}
+                icon={verifyIcon}
+                textButton="Next"
+                functionClickButton={this.continue}/> 
+
+            <Panel 
+                title="Government of Freedonia"
+                panelText="Go to Government of Freedonia and sign in using the Verifiable eID that you hold in your wallet. Once you have accesed to the portal you can request the Large Familiy credential that you can use in other entities to apply for discounts."
+                stepPanel={2}
+                stepSelected={step}
+                icon={governmentIcon}
+                textButton="Go to Freedonia"
+                functionClickButton={this.continue}/>
+
+            <Panel 
+                title="ACME University"
+                panelText="Go to ACME University and sign in with VIDchain once more. Here you can request a new credential, namely your Student card. To complete this tutorial, apply for a discount on your student fee presenting the Large Family credential you already hold in your wallet."
+                stepPanel={3}
+                stepSelected={step}
+                icon={universityIcon}
+                textButton="Go to Acme University"
+                functionClickButton={this.continue}/>
+          </Grid>
       </Grid>
       
     </div>
