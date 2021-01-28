@@ -17,22 +17,28 @@ type Props = {
 const Panel = (props: Props) => {
   const {title, panelText, iconOn, iconOff, stepPanel, stepSelected, textButton, functionClickButton} = props;
   return (
-    <div className="containerProfile">
-        <Grid xs={12} container
+    <div className={stepSelected === stepPanel ? "containerProfileOn" : "containerProfile"}>
+        <Grid container
             direction="row"
             alignItems="flex-start"
             className="panelBody">
               <Grid item>
                 <img
-                    src={iconOn}
+                    src={stepSelected === stepPanel ? iconOn : iconOff}
                     alt=""
                     role="presentation"
                     className="panelImage"
                 />
                 </Grid>
-              <Grid item className="panelTitle">
-              <Typography variant="h5">{`Step ${stepPanel}`}</Typography>
+              <Grid item className={stepSelected === stepPanel ? "panelTitleOn" : "panelTitle"}>
+                <Typography variant="h5">{`Step ${stepPanel}`}</Typography>
                 <Typography variant="h5">{title}</Typography>
+              </Grid>
+              <Grid item className={stepSelected === stepPanel ? "bodyTextOn" : "bodyTextOff"}>
+                <p>{panelText}</p>
+                <NextButton className="buttonPanel" variant="contained" onClick={functionClickButton}>
+                  {textButton}
+                </NextButton>
               </Grid>
 
             </Grid>

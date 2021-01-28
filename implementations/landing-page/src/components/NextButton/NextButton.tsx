@@ -3,16 +3,17 @@ import { withStyles} from '@material-ui/core/styles';
 
 export const NextButton = withStyles((theme) => ({
     root: {
-    padding: '1%',
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    paddingTop: '1%',
+    paddingBottom: '1%',
     display: 'block',
     borderStyle: 'none',
-    width: '285.17px',
-    height: '46px',
-    background: '#E61B72',
-    borderRadius: '4px',
+    background: '#151A35',
+    borderRadius: '2px',
     color: '#ffffff',
     alignSelf: 'center',
-    marginTop: '2%',
+    marginTop: '5%',
     marginBottom: '5%',
     fontSize: '16px',
     lineHeight: '19px',
