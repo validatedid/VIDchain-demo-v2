@@ -1,8 +1,8 @@
 import React from "react";
 import "./App.css";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
-import Main from "./screens/Main";
-import Tutorial from "./screens/Tutorial"
+import Main from "./screens/Main/Main";
+import Tutorial from "./screens/Tutorial/Tutorial"
 
 const publicUrl =
   process.env.REACT_APP_DEMO || "http://localhost:3028";

@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import Timeline from '../components/Timeline';
+import Timeline from '../../components/Timeline';
 import './Tutorial.css';
-import * as config from "../config/config";
-import logoValidated from "../assets/images/validated_white.png";
-import logoAndroid from "../assets/images/playStore@3x.png";
-import logoUniversity from "../assets/images/logo_uni.png";
-import logoGovernment from "../assets/images/logoCity.png";
-import logoNotification from "../assets/images/icon_notification.png";
-import kyc from "../assets/images/kyc.png";
-import logoVidchain from "../assets/images/3531224b-vidchain.svg";
+import * as config from "../../config/config";
+import logoValidated from "../../assets/images/validated_white.png";
+import logoAndroid from "../../assets/images/playStore@3x.png";
+import logoUniversity from "../../assets/images/logo_uni.png";
+import logoGovernment from "../../assets/images/logoCity.png";
+import logoNotification from "../../assets/images/icon_notification.png";
+import kyc from "../../assets/images/kyc.png";
+import logoVidchain from "../../assets/images/3531224b-vidchain.svg";
 
 
 interface Props {
