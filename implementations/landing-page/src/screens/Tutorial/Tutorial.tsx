@@ -94,7 +94,7 @@ render() {
         alignItems="center"
         className="content">
           <Grid item className="titleHome">
-            <Typography variant="h4">{"Test VIDchain user journey demo by taking the following steps in order"}</Typography>
+            <Typography variant="h4"><b>{"Test VIDchain user journey demo by taking the following steps in order"}</b></Typography>
           </Grid>
           <Grid container
             direction="column"
@@ -113,7 +113,7 @@ render() {
 
             <Panel 
                 title="Verify your ID"
-                panelText="Once you have innstalled VIDwallet, go to Credentials and create a new credential verifyinng your ID. By completing this process, you will have verified either your identity card or passport and your liveness. Afterwards, you will receive a Verifiable Credential that you can use to identify yourself later on."
+                panelText="Once you have innstalled VIDwallet, go to Credentials and create a new credential verifying your ID. By completing this process, you will have verified either your identity card or passport and your liveness. Afterwards, you will receive a Verifiable Credential that you can use to identify yourself later on."
                 stepPanel={1}
                 stepSelected={step}
                 iconOn={verifyIcon}

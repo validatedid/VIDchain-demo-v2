@@ -3,9 +3,19 @@
     width: 100%;
 }
 .titleHome{
-  color: white;
   text-align: center;
-  width: 50%;
+  width: 45%;
+  font-family: TT Norms;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 50px;
+  line-height: 58px;
+  /* or 116% */
+
+  text-align: center;
+  font-feature-settings: 'liga' off;
+
+  color: #EAE8F1;
 }
 .content {
   position: absolute;
