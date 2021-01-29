@@ -1,0 +1,35 @@
+.body {
+    background-color: rgba(21, 26, 53, 1);
+    width: 100%;
+}
+.titleHome{
+  text-align: center;
+  width: 45%;
+  font-family: TT Norms;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 50px;
+  line-height: 58px;
+  /* or 116% */
+
+  text-align: center;
+  font-feature-settings: 'liga' off;
+
+  color: #EAE8F1;
+}
+.content {
+  position: absolute;
+  top: 25%;
+}
+.panels{
+  position: relative;
+  margin-top: 5%;
+}
+@media only screen and (max-width: 768px) {
+  .content {
+    top: 15%;
+  }
+  .titleHome{
+    width: 84%;
+  }
+}
