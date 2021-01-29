@@ -3,7 +3,12 @@ import "./Header.css";
 
 import logoVidchain from "../../assets/images/3531224b-vidchain.svg";
 
-function Header () {
+interface Props {
+  tutorial: boolean;
+}
+
+function Header (props: Props) {
+    const {tutorial} = props;
     return (
       <header className="headerBackground">
         <img
@@ -11,7 +16,12 @@ function Header () {
           src={logoVidchain}
           alt="Logo"
         />
-        <p className="powered">Powered by Validated ID</p>
+        {tutorial && 
+          <p className="powered">Powered by Validated ID</p>
+        }
+        {!tutorial && 
+          <p className="tutorial">Start tutorial</p>
+        }
       </header>
     );
 }

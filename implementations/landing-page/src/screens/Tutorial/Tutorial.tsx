@@ -87,7 +87,7 @@ render() {
   const {step} = this.state;
   return (
     <div className="body">
-      <Header />
+      <Header tutorial={true}/>
       <Grid container 
         direction="column"
         justify="space-between"
