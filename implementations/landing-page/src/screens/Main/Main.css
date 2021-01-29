@@ -8,9 +8,109 @@
 	border-color: none;
 	margin-left: auto;
 	margin-right: auto;
-	margin-bottom: 0px;
 	border-radius: 0px;
 	width: 100%;
 	height: 949px;
+	margin-bottom: auto;
 	position: relative;
+	flex: auto;
+	flex-direction: row;
+}
+.contentLanding {
+	position: absolute;
+	top: 15%;
+}
+.contentLandingItems {
+	position: absolute;
+	top: 100%;
+}
+.contentLandingFoundation {
+	position: absolute;
+	top: 150%;
+}
+.contentLandingVideo {
+	position: absolute;
+	top: 200%;
+}
+.contentLandingTutorial {
+	position: absolute;
+	top: 250%;
+	
+}
+.titleLanding{
+	text-align: left;
+	font-family: TT Norms;
+	font-style: normal;
+	line-height: 58px;
+	font-feature-settings: 'liga' off;
+	color: #EAE8F1;
+  }
+  .logoStores {
+	  display: flex;
+	  flex-direction: row;
+	  width: 120%;
+	  margin-top: 10%;
+  }
+  .logoStoreiOS{
+	 width: 120px;
+  }
+  .logoStoreGoogle{
+	width: 120px;
+	margin-right: 5%;
+ }
+ .iphone {
+	margin-left: 8%;
+	width: 302px;
+	height: 603px;
+ }
+ .divider {
+	width: 80%; 
+	border: 1px solid #767486;
+	margin-bottom: 5%;
+ }
+ .itemLogo {
+	width: 100px;
+	height: 100px;
+ }
+ .item {
+	 color: #ffffff;
+	 text-align: center;
+ }
+.imageFoundation {
+	position: relative;
+	right: 30%;
+	margin-top: -10%;
+	z-index: -10;
+}
+.video{
+	width: 74px;
+	height: 74px;
+	margin-top: 10%;
+	margin-left: 30%;
+}
+.labelVideo{
+	position: absolute;
+	margin-top: 8%;
+	margin-left: 7%;
+}
+.videoDiv{
+	text-align: center;
+	color: #767486;
+	text-decoration: none;
+	font-size: 12px;
+}
+.bodyTextLanding {
+	position: absolute;
+	top: 120%;
+	left: 30%;
+	color: #767486;
+	width: 40%
+}
+.imageStartTutorial {
+	z-index: -10;
+}
+
+.footer{
+	position: absolute;
+	bottom: 0;
 }
