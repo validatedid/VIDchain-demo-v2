@@ -29,7 +29,7 @@ export default function Main () {
             alignItems="center"
             className="contentLanding">
             <Grid item sm={2}></Grid> 
-            <Grid item sm={3} className="titleLanding">
+            <Grid item sm={3} xs={12} className="titleLanding">
              <Typography variant="h4">
                 <b>
                 {"Your ID wallet, \nsimple and secure"}
@@ -54,7 +54,7 @@ export default function Main () {
                </div>
            </Grid>
            <Grid item sm={1}></Grid>
-           <Grid item sm={6}>
+           <Grid item sm={6} xs={12}>
                <img className="iphone" src={iphone} />
            </Grid>
            
@@ -116,7 +116,7 @@ export default function Main () {
             
             <hr className="divider" />
             <Grid item sm={3} ></Grid>
-            <Grid item sm={3} className="titleLanding">
+            <Grid item sm={3} xs={12} className="titleLanding">
              <Typography variant="h4">
                 <b>
                 {"A foundation built for scale and forsight"}
@@ -130,7 +130,7 @@ export default function Main () {
                   }
                </Typography>
            </Grid>
-           <Grid item sm={6}>
+           <Grid item sm={6} xs={12}>
                <img className="imageFoundation" src={foundation} />
             </Grid>
             <Grid item sm={1}></Grid>
@@ -143,11 +143,9 @@ export default function Main () {
             alignItems="center"
             className="contentLandingVideo">
             
-            <hr className="divider" />
-            <Grid item sm={4} />
-           
+            <hr className="divider" />           
        
-            <Grid item sm={3} className="titleLanding">
+            <Grid item sm={3} xs={12} className="titleVideoLanding">
                <div>
                   <Typography variant="h4">
                   <b>

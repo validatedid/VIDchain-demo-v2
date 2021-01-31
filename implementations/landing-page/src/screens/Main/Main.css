@@ -16,6 +16,7 @@
 	flex: auto;
 	flex-direction: row;
 }
+
 .contentLanding {
 	position: absolute;
 	top: 15%;
@@ -35,8 +36,41 @@
 .contentLandingTutorial {
 	position: absolute;
 	top: 250%;
-	
 }
+@media only screen and (max-width: 768px) {
+	.bodyLanding {
+		background: rgba(21, 26, 53, 1);
+		width: 80%;
+		height: 949px;
+		margin-bottom: auto;
+		position: relative;
+		flex: auto;
+		flex-direction: row;
+	}
+	.contentLanding {
+		position: absolute;
+		top: 10%;
+		text-align: center;
+		margin: 5%
+	}
+	.contentLandingItems {
+		position: absolute;
+		top: 120%;
+	}
+	.contentLandingFoundation {
+		position: absolute;
+		top: 200%;
+	}
+	.contentLandingVideo {
+		position: absolute;
+		top: 250%;
+	}
+	.contentLandingTutorial {
+		position: absolute;
+		top: 300%;
+	}
+}
+
 .titleLanding{
 	text-align: left;
 	font-family: TT Norms;
@@ -44,6 +78,21 @@
 	line-height: 58px;
 	font-feature-settings: 'liga' off;
 	color: #EAE8F1;
+  }
+  .titleVideoLanding{
+	text-align: left;
+	font-family: TT Norms;
+	font-style: normal;
+	line-height: 58px;
+	font-feature-settings: 'liga' off;
+	color: #EAE8F1;
+  }
+  @media only screen and (max-width: 768px) {
+	.titleVideoLanding{
+		position: absolute;
+		left: 20%;
+		top: 100%;
+	  }
   }
   .logoStores {
 	  display: flex;
@@ -63,6 +112,24 @@
 	width: 302px;
 	height: 603px;
  }
+ .imageFoundation {
+	position: relative;
+	right: 30%;
+	margin-top: -10%;
+	z-index: -10;
+}
+ @media only screen and (max-width: 768px) {
+	.iphone {
+		width: 302px;
+		height: 603px;
+		margin-left: -8%;
+	 }
+	 .imageFoundation {
+		position: relative;
+		z-index: -10;
+		margin-top: 5%;
+	}
+ }
  .divider {
 	width: 80%; 
 	border: 1px solid #767486;
@@ -76,12 +143,7 @@
 	 color: #ffffff;
 	 text-align: center;
  }
-.imageFoundation {
-	position: relative;
-	right: 30%;
-	margin-top: -10%;
-	z-index: -10;
-}
+
 .video{
 	width: 74px;
 	height: 74px;
@@ -105,6 +167,19 @@
 	left: 30%;
 	color: #767486;
 	width: 40%
+}
+@media only screen and (max-width: 768px) {
+	.bodyTextLanding {
+		position: absolute;
+		color: #767486;
+		width: 90%;
+		left: 0%;
+	}
+	.labelVideo{
+		position: absolute;
+		margin-top: 40%;
+		margin-left: 28%;
+	}
 }
 .imageStartTutorial {
 	z-index: -10;

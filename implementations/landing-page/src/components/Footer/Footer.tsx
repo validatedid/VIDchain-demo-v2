@@ -18,7 +18,7 @@ function Footer () {
         className="footerBackground">
         
          <Grid item sm={2}></Grid>  
-        <Grid item sm={2}>
+        <Grid item sm={2} xs={12}>
             <img
             className="logoFooter"
             src={logoVidchain}
@@ -26,14 +26,14 @@ function Footer () {
             />
         </Grid>
         <Grid item sm={1}></Grid>
-        <Grid item sm={1}>
+        <Grid item sm={1} xs={12}>
           <p className="textFooter">Privacy policy</p>
         </Grid>
-        <Grid item sm={2}>
+        <Grid item sm={2} xs={12}>
           <p className="textFooter">Carrer Arago 179 - 4th floor</p>
           <p className="textFooter">08011 Barcelona (Spain)</p>
         </Grid>
-        <Grid item sm={2}>
+        <Grid item sm={2} xs={12}>
           <p className="textFooter">@Copyright 2020. Validated ID.</p>
           <p className="textFooter">All Rights Reserved</p>
         </Grid>
