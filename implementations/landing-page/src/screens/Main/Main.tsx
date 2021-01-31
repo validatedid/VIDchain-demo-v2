@@ -1,6 +1,7 @@
 import './Main.css';
 import {Grid, Typography} from '@material-ui/core';
 import Header from '../../components/Header/Header';
+import Footer from '../../components/Footer/Footer';
 import ReactHtmlParser from 'react-html-parser';
 
 import {StartButton} from '../../components/StartButton/StartButton';
@@ -201,9 +202,8 @@ export default function Main () {
            
          </Grid>
 
+         <Footer />
 
-
-        
       </div>
    );
 }

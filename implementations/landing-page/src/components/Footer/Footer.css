@@ -1,0 +1,39 @@
+.logoFooter{
+    position: relative;
+    width: 150px;
+    height: 28px;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    left: 10%;
+    
+  }
+  .footerBackground {
+    position: absolute;
+    top: 350%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 2%;
+  }
+  .textFooter {
+    position: relative;
+    left: 60%;
+    margin-top: 2%;
+    font-family: TT Norms;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    color: #767486;
+  }
+  .dividerFooter {
+	width: 80%; 
+	border: 1px solid #767486;
+    position: absolute;
+    left: 10%;
+    top: 345%;
+ }
+  @media only screen and (max-width: 768px) {
+   
+  }
+  
