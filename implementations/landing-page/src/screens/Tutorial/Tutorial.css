@@ -42,3 +42,11 @@
   left: 25%;
   bottom: 8%;
 }
+@media only screen and (max-width: 768px) {
+  .restartButton {
+    position: absolute;
+    left: 25%;
+    bottom: -2%;
+  }
+
+}
