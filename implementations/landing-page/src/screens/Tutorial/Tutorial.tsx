@@ -88,7 +88,8 @@ class Tutorial extends Component<Props, State> {
     this.setState({
       step: 0,
     });
-    sessionStorage.setItem("step", String(step))
+    sessionStorage.setItem("step", String(0));
+    window.location.replace("/demo/tutorial");
   }
 render() {
   const {step} = this.state;
