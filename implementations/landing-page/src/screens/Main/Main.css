@@ -63,11 +63,11 @@
 	}
 	.contentLandingVideo {
 		position: absolute;
-		top: 250%;
+		top: 260%;
 	}
 	.contentLandingTutorial {
 		position: absolute;
-		top: 300%;
+		top: 310%;
 	}
 }
 
@@ -117,7 +117,6 @@
  }
  .imageFoundation {
 	position: relative;
-	right: 30%;
 	margin-top: -10%;
 	z-index: -10;
 }
@@ -130,7 +129,8 @@
 	 .imageFoundation {
 		position: relative;
 		z-index: -10;
-		margin-top: 5%;
+		margin-top: -25%;
+		margin-left: -15%;
 	}
  }
  .divider {
@@ -185,6 +185,17 @@
 }
 .imageStartTutorial {
 	z-index: -10;
+	position: relative;
+	right: 12%;
+	margin-top: -25%;
+}
+@media only screen and (max-width: 768px) {
+	.imageStartTutorial {
+		z-index: -10;
+		position: relative;
+		right: 12%;
+		margin-top: 0%;
+	}
 }
 
 .footer{

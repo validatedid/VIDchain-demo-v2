@@ -6,15 +6,21 @@ import ReactHtmlParser from 'react-html-parser';
 
 import {StartButton} from '../../components/StartButton/StartButton';
 import iphone from "../../assets/images/f11a0677-iphone-walet_10000000ex0tt000004028.png";
-import spinnerFull from "../../assets/images/fe38d7b7-recurso-4.svg";
-import spinnerHalf from "../../assets/images/3a24678c-recurso-2.svg";
-import spinnerQuarter from "../../assets/images/e9f173fc-recurso-3.svg";
+// import spinnerFull from "../../assets/images/fe38d7b7-recurso-4.svg";
+// import spinnerHalf from "../../assets/images/3a24678c-recurso-2.svg";
+// import spinnerQuarter from "../../assets/images/e9f173fc-recurso-3.svg";
 import logoVidchain from "../../assets/images/3531224b-vidchain.svg";
 import logoGooglePlay from "../../assets/images/android.png";
 import logoIOS from "../../assets/images/ios.png";
-import foundation from '../../assets/images/86da6627-recurso-13.svg';
+// import foundation from '../../assets/images/86da6627-recurso-13.svg';
 import video from '../../assets/images/video.png';
-import startTutorial from '../../assets/images/tutorial.svg';
+// import startTutorial from '../../assets/images/tutorial.svg';
+
+import foundation from '../../assets/images/animations/animation_intro.gif';
+import startTutorial from '../../assets/images/animations/animation3.gif';
+import spinnerFull from "../../assets/images/animations/itemB.gif";
+import spinnerHalf from "../../assets/images/animations/itemC.gif";
+import spinnerQuarter from "../../assets/images/animations/itemA.gif";
 
 
 export default function Main () {
