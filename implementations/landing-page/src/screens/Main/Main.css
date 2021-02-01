@@ -80,12 +80,15 @@
 	color: #EAE8F1;
   }
   .titleVideoLanding{
-	text-align: left;
+	text-align: center;
 	font-family: TT Norms;
 	font-style: normal;
 	line-height: 58px;
 	font-feature-settings: 'liga' off;
 	color: #EAE8F1;
+	position: absolute;
+	left: 40%;
+	top: 50%;
   }
   @media only screen and (max-width: 768px) {
 	.titleVideoLanding{
@@ -148,12 +151,11 @@
 	width: 74px;
 	height: 74px;
 	margin-top: 10%;
-	margin-left: 30%;
 }
 .labelVideo{
 	position: absolute;
-	margin-top: 8%;
-	margin-left: 7%;
+	margin-top: 30%;
+
 }
 .videoDiv{
 	text-align: center;
@@ -164,9 +166,9 @@
 .bodyTextLanding {
 	position: absolute;
 	top: 120%;
-	left: 30%;
 	color: #767486;
-	width: 40%
+	width: 150%;
+	left: -25%;
 }
 @media only screen and (max-width: 768px) {
 	.bodyTextLanding {
@@ -178,7 +180,7 @@
 	.labelVideo{
 		position: absolute;
 		margin-top: 40%;
-		margin-left: 28%;
+		margin-left: -5%;
 	}
 }
 .imageStartTutorial {
@@ -188,4 +190,7 @@
 .footer{
 	position: absolute;
 	bottom: 0;
+}
+.bodyText {
+	color: #767486;
 }

@@ -77,7 +77,7 @@ export default function Main () {
                <Typography variant="h6">
                   {"Your identity, always protected"}
                </Typography>
-               <Typography variant="subtitle2">
+               <Typography variant="subtitle2" className="bodyText">
                   {"Take advantage of secure encryption and blockchain technology to secure your personal identity data. Nobody not even us - can access the data on your device without your permission."}
                </Typography>
                </div>
@@ -88,7 +88,7 @@ export default function Main () {
                   <Typography variant="h6">
                      {"Control how your own data is shared"}
                   </Typography>
-                  <Typography variant="subtitle2">
+                  <Typography variant="subtitle2" className="bodyText">
                      {"Collect digital credentials and store them in your ID wallet, or choose which pieces of your data you want to share. You decide. It's simple."}
                   </Typography>
                </div>
@@ -99,7 +99,7 @@ export default function Main () {
                   <Typography variant="h6">
                      {"Replace traditional paperwork"}
                   </Typography>
-                  <Typography variant="subtitle2">
+                  <Typography variant="subtitle2" className="bodyText">
                      {"Streamline your connnections by sharing trusted digital credentials. You can now easily sign in to websites and services and only share the information they really need."}
                   </Typography>
                </div>
@@ -122,7 +122,7 @@ export default function Main () {
                 {"A foundation built for scale and forsight"}
                 </b>
                </Typography>
-               <Typography variant="subtitle1">
+               <Typography variant="subtitle1" className="bodyText">
                   {
                   "We're working with national and international partners"+
                   " such as Sovrin, DIF, and Alastria to create an open ecosystem"+
@@ -184,7 +184,7 @@ export default function Main () {
                 {"Welcome to the VIDchain tutorial"}
                 </b>
                </Typography>
-               <Typography variant="subtitle1">
+               <Typography variant="subtitle1" className="bodyText">
                   {
                   "Try the new VIDchain demo. Enjoy fast and secure access to a"+
                   " variety of possible organizations. Issue and verify SSI credentials"+
