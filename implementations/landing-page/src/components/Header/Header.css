@@ -15,7 +15,7 @@
 }
 .powered {
   position: relative;
-  left: 60%;
+  left: 65%;
   margin-top: 2%;
   font-family: TT Norms;
   font-style: normal;
@@ -24,9 +24,28 @@
   line-height: 20px;
   color: #767486;
 }
+.tutorial {
+  position: relative;
+  left: 18%;
+  margin-top: 3%;
+  font-family: TT Norms;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 20px;
+  color: #ffffff;
+  text-decoration: none;
+}
 @media only screen and (max-width: 768px) {
   .powered {
-    left: 20%;
+    left: 15%;
+    margin-top: 4%;
+  }
+}
+/* Tablet */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .powered {
+    left: 50%;
     margin-top: 4%;
   }
 }

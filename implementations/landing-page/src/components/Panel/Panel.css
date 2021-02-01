@@ -24,15 +24,37 @@
     }
     .containerProfileOn{
         width: 84%;
-        height: 375px;
+        height: 475px;
         text-align: center;
         justify-content: center;
         margin-bottom: 5%;
     }
 }
+/* Tablet */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+    .containerProfile{
+        width: 75%;
+        height: 190px;
+        text-align: center;
+        justify-content: center;
+        margin-bottom: 5%;
+        position: relative;
+
+    }
+    .containerProfileOn{
+        position: relative;
+        width: 75%;
+        height: 375px;
+        text-align: center;
+        justify-content: center;
+        margin-bottom: 5%;
+        left: 0%;
+    }
+  }
+  
+
 .panelBody {
     align-content: center;
-    margin-left: 5%;
 }
 .panelTitle {
     width: 80%;
@@ -44,6 +66,7 @@
     /* or 113% */
     font-feature-settings: 'liga' off;
     color: #7B788A;
+    text-align: left;
 }
 .panelTitleOn {
     width: 80%;
@@ -55,6 +78,15 @@
     /* or 113% */
     font-feature-settings: 'liga' off;
     color: #767486;
+    text-align: left;
+}
+@media only screen and (max-width: 768px) {
+    .panelTitleOn {
+        text-align: center;
+    }
+    .panelTitle {
+        text-align: center;
+    }
 }
 .panelTitle h5{
     margin-left: 5%;
@@ -63,17 +95,20 @@
     margin-left: 5%;
 }
 .bodyTextOn {
+    position: relative;
     font-size: 17px;
     color: #767486;
     width: 80%;
+    left: 8%;
+    
 }
 .bodyTextOn p {
-    margin-left: 18%;
+    margin-left: 15%;
     margin-top: 4%;
     margin-right: 5%;
 }
 .buttonPanel {
-    left: 18%;
+    left: 15%;
 }
 .bodyTextOff {
     visibility: hidden;
@@ -82,14 +117,50 @@
 .panelImage {
     width: 74px;
     height: 74px;
+    margin-left: 10%;
 }
 @media only screen and (max-width: 768px) {
     .buttonPanel {
         left: 1%;
     }
-    .bodyTextOn p {
+    
+    .bodyTextOn {
+        position: relative;
+        font-size: 17px;
+        color: #767486;
         text-align: left;
-        margin: 1%;
-        margin-top: 4%;
+    }
+    .panelImage {
+        width: 74px;
+        height: 74px;
+        margin-left: 0%;
+    }
+}
+/* Tablet */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+
+    .bodyTextOn {
+        position: relative;
+        font-size: 17px;
+        color: #767486;
+        text-align: left;
+        left: 20%;
+    }
+    .panelImage {
+        width: 74px;
+        height: 74px;
+        margin-left: 20%;
+    }
+}
+.bodyTextPanel {
+    position: relative;
+    left: 15%;
+    width: 90%;
+}
+@media only screen and (max-width: 768px) {
+    .bodyTextPanel {
+        position: relative;
+        left: 0%;
+        width: 90%;
     }
 }

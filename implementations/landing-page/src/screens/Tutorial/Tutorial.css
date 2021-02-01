@@ -1,6 +1,7 @@
 .body {
     background-color: rgba(21, 26, 53, 1);
     width: 100%;
+    
 }
 .titleHome{
   text-align: center;
@@ -20,6 +21,8 @@
 .content {
   position: absolute;
   top: 25%;
+  padding-bottom: 10%;
+  
 }
 .panels{
   position: relative;
@@ -28,8 +31,43 @@
 @media only screen and (max-width: 768px) {
   .content {
     top: 15%;
+    padding-bottom: 20%;
   }
   .titleHome{
     width: 84%;
+    position: relative;
+    left: 0%;
   }
+}
+/* Tablet */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+  .titleHome{
+    width: 70%;
+    position: relative;
+    left: 0%;
+  }
+
+}
+
+.restartButton {
+  position: absolute;
+  left: 25%;
+  bottom: 8%;
+}
+@media only screen and (max-width: 768px) {
+  .restartButton {
+    position: absolute;
+    left: 25%;
+    bottom: 1%;
+  }
+
+}
+/* Tablet */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+  .restartButton {
+    position: absolute;
+    left: 40%;
+    bottom: 5%;
+  }
+
 }
