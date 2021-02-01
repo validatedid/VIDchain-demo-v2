@@ -24,15 +24,37 @@
     }
     .containerProfileOn{
         width: 84%;
-        height: 375px;
+        height: 475px;
         text-align: center;
         justify-content: center;
         margin-bottom: 5%;
     }
 }
+/* Tablet */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+    .containerProfile{
+        width: 75%;
+        height: 190px;
+        text-align: center;
+        justify-content: center;
+        margin-bottom: 5%;
+        position: relative;
+
+    }
+    .containerProfileOn{
+        position: relative;
+        width: 75%;
+        height: 375px;
+        text-align: center;
+        justify-content: center;
+        margin-bottom: 5%;
+        left: 0%;
+    }
+  }
+  
+
 .panelBody {
     align-content: center;
-    margin-left: 5%;
 }
 .panelTitle {
     width: 80%;
@@ -112,6 +134,22 @@
         width: 74px;
         height: 74px;
         margin-left: 0%;
+    }
+}
+/* Tablet */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+
+    .bodyTextOn {
+        position: relative;
+        font-size: 17px;
+        color: #767486;
+        text-align: left;
+        left: 20%;
+    }
+    .panelImage {
+        width: 74px;
+        height: 74px;
+        margin-left: 20%;
     }
 }
 .bodyTextPanel {
