@@ -58,6 +58,14 @@
     color: #767486;
     text-align: left;
 }
+@media only screen and (max-width: 768px) {
+    .panelTitleOn {
+        text-align: center;
+    }
+    .panelTitle {
+        text-align: center;
+    }
+}
 .panelTitle h5{
     margin-left: 5%;
 }
@@ -70,14 +78,15 @@
     color: #767486;
     width: 80%;
     left: 8%;
+    
 }
 .bodyTextOn p {
-    margin-left: 18%;
+    margin-left: 15%;
     margin-top: 4%;
     margin-right: 5%;
 }
 .buttonPanel {
-    left: 18%;
+    left: 15%;
 }
 .bodyTextOff {
     visibility: hidden;
@@ -92,16 +101,28 @@
     .buttonPanel {
         left: 1%;
     }
-    .bodyTextOn p {
-        text-align: left;
-        margin: 1%;
-        margin-top: 4%;
-    }
+    
     .bodyTextOn {
         position: relative;
         font-size: 17px;
         color: #767486;
-        width: 80%;
-        left: 20%;
+        text-align: left;
+    }
+    .panelImage {
+        width: 74px;
+        height: 74px;
+        margin-left: 0%;
+    }
+}
+.bodyTextPanel {
+    position: relative;
+    left: 15%;
+    width: 90%;
+}
+@media only screen and (max-width: 768px) {
+    .bodyTextPanel {
+        position: relative;
+        left: 0%;
+        width: 90%;
     }
 }

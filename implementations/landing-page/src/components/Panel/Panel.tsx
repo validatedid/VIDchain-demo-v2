@@ -35,8 +35,8 @@ const Panel = (props: Props) => {
                 <Typography variant="h5">{`Step ${stepPanel}`}</Typography>
                 <Typography variant="h5">{title}</Typography>
               </Grid>
-              <Grid item sm={8} xs={12} className={stepSelected === stepPanel ? "bodyTextOn" : "bodyTextOff"}>
-                <p>{panelText}</p>
+              <Grid item wrap="nowrap" sm={10} xs={12} className={stepSelected === stepPanel ? "bodyTextOn" : "bodyTextOff"}>
+                <Typography variant="subtitle1" className="bodyTextPanel">{panelText}</Typography>
                 <NextButton className="buttonPanel" variant="contained" onClick={functionClickButton}>
                   {textButton}
                 </NextButton>
