@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Timeline from '../../components/Timeline';
 import './Tutorial.css';
 import {Grid, Typography} from '@material-ui/core';
 import * as config from "../../config/config";
@@ -21,6 +20,7 @@ import universityIconOff from "../../assets/images/universityIconoff.svg";
 
 import Header from '../../components/Header/Header';
 import Panel from '../../components/Panel/Panel';
+import {RestartButton} from '../../components/RestartButton/RestartButton';
 
 
 interface Props {
@@ -83,6 +83,13 @@ class Tutorial extends Component<Props, State> {
       window.location.replace("/demo/tutorial");
     }
   }
+
+  restart(){
+    this.setState({
+      step: 0,
+    });
+    sessionStorage.setItem("step", String(step))
+  }
 render() {
   const {step} = this.state;
   return (
@@ -141,7 +148,14 @@ render() {
                 textButton="Go to Acme University"
                 functionClickButton={this.continue}/>
           </Grid>
+
+          <Grid item className="restartButton">
+              <RestartButton variant="contained" onClick={()=> this.restart()}>
+                  {"Restart process"}
+              </RestartButton>
+          </Grid>
       </Grid>
+
       
     </div>
   );

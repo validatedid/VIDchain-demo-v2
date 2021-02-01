@@ -1,6 +1,7 @@
 .body {
     background-color: rgba(21, 26, 53, 1);
     width: 100%;
+    
 }
 .titleHome{
   text-align: center;
@@ -20,6 +21,8 @@
 .content {
   position: absolute;
   top: 25%;
+  padding-bottom: 10%;
+  
 }
 .panels{
   position: relative;
@@ -32,4 +35,10 @@
   .titleHome{
     width: 84%;
   }
+}
+
+.restartButton {
+  position: absolute;
+  left: 25%;
+  bottom: 8%;
 }
