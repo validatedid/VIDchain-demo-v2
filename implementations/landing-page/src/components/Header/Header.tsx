@@ -15,6 +15,7 @@ function Header (props: Props) {
           className="logoHeader"
           src={logoVidchain}
           alt="Logo"
+          onClick={()=> window.location.replace("/demo")}
         />
         {tutorial && 
           <p className="powered">Powered by Validated ID</p>

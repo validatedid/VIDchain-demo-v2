@@ -10,6 +10,7 @@
 	margin-right: auto;
 	border-radius: 0px;
 	width: 100%;
+	height: 949px;
 	margin-bottom: auto;
 	position: relative;
 	flex: auto;
@@ -36,6 +37,7 @@
 	position: absolute;
 	top: 250%;
 }
+/* Mobile App */
 @media only screen and (max-width: 768px) {
 	.bodyLanding {
 		background: rgba(21, 26, 53, 1);
@@ -69,6 +71,34 @@
 		top: 310%;
 	}
 }
+/* Tablet */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    .bodyLanding {
+		width: 100%;
+	}
+	.contentLanding {
+		position: absolute;
+		left: -10%;
+		text-align: center;
+		margin: 5%
+	}
+	.contentLandingItems {
+		position: absolute;
+		top: 90%;
+	}
+	.contentLandingFoundation {
+		position: absolute;
+		top: 150%;
+	}
+	.contentLandingVideo {
+		position: absolute;
+		top: 200%;
+	}
+	.contentLandingTutorial {
+		position: absolute;
+		top: 260%;
+	}
+   }
 
 .titleLanding{
 	text-align: left;
@@ -78,6 +108,7 @@
 	font-feature-settings: 'liga' off;
 	color: #EAE8F1;
   }
+ 
   .titleVideoLanding{
 	text-align: center;
 	font-family: TT Norms;
@@ -89,6 +120,11 @@
 	left: 40%;
 	top: 50%;
   }
+  .imageFoundation {
+	position: relative;
+	margin-top: -10%;
+	z-index: -10;
+}
   @media only screen and (max-width: 768px) {
 	.titleVideoLanding{
 		position: absolute;
@@ -96,6 +132,25 @@
 		top: 100%;
 	  }
   }
+  /* Tablet */
+	@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+		.titleLanding{
+			text-align: left;
+			position: absolute;
+			left: 20%;
+			top: 5%;
+		  }
+		  .imageFoundation {
+			position: absolute;
+			left: 50%;
+			z-index: -10;
+		}
+		.titleVideoLanding{
+			position: absolute;
+			left: 40%;
+			top: 100%;
+		  }
+	}
   .logoStores {
 	  display: flex;
 	  flex-direction: row;
@@ -114,11 +169,7 @@
 	width: 302px;
 	height: 603px;
  }
- .imageFoundation {
-	position: relative;
-	margin-top: -10%;
-	z-index: -10;
-}
+
  @media only screen and (max-width: 768px) {
 	.iphone {
 		width: 302px;
@@ -182,6 +233,7 @@
 		margin-left: -5%;
 	}
 }
+
 .imageStartTutorial {
 	z-index: -10;
 	position: relative;
@@ -194,6 +246,15 @@
 		position: relative;
 		right: 12%;
 		margin-top: 0%;
+	}
+}
+/* Tablet */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+	.imageStartTutorial {
+		z-index: -10;
+		position: relative;
+		margin-left: 100%;
+		margin-top: -50%;
 	}
 }
 
