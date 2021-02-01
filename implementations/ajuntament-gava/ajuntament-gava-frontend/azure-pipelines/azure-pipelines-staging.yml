@@ -1,7 +1,7 @@
 trigger:
   branches:
     include:
-      - development
+      - staging
   paths:
     include:
       - implementations/ajuntament-gava/ajuntament-gava-frontend
@@ -20,9 +20,9 @@ variables:
   # Dockerfiles
   gaviusFrontendDocker: 'implementations/ajuntament-gava/ajuntament-gava-frontend/Dockerfile'
   # Kubernetes YAML
-  gaviusFrontendKubernetes: 'implementations/ajuntament-gava/ajuntament-gava-frontend/k8s/k8s-dev.yml'
+  gaviusFrontendKubernetes: 'implementations/ajuntament-gava/ajuntament-gava-frontend/k8s/k8s-staging.yml'
   # Kubernetes namespace
-  namespace: 'development'
+  namespace: 'staging'
   # Image tagging: application version - build
   tagGaviusFrontend: '$(Build.BuildNumber)'
   # Agent VM image name
@@ -49,7 +49,7 @@ stages:
       vmImage: $(vmImageName)
     steps:
     - bash: |
-        cp ./implementations/ajuntament-gava/ajuntament-gava-frontend/envs/.env.development ./implementations/ajuntament-gava/ajuntament-gava-frontend/.env
+        cp ./implementations/ajuntament-gava/ajuntament-gava-frontend/envs/.env.staging ./implementations/ajuntament-gava/ajuntament-gava-frontend/.env
         echo -e "\nREACT_APP_API_KEY=$API_KEY" >> ./implementations/ajuntament-gava/ajuntament-gava-frontend/.env
         echo -e "\nREACT_APP_VIDCHAIN_CLIENT_SECRET=$CLIENT_SECRET" >> ./implementations/ajuntament-gava/ajuntament-gava-frontend/.env
       name: load_env_variables_file
@@ -93,7 +93,7 @@ stages:
     displayName: 'Deploy Gavius Frontend'
     pool:
       vmImage: $(vmImageName)
-    environment: 'development'
+    environment: 'staging'
     strategy:
       runOnce:
         deploy:

@@ -86,7 +86,7 @@ stages:
     displayName: 'Deploy Gavius Backend'
     pool:
       vmImage: $(vmImageName)
-    environment: 'production'
+    environment: 'development'
     strategy:
       runOnce:
         deploy:

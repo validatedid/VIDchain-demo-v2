@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: government-backend-configmap
+data:
+  API_URL: "https://staging.vidchain.net/api/v1/"
+  BASE_URL: "https://staging.vidchain.net/demo/governmentbackend"
+  PORT: "3021"
+  REDIS_URL: "redis"
+  REDIS_PORT: "6379"
+  WS_URL: "https://staging.vidchain.net"
+  IDENTITY_PROVIDER: https://staging.vidchain.net

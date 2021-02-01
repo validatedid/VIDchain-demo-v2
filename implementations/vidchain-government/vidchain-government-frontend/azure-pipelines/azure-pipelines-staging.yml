@@ -1,10 +1,10 @@
 trigger:
   branches:
     include:
-      - development
+      - staging
   paths:
     include:
-      - implementations/ajuntament-gava/ajuntament-gava-frontend
+      - implementations/vidchain-government/vidchain-government-frontend
 
 pr: none
 
@@ -15,19 +15,19 @@ variables:
   # Docker Buildkit improves image build performance
   DOCKER_BUILDKIT: 1
   # Image repository
-  gaviusFrontendRepo: 'ajuntament-gava-frontend'
-  gaviusFrontendRepoEndpoint: 'k8scrvidchaindev.azurecr.io/ajuntament-gava-frontend'
+  governmentFrontendRepo: 'government-frontend'
+  governmentFrontendRepoEndpoint: 'k8scrvidchaindev.azurecr.io/government-frontend'
   # Dockerfiles
-  gaviusFrontendDocker: 'implementations/ajuntament-gava/ajuntament-gava-frontend/Dockerfile'
+  governmentFrontendDocker: 'implementations/vidchain-government/vidchain-government-frontend/Dockerfile'
   # Kubernetes YAML
-  gaviusFrontendKubernetes: 'implementations/ajuntament-gava/ajuntament-gava-frontend/k8s/k8s-dev.yml'
+  governmentFrontendKubernetes: 'implementations/vidchain-government/vidchain-government-frontend/k8s/k8s-staging.yml'
   # Kubernetes namespace
-  namespace: 'development'
+  namespace: 'staging'
   # Image tagging: application version - build
-  tagGaviusFrontend: '$(Build.BuildNumber)'
+  tagGovernmentFrontend: '$(Build.BuildNumber)'
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
-
+  
 stages:
 - stage: Build
   displayName: 'Build stage'
@@ -42,58 +42,56 @@ stages:
         shortCommit=${commit:0:7}
         echo "##vso[build.updatebuildnumber]$(Build.BuildId)-commit.$shortCommit"
       displayName: 'retrieve $(packageJson) version'
-  - job: BuildGaviusFrontend
-    displayName: 'Build Gavius Frontend'
+  - job: BuildGovernmentFrontend
+    displayName: 'Build Government Frontend'
     dependsOn: GetShortCommit
     pool:
       vmImage: $(vmImageName)
     steps:
     - bash: |
-        cp ./implementations/ajuntament-gava/ajuntament-gava-frontend/envs/.env.development ./implementations/ajuntament-gava/ajuntament-gava-frontend/.env
-        echo -e "\nREACT_APP_API_KEY=$API_KEY" >> ./implementations/ajuntament-gava/ajuntament-gava-frontend/.env
-        echo -e "\nREACT_APP_VIDCHAIN_CLIENT_SECRET=$CLIENT_SECRET" >> ./implementations/ajuntament-gava/ajuntament-gava-frontend/.env
+        cp ./implementations/vidchain-government/vidchain-government-frontend/envs/.env.staging ./implementations/vidchain-government/vidchain-government-frontend/.env
+        echo -e "\nREACT_APP_API_KEY=$API_KEY" >> ./implementations/vidchain-government/vidchain-government-frontend/.env
       name: load_env_variables_file
       displayName: 'load env vars'
       env:
-        API_KEY: $(API_KEY_GAVA)
-        CLIENT_SECRET: $(CLIENT_KEY_GAVA)
+        API_KEY: $(API_KEY_GOVERNMENT)
     - task: Docker@2
       displayName: Login ACR
       inputs:
         command: login
         containerRegistry: $(dockerRegistryServiceConnection)
-    - script: "docker pull $(gaviusFrontendRepoEndpoint):latest"
+    - script: "docker pull $(governmentFrontendRepoEndpoint):latest"
       displayName: Pull latest for layer caching
       continueOnError: true # for first build, no cache
     - task: Docker@2
-      displayName: "build --cache-from=$(gaviusFrontendRepoEndpoint):latest"
+      displayName: "build --cache-from=$(governmentFrontendRepoEndpoint):latest"
       inputs:
         containerRegistry: '$(dockerRegistryServiceConnection)'
-        repository: '$(gaviusFrontendRepo)'
+        repository: '$(governmentFrontendRepo)'
         command: 'build'
-        Dockerfile: $(gaviusFrontendDocker)
-        arguments: '--cache-from=$(gaviusFrontendRepoEndpoint):latest' 
+        Dockerfile: $(governmentFrontendDocker)
+        arguments: '--cache-from=$(governmentFrontendRepoEndpoint):latest' 
         tags: |
-          $(tagGaviusFrontend)
+          $(tagGovernmentFrontend)
           latest
     - task: Docker@2
       displayName: "push"
       inputs:
         command: push
         containerRegistry: "$(dockerRegistryServiceConnection)"
-        repository: $(gaviusFrontendRepo) 
+        repository: $(governmentFrontendRepo) 
         tags: |
-          $(tagGaviusFrontend)
-          latest 
+          $(tagGovernmentFrontend)
+          latest        
 - stage: Deploy
   displayName: 'Deploy stage'
   dependsOn: Build
   jobs:
-  - deployment: DeployGaviusFrontend
-    displayName: 'Deploy Gavius Frontend'
+  - deployment: DeployGovernmentFrontend
+    displayName: 'Deploy Government Frontend'
     pool:
       vmImage: $(vmImageName)
-    environment: 'development'
+    environment: 'staging'
     strategy:
       runOnce:
         deploy:
@@ -104,6 +102,6 @@ stages:
             inputs:              
               kubernetesServiceConnection: $(kubernetesServiceConnection)
               namespace: $(namespace)
-              manifests: $(gaviusFrontendKubernetes)
+              manifests: $(governmentFrontendKubernetes)
               containers: |
-                $(gaviusFrontendRepoEndpoint):$(tagGaviusFrontend)
+                $(governmentFrontendRepoEndpoint):$(tagGovernmentFrontend)
