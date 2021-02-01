@@ -20,7 +20,7 @@ function Header (props: Props) {
           <p className="powered">Powered by Validated ID</p>
         }
         {!tutorial && 
-          <p className="tutorial">Start tutorial</p>
+          <a href="/demo/tutorial" className="tutorial">Start tutorial</a>
         }
       </header>
     );
