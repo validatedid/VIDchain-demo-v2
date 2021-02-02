@@ -2,6 +2,7 @@
   
   .containerProfile{
     width: 80%;
+    height: 100%;
     background: #F2F2F2;
     box-shadow: 2px 2px 12px #D6D6D6;
     border-radius: 3px;
@@ -13,7 +14,6 @@
   .panelTitle {
     position: absolute;
     width: 80%;
-    height: 5%;
     background: linear-gradient(270deg, #E61B72 0%, #F9B95A 100.45%);
     border-radius: 2px 2px 0px 0px;
     display: flex;
@@ -22,7 +22,6 @@
   .panelBody {
     flex-direction: row;
     display: flex;
-    margin-top: 10%;
   }
   .titlePanel {
     position: relative;
@@ -33,21 +32,32 @@
     font-weight: bold;
     font-size: 18px;
     color: #7B788A;
-    margin-bottom: -1%;
   }
   .textBody {
     font-size: 16px;
     color: #7B788A;
+    overflow: hidden;
+      text-overflow: ellipsis;
+  }
+  .panelImage {
+    position: relative;
+    margin-top: 3rem;
   }
   .panelMainContent {
-    margin-bottom: 5%;
+    position: relative;
+    margin-top: 3rem;
   }
-  @media only screen and (max-width: 768px) {
+
+  @media only screen and (max-width: 767px) {
     .panelImage {
-      margin-top: 15%;
-      margin-left: 35%;
-    }
-    .panelMainContent {
-      text-align: center;
+      position: relative;
+      top: 2rem;
     }
   }
+  /* Tablet */
+    @media only screen and (min-device-width: 767px) and (max-device-width: 1024px) {
+      .panelImage {
+        position: relative;
+        top: 2rem;
+      }
+    }

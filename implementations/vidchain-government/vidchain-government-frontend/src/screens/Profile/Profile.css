@@ -1,36 +1,53 @@
 .profileHome{
   background-color: #F2F2F2;
   height: 100%;
+  width: 100%;
   min-height: 100vh;
 }
 .titleProfile {
-  width: 70%
+  width: 100%
 }
 
 .titleProfile h2{
-  margin-top: 15%;
-  margin-left: 13%;
+  margin-top: 10rem;
+  margin-left: 10rem;
 }
 .titleProfile h6{
-  margin-left: 13%;
+  margin-left: 10rem;
 } 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
+
   .titleProfile {
     width: 100%
   }
   
   .titleProfile h2{
-    margin-top: 35%;
+    margin-top: 5rem;
+    margin-left: 1rem;
   }
   .titleProfile h6{
-
+    margin-left: 1rem;
   } 
 }
+  /* Tablet */
+  @media only screen and (min-device-width: 767px) and (max-device-width: 1024px) {
+    .titleProfile {
+      width: 100%
+    }
+    
+    .titleProfile h2{
+      margin-top: 5rem;
+      margin-left: 1rem;
+    }
+    .titleProfile h6{
+      margin-left: 1rem;
+    } 
+  }
 .panels{
   display: flex;
   align-self: center;
   justify-content: center;
   position: relative;
-  top: 50px;
+  top: 3rem;
   background-color: #F2F2F2;
 }

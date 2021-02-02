@@ -16,18 +16,18 @@ const ProfilePanel = (props: Props) => {
   return (
     <Grid className="containerProfile">
         
-        <Grid xs={12} className="panelTitle">
+        <Grid lg={12} sm={12} xs={12} className="panelTitle">
             <Typography variant="h6" className="titlePanel">
                 {title}
             </Typography>
         </Grid>
-        <Grid xs={12} container
+        <Grid lg={12} sm={12} xs={12} container
             direction="row"
-            justify="space-between"
+            justify="center"
             alignItems="flex-start"
             className="panelBody">
-            <Grid item sm={1} xs={12}></Grid>
-            <Grid item sm={2} xs={12}>
+            <Grid item lg={1} xs={12}></Grid>
+            <Grid item lg={2} sm={2} xs={12}>
             <img
                 src={icon}
                 alt=""
@@ -35,7 +35,7 @@ const ProfilePanel = (props: Props) => {
                 className="panelImage"
             />
             </Grid>
-            <Grid item sm={9} xs={12}>
+            <Grid item lg={9} sm={10} xs={12}>
                 <div className="panelMainContent">
                   <h6 className="titleBody">DID: </h6>
                   <p className="textBody">{did}</p>
