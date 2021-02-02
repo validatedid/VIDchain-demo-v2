@@ -14,20 +14,38 @@
     border-radius: 6px;
     margin-bottom: 2%;
 }
+.panelImageOn {
+    position: relative;
+    top: -5rem;
+    width: 74px;
+    height: 74px;
+}
+.panelImageOff {
+    width: 74px;
+    height: 74px;
+}
 @media only screen and (max-width: 768px) {
     .containerProfile{
-        width: 84%;
+        width: 90%;
         height: 190px;
         text-align: center;
         justify-content: center;
         margin-bottom: 5%;
     }
     .containerProfileOn{
-        width: 84%;
-        height: 475px;
+        width: 90%;
+        height: 100%;
         text-align: center;
         justify-content: center;
         margin-bottom: 5%;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+    .panelImageOn {
+        position: relative;
+        top: 0;
+        width: 74px;
+        height: 74px;
     }
 }
 /* Tablet */
@@ -44,7 +62,7 @@
     .containerProfileOn{
         position: relative;
         width: 75%;
-        height: 375px;
+        height: 100%;
         text-align: center;
         justify-content: center;
         margin-bottom: 5%;
@@ -52,12 +70,7 @@
     }
   }
   
-
-.panelBody {
-    align-content: center;
-}
 .panelTitle {
-    width: 80%;
     font-family: TT Norms;
     font-style: normal;
     font-weight: 800;
@@ -69,7 +82,6 @@
     text-align: left;
 }
 .panelTitleOn {
-    width: 80%;
     font-family: TT Norms;
     font-style: normal;
     font-weight: 800;
@@ -87,80 +99,32 @@
     .panelTitle {
         text-align: center;
     }
+    .buttonPanel {
+        float: left;
+    }
 }
-.panelTitle h5{
-    margin-left: 5%;
-}
-.panelTitleOn h5{
-    margin-left: 5%;
+@media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
+    .panelTitleOn {
+        text-align: center;
+    }
+    .panelTitle {
+        text-align: center;
+    }
+    .buttonPanel {
+        float: left;
+        left: 2rem;
+    }
 }
 .bodyTextOn {
     position: relative;
     font-size: 17px;
     color: #767486;
-    width: 80%;
-    left: 8%;
-    
-}
-.bodyTextOn p {
-    margin-left: 15%;
-    margin-top: 4%;
-    margin-right: 5%;
-}
-.buttonPanel {
-    left: 15%;
+    font-family: TT Norms;
+    font-style: normal;
 }
 .bodyTextOff {
     visibility: hidden;
     display: none;
-}
-.panelImage {
-    width: 74px;
-    height: 74px;
-    margin-left: 10%;
-}
-@media only screen and (max-width: 768px) {
-    .buttonPanel {
-        left: 1%;
-    }
-    
-    .bodyTextOn {
-        position: relative;
-        font-size: 17px;
-        color: #767486;
-        text-align: left;
-    }
-    .panelImage {
-        width: 74px;
-        height: 74px;
-        margin-left: 0%;
-    }
-}
-/* Tablet */
-@media only screen and (min-device-width: 768px) and (max-device-width: 1023px) {
-
-    .bodyTextOn {
-        position: relative;
-        font-size: 17px;
-        color: #767486;
-        text-align: left;
-        left: 20%;
-    }
-    .panelImage {
-        width: 74px;
-        height: 74px;
-        margin-left: 20%;
-    }
-}
-.bodyTextPanel {
-    position: relative;
-    left: 15%;
-    width: 90%;
-}
-@media only screen and (max-width: 768px) {
-    .bodyTextPanel {
-        position: relative;
-        left: 0%;
-        width: 90%;
-    }
+    font-family: TT Norms;
+    font-style: normal;
 }

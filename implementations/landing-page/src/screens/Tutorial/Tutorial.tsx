@@ -121,7 +121,7 @@ render() {
 
             <Panel 
                 title="Verify your ID"
-                panelText="Once you have innstalled VIDwallet, go to Credentials and create a new credential verifying your ID. By completing this process, you will have verified either your identity card or passport and your liveness. Afterwards, you will receive a Verifiable Credential that you can use to identify yourself later on."
+                panelText="Once you have installed VIDwallet, go to Credentials and create a new credential verifying your ID. By completing this process, you will have verified either your identity card or passport and your liveness. Afterwards, you will receive a Verifiable Credential that you can use to identify yourself later on."
                 stepPanel={1}
                 stepSelected={step}
                 iconOn={verifyIcon}
