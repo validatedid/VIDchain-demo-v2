@@ -23,7 +23,8 @@ export const StartButton = withStyles((theme) => ({
     borderColor: '#EAE8F1',
     borderWidth: '1.5px',
     boxSizing: 'border-box',
-    borderRadius: '8px'
+    borderRadius: '8px',
+    fontFamily: 'TT Norms',
     },
   }))(Button);
   

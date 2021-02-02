@@ -1,0 +1,47 @@
+.headerTutorialBackground {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .logoHeaderTutorial{
+    position: relative;
+    width: 150px;
+    height: 28px;
+    margin-top: 2rem;
+    left: 15rem;
+  }
+  .powered {
+    position: absolute;
+    right: 22rem;
+    top: 2.5rem;
+    font-family: TT Norms;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    color: #767486;
+    white-space: nowrap;
+  }
+  @media only screen and (max-width: 768px) {
+    .powered {
+      left: 12rem;
+      font-size: 14px;
+    }
+    .logoHeaderTutorial{
+      position: relative;
+      margin-top: 2rem;
+      left: 1rem;
+    }
+  }
+  /* Tablet */
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    .powered {
+      left: 32rem;
+    }
+    .logoHeaderTutorial{
+      position: relative;
+      margin-top: 2rem;
+      left: 5rem;
+    }
+  }
+  
