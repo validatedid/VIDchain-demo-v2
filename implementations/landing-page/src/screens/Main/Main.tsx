@@ -1,5 +1,5 @@
 import './Main.css';
-import {Grid, Typography} from '@material-ui/core';
+import {Grid, Typography, Container} from '@material-ui/core';
 import Header from '../../components/Header/Header';
 import Footer from '../../components/Footer/Footer';
 import ReactHtmlParser from 'react-html-parser';
@@ -25,7 +25,7 @@ import spinnerQuarter from "../../assets/images/animations/itemA.gif";
 
 export default function Main () {
    return (
-      <div className="bodyLanding">
+      <Container className="bodyLanding">
          <Header tutorial={false}/>
          
          
@@ -208,6 +208,6 @@ export default function Main () {
 
          <Footer />
 
-      </div>
+      </Container>
    );
 }

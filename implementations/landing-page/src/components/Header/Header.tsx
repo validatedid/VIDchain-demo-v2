@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {Grid, Typography, Container} from '@material-ui/core';
 import "./Header.css";
 
 import logoVidchain from "../../assets/images/3531224b-vidchain.svg";
