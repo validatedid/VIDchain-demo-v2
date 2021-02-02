@@ -125,16 +125,14 @@ class Profile extends Component<Props, State> {
       popUpisOpen
     } = this.state;
     return (
+      <div className="profileHome">
+        <Header />
       <Grid container 
         direction="column"
-        justify="space-between"
-        alignItems="baseline"
+        justify="center"
+        alignItems="center"
         className="profileHome">
 
-        <Grid item>
-           <Header />
-        </Grid>
-        
         <Grid item className="titleProfile">
           <Typography variant="h2">{"Welcome to your\nFreedonia Citizen Portal"}</Typography>
           {/* <Typography variant="h1">{'Freedonia Citizen Portal'}</Typography> */}
@@ -185,6 +183,7 @@ class Profile extends Component<Props, State> {
             </Dialog>
           </Grid>
       </Grid>
+      </div>
     );
   }
 }
