@@ -19,6 +19,7 @@ export const NextButton = withStyles((theme) => ({
     fontStyle: 'normal',
     textAlign: 'center',
     textTransform: 'capitalize',
+    fontFamily: 'TT Norms',
     },
   }))(Button);
   
