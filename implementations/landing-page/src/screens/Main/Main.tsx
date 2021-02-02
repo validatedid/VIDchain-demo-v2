@@ -25,17 +25,18 @@ import spinnerQuarter from "../../assets/images/animations/itemA.gif";
 
 export default function Main () {
    return (
-      <Container className="bodyLanding">
+      <Grid container 
+            direction="row"
+            className="bodyLanding">
          <Header tutorial={false}/>
-         
          
          <Grid container 
             direction="row"
-            justify="space-between"
+            justify="flex-start"
             alignItems="center"
             className="contentLanding">
-            <Grid item sm={2}></Grid> 
-            <Grid item sm={3} xs={12} className="titleLanding">
+            <Grid item lg={1} sm={1}></Grid>
+            <Grid item lg={4} sm={5} xs={12} className="titleLanding">
              <Typography variant="h4">
                 <b>
                 {"Your ID wallet, \nsimple and secure"}
@@ -59,8 +60,8 @@ export default function Main () {
                   <a><img className="logoStoreiOS" src={logoIOS}></img></a>
                </div>
            </Grid>
-           <Grid item sm={1}></Grid>
-           <Grid item sm={6} xs={12}>
+           <Grid item sm={1} lg={2}></Grid>
+           <Grid item sm={1} xs={12} lg={5}>
                <img className="iphone" src={iphone} />
            </Grid>
            
@@ -69,15 +70,13 @@ export default function Main () {
         
         <Grid container 
             direction="row"
-            justify="space-between"
+            justify="center"
             alignItems="center"
             className="contentLandingItems">
             
             <hr className="divider" />
-            <Grid item sm={3} />
-           
-       
-            <Grid item sm={2}>
+            
+            <Grid item xs={12} sm={4} lg={4}>
             <div className="item">
                <img className="itemLogo" src={spinnerQuarter} />
                <Typography variant="h6">
@@ -88,7 +87,7 @@ export default function Main () {
                </Typography>
                </div>
             </Grid>
-            <Grid item sm={2}>
+            <Grid item xs={12} sm={4} lg={4}>
                <div className="item">
                   <img className="itemLogo" src={spinnerFull} />
                   <Typography variant="h6">
@@ -99,7 +98,7 @@ export default function Main () {
                   </Typography>
                </div>
             </Grid>
-            <Grid item sm={2}>
+            <Grid item xs={12} sm={4}  lg={4}>
                <div className="item">
                   <img className="itemLogo" src={spinnerHalf} />
                   <Typography variant="h6">
@@ -110,8 +109,6 @@ export default function Main () {
                   </Typography>
                </div>
             </Grid>
-            <Grid item sm={2} />
-           
          </Grid>
 
          <Grid container 
@@ -121,8 +118,8 @@ export default function Main () {
             className="contentLandingFoundation">
             
             <hr className="divider" />
-            <Grid item sm={3} ></Grid>
-            <Grid item sm={3} xs={12} className="titleLanding">
+            <Grid item lg={1} sm={1}></Grid>
+            <Grid item lg={4} sm={5} xs={12} className="titleLanding">
              <Typography variant="h4">
                 <b>
                 {"A foundation built for scale and forsight"}
@@ -136,55 +133,56 @@ export default function Main () {
                   }
                </Typography>
            </Grid>
-           <Grid item sm={6} xs={12}>
+           <Grid item sm={1} lg={1}></Grid>
+           <Grid item sm={5} xs={12} lg={6}>
                <img className="imageFoundation" src={foundation} />
             </Grid>
-            <Grid item sm={1}></Grid>
          </Grid>
 
 
          <Grid container 
-            direction="row"
-            justify="space-between"
+            direction="column"
+            justify="center"
             alignItems="center"
             className="contentLandingVideo">
             
             <hr className="divider" />           
-       
-            <Grid item sm={3} xs={12} className="titleVideoLanding">
-               <div>
+            <Grid item sm={12} xs={4} lg={4} className="titleLanding">
                   <Typography variant="h4">
                   <b>
                   {"Unlock the potential"}
                   </b>
                   </Typography>
-                  <a className="videoDiv" href="https://www.youtube.com/embed/eRxVWeX389w" target="_blank" data-params="true"><span className="labelVideo">WATCH VIDEO</span>
-                  <img className="video" src={video} />
+            </Grid>
+            <Grid item sm={2} xs={2} lg={2}>
+                  <a className="labelVideo" href="https://www.youtube.com/embed/eRxVWeX389w" target="_blank" data-params="true">
+                     <img className="video" src={video} />
+                     <p>WATCH VIDEO</p>
+                     <br />
                   </a>
-                  <Typography variant="subtitle1" className="bodyTextLanding">
+            </Grid>
+            <Grid item sm={10} xs={6} lg={6} className="bodyText">
+                  <Typography variant="subtitle1">
                   {
                   "With VIDchain we're offering secure identity solutions that allow a more digital"+
                   " and sustainable world guaranteeing privacy, rights, and freedoms to people."
                   }
                </Typography>
-               </div>
-
             </Grid>
-            <Grid item sm={4} />
          </Grid>
 
          <Grid container 
             direction="row"
-            justify="flex-start"
-            alignItems="flex-start"
+            justify="space-between"
+            alignItems="center"
             className="contentLandingTutorial">
             
             <hr className="divider" />
-            <Grid item sm={3} ></Grid>
-            <Grid item sm={3}>
+            <Grid item sm={1} lg={1}></Grid>
+            <Grid item sm={4} lg={4} xs={12}>
                <img className="imageStartTutorial" src={startTutorial} />
             </Grid>
-            <Grid item sm={4} className="titleLanding">
+            <Grid item sm={5} lg={5} xs={12}className="titleLanding">
              <Typography variant="h4">
                 <b>
                 {"Welcome to the VIDchain tutorial"}
@@ -197,17 +195,17 @@ export default function Main () {
                   " that you can store in your ID wallet."
                   }
                </Typography>
-               <StartButton className="startButton" variant="contained" onClick={()=> window.open("/demo/tutorial")}>
+               <StartButton variant="contained" onClick={()=> window.open("/demo/tutorial")}>
                   {"Yes! Let's start"}
                 </StartButton>
            </Grid>
-           <Grid item sm={2}></Grid>
+           <Grid item sm={2} lg={2} xs={12}></Grid>
            
            
          </Grid>
 
          <Footer />
 
-      </Container>
+      </Grid>
    );
 }
