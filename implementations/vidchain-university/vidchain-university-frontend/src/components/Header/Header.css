@@ -3,8 +3,8 @@
     width: 260px;
     height: 73px;
     margin-top: 2%;
-    margin-bottom: 2%;
-    left: 8%;
+    margin-bottom: 1rem;
+    left: 5rem;
   }
   .headerBackground {
     position: absolute;
@@ -14,14 +14,22 @@
     flex-direction: row;
   }
   .powered {
-    position: relative;
-    left: 60%;
+    position: absolute;
+    left: 80%;
     color: white;
-    margin-top: 2%;
+    margin-top: 3rem;
   }
   @media only screen and (max-width: 768px) {
     .powered {
       display: none;
+    }
+    .logoHeader{
+      position: relative;
+      width: 200px;
+      height: 63px;
+      margin-top: 2%;
+      margin-bottom: 1rem;
+      left: 2rem;
     }
   }
   
