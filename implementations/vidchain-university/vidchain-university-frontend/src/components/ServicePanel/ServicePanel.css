@@ -13,7 +13,7 @@
   .panelTitle {
     position: absolute;
     width: 80%;
-    height: 2%;
+    height: 4%;
     background: #7B788A;
     border-radius: 2px 2px 0px 0px;
     display: flex;
@@ -21,15 +21,15 @@
     padding-top: 2%;
     padding-bottom: 2%;
   }
-  .panelBody {
-    flex-direction: row;
-    display: flex;
-    margin-top: 10%;
-  }
   .titlePanel {
     position: relative;
     color: #FFFFFF;
     left: 5%
+  }
+  .panelBody {
+    flex-direction: row;
+    display: flex;
+    margin-top: 5rem;
   }
   .titleBody {
     font-weight: bold;
@@ -40,16 +40,14 @@
   .textBody {
     font-size: 16px;
     color: #7B788A;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   @media only screen and (max-width: 768px) {
-    .panelImage {
-      margin-top: 20%;
-      margin-left: 35%;
+    .panelBody {
+      text-align: center;
     }
     .panelMainContent {
       text-align: center;
-    }
-    .buttonCredential {
-      position: absolute;
     }
   }

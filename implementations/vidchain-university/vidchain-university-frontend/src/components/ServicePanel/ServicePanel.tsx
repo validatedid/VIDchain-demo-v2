@@ -34,8 +34,8 @@ const ServicePanel = (props: Props) => {
             justify="space-between"
             alignItems="flex-start"
             className="panelBody">
-            <Grid item sm={1} xs={12}></Grid>
-            <Grid item sm={2} xs={12}>
+            <Grid item lg={1} xs={12}></Grid>
+            <Grid item lg={2} sm={12} xs={12}>
             <img
                 src={icon}
                 alt=""
@@ -43,7 +43,7 @@ const ServicePanel = (props: Props) => {
                 className="panelImage"
             />
             </Grid>
-            <Grid item sm={9} xs={12}>
+            <Grid item lg={9} sm={12} xs={12}>
             {!hasBeenRequested &&
               <div className="panelMainContent">
                   <h3 className="titleBody">{subtitle1}:</h3>
