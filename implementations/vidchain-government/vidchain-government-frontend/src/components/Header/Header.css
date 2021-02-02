@@ -4,8 +4,7 @@
   height: 83px;
   margin-top: 2%;
   margin-bottom: 2%;
-  left: 10%;
-  
+  margin-left: 10rem;
 }
 .headerBackground {
   position: absolute;
@@ -14,11 +13,30 @@
   flex-direction: row;
 }
 .powered {
-  position: relative;
-  left: 60%;
+  position: absolute;
+  left: 80%;
   color: black;
+  white-space: nowrap;
 }
 @media only screen and (max-width: 768px) {
+  .powered {
+    display: none;
+  }
+  .logoHeader{
+    position: relative;
+    margin-left: 2rem;
+    width: 190px;
+    height: 63px;
+  }
+}
+/* Tablet */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .logoHeader{
+    position: relative;
+    margin-left: 2rem;
+    width: 190px;
+    height: 63px;
+  }
   .powered {
     display: none;
   }
