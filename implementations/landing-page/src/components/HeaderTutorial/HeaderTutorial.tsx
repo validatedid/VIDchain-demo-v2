@@ -1,22 +1,21 @@
 import React, { Component } from "react";
 import {Grid, Typography, Container} from '@material-ui/core';
-import "./Header.css";
+import "./HeaderTutorial.css";
 
 import logoVidchain from "../../assets/images/3531224b-vidchain.svg";
 
-
-function Header () {
+function HeaderTutorial () {
     return (
-      <header className="headerBackground">
+      <header className="headerTutorialBackground">
         <img
-          className="logoHeader"
+          className="logoHeaderTutorial"
           src={logoVidchain}
           alt="Logo"
           onClick={()=> window.location.replace("/demo")}
         />
-        <a href="/demo/tutorial" className="tutorial">Start tutorial</a>
+        <p className="powered">Powered by Validated ID</p>
       </header>
     );
 }
 
-export default Header;
+export default HeaderTutorial;

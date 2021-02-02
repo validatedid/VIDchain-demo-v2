@@ -28,7 +28,7 @@ export default function Main () {
       <Grid container 
             direction="row"
             className="bodyLanding">
-         <Header tutorial={false}/>
+         <Header />
          
          <Grid container 
             direction="row"

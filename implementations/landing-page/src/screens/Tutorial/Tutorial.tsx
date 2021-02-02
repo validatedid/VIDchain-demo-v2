@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './Tutorial.css';
-import {Grid, Typography} from '@material-ui/core';
+import {Grid, Typography, Container} from '@material-ui/core';
 import * as config from "../../config/config";
 import logoValidated from "../../assets/images/validated_white.png";
 import logoAndroid from "../../assets/images/playStore@3x.png";
@@ -18,7 +18,7 @@ import governmentIconOff from "../../assets/images/governmentIconoff.svg";
 import universityIcon from "../../assets/images/universityIcon.svg";
 import universityIconOff from "../../assets/images/universityIconoff.svg";
 
-import Header from '../../components/Header/Header';
+import HeaderTutorial from '../../components/HeaderTutorial/HeaderTutorial';
 import Panel from '../../components/Panel/Panel';
 import {RestartButton} from '../../components/RestartButton/RestartButton';
 
@@ -94,15 +94,15 @@ class Tutorial extends Component<Props, State> {
 render() {
   const {step} = this.state;
   return (
-    <div className="body">
-      <Header tutorial={true}/>
+    <Container>
+      <HeaderTutorial /> 
       <Grid container 
         direction="column"
-        justify="space-between"
+        justify="center"
         alignItems="center"
         className="content">
           <Grid item className="titleHome">
-            <Typography variant="h4"><b>{"Test VIDchain user journey demo by taking the following steps in order"}</b></Typography>
+            <Typography variant="h3"><b>{"Test VIDchain user journey demo by taking the following steps in order"}</b></Typography>
           </Grid>
           <Grid container
             direction="column"
@@ -158,7 +158,7 @@ render() {
       </Grid>
 
       
-    </div>
+    </Container>
   );
   }
 }
