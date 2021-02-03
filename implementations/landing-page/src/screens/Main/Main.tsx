@@ -141,13 +141,13 @@ export default function Main () {
 
 
          <Grid container 
-            direction="column"
+            direction="row"
             justify="center"
             alignItems="center"
             className="contentLandingVideo">
             
             <hr className="divider" />           
-            <Grid item sm={12} xs={12} lg={4} className="titleLanding">
+            <Grid item sm={12} xs={12} lg={4} className="titleLandingVideo">
                   <Typography variant="h4">
                   <b>
                   {"Unlock the potential"}

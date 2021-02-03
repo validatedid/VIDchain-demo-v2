@@ -36,6 +36,7 @@
 	margin-top: 5rem;
 	margin-left: 10%;
 	margin-right: 10%;
+	text-align: center;
 
 }
 .contentLandingTutorial {
@@ -43,6 +44,8 @@
 	margin-top: 10rem;
 	margin-left: 10%;
 	margin-right: 10%;
+	margin-bottom: 5rem;
+	
 }
 .iphone {
 	width: 302px;
@@ -110,6 +113,15 @@
 	font-feature-settings: 'liga' off;
 	color: #EAE8F1;
   }
+  .titleLandingVideo{
+	text-align: center;
+	font-family: TT Norms;
+	font-style: normal;
+	line-height: 58px;
+	font-feature-settings: 'liga' off;
+	color: #EAE8F1;
+	
+  }
  
   
   .logoStores {
@@ -146,6 +158,9 @@
 	height: 74px;
 	margin-top: 3rem;
 	margin-bottom: 1rem;
+	display:block;
+    margin-left: auto;
+    margin-right: auto;
 }
 .labelVideo{
 	position: relative;
