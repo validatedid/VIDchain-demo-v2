@@ -40,8 +40,9 @@ interface State {
 class Profile extends Component<Props, State> {
   constructor(props: any) {
     super(props);
+    const {state} = this.props.location;
     this.state = {
-      did: utils.getUserDid(this.props.location.state.id_token),
+      did: state ? utils.getUserDid(state.id_token) : '',
       largeFamily: false,
       discountRequested: false,
       studentCard: false,
@@ -60,8 +61,9 @@ class Profile extends Component<Props, State> {
 
   async componentDidMount() {
       await this.initiateSocket();
-      if(this.props.location.state.id_token){
-        const decodedIdToken = utils.decodeJWT(this.props.location.state.id_token);
+      const {state} = this.props.location;
+      if(state && state.id_token){
+        const decodedIdToken = utils.decodeJWT(state.id_token);
         const jwt = decodedIdToken.jwt;
         if(jwt){
             const presentation: PresentationPayload = utils.decodeJWT(jwt);
@@ -88,7 +90,7 @@ class Profile extends Component<Props, State> {
         }
 
       }
-      if(this.props.location.state.did){
+      if(state && state.did){
         this.setState({
           did: this.props.location.state.did,
           type: this.props.location.state.type,

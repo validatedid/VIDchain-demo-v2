@@ -43,6 +43,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+  .panelMainContent {
+    margin-bottom: 3rem;
+  }
   @media only screen and (max-width: 768px) {
     .panelBody {
       text-align: center;
