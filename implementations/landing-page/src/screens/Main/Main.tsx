@@ -147,21 +147,21 @@ export default function Main () {
             className="contentLandingVideo">
             
             <hr className="divider" />           
-            <Grid item sm={12} xs={4} lg={4} className="titleLanding">
+            <Grid item sm={12} xs={12} lg={4} className="titleLanding">
                   <Typography variant="h4">
                   <b>
                   {"Unlock the potential"}
                   </b>
                   </Typography>
             </Grid>
-            <Grid item sm={2} xs={2} lg={2}>
+            <Grid item sm={12} xs={12} lg={2}>
                   <a className="labelVideo" href="https://www.youtube.com/embed/eRxVWeX389w" target="_blank" data-params="true">
                      <img className="video" src={video} />
                      <p>WATCH VIDEO</p>
                      <br />
                   </a>
             </Grid>
-            <Grid item sm={10} xs={6} lg={6} className="bodyText">
+            <Grid item sm={12} xs={12} lg={6} className="bodyText">
                   <Typography variant="subtitle1">
                   {
                   "With VIDchain we're offering secure identity solutions that allow a more digital"+
