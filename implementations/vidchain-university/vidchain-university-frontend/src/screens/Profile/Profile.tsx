@@ -73,7 +73,7 @@ class Profile extends Component<Props, State> {
                 id: credential.credentialSubject.id as string,
                 documentNumber: credential.credentialSubject.documentNumber as string,
                 documentType: credential.credentialSubject.documentType as string,
-                name: credential.credentialSubject.firstName as string,
+                name: (credential.credentialSubject.firstName ? credential.credentialSubject.firstName : credential.credentialSubject.name) as string,
                 surname: credential.credentialSubject.lastName as string,
                 fullName: credential.credentialSubject.fullName as string,
                 nationality: credential.credentialSubject.nationality as string,
@@ -250,7 +250,7 @@ class Profile extends Component<Props, State> {
               subtitle2="DID"
               description2={did}
               subtitle3="Name"
-              description3={verifiableKYC.name + " " + verifiableKYC.surname}
+              description3={verifiableKYC.surname ? (verifiableKYC.name + " " + verifiableKYC.surname) : verifiableKYC.name}
               icon={iconProfile}
               textButton="Get Student card credential"
               functionClickButton={this.generateCredential}
