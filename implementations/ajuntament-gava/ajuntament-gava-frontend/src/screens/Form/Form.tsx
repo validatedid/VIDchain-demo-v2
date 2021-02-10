@@ -34,7 +34,7 @@ class Form extends Component<Props, State> {
 			let credential: any = presentation.vp.verifiableCredential[0];
 			let credentialVerifiableID: any = presentation.vp.verifiableCredential[1];
 			
-			if(credential.type[1] !== 'VidBankingCredential'){
+			if(credential.type[1] !== 'BBVAAccountCredential'){
 				credential = presentation.vp.verifiableCredential[1];
 				credentialVerifiableID = presentation.vp.verifiableCredential[0];
 			}

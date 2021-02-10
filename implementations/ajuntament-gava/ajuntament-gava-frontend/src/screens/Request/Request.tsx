@@ -44,7 +44,7 @@ class Request extends Component<Props, State> {
     await client.callback();
     await client.getToken({
       scopes: {
-        request: ["openid", "VerifiableIdCredential", "VidBankingCredential"]
+        request: ["openid", "VerifiableIdCredential", "BBVAAccountCredential"]
       },
     });
   }
