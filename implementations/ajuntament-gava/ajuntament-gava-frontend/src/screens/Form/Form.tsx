@@ -157,7 +157,7 @@ Data of the interested party</legend>
 					<table cellPadding="0" cellSpacing="0">
 						<tr>
 							<td><input  className="inputDID" type="text" id="IFNombre" name="nombre"
-								value={credentialSubjectCredential.bank_account ? credentialSubjectCredential.bank_account.identifiers[1].identification :  '-'} /> <label>IBAN</label></td>
+								value={credentialSubjectCredential["Account Number"] ? credentialSubjectCredential["Account Number"] :  '-'} /> <label>IBAN</label></td>
 						</tr>
 						<tr>
 							<td>
