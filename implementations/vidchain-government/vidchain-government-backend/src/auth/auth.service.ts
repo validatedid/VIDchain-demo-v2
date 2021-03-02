@@ -21,6 +21,7 @@ export class AuthService {
         url,
         headers
       );
+      console.log(response.data);
       if (!response || !response.data.access_token) {
           throw new Error(
             ` auth: Error retrieving the Access Token: ${response.status}`
