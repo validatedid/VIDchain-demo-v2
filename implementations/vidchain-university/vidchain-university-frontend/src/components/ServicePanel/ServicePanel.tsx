@@ -64,7 +64,7 @@ const ServicePanel = (props: Props) => {
             {(hasBeenRequested && !hasBeenValidated) &&
               <div className="panelMainContent">
                   <h3 className="titleBody">Credential sent</h3>
-                  <p className="textBody">Check your wallet</p>
+                  <p className="textBody">Check your wallet and accept the notification to store the credential</p>
               </div>
             }
             {hasBeenValidated &&

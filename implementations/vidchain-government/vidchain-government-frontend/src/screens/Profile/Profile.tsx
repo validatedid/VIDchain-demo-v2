@@ -173,9 +173,6 @@ class Profile extends Component<Props, State> {
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
-                <Button onClick={this.closeModal} color="primary">
-                  Cancel
-                </Button>
                 <Button onClick={this.gotBackToTutorial} color="primary" autoFocus>
                 Go back to tutorial
                 </Button>
