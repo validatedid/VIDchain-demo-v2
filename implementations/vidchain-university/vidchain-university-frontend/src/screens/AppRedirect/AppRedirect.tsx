@@ -58,18 +58,27 @@ class AppRedirect extends Component<Props, State> {
       path: "/universityws",
       transports: ["websocket"],
     });
-
-    socket.on("connect", () => {
-      this.setState({
-        socketSession: socket.id,
-      });
-      const socketClient = {
-        did: this.state.did,
-        clientId: this.state.socketSession,
-        lastSessionId: this.state.sessionId,
-      };
-      socket.emit("whoami", socketClient);
+    this.setState({
+      socketSession: socket.id,
     });
+    const socketClient = {
+      did: this.state.did,
+      clientId: this.state.socketSession,
+      lastSessionId: this.state.sessionId,
+    };
+    socket.emit("whoami", socketClient);
+
+    // socket.on("connect", () => {
+    //   this.setState({
+    //     socketSession: socket.id,
+    //   });
+    //   const socketClient = {
+    //     did: this.state.did,
+    //     clientId: this.state.socketSession,
+    //     lastSessionId: this.state.sessionId,
+    //   };
+    //   socket.emit("whoami", socketClient);
+    // });
 
     socket.on("largeFamilyPresentation", (msg: any) => {
       console.log("arrived Presentation");
