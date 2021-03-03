@@ -191,7 +191,7 @@ export default function Main () {
             <Grid item sm={4} lg={4} xs={12}>
                <img className="imageStartTutorial" src={startTutorial} />
             </Grid>
-            <Grid item sm={5} lg={5} xs={12}className="titleLanding">
+            <Grid item sm={5} lg={5} xs={12} className="titleLanding">
              <Typography variant="h4">
                 <b>
                 {"Welcome to the VIDchain tutorial"}

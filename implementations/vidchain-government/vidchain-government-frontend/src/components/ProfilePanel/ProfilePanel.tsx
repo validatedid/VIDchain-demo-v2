@@ -32,7 +32,7 @@ const ProfilePanel = (props: Props) => {
                 src={icon}
                 alt=""
                 role="presentation"
-                className="panelImage"
+                className="panelImageProfile"
             />
             </Grid>
             <Grid item lg={9} sm={10} xs={12}>

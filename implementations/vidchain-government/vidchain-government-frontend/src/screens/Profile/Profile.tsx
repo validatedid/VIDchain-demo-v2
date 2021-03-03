@@ -48,36 +48,41 @@ class Profile extends Component<Props, State> {
   }
 
   componentDidMount() {
-    const {id_token} = this.props.location.state;
-    if(id_token){
-        const decodedIdToken = utils.decodeJWT(id_token);
-        const jwt = decodedIdToken.jwt;
-        if(jwt){
-            const presentation: PresentationPayload = utils.decodeJWT(jwt);
-            const credential: VerifiableCredential = presentation.vp.verifiableCredential[0] as VerifiableCredential;
-            this.setState({
-              verifiableKYC: {
-                id: credential.credentialSubject.id as string,
-                documentNumber: credential.credentialSubject.documentNumber as string,
-                documentType: credential.credentialSubject.documentType as string,
-                name: (credential.credentialSubject.firstName ? credential.credentialSubject.firstName : credential.credentialSubject.name) as string,
-                surname: credential.credentialSubject.lastName as string,
-                fullName: credential.credentialSubject.fullName as string,
-                nationality: credential.credentialSubject.nationality as string,
-                stateIssuer: credential.credentialSubject.stateIssuer as string,
-                issuingAuthority: credential.credentialSubject.issuingAuthority as string,
-                dateOfExpiry: credential.credentialSubject.dateOfExpiry as string,
-                dateOfBirth: credential.credentialSubject.dateOfBirth as string,
-                placeOfBirth: credential.credentialSubject.placeOfBirth as string,
-                sex: credential.credentialSubject.gender as string,
-                personalNumber: credential.credentialSubject.personalNumber as string,
-              },
-            did: utils.getUserDid(this.props.location.state.id_token)
-          });
+    try{
+      const {id_token} = this.props.location.state;
+      if(id_token){
+          const decodedIdToken = utils.decodeJWT(id_token);
+          const jwt = decodedIdToken.jwt;
+          if(jwt){
+              const presentation: PresentationPayload = utils.decodeJWT(jwt);
+              const credential: VerifiableCredential = presentation.vp.verifiableCredential[0] as VerifiableCredential;
+              this.setState({
+                verifiableKYC: {
+                  id: credential.credentialSubject.id as string,
+                  documentNumber: credential.credentialSubject.documentNumber as string,
+                  documentType: credential.credentialSubject.documentType as string,
+                  name: (credential.credentialSubject.firstName ? credential.credentialSubject.firstName : credential.credentialSubject.name) as string,
+                  surname: credential.credentialSubject.lastName as string,
+                  fullName: credential.credentialSubject.fullName as string,
+                  nationality: credential.credentialSubject.nationality as string,
+                  stateIssuer: credential.credentialSubject.stateIssuer as string,
+                  issuingAuthority: credential.credentialSubject.issuingAuthority as string,
+                  dateOfExpiry: credential.credentialSubject.dateOfExpiry as string,
+                  dateOfBirth: credential.credentialSubject.dateOfBirth as string,
+                  placeOfBirth: credential.credentialSubject.placeOfBirth as string,
+                  sex: credential.credentialSubject.gender as string,
+                  personalNumber: credential.credentialSubject.personalNumber as string,
+                },
+              did: utils.getUserDid(this.props.location.state.id_token)
+            });
+          }
         }
-      }
-    var client = OpenIDClient.getInstance().getClient();
-    client.wipeTokens();
+      var client = OpenIDClient.getInstance().getClient();
+      client.wipeTokens();
+    }
+    catch(error){
+      window.location.replace("/demo/government");
+    }
   }
   /**
    *  VIDCHAIN API REQUEST: Generate Verifiable Credential
@@ -136,7 +141,7 @@ class Profile extends Component<Props, State> {
         <Grid item className="titleProfile">
           <Typography variant="h2">{"Welcome to your\nFreedonia Citizen Portal"}</Typography>
           {/* <Typography variant="h1">{'Freedonia Citizen Portal'}</Typography> */}
-          <Typography variant="h6">Here you can check your profile details and manage your activity within the Freedonia Citizen</Typography>
+          <Typography variant="h5">Here you can check your profile details and manage your activity within the Freedonia Citizen</Typography>
         </Grid>
         <Grid container
           direction="column"

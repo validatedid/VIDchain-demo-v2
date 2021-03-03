@@ -61,7 +61,7 @@ class Home extends Component<Props, State> {
         <Header />
         <Grid container 
           direction="column"
-          justify="space-between"
+          justify="center"
           alignItems="flex-start"
           className="content">
           <Grid item className="titleHome">

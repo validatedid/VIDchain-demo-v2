@@ -12,14 +12,7 @@
   left: 45%;
   bottom: 25%;
 } 
-@media only screen and (max-width: 600px) {
-  .titleHome h2{
-    margin-top: 2rem;
-    margin-left: 2rem;
-    width: 90%
-  }
-}
-@media only screen and (max-width: 767px) {
+@media only screen and (max-height: 640px) and (max-width: 768px)  {
   .titleHome h2{
     margin-top: 6rem;
     margin-left: 2rem;
@@ -30,9 +23,25 @@
     width: 90%;
   }
   .buttonSignIn {
-    position: relative;
-    margin-right: 20rem;
-    bottom: 20%;
+    position: absolute;
+    left: 25%;
+    bottom: 15%;
+  } 
+}
+@media only screen and (min-height: 640px) and (max-width: 768px) {
+  .titleHome h2{
+    margin-top: 12rem;
+    margin-left: 2rem;
+    width: 90%
+  }
+  .titleHome h6{
+    margin-left: 2rem;
+    width: 90%;
+  }
+  .buttonSignIn {
+    position: absolute;
+    left: 30%;
+    bottom: 15%;
   } 
 }
   /* Tablet */

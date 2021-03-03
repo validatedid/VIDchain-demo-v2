@@ -39,7 +39,7 @@
     overflow: hidden;
       text-overflow: ellipsis;
   }
-  .panelImage {
+  .panelImageProfile {
     position: relative;
     margin-top: 3rem;
   }
@@ -49,14 +49,14 @@
   }
 
   @media only screen and (max-width: 767px) {
-    .panelImage {
-      position: relative;
-      top: 2rem;
+    .panelImageProfile {
+      margin-top: 40%;
+      margin-left: 35%;
     }
   }
   /* Tablet */
     @media only screen and (min-device-width: 767px) and (max-device-width: 1024px) {
-      .panelImage {
+      .panelImageProfile {
         position: relative;
         top: 2rem;
       }
