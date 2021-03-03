@@ -62,7 +62,19 @@
     margin-top: 3rem;
   }
   
-  @media only screen and (max-width: 768px) {
+  @media only screen and (min-height: 640px) and (max-width: 768px) {
+  .panelImage {
+    margin-top: 55%;
+    margin-left: 35%;
+  }
+  .panelMainContent {
+    text-align: center;
+  }
+  .buttonCredential {
+    position: absolute;
+  }
+}
+@media only screen and (max-height: 640px) and (max-width: 768px)  {
   .panelImage {
     margin-top: 85%;
     margin-left: 35%;

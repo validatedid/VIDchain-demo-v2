@@ -71,7 +71,8 @@ const ServicePanel = (props: Props) => {
             {hasBeenValidated &&
               <div className="panelMainContent">
                   <h3 className="titleBody">Done</h3>
-                  <p className="textBody">Credential received!</p>
+                  <p className="textBody">Credential received and verified!</p>
+                  <a href="/demo/tutorial?step=3" className="textBody">Go back to tutorial</a>
               </div>
             }
 

@@ -235,7 +235,7 @@ class Profile extends Component<Props, State> {
               "mantain and manage computer systems, services, applications and architectures and to understand and apply relevant legislation."+
               "You will also become an expert in new methods and technologies in the field of ICTs."}
               subtitle3="Institution"
-              description3="ACME Uniiversity - Computer Science Department"
+              description3="ACME University - Computer Science Department"
               icon={iconCourse}
               hasBeenValidated={false}
               hasBeenRequested={false} />
