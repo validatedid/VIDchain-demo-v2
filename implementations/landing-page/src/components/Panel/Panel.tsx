@@ -20,15 +20,13 @@ const Panel = (props: Props) => {
   return (
     <div className={stepSelected === stepPanel ? "containerProfileOn" : "containerProfile"} ref={refPanel}>
         <Grid container
-            direction="row"
-            justify="center"
-            alignItems="center">
+            direction="row">
               <Grid item lg={2} sm={12} xs={8}>
                 <img
                     src={stepSelected === stepPanel ? iconOn : iconOff}
                     alt=""
                     role="presentation"
-                    className={stepSelected === stepPanel ? "panelImageOn" : "PanelImageOff"}
+                    className={stepSelected === stepPanel ? "panelImageOn" : "panelImageOff"}
                 />
                 </Grid>
               <Grid item lg={9} sm={12} xs={10} className={stepSelected === stepPanel ? "panelTitleOn" : "panelTitle"}>

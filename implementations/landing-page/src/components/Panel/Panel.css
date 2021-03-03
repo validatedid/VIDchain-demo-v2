@@ -13,14 +13,19 @@
     background: #EAE8F1;
     border-radius: 6px;
     margin-bottom: 2%;
+    padding-bottom: 2%;
 }
 .panelImageOn {
     position: relative;
-    top: -5rem;
+    margin-top: 2rem;
+    margin-left: 2rem;
     width: 74px;
     height: 74px;
 }
 .panelImageOff {
+    position: relative;
+    margin-top: 2rem;
+    margin-left: 2rem;
     width: 74px;
     height: 74px;
 }
@@ -28,24 +33,25 @@
     .containerProfile{
         width: 90%;
         height: 190px;
-        text-align: center;
-        justify-content: center;
-        margin-bottom: 5%;
+        padding-bottom: 5%;
     }
     .containerProfileOn{
         width: 90%;
         height: 100%;
-        text-align: center;
-        justify-content: center;
-        margin-bottom: 5%;
         padding-top: 2rem;
         padding-bottom: 2rem;
     }
     .panelImageOn {
-        position: relative;
-        top: 0;
-        width: 74px;
-        height: 74px;
+        display: block;
+        margin: auto;
+        margin-top: 1rem;
+        margin-right: 10%;;
+    }
+    .panelImageOff {
+        display: block;
+        margin: auto;
+        margin-top: 1rem;
+        margin-right: 10%;
     }
 }
 /* Tablet */
@@ -80,6 +86,9 @@
     font-feature-settings: 'liga' off;
     color: #7B788A;
     text-align: left;
+    position: relative;
+    top: 2rem;
+    left: 2rem
 }
 .panelTitleOn {
     font-family: TT Norms;
@@ -91,13 +100,18 @@
     font-feature-settings: 'liga' off;
     color: #767486;
     text-align: left;
+    position: relative;
+    top: 2rem;
+    left: 2rem
 }
 @media only screen and (max-width: 768px) {
     .panelTitleOn {
         text-align: center;
+        top: 1rem;
     }
     .panelTitle {
         text-align: center;
+        top: 0rem;
     }
     .buttonPanel {
         float: left;
