@@ -46,7 +46,7 @@ export default function Main () {
                   {
                   "VIDchain is a service designed for helping you to regain"+
                   " control over your digital identity and to exchange digital"+
-                  " credentials in a secure and private way. Your info alway with you!"
+                  " credentials in a secure and private way. Your info always with you!"
                   }
                </Typography>
                <Typography variant="subtitle1">
@@ -147,19 +147,28 @@ export default function Main () {
             className="contentLandingVideo">
             
             <hr className="divider" />           
-            <Grid item sm={12} xs={12} lg={4} className="titleLandingVideo">
+            <Grid item sm={12} xs={12} lg={12} className="titleLandingVideo">
                   <Typography variant="h4">
                   <b>
                   {"Unlock the potential"}
                   </b>
                   </Typography>
             </Grid>
-            <Grid item sm={12} xs={12} lg={2}>
-                  <a className="labelVideo" href="https://www.youtube.com/embed/eRxVWeX389w" target="_blank" data-params="true">
+            <Grid item sm={12} xs={12} lg={12}>
+                  <iframe className="labelVideo"
+                          src='https://www.youtube.com/embed/eRxVWeX389w'
+                           allow='autoplay; encrypted-media; fullscreen'
+                           title='video'>
+                              {/* <img className="video" src={video} />
+                              <p>WATCH VIDEO</p>
+                              <br /> */}
+                           </iframe>
+
+                  {/* <a className="labelVideo" href="https://www.youtube.com/embed/eRxVWeX389w" target="_blank" data-params="true">
                      <img className="video" src={video} />
                      <p>WATCH VIDEO</p>
                      <br />
-                  </a>
+                  </a> */}
             </Grid>
             <Grid item sm={12} xs={12} lg={6} className="bodyText">
                   <Typography variant="subtitle1">

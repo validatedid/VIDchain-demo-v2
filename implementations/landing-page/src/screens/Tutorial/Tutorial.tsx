@@ -1,13 +1,7 @@
-import React, { Component,useRef } from 'react';
+import React, { Component } from 'react';
 import './Tutorial.css';
 import {Grid, Typography, Container} from '@material-ui/core';
 import * as config from "../../config/config";
-import logoValidated from "../../assets/images/validated_white.png";
-import logoAndroid from "../../assets/images/playStore@3x.png";
-import logoUniversity from "../../assets/images/logo_uni.png";
-import logoGovernment from "../../assets/images/logoCity.png";
-import logoNotification from "../../assets/images/icon_notification.png";
-import kyc from "../../assets/images/kyc.png";
 
 import downloadWalletIcon from "../../assets/images/downloadWallet.svg";
 import downloadWalletIconOff from "../../assets/images/downloadWalletoff.svg";
