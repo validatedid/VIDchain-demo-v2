@@ -31,7 +31,6 @@ class Home extends Component<Props, State> {
     client.wipeTokens();
     var tutorial = sessionStorage.getItem("tutorial");
     localStorage.clear();
-    sessionStorage.clear();
     if (tutorial) sessionStorage.setItem("tutorial", tutorial);
   }
 
