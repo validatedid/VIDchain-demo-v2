@@ -95,6 +95,7 @@ class Profile extends Component<Props, State> {
           did: this.props.location.state.did,
           type: this.props.location.state.type,
           data: this.props.location.state.data,
+          largeFamily: true,
         });
 
       }

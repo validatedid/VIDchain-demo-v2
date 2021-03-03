@@ -58,35 +58,27 @@ class AppRedirect extends Component<Props, State> {
       path: "/universityws",
       transports: ["websocket"],
     });
-    this.setState({
-      socketSession: socket.id,
-    });
-    const socketClient = {
-      did: this.state.did,
-      clientId: this.state.socketSession,
-      lastSessionId: this.state.sessionId,
-    };
-    socket.emit("whoami", socketClient);
+    
 
-    // socket.on("connect", () => {
-    //   this.setState({
-    //     socketSession: socket.id,
-    //   });
-    //   const socketClient = {
-    //     did: this.state.did,
-    //     clientId: this.state.socketSession,
-    //     lastSessionId: this.state.sessionId,
-    //   };
-    //   socket.emit("whoami", socketClient);
-    // });
+    socket.on("connect", () => {
+      this.setState({
+        socketSession: socket.id,
+      });
+      const socketClient = {
+        did: this.state.did,
+        clientId: this.state.socketSession,
+        lastSessionId: this.state.sessionId,
+      };
+      socket.emit("whoami", socketClient);
+    });
 
     socket.on("largeFamilyPresentation", (msg: any) => {
       console.log("arrived Presentation");
-      let presentation = strB64dec(msg.data.decrypted);
+      // let presentation = strB64dec(msg.data.decrypted);
 
-      let details = utils.decodeJWT(presentation.verifiableCredential[0]);
+      // let details = utils.decodeJWT(presentation.verifiableCredential[0]);
       this.setState({
-          data: details
+          data: "received"
       })
       /**
        *  This information is not used here, just want to login
