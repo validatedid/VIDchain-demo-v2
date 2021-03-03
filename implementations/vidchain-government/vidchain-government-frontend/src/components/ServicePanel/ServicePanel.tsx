@@ -51,7 +51,8 @@ const ServicePanel = (props: Props) => {
             {hasBeenRequested &&
               <div className="panelMainContent">
                   <h3 className="titleBody">Credential sent</h3>
-                  <p className="textBody">Check your wallet and accept the notification to store the credential.</p>
+                  <p className="textBody">Check your wallet, you will receive a notification.</p>
+                  <p className="textBody">Accept it and you will have the credential in your wallet.</p>
               </div>
             }
 
