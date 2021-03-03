@@ -23,6 +23,7 @@ interface Props {
 
 interface State {
   step: number;
+  isProcessEnded: boolean;
 }
 
 
@@ -32,16 +33,19 @@ class Tutorial extends Component<Props, State> {
   step1Ref;
   step2Ref;
   step3Ref;
+  step4Ref;
 
   constructor(props: any) {
     super(props);
     this.state = {
       step: +(sessionStorage.getItem("step") || 0),
+      isProcessEnded: false
     };
     this.step0Ref = React.createRef();
     this.step1Ref = React.createRef();
     this.step2Ref = React.createRef();
     this.step3Ref = React.createRef();
+    this.step4Ref = React.createRef();
 
     this.continue = this.continue.bind(this);
   }
@@ -71,6 +75,12 @@ class Tutorial extends Component<Props, State> {
     if(code === 1 ) this.step1Ref.current?.scrollIntoView();
     if(code === 2 ) this.step2Ref.current?.scrollIntoView();
     if(code === 3 ) this.step3Ref.current?.scrollIntoView();
+    if(code === 4){
+      this.setState({
+        isProcessEnded: true,
+      });
+      this.step4Ref.current?.scrollIntoView();
+    }
   }
 
   redirectTo(step: number){
@@ -93,7 +103,9 @@ class Tutorial extends Component<Props, State> {
       window.location.replace(config.UNIVERSITY_URL);
     }
     if(step === 4){
-      window.location.replace("/demo/tutorial");
+      this.setState({
+        isProcessEnded: true,
+      });
     }
   }
 
@@ -105,7 +117,7 @@ class Tutorial extends Component<Props, State> {
     window.location.replace("/demo/tutorial");
   }
 render() {
-  const {step} = this.state;
+  const {step,isProcessEnded} = this.state;
   return (
     <Container>
       <HeaderTutorial /> 
@@ -167,8 +179,18 @@ render() {
                 functionClickButton={this.continue}/>
           </Grid>
 
-          <Grid item className="restartButton">
-              <RestartButton variant="contained" onClick={()=> this.restart()}>
+          <Grid item className="restartProcess" ref={this.step4Ref}>
+              {isProcessEnded && 
+                <>
+                  <Typography variant="subtitle1" className="bodyText">
+                  {'You have successfully concluded the VIDchain demo!'}
+                  </Typography>
+                  <Typography variant="subtitle1" className="bodyText">
+                  {'You may restart the process if you wish so by clicking the button below:'}
+                  </Typography>
+                </>
+              }
+              <RestartButton variant="contained" onClick={()=> this.restart()} className="restartButton">
                   {"Restart process"}
               </RestartButton>
           </Grid>

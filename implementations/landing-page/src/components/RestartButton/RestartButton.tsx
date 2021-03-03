@@ -24,7 +24,7 @@ export const RestartButton = withStyles((theme) => ({
     borderWidth: '1.5px',
     boxSizing: 'border-box',
     borderRadius: '8px',
-    fontFamily: 'TT Norms',
+    fontFamily: 'TTNorms',
     },
   }))(Button);
   

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Typography, Grid, Button} from '@material-ui/core';
+import {Typography, Grid} from '@material-ui/core';
 import "./Panel.css";
 import {NextButton} from '../NextButton/NextButton';
 
