@@ -1,7 +1,18 @@
+@font-face {
+  font-family: 'TTNorms';
+  src: local('TTNorms'), url(./assets/fonts/TTNorms-Regular.otf) format('opentype');
+}
+
+@font-face {
+    font-family: 'TTNorms-Bold';
+    font-weight: 900;
+    src: local('TTNorms-Bols'), url(./assets/fonts/TTNorms-Bold.otf) format('opentype');
+}
+
 body {
   background:rgba(21,26,53,1);
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+  font-family: "TTNorms", "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -9,6 +20,6 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+  font-family: "TTNorms", "Courier New",
     monospace;
 }

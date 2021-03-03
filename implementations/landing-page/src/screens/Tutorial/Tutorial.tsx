@@ -62,6 +62,14 @@ class Tutorial extends Component<Props, State> {
       });
       this.changeFocus(intCode);
     }
+    const codeFromStorage = sessionStorage.getItem("step");
+    if(codeFromStorage){
+      const intCode: number = parseInt(codeFromStorage);
+      this.setState({
+        step: intCode,
+      });
+      this.changeFocus(intCode);
+    }
     sessionStorage.setItem("tutorial", "true");
   }
   
