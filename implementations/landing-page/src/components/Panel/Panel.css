@@ -15,6 +15,15 @@
     margin-bottom: 2%;
     padding-bottom: 2%;
 }
+.containerProfileOn0{
+    display: flex;
+    width: 70%;
+    height: 250px;
+    background: #EAE8F1;
+    border-radius: 6px;
+    margin-bottom: 2%;
+    padding-bottom: 0%;
+}
 .panelImageOn {
     position: relative;
     margin-top: 2rem;
@@ -36,6 +45,12 @@
         padding-bottom: 5%;
     }
     .containerProfileOn{
+        width: 90%;
+        height: 100%;
+        padding-top: 2rem;
+        padding-bottom: 2rem;
+    }
+    .containerProfileOn0{
         width: 90%;
         height: 100%;
         padding-top: 2rem;
@@ -72,6 +87,15 @@
         text-align: center;
         justify-content: center;
         margin-bottom: 5%;
+        left: 0%;
+    }
+    .containerProfileOn0{
+        position: relative;
+        width: 75%;
+        height: 100%;
+        text-align: center;
+        justify-content: center;
+        margin-bottom: 1%;
         left: 0%;
     }
   }
