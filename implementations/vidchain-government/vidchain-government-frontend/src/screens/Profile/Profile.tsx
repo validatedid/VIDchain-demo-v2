@@ -113,6 +113,7 @@ class Profile extends Component<Props, State> {
   };
 
   gotBackToTutorial = () => {
+    sessionStorage.setItem("step", String(3))
     window.location.replace("/demo/tutorial?step=3");
   }
 
