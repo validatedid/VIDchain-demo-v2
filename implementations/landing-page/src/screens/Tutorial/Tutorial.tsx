@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component,useRef } from 'react';
 import './Tutorial.css';
 import {Grid, Typography, Container} from '@material-ui/core';
 import * as config from "../../config/config";
@@ -31,12 +31,23 @@ interface State {
   step: number;
 }
 
+
+
 class Tutorial extends Component<Props, State> {
+  step0Ref;
+  step1Ref;
+  step2Ref;
+  step3Ref;
+
   constructor(props: any) {
     super(props);
     this.state = {
       step: +(sessionStorage.getItem("step") || 0),
     };
+    this.step0Ref = React.createRef();
+    this.step1Ref = React.createRef();
+    this.step2Ref = React.createRef();
+    this.step3Ref = React.createRef();
 
     this.continue = this.continue.bind(this);
   }
@@ -47,9 +58,11 @@ class Tutorial extends Component<Props, State> {
       step: 0,
     });
     if(code){
+      const intCode: number = parseInt(code);
       this.setState({
-        step: parseInt(code),
+        step: intCode,
       });
+      this.changeFocus(intCode);
     }
     sessionStorage.setItem("tutorial", "true");
   }
@@ -58,6 +71,12 @@ class Tutorial extends Component<Props, State> {
     const {step} = this.state;
     sessionStorage.setItem("step", String(step+1))
     this.redirectTo(step);
+  }
+
+  changeFocus(code:number){
+    if(code === 1 ) this.step1Ref.current?.scrollIntoView();
+    if(code === 2 ) this.step2Ref.current?.scrollIntoView();
+    if(code === 3 ) this.step3Ref.current?.scrollIntoView();
   }
 
   redirectTo(step: number){
@@ -111,22 +130,24 @@ render() {
             className="panels">
             <Panel 
                 title="Download VIDwallet"
-                panelText="Find VIDwallet in GooglePlay just clicking on VIDwallet icon. The application is currently available only for Android. An iOS version will be released soon in the App Store."
+                panelText="Find VIDwallet in GooglePlay just clicking on VIDwallet icon. The application is available for Android in the Play Store and for iOS in the App Store."
                 stepPanel={0}
                 stepSelected={step}
                 iconOn={downloadWalletIcon}
                 iconOff={downloadWalletIconOff}
                 textButton="Next"
+                refPanel={this.step0Ref}
                 functionClickButton={this.continue}/>
 
-            <Panel 
+            <Panel
                 title="Verify your ID"
-                panelText="Once you have installed VIDwallet, go to Credentials and create a new credential verifying your ID. By completing this process, you will have verified either your identity card or passport and your liveness. Afterwards, you will receive a Verifiable Credential that you can use to identify yourself later on."
+                panelText="Once you have installed VIDwallet, go to Credentials and create a new credential verifying your ID or connecting with your Google or Facebook account. By completing this process, you will have verified either your identity card or passport and your liveness. Afterwards, you will receive a Verifiable Credential that you can use to identify yourself later on."
                 stepPanel={1}
                 stepSelected={step}
                 iconOn={verifyIcon}
                 iconOff={verifyIDOff}
                 textButton="Next"
+                refPanel={this.step1Ref}
                 functionClickButton={this.continue}/> 
 
             <Panel 
@@ -137,6 +158,7 @@ render() {
                 iconOn={governmentIcon}
                 iconOff={governmentIconOff}
                 textButton="Go to Freedonia"
+                refPanel={this.step2Ref}
                 functionClickButton={this.continue}/>
 
             <Panel 
@@ -147,6 +169,7 @@ render() {
                 iconOn={universityIcon}
                 iconOff={universityIconOff}
                 textButton="Go to Acme University"
+                refPanel={this.step3Ref}
                 functionClickButton={this.continue}/>
           </Grid>
 

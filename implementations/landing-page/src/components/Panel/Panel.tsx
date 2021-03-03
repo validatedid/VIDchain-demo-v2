@@ -12,12 +12,13 @@ type Props = {
   stepSelected: number;
   textButton: string;
   functionClickButton: any;
+  refPanel: any;
 };
 
 const Panel = (props: Props) => {
-  const {title, panelText, iconOn, iconOff, stepPanel, stepSelected, textButton, functionClickButton} = props;
+  const {title, panelText, iconOn, iconOff, stepPanel, stepSelected, textButton, functionClickButton, refPanel} = props;
   return (
-    <div className={stepSelected === stepPanel ? "containerProfileOn" : "containerProfile"}>
+    <div className={stepSelected === stepPanel ? "containerProfileOn" : "containerProfile"} ref={refPanel}>
         <Grid container
             direction="row"
             justify="center"
