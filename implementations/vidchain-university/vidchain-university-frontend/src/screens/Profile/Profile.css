@@ -1,18 +1,20 @@
 .profileHome{
   background-color: #F2F2F2;
   height: 100%;
+  width: 100%;
   min-height: 100vh;
 }
 .titleProfile {
-  width: 60%
+  position: relative;
+  width: 100%;
+  left: 10%;
 }
 
 .titleProfile h2{
   margin-top: 10rem;
-  margin-left: 9rem;
+  width: 40%;
 }
-.titleProfile h6{
-  margin-left: 10rem;
+.titleProfile h5{
 } 
 @media only screen and (max-width: 767px) {
 
@@ -22,10 +24,9 @@
   
   .titleProfile h2{
     margin-top: 6rem;
-    margin-left: 1rem;
+    width: 80%;
   }
-  .titleProfile h6{
-    margin-left: 1rem;
+  .titleProfile h5{
   } 
 }
   /* Tablet */
@@ -38,7 +39,7 @@
       margin-top: 7rem;
       margin-left: 1rem;
     }
-    .titleProfile h6{
+    .titleProfile h5{
       margin-left: 1rem;
     } 
   }

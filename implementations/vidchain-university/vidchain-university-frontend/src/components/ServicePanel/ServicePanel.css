@@ -46,11 +46,16 @@
   .panelMainContent {
     margin-bottom: 3rem;
   }
+  
   @media only screen and (max-width: 768px) {
     .panelBody {
       text-align: center;
     }
     .panelMainContent {
       text-align: center;
+    }
+    .panelImage {
+      position: relative;
+      margin-top: 3rem;
     }
   }

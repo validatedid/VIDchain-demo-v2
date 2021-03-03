@@ -1,4 +1,8 @@
 @font-face {
+  font-family: 'TTNorms-Light';
+  src: local('TTNorms'), url(./assets/fonts/TTNorms-Light.otf) format('opentype');
+}
+@font-face {
   font-family: 'TTNorms';
   src: local('TTNorms'), url(./assets/fonts/TTNorms-Regular.otf) format('opentype');
 }
