@@ -74,11 +74,11 @@ class AppRedirect extends Component<Props, State> {
 
     socket.on("largeFamilyPresentation", (msg: any) => {
       console.log("arrived Presentation");
-      // let presentation = strB64dec(msg.data.decrypted);
+      let presentation = strB64dec(msg.data.decrypted);
 
-      // let details = utils.decodeJWT(presentation.verifiableCredential[0]);
+      let details = utils.decodeJWT(presentation.verifiableCredential[0]);
       this.setState({
-          data: "received"
+          data: details
       })
       /**
        *  This information is not used here, just want to login
