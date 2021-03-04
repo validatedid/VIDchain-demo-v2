@@ -56,7 +56,7 @@ class Profile extends Component<Props, State> {
     this.generateCredential = this.generateCredential.bind(this);
     this.claimVP = this.claimVP.bind(this);
     this.closeModal = this.closeModal.bind(this);
-    this.gotBackToTutorial = this.gotBackToTutorial.bind(this);
+    this.endTutorial = this.endTutorial.bind(this);
   }
 
   async componentDidMount() {
@@ -191,8 +191,8 @@ class Profile extends Component<Props, State> {
     
   };
 
-  gotBackToTutorial = () => {
-    sessionStorage.setItem("step", String(4))
+  endTutorial = () => {
+    sessionStorage.setItem("step", String(4));
     window.location.replace("/demo/tutorial?step=4");
   }
 
@@ -285,7 +285,7 @@ class Profile extends Component<Props, State> {
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
-                <Button onClick={this.gotBackToTutorial} color="primary" autoFocus>
+                <Button onClick={this.endTutorial} color="primary" autoFocus>
                 Go back to tutorial
                 </Button>
               </DialogActions>
