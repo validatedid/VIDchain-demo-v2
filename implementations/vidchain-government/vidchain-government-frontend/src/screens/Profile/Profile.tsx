@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Profile.css";
 import {Typography, Grid, Dialog, DialogActions, DialogTitle, DialogContent, Button, DialogContentText} from '@material-ui/core';
 import Header from "../../components/Header/Header";
-import { ICredentialData, CredentialData } from "../../interfaces/dtos";
+import { ICredentialData, CredentialData, InputCredential, InputOptions } from "../../interfaces/dtos";
 import * as vidchain from "../../apis/vidchain";
 import { OpenIDClient } from "../../libs/openid-connect/client";
 import * as utils from "../../utils/utils";
@@ -91,14 +91,22 @@ class Profile extends Component<Props, State> {
   async generateCredential() {
     const token = await vidchain.getAuthzToken();
     const credential: CredentialData = {
-      type: ["VerifiableCredential", "LargeFamilyCard"],
-      issuer: config.DID,
-      id: "https://example.com/credential/2390",
-      credentialSubject: {
-        id: this.state.did,
-        name: "Large Family Card",
-      },
+      credential: {
+        type: ["VerifiableCredential", "LargeFamilyCard"],
+        issuer: config.DID,
+        id: "https://example.com/credential/2390",
+        credentialSubject: {
+          id: this.state.did,
+          name: "Large Family Card",
+        }
+      } as InputCredential,
+        options: {
+          eidasBridge: {
+            password: config.eidasCertificatePassword,
+          }
+        } as InputOptions,
     };
+    
     const response = await vidchain.generateVerifiableCredential(
       token,
       credential
