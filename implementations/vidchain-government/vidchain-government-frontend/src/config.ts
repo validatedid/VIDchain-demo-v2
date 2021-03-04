@@ -30,6 +30,8 @@ const DID = "did:vid:0xc04F03A93446BE9Cf57aFEc5de1f3FBeb624a21B";
 //const CLIENT_ID = "city-test";
 const CLIENT_ID = "city";
 
+const eidasCertificatePassword = "1234";
+
 export {
   Entity,
   grantType,
@@ -41,4 +43,5 @@ export {
   BACKEND_URL,
   DID,
   BACKEND_WS,
+  eidasCertificatePassword
 };
