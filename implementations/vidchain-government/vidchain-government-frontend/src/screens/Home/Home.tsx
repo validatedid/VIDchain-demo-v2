@@ -66,7 +66,7 @@ class Home extends Component<Props, State> {
           className="content">
           <Grid item className="titleHome">
             <Typography variant="h2">{"Welcome to Freedonia"}</Typography>
-            <Typography variant="h6">You can manage all the city services from this website: subscriptions, taxes...</Typography>
+            <Typography variant="h5">You can manage all the city services from this website: subscriptions, taxes...</Typography>
           </Grid>
           <Grid item>
             <SignInButton variant="contained" className="buttonSignIn" color="primary" onClick={() => this.loginWithVIDChain()}>
