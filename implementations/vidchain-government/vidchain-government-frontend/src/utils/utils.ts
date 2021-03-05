@@ -37,6 +37,9 @@ function parseJwt(token: string) {
 function getUserDid(jwt: string): string {
   return parseJwt(jwt).sub;
 }
+function getIssuerDid(jwt: string): string {
+  return parseJwt(jwt).did;
+}
 
 /**
  * Decodes a Base64 string in an UTF-8 string format
@@ -91,4 +94,4 @@ function generateFakeCredential(): verifiableKYC{
   return verifiableCredentialFake;
 }
 
-export { randomString, getUserDid, strB64dec, strB64enc, decodeJWT, generateFakeCredential};
+export { randomString, getIssuerDid, getUserDid, strB64dec, strB64enc, decodeJWT, generateFakeCredential};

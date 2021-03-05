@@ -51,4 +51,8 @@ function extractVCfromPresentation(credential) {
   return decodeJWT(jwtObject.verifiableCredential[0]);
 }
 
-export { decodeJWT, strB64dec, strB64enc, extractVCfromPresentation };
+function getIssuerDid(jwt: string): string {
+  return decodeJWT(jwt).did;
+}
+
+export { decodeJWT, getIssuerDid, strB64dec, strB64enc, extractVCfromPresentation };

@@ -93,7 +93,7 @@ class Profile extends Component<Props, State> {
     const credential: CredentialData = {
       credential: {
         type: ["VerifiableCredential", "LargeFamilyCard"],
-        issuer: config.DID,
+        issuer: utils.getIssuerDid(token),
         id: "https://example.com/credential/2390",
         issuanceDate: new Date().toISOString(),
         credentialSubject: {

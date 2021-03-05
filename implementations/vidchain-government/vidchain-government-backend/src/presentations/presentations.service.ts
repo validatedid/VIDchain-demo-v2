@@ -5,8 +5,7 @@ import {
   MsgPresentationReady,
   CredentialData,
 } from "../interfaces/dtos";
-import { strB64dec } from "../utils/Util";
-import * as config from "../config";
+import { strB64dec, getIssuerDid } from "../utils/Util";
 
 @Injectable()
 export class PresentationsService {
@@ -94,7 +93,7 @@ export class PresentationsService {
     const userDID = presentation.name.split(" by ")[1];
     const credential: CredentialData = {
       type: ["VerifiableCredential", "ServiceCredential"],
-      issuer: config.DID,
+      issuer: getIssuerDid(token),
       id: "https://example.com/credential/2390",
       credentialSubject: {
         id: userDID,

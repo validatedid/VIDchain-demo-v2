@@ -25,7 +25,7 @@ const grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 const scope = "vidchain profile entity";
 //const scope = "vidchain profile test entity";
 
-const DID = "did:vid:0xc04F03A93446BE9Cf57aFEc5de1f3FBeb624a21B";
+const DID = "0xF996fc66a524eF766a15d9dae8dDD3A4Eb7796CB";
 
 //const CLIENT_ID = "city-test";
 const CLIENT_ID = "city";
