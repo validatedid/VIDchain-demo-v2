@@ -95,6 +95,7 @@ class Profile extends Component<Props, State> {
         type: ["VerifiableCredential", "LargeFamilyCard"],
         issuer: config.DID,
         id: "https://example.com/credential/2390",
+        issuanceDate: new Date().toISOString(),
         credentialSubject: {
           id: this.state.did,
           name: "Large Family Card",
