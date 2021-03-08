@@ -1,0 +1,107 @@
+trigger:
+  branches:
+    include:
+      - development
+  paths:
+    include:
+      - implementations/vidchain-university/vidchain-university-frontend
+
+pr: none
+
+resources:
+- repo: self
+
+variables:
+  # Docker Buildkit improves image build performance
+  DOCKER_BUILDKIT: 1
+  # Image repository
+  universityFrontendRepo: 'university-frontend'
+  universityFrontendRepoEndpoint: 'k8scrvidchaindev.azurecr.io/university-frontend'
+  # Dockerfiles
+  universityFrontendDocker: 'implementations/vidchain-university/vidchain-university-frontend/Dockerfile'
+  # Kubernetes YAML
+  universityFrontendKubernetes: 'implementations/vidchain-university/vidchain-university-frontend/k8s/k8s-dev.yml'
+  # Kubernetes namespace
+  namespace: 'development'
+  # Image tagging: application version - build
+  tagUniversityFrontend: '$(Build.BuildNumber)'
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+stages:
+- stage: Build
+  displayName: 'Build stage'
+  jobs:
+  - job: GetShortCommit
+    displayName: 'retrieve commit hash'
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - script: |
+        commit=$(Build.SourceVersion)
+        shortCommit=${commit:0:7}
+        echo "##vso[build.updatebuildnumber]$(Build.BuildId)-commit.$shortCommit"
+      displayName: 'retrieve $(packageJson) version'
+  - job: BuildUniversityFrontend
+    displayName: 'Build University Frontend'
+    dependsOn: GetShortCommit
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - bash: |
+        cp ./implementations/vidchain-university/vidchain-university-frontend/envs/.env.development ./implementations/vidchain-university/vidchain-university-frontend/.env
+        echo -e "\nREACT_APP_API_KEY=$API_KEY" >> ./implementations/vidchain-university/vidchain-university-frontend/.env
+      name: load_env_variables_file
+      displayName: 'load env vars'
+      env:
+        API_KEY: $(API_KEY_UNIVERSITY)
+    - task: Docker@2
+      displayName: Login ACR
+      inputs:
+        command: login
+        containerRegistry: $(dockerRegistryServiceConnection)
+    - script: "docker pull $(universityFrontendRepoEndpoint):latest"
+      displayName: Pull latest for layer caching
+      continueOnError: true # for first build, no cache
+    - task: Docker@2
+      displayName: "build --cache-from=$(universityFrontendRepoEndpoint):latest"
+      inputs:
+        containerRegistry: '$(dockerRegistryServiceConnection)'
+        repository: '$(universityFrontendRepo)'
+        command: 'build'
+        Dockerfile: $(universityFrontendDocker)
+        arguments: '--cache-from=$(universityFrontendRepoEndpoint):latest' 
+        tags: |
+          $(tagUniversityFrontend)
+          latest
+    - task: Docker@2
+      displayName: "push"
+      inputs:
+        command: push
+        containerRegistry: "$(dockerRegistryServiceConnection)"
+        repository: $(universityFrontendRepo) 
+        tags: |
+          $(tagUniversityFrontend)
+          latest        
+- stage: Deploy
+  displayName: 'Deploy stage'
+  dependsOn: Build
+  jobs:
+  - deployment: DeployUniversityFrontend
+    displayName: 'Deploy University Frontend'
+    pool:
+      vmImage: $(vmImageName)
+    environment: 'development'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          - task: KubernetesManifest@0
+            displayName: Create/update deployment
+            inputs:              
+              kubernetesServiceConnection: $(kubernetesServiceConnection)
+              namespace: $(namespace)
+              manifests: $(universityFrontendKubernetes)
+              containers: |
+                $(universityFrontendRepoEndpoint):$(tagUniversityFrontend)
