@@ -3,6 +3,7 @@ import * as config from "../config";
 import {
   RequestPresentation,
   VerifiablePresentation,
+  CredentialData,
 } from "../interfaces/dtos";
 import { strB64enc } from "../utils/Util";
 
@@ -14,12 +15,16 @@ async function postRequest(token: string, user: any, endpoint: string) {
     },
   };
   try {
-    console.log(JSON.stringify(user));
+    console.log("request VO");
+    console.log(config.API_URL.concat(endpoint));
+    console.log(authorization);
+    console.log(user);
     const response = await axios.post(
       config.API_URL.concat(endpoint),
       user,
       authorization
     );
+    console.log("RESPONSE STATUS: "+response.status);
     if (response.status !== 200 && response.status !== 201 && response.status !== 204) {
       return "Error";
     }
@@ -35,7 +40,6 @@ async function postRequest(token: string, user: any, endpoint: string) {
 
 // Get API authentication token
 async function getAuthzToken() {
-  console.log(config.Entity);
   const body = {
     grantType: config.grantType,
     assertion: strB64enc(config.Entity),
@@ -73,6 +77,13 @@ async function validateVP(
   );
 }
 
+// Request Verifiable Credential generation
+async function generateVerifiableCredential(
+  token: string,
+  user: CredentialData
+) {
+  return postRequest(token, user, "/verifiable-credentials");
+}
 // Retrieve Presentation
 async function retrievePresentation(token: string, url: string) {
   const authorization = {
@@ -81,14 +92,25 @@ async function retrievePresentation(token: string, url: string) {
     },
   };
   try {
+    console.log("rerieve peresentatttttionnn");
+    console.log(url);
+    console.log(authorization);
     const response = await axios.get(url, authorization);
+    console.log(response.status);
     if (response.status !== 200 && response.status !== 201) {
       return "Error";
     }
     return response.data;
   } catch (error) {
+    
     return "Error";
   }
 }
 
-export { getAuthzToken, requestVP, retrievePresentation, validateVP };
+export {
+  getAuthzToken,
+  requestVP,
+  retrievePresentation,
+  validateVP,
+  generateVerifiableCredential,
+};
