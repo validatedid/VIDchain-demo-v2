@@ -15,7 +15,7 @@ class Footer extends Component {
           <Grid item lg={3} xs={5} sm={3} className="logoFooterDiv">
               <img
                 className="logoFooter"
-                src={require("../../assets/images/logo.svg")}
+                src={require("../../assets/images/healthCare.png")}
                 alt="City"
               />
             </Grid>
