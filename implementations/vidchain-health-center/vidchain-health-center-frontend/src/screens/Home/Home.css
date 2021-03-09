@@ -9,8 +9,7 @@
   width: 60%;
 }
 .buttonSignIn {
-  left: 45%;
-  bottom: 25%;
+  left: 40%;
 } 
 @media only screen and (max-height: 640px) and (max-width: 768px)  {
   .titleHome h2{

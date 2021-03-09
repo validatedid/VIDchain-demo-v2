@@ -16,7 +16,7 @@ class Footer extends Component {
               <img
                 className="logoFooter"
                 src={require("../../assets/images/healthCare.png")}
-                alt="City"
+                alt="Healthcare"
               />
             </Grid>
             <Grid item lg={3} xs={1} sm={3}></Grid>

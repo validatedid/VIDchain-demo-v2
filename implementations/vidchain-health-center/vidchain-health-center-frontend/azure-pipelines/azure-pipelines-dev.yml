@@ -54,7 +54,7 @@ stages:
       name: load_env_variables_file
       displayName: 'load env vars'
       env:
-        API_KEY: $(API_KEY_HEALTH-CENTER)
+        API_KEY: $(API_KEY_HEALTH_CENTER)
     - task: Docker@2
       displayName: Login ACR
       inputs:
