@@ -1,3 +1,4 @@
+
 # Stage 0: prepare node alpine image
 FROM node:12-alpine AS base
 RUN apk add --update --no-cache \
@@ -11,14 +12,7 @@ WORKDIR /usr/src/app
 COPY ./package*.json /usr/src/app/
 RUN npm ci --quiet --no-progress
 COPY ./ /usr/src/app/
-ARG REACT_APP_DEMO
-ARG REACT_APP_API_URL
-ARG REACT_APP_IDENTITY_PROVIDER
-ARG REACT_APP_REDIRECT_CALLBACK
-ARG REACT_APP_BACKEND_URL
-ARG REACT_APP_WS_URL
-ARG REACT_APP_API_KEY
-ARG PUBLIC_URL=/demo/university
+ARG PUBLIC_URL=/demo/healthcenter
 RUN npm run build
 
 # Stage 2: run nginx
@@ -35,5 +29,6 @@ USER nginx
 COPY --from=builder-demo /usr/src/app/build /app
 
 COPY nginx.conf /etc/nginx/nginx.conf
-EXPOSE 3024
+EXPOSE 3030
 CMD ["nginx", "-g", "daemon off;"]
+

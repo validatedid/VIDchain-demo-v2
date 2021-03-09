@@ -1,15 +1,10 @@
 import axios from "axios";
 import * as config from "../config";
-import { ICredentialData } from "../interfaces/ICredentialData";
+import { ICredentialData, CredentialData } from "../interfaces/dtos";
 import { strB64enc } from "../utils/utils";
 
-/**
- * VIDCHAIN API REQUESTS
- * This requests can be performed even from the frontend because do not require any callback.
- */
 
-// Simple axios post request
-async function request(token: string, user: any, endpoint: string) {
+async function request(token: string, credentialData: any, endpoint: string) {
   let authorization = {
     headers: {
       Authorization: "Bearer " + token,
@@ -18,7 +13,7 @@ async function request(token: string, user: any, endpoint: string) {
   try {
     const response = await axios.post(
       config.API_URL.concat(endpoint),
-      user,
+      credentialData,
       authorization
     );
     if (response.status !== 200 && response.status !== 201) {
@@ -48,12 +43,17 @@ async function getAuthzToken() {
   }
 }
 
+// Request VerifiableID generation
+async function generateVerifiableID(token: string, user: ICredentialData) {
+  return request(token, user, "/verifiable-ids");
+}
+
 // Request Verifiable Credential generation
 async function generateVerifiableCredential(
   token: string,
-  user: ICredentialData
+  credentialData: CredentialData
 ) {
-  return request(token, user, "/verifiable-credentials");
+  return request(token, credentialData, "/verifiable-credentials");
 }
 
-export { getAuthzToken, generateVerifiableCredential };
+export { getAuthzToken, generateVerifiableID, generateVerifiableCredential };

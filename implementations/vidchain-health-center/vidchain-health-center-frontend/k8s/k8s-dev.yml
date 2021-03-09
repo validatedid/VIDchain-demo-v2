@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: university-frontend-deployment
+  name: health-center-frontend-deployment
   labels:
-    app: university-frontend
+    app: health-center-frontend
 spec:
   replicas: 1
   revisionHistoryLimit: 1
   selector:
     matchLabels:
-      app: university-frontend
+      app: health-center-frontend
   strategy: 
     type: RollingUpdate
     rollingUpdate:
@@ -18,14 +18,14 @@ spec:
   template:
     metadata:
       labels:
-        app: university-frontend
+        app: health-center-frontend
     spec:
       containers:
-      - image: k8scrvidchaindev.azurecr.io/university-frontend:latest
+      - image: k8scrvidchaindev.azurecr.io/health-center-frontend:latest
         imagePullPolicy: "Always"
-        name: university-frontend
+        name: health-center-frontend
         ports:
-        - containerPort: 3024
+        - containerPort: 3030
       restartPolicy: Always
 
 ---
@@ -33,27 +33,27 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: university-frontend-service
+  name: health-center-frontend-service
   labels:
-    app: university-frontend
+    app: health-center-frontend
 spec:
   type: ClusterIP
   ports:
-  - name: "3024"
-    port: 3024
+  - name: "3030"
+    port: 3030
   selector:
-    app: university-frontend
+    app: health-center-frontend
 
 ---
 
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: university-frontend-ingress
+  name: health-center-frontend-ingress
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /demo/university/$2
+    nginx.ingress.kubernetes.io/rewrite-target: /demo/healthcenter/$2
 spec:
   tls:
   - hosts:
@@ -63,7 +63,7 @@ spec:
   - host: dev.vidchain.net
     http:
       paths: 
-      - path: /demo/university(/|$)(.*)
+      - path: /demo/healthcenter(/|$)(.*)
         backend:
-          serviceName: university-frontend-service
-          servicePort: 3024
+          serviceName: health-center-frontend-service
+          servicePort: 3030

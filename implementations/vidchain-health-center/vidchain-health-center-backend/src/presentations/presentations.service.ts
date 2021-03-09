@@ -1,7 +1,11 @@
 import { Injectable, Logger, HttpStatus, HttpException } from "@nestjs/common";
 import * as vidchain from "../api/vidchain";
-import { Presentation, MsgPresentationReady } from "../interfaces/dtos";
-import { strB64dec } from "../utils/Util";
+import {
+  Presentation,
+  MsgPresentationReady,
+  CredentialData,
+} from "../interfaces/dtos";
+import { strB64dec, getIssuerDid } from "../utils/Util";
 
 @Injectable()
 export class PresentationsService {
@@ -38,15 +42,32 @@ export class PresentationsService {
         token,
         presentation
       );
-      if (validation) {
+      /**
+       * The type of presentation can be parsed so as to perform one action or another.
+       * In the following example if the credential is for Login there's no need to generate a new credential.
+       * Otherwise the backend of the entity could generate a credential automatically after a successful VP.
+       */
+
+      const credentialType = presentation.name.split(": Verifiable")[0];
+      this.logger.debug("Presentation type: " + credentialType);
+
+      if (validation && credentialType == "Login") {
         this.logger.debug(
           "Presentation has just been checked. Presentation validation: done."
         );
         return presentation;
+      } else if (validation && credentialType != "Login") {
+        this.logger.debug(
+          "Presentation has just been checked. Presentation validation: done."
+        );
+        this.logger.debug("About to generate a new credential.");
+        const response = await this.generateCredential(token, presentation);
+        this.logger.debug("generateCredential response: " + response);
+        return presentation;
       }
       return validation;
     } catch (e) {
-      this.throwErrorMessage("");
+      this.throwErrorMessage("Error while creating the VC");
     }
   }
 
@@ -62,6 +83,31 @@ export class PresentationsService {
     const validation = await vidchain.validateVP(token, strB64dec(presentation.data.decrypted));
     this.logger.debug("Validation of VP: " + validation);
     return validation;
+  }
+
+  /**
+   * Request Verifiable Credential generation
+   */
+  async generateCredential(token: string, presentation: Presentation) {
+    const serviceName = presentation.name.split(": Verifiable")[0];
+    const userDID = presentation.name.split(" by ")[1];
+    const credential: CredentialData = {
+      type: ["VerifiableCredential", "ServiceCredential"],
+      issuer: getIssuerDid(token),
+      id: "https://example.com/credential/2390",
+      credentialSubject: {
+        id: userDID,
+        name: serviceName.replace(": Verifiable", ""),
+        startAt: Math.floor(Date.now() / 1000),
+        expiresAt: Math.floor(Date.now() / 1000) + Math.floor(31104000), //1 year
+      },
+    };
+    const response = await vidchain.generateVerifiableCredential(
+      token,
+      credential
+    );
+    this.logger.debug("Credential created:" + response);
+    return response;
   }
 
   throwErrorMessage(message: string) {

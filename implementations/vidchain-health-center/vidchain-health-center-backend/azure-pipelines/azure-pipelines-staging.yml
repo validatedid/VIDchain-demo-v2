@@ -4,7 +4,7 @@ trigger:
       - staging
   paths:
     include:
-      - implementations/vidchain-university/vidchain-university-backend
+      - implementations/vidchain-health-center/vidchain-health-center-backend
 
 pr: none
 
@@ -15,18 +15,18 @@ variables:
   # Docker Buildkit improves image build performance
   DOCKER_BUILDKIT: 1
   # Image repository
-  universityBackendRepo: 'university-backend'
-  universityBackendRepoEndpoint: 'k8scrvidchaindev.azurecr.io/university-backend'
+  healthCenterBackendRepo: 'health-center-backend'
+  healthCenterBackendRepoEndpoint: 'k8scrvidchaindev.azurecr.io/health-center-backend'
   # Dockerfiles
-  universityBackendDocker: 'implementations/vidchain-university/vidchain-university-backend/Dockerfile'
+  healthCenterBackendDocker: 'implementations/vidchain-health-center/vidchain-health-center-backend/Dockerfile'
   # Kubernetes YAML
-  universityBackendKubernetes: 'implementations/vidchain-university/vidchain-university-backend/k8s/k8s-staging.yml'
+  healthCenterBackendKubernetes: 'implementations/vidchain-health-center/vidchain-health-center-backend/k8s/k8s-staging.yml'
   # Configmaps
-  universityBackendConfigMap: 'implementations/vidchain-university/vidchain-university-backend/k8s/configmap-staging.yml'
+  healthCenterBackendConfigMap: 'implementations/vidchain-health-center/vidchain-health-centerS-backend/k8s/configmap-staging.yml'
   # Kubernetes namespace
   namespace: 'staging'
   # Image tagging: application version - build
-  tagUniversityBackend: '$(Build.BuildNumber)'
+  tagHealthCenterBackend: '$(Build.BuildNumber)'
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
   
@@ -44,8 +44,8 @@ stages:
         shortCommit=${commit:0:7}
         echo "##vso[build.updatebuildnumber]$(Build.BuildId)-commit.$shortCommit"
       displayName: 'retrieve $(packageJson) version'
-  - job: BuildUniversityBackend
-    displayName: 'Build University Backend'
+  - job: BuildHealthCenterBackend
+    displayName: 'Build Health Center Backend'
     dependsOn: GetShortCommit
     pool:
       vmImage: $(vmImageName)
@@ -55,35 +55,35 @@ stages:
       inputs:
         command: login
         containerRegistry: $(dockerRegistryServiceConnection)
-    - script: "docker pull $(universityBackendRepoEndpoint):latest"
+    - script: "docker pull $(healthCenterBackendRepoEndpoint):latest"
       displayName: Pull latest for layer caching
       continueOnError: true # for first build, no cache
     - task: Docker@2
-      displayName: "build --cache-from=$(universityBackendRepoEndpoint):latest"
+      displayName: "build --cache-from=$(healthCenterBackendRepoEndpoint):latest"
       inputs:
         containerRegistry: '$(dockerRegistryServiceConnection)'
-        repository: '$(universityBackendRepo)'
+        repository: '$(healthCenterBackendRepo)'
         command: 'build'
-        Dockerfile: $(universityBackendDocker)
-        arguments: '--cache-from=$(universityBackendRepoEndpoint):latest' 
+        Dockerfile: $(healthCenterBackendDocker)
+        arguments: '--cache-from=$(healthCenterBackendRepoEndpoint):latest' 
         tags: |
-          $(tagUniversityBackend)
+          $(tagHealthCenterBackend)
           latest
     - task: Docker@2
       displayName: "push"
       inputs:
         command: push
         containerRegistry: "$(dockerRegistryServiceConnection)"
-        repository: $(universityBackendRepo) 
+        repository: $(healthCenterBackendRepo) 
         tags: |
-          $(tagUniversityBackend)
-          latest       
+          $(tagHealthCenterBackend)
+          latest
 - stage: Deploy
   displayName: 'Deploy stage'
   dependsOn: Build
   jobs:
-  - deployment: DeployUniversityBackend
-    displayName: 'Deploy University Backend'
+  - deployment: DeployHealthCenterBackend
+    displayName: 'Deploy Health Center Backend'
     pool:
       vmImage: $(vmImageName)
     environment: 'staging'
@@ -100,12 +100,12 @@ stages:
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
               command: apply
-              arguments: -f $(universityBackendConfigMap) -n $(namespace)
+              arguments: -f $(healthCenterBackendConfigMap) -n $(namespace)
           - task: KubernetesManifest@0
             displayName: Create/update deployment
             inputs:              
               kubernetesServiceConnection: $(kubernetesServiceConnection)
               namespace: $(namespace)
-              manifests: $(universityBackendKubernetes)
+              manifests: $(healthCenterBackendKubernetes)
               containers: |
-                $(universityBackendRepoEndpoint):$(tagUniversityBackend)
+                $(healthCenterBackendRepoEndpoint):$(tagHealthCenterBackend)

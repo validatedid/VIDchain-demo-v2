@@ -1,0 +1,63 @@
+
+  
+  .containerProfile{
+    width: 80%;
+    height: 100%;
+    background: #F2F2F2;
+    box-shadow: 2px 2px 12px #D6D6D6;
+    border-radius: 3px;
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    margin-bottom: 5%;
+  }
+  .panelTitle {
+    position: absolute;
+    width: 80%;
+    background: linear-gradient(270deg, #E61B72 0%, #F9B95A 100.45%);
+    border-radius: 2px 2px 0px 0px;
+    display: flex;
+    align-items: center;
+  }
+  .panelBody {
+    flex-direction: row;
+    display: flex;
+  }
+  .titlePanel {
+    position: relative;
+    color: #FFFFFF;
+    left: 5%
+  }
+  .titleBody {
+    font-weight: bold;
+    font-size: 18px;
+    color: #7B788A;
+  }
+  .textBody {
+    font-size: 16px;
+    color: #7B788A;
+    overflow: hidden;
+      text-overflow: ellipsis;
+  }
+  .panelImageProfile {
+    position: relative;
+    margin-top: 3rem;
+  }
+  .panelMainContent {
+    position: relative;
+    margin-top: 3rem;
+  }
+
+  @media only screen and (max-width: 767px) {
+    .panelImageProfile {
+      margin-top: 40%;
+      margin-left: 35%;
+    }
+  }
+  /* Tablet */
+    @media only screen and (min-device-width: 767px) and (max-device-width: 1024px) {
+      .panelImageProfile {
+        position: relative;
+        top: 2rem;
+      }
+    }

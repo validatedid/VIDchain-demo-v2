@@ -6,12 +6,11 @@ import { createMuiTheme } from '@material-ui/core';
 import Home from "./screens/Home/Home";
 import Profile from "./screens/Profile/Profile";
 import Callback from "./screens/Callback/Callback";
-import AppRedirect from "./screens/AppRedirect/AppRedirect";
 const dotenv = require("dotenv");
 // importing .env variables
 
 const publicUrl =
-  process.env.REACT_APP_DEMO || "http://localhost:3024/demo/university";
+  process.env.REACT_APP_DEMO || "http://localhost:3030/demo/healthcenter";
 const basename = publicUrl ? new URL(publicUrl).pathname : "";
 
 const THEME = createMuiTheme({
@@ -41,18 +40,14 @@ function App() {
   dotenv.config();
   return (
     <ThemeProvider theme={THEME}>
-    <div className="App">
-
       <BrowserRouter basename={basename}>
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/profile" component={Profile} />
           <Route path="/callback" component={Callback} />
-          <Route path="/presentation" component={AppRedirect} />
         </Switch>
       </BrowserRouter>
-    </div>
-    </ThemeProvider>
+      </ThemeProvider>
   );
 }
 

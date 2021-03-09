@@ -14,27 +14,24 @@ export interface Presentation {
   type: string;
   name: string;
   hash: string;
+  did: string;
   data: IAttributeData;
 }
-
 export interface IAttributeData {
-  encrypted: any;
+  encrypted: string;
   decrypted?: string;
 }
-
 export interface VerifiablePresentation {
   "@context": string[];
   type: string;
   verifiableCredential: string[] | VerifiableCredential[];
   proof: Proof;
 }
-
 export interface VerifiableCredential extends Credential {
   issuer: string;
   issuanceDate: string;
   proof: Proof;
 }
-
 export interface Proof {
   type: string;
   created: string;
@@ -53,17 +50,5 @@ export interface CredentialData {
 
 export interface SocketClient {
   did: string;
-  value: UserSession;
-}
-export interface UserSession {
   clientId: any;
-  lastSessionId: string;
-}
-export interface SessionClient {
-  did: string;
-  sessionId: string;
-}
-export interface SessionData{
-  sessionId: string;
-  data: any;
 }

@@ -1,16 +1,12 @@
 import React, { Component } from "react";
 import "./Callback.css";
-import Footer from "../../components/Footer/Footer";
-import { OpenIDClient } from "../../libs/openid-connect/client";
 import { Redirect } from "react-router-dom";
-import { verifiableKYC } from "../../interfaces/dtos"; 
-import * as utils from "../../utils/utils";
-import * as universityBackend from "../../apis/universityBackend";
-import io from "socket.io-client";
+import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
+import * as healthCenterBackend from "../../apis/healthCenterBackend";
 import { Ring } from "react-spinners-css";
 import * as config from "../../config";
-import { strB64dec } from "../../utils/utils";
-import Header from "../../components/Header/Header";
+
 
 interface Props {
   history: any;
@@ -24,7 +20,6 @@ interface State {
   id_token: string;
   expires: number;
   error: boolean;
-  socketSession: string;
 }
 
 class Callback extends Component<Props, State> {
@@ -36,7 +31,6 @@ class Callback extends Component<Props, State> {
       id_token: "",
       expires: 0,
       error: false,
-      socketSession: "",
     };
   }
 
@@ -51,17 +45,14 @@ class Callback extends Component<Props, State> {
           id_token: token.id_token,
           expires: token.expires,
         });
-
-        this.goToProfile();
       }
-      this.initiateSocket();
-        
+      this.goToProfile();
     }
   }
 
   async getAuthToken(code: string){
     try {
-      const response = await universityBackend.getToken(
+      const response = await healthCenterBackend.getToken(
         {
             code: code,
             client_id: config.CLIENT_ID,
@@ -77,53 +68,6 @@ class Callback extends Component<Props, State> {
     }
   }
 
-  async initiateSocket() {
-    const socket = io(config.BACKEND_WS, {
-      path: "/universityws",
-      transports: ["websocket"],
-    });
-
-    socket.on("connect", () => {
-      this.setState({
-        socketSession: socket.id,
-      });
-      const socketClient = {
-        did: utils.getUserDid(this.state.id_token),
-        clientId: this.state.socketSession,
-        lastSessionId: ""
-      };
-      if(socketClient.clientId && socketClient.did && socketClient.clientId !== "" && socketClient.did !== "") socket.emit("whoami", socketClient);
-    });
-
-    // socket.on("presentation", (msg: any) => {
-    //   let presentation = strB64dec(msg.data.decrypted);
-
-    //   let details = utils.decodeJWT(presentation.verifiableCredential[0]);
-    //   this.setState({
-    //     verifiableKYC: {
-    //       id: details.vc.credentialSubject.id,
-    //       documentNumber: details.vc.credentialSubject.documentNumber,
-    //       documentType: details.vc.credentialSubject.documentType,
-    //       name: details.vc.credentialSubject.firstName,
-    //       surname: details.vc.credentialSubject.lastName,
-    //       fullName: details.vc.credentialSubject.fullName,
-    //       nationality: details.vc.credentialSubject.nationality,
-    //       stateIssuer: details.vc.credentialSubject.stateIssuer,
-    //       issuingAuthority: details.vc.credentialSubject.issuingAuthority,
-    //       dateOfExpiry: details.vc.credentialSubject.dateOfExpiry,
-    //       dateOfBirth: details.vc.credentialSubject.dateOfBirth,
-    //       placeOfBirth: details.vc.credentialSubject.placeOfBirth,
-    //       sex: details.vc.credentialSubject.gender,
-    //       personalNumber: details.vc.credentialSubject.personalNumber,
-    //     },
-    //   });
-      /**
-       *  This information is not used here, just want to login
-       */
-    //   this.goToProfile();
-    // });
-  }
-
   goToProfile() {
     const { access_token, refresh_token, id_token } = this.state;
     this.props.history.push({
@@ -131,28 +75,30 @@ class Callback extends Component<Props, State> {
       state: {
         access_token: access_token,
         refresh_token: refresh_token,
-        id_token: id_token,
+        id_token: id_token
       },
     });
   }
 
   render() {
-    const { access_token } = this.state;
-    if (access_token != null) {
+    const { access_token, error } = this.state;
+    if (access_token != null && !error) {
       return (
-        <div >
-        <Header></Header>
-        <div className="contentCallback">
-              <h4>{"We have sent you a request to your wallet,\n please provide your Verifiable ID"}</h4>
-              <div className="spinnerContainer">
-                <Ring color="red" />
+        <div className="home">
+          <Header></Header>
+          <div className="contentCallback">
+              <div className="wrapper">
+                <h4>{"We have sent you a request to your wallet,\n please provide your Verifiable ID"}</h4>
+                <div className="spinnerContainer">
+                  <Ring color="red" />
+                </div>
+                <p>Waiting to receive your credential...</p>
               </div>
-              <p>Waiting to receive your credential...</p>
+          </div>
+          <div className="footer">
+            <Footer></Footer>
+          </div>
         </div>
-        <div className="footer">
-          <Footer></Footer>
-        </div>
-      </div>
       );
     } else {
       return <Redirect to="/" />;

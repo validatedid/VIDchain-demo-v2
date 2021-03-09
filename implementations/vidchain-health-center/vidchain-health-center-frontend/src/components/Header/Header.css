@@ -1,35 +1,43 @@
 .logoHeader{
-    position: relative;
-    width: 260px;
-    height: 73px;
-    margin-top: 2%;
-    margin-bottom: 1rem;
-    left: 5rem;
+  position: relative;
+  width: 290px;
+  height: 83px;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  margin-left: 10rem;
+}
+.headerBackground {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.powered {
+  position: absolute;
+  left: 80%;
+  color: black;
+  white-space: nowrap;
+}
+@media only screen and (max-width: 768px) {
+  .powered {
+    display: none;
   }
-  .headerBackground {
-    position: absolute;
-    background-color:rgba(21,26,53,1);
-    width: 100%;
-    display: flex;
-    flex-direction: row;
+  .logoHeader{
+    position: relative;
+    margin-left: 2rem;
+    width: 190px;
+    height: 63px;
+  }
+}
+/* Tablet */
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .logoHeader{
+    position: relative;
+    margin-left: 2rem;
+    width: 190px;
+    height: 63px;
   }
   .powered {
-    position: absolute;
-    left: 80%;
-    color: white;
-    margin-top: 3rem;
+    display: none;
   }
-  @media only screen and (max-width: 768px) {
-    .powered {
-      display: none;
-    }
-    .logoHeader{
-      position: relative;
-      width: 200px;
-      height: 63px;
-      margin-top: 2%;
-      margin-bottom: 1rem;
-      left: 2rem;
-    }
-  }
-  
+}

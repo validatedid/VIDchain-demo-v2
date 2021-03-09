@@ -12,16 +12,16 @@ class Footer extends Component {
           alignItems="center"
           className="footer">
           <Grid item lg={1} xs={1} sm={1}></Grid>
-          <Grid item lg={3} xs={5} sm={5} className="logoFooterDiv">
+          <Grid item lg={3} xs={5} sm={3} className="logoFooterDiv">
               <img
                 className="logoFooter"
-                src={require("../../assets/images/logoFooter.svg")}
+                src={require("../../assets/images/logo.svg")}
                 alt="City"
               />
             </Grid>
-            <Grid item lg={3} xs={1} sm={1}></Grid>
-            <Grid item lg={4} xs={4} sm={5}>
-              <p className="textFooter">This is not an official website of any University.</p>
+            <Grid item lg={3} xs={1} sm={3}></Grid>
+            <Grid item lg={4} xs={5} sm={4}>
+              <p className="textFooter">This is not an official website of any Health Center.</p>
             </Grid>
         </Grid>
     );

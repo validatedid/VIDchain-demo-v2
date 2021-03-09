@@ -1,24 +1,15 @@
 import * as jwtDecode from "jwt-decode";
 import { decode as atob, encode } from "base-64";
-
+import { Logger } from "@nestjs/common";
+/**
+ * Parse a JWT token
+ */
 function decodeJWT(token) {
   try {
     const tok = jwtDecode(token);
     return tok;
   } catch (Error) {
     return Error;
-  }
-}
-
-/**
- * Parse a JWT token
- */
-function parseJwt(token) {
-  try {
-    const tok = jwtDecode(token);
-    return tok;
-  } catch (Error) {
-    return null;
   }
 }
 
@@ -48,7 +39,20 @@ function strB64enc(input) {
 
 function extractVCfromPresentation(credential) {
   let jwtObject = strB64dec(credential.data.decrypted);
+  // console.log("read jwtob");
+  // console.log(jwtObject);
+  // console.log("--");
+  // console.log(JSON.stringify(jwtObject));
+  // jwtObject = jwtObject.substring(
+  //   jwtObject.lastIndexOf("[") + 1,
+  //   jwtObject.lastIndexOf("]")
+  // );
+  // jwtObject = jwtObject.substring(1, jwtObject.length - 1);
   return decodeJWT(jwtObject.verifiableCredential[0]);
 }
 
-export { decodeJWT, parseJwt, strB64dec, strB64enc, extractVCfromPresentation };
+function getIssuerDid(jwt: string): string {
+  return decodeJWT(jwt).did;
+}
+
+export { decodeJWT, getIssuerDid, strB64dec, strB64enc, extractVCfromPresentation };

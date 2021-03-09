@@ -5,37 +5,32 @@ import {CredentialButton} from '../CredentialButton/CredentialButton';
 
 type Props = {
   title: string;
-  subtitle1: string;
-  description1: string;
-  subtitle2: string;
-  description2: string;
+  description: string;
+  requirements: string;
+  credentialName: string;
   icon: any;
   hasBeenRequested: boolean;
-  hasBeenValidated: boolean;
-  subtitle3?: string;
-  description3?: string;
-  credentialName?: string;
-  functionClickButton?: any;
-  textButton?: string;
+  functionClickButton: any;
+  textButton: string;
 };
 
 const ServicePanel = (props: Props) => {
-  const {title, subtitle1, subtitle2, subtitle3,description1, description2,description3, credentialName, icon, hasBeenValidated, hasBeenRequested,textButton, functionClickButton} = props;
+  const {title, description, requirements, credentialName, icon, hasBeenRequested,textButton, functionClickButton} = props;
   return (
     <Grid className="containerProfile">
         
-        <Grid item xs={12} className="panelTitle">
+        <Grid xs={12} className="panelTitle">
             <Typography variant="h6" className="titlePanel">
                 {title}
             </Typography>
         </Grid>
-        <Grid container
+        <Grid xs={12} container
             direction="row"
             justify="space-between"
             alignItems="flex-start"
             className="panelBody">
-            <Grid item lg={1} xs={12}></Grid>
-            <Grid item lg={2} sm={12} xs={12}>
+            <Grid item sm={1} xs={12}></Grid>
+            <Grid item sm={2} xs={12}>
             <img
                 src={icon}
                 alt=""
@@ -43,35 +38,21 @@ const ServicePanel = (props: Props) => {
                 className="panelImage"
             />
             </Grid>
-            <Grid item lg={9} sm={12} xs={12}>
+            <Grid item sm={9} xs={12}>
             {!hasBeenRequested &&
               <div className="panelMainContent">
-                  <h3 className="titleBody">{subtitle1}:</h3>
-                  <p className="textBody">{description1}</p>
-                  <h3 className="titleBody">{subtitle2}:</h3>
-                  <p className="textBody">{description2}</p>
-                  {subtitle3 &&
-                    <div>
-                      <h3 className="titleBody">{subtitle3}:</h3>
-                      <p className="textBody">{description3}</p>
-                    </div>
-                  }
-                  {credentialName &&
-                    <p className="textBody"><b>{credentialName} </b>issued by Government of Freedonia</p>
-                  }
+                  <h3 className="titleBody">Description:</h3>
+                  <p className="textBody">{description}</p>
+                  <h3 className="titleBody">Requirements:</h3>
+                  <p className="textBody">{requirements}</p>
+                  <p className="textBody"><b>{credentialName} </b>issued by Health of Care</p>
               </div>
             }
-            {(hasBeenRequested && !hasBeenValidated) &&
+            {hasBeenRequested &&
               <div className="panelMainContent">
                   <h3 className="titleBody">Credential sent</h3>
                   <p className="textBody">Check your wallet, you will receive a notification.</p>
                   <p className="textBody">Accept it and you will have the credential in your wallet.</p>
-              </div>
-            }
-            {hasBeenValidated &&
-              <div className="panelMainContent">
-                  <h3 className="titleBody">Done</h3>
-                  <p className="textBody">Credential received and verified!</p>
                   <a href="/demo/tutorial?step=3" className="textBody">Go back to tutorial</a>
               </div>
             }
@@ -79,10 +60,11 @@ const ServicePanel = (props: Props) => {
             </Grid>
               
             </Grid>
-              {(!hasBeenRequested && functionClickButton) &&
+              {!hasBeenRequested &&
                 <CredentialButton variant="contained" onClick={functionClickButton}>
                   {textButton}
                 </CredentialButton>
+                
               }
     </Grid>
   );

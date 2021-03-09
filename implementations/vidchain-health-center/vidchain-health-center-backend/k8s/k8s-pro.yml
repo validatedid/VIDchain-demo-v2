@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: university-backend-deployment
+  name: health-center-backend-deployment
   labels:
-    app: university-backend
+    app: health-center-backend
 spec:
   replicas: 1
   revisionHistoryLimit: 1
   selector:
     matchLabels:
-      app: university-backend
+      app: health-center-backend
   strategy: 
     type: RollingUpdate
     rollingUpdate:
@@ -18,83 +18,83 @@ spec:
   template:
     metadata:
       labels:
-        app: university-backend
+        app: health-center-backend
     spec:
       containers:
-      - image: k8scrvidchainpro.azurecr.io/university-backend:latest
+      - image: k8scrvidchainpro.azurecr.io/health-center-backend:latest
         imagePullPolicy: "Always"
-        name: university-backend
+        name: health-center-backend
         ports:
-        - containerPort: 3023
+        - containerPort: 3029
         env:
         - name: API_URL
           valueFrom:
             configMapKeyRef:
-              name: university-backend-configmap
+              name: health-center-backend-configmap
               key: API_URL
         - name: BASE_URL
           valueFrom:
             configMapKeyRef:
-              name: university-backend-configmap
+              name: health-center-backend-configmap
               key: BASE_URL
         - name: PORT
           valueFrom:
             configMapKeyRef:
-              name: university-backend-configmap
+              name: health-center-backend-configmap
               key: PORT
         - name: REDIS_URL
           valueFrom:
             configMapKeyRef:
-              name: university-backend-configmap
+              name: health-center-backend-configmap
               key: REDIS_URL
         - name: REDIS_PORT
           valueFrom:
             configMapKeyRef:
-              name: university-backend-configmap
+              name: health-center-backend-configmap
               key: REDIS_PORT
         - name: WS_URL
           valueFrom:
             configMapKeyRef:
-              name: university-backend-configmap
+              name: health-center-backend-configmap
               key: WS_URL
-        - name: IDENTITY_PROVIDER
-          valueFrom:
-            configMapKeyRef:
-              name: university-backend-configmap
-              key: IDENTITY_PROVIDER
         - name: API_KEY
           valueFrom:
             secretKeyRef:
-              name: university-api-key
+              name: health-center-api-key
               key: api-key
         - name: CLIENT_SECRET
           valueFrom:
             secretKeyRef:
-              name: university-client-secret
+              name: health-center-client-secret
               key: client-secret
+        - name: IDENTITY_PROVIDER
+          valueFrom:
+            configMapKeyRef:
+              name: health-center-backend-configmap
+              key: IDENTITY_PROVIDER
       restartPolicy: Always
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: university-backend-service
+  name: health-center-backend-service
   labels:
-    app: university-backend
+    app: health-center-backend
 spec:
   type: ClusterIP
   ports:
-  - name: "3023"
-    port: 3023
+  - name: "3029"
+    port: 3029
   selector:
-    app: university-backend
+    app: health-center-backend
 
 ---
 
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: university-backend-ingress
+  name: health-center-backend-ingress
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
@@ -107,11 +107,11 @@ spec:
   - host: try.vidchain.net
     http:
       paths:
-      - path: /demo/universitybackend
+      - path: /demo/healthcenterbackend
         backend:
-          serviceName: university-backend-service
-          servicePort: 3023
-      - path: /universityws
+          serviceName: health-center-backend-service
+          servicePort: 3029
+      - path: /healthcenterws
         backend:
-          serviceName: university-backend-service
-          servicePort: 3023
+          serviceName: health-center-backend-service
+          servicePort: 3029

@@ -10,7 +10,7 @@ import {
   import { AuthService } from "./auth.service";
   import * as config from "../config";
   
-  @Controller("demo/universitybackend/auth")
+  @Controller("demo/healthcenterbackend/auth")
   export class AuthController {
     private readonly logger = new Logger(AuthController.name);
   

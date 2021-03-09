@@ -4,7 +4,7 @@ trigger:
       - main
   paths:
     include:
-      - implementations/vidchain-university/vidchain-university-frontend
+      - implementations/vidchain-health-center/vidchain-health-center-frontend
 
 pr: none
 
@@ -15,16 +15,16 @@ variables:
   # Docker Buildkit improves image build performance
   DOCKER_BUILDKIT: 1
   # Image repository
-  universityFrontendRepo: 'university-frontend'
-  universityFrontendRepoEndpoint: 'k8scrvidchainpro.azurecr.io/university-frontend'
+  healthCenterFrontendRepo: 'health-center-frontend'
+  healthCenterFrontendRepoEndpoint: 'k8scrvidchainpro.azurecr.io/health-center-frontend'
   # Dockerfiles
-  universityFrontendDocker: 'implementations/vidchain-university/vidchain-university-frontend/Dockerfile'
+  healthCenterFrontendDocker: 'implementations/vidchain-health-center/vidchain-health-center-frontend/Dockerfile'
   # Kubernetes YAML
-  universityFrontendKubernetes: 'implementations/vidchain-university/vidchain-university-frontend/k8s/k8s-pro.yml'
+  healthCenterFrontendKubernetes: 'implementations/vidchain-health-center/vidchain-health-center-frontend/k8s/k8s-pro.yml'
   # Kubernetes namespace
   namespace: 'production'
   # Image tagging: application version - build
-  tagUniversityFrontend: '$(Build.BuildNumber)'
+  tagHealthCenterFrontend: '$(Build.BuildNumber)'
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
@@ -42,53 +42,53 @@ stages:
         shortCommit=${commit:0:7}
         echo "##vso[build.updatebuildnumber]$(Build.BuildId)-commit.$shortCommit"
       displayName: 'retrieve $(packageJson) version'
-  - job: BuildUniversityFrontend
-    displayName: 'Build University Frontend'
+  - job: BuildHealthCenterFrontend
+    displayName: 'Build Health Center Frontend'
     dependsOn: GetShortCommit
     pool:
       vmImage: $(vmImageName)
     steps:
     - bash: |
-        cp ./implementations/vidchain-university/vidchain-university-frontend/envs/.env.production ./implementations/vidchain-university/vidchain-university-frontend/.env
-        echo -e "\nREACT_APP_API_KEY=$API_KEY" >> ./implementations/vidchain-university/vidchain-university-frontend/.env
+        cp ./implementations/vidchain-health-center/vidchain-health-center-frontend/envs/.env.production ./implementations/vidchain-health-center/vidchain-health-center-frontend/.env
+        echo -e "\nREACT_APP_API_KEY=$API_KEY" >> ./implementations/vidchain-health-center/vidchain-health-center-frontend/.env
       name: load_env_variables_file
       displayName: 'load env vars'
       env:
-        API_KEY: $(API_KEY_UNIVERSITY)
+        API_KEY: $(API_KEY_HEALTH_CENTER)
     - task: Docker@2
       displayName: Login ACR
       inputs:
         command: login
         containerRegistry: $(dockerRegistryServiceConnection)
-    - script: "docker pull $(universityFrontendRepoEndpoint):latest"
+    - script: "docker pull $(healthCenterFrontendRepoEndpoint):latest"
       displayName: Pull latest for layer caching
       continueOnError: true # for first build, no cache
     - task: Docker@2
-      displayName: "build --cache-from=$(universityFrontendRepoEndpoint):latest"
+      displayName: "build --cache-from=$(healthCenterFrontendRepoEndpoint):latest"
       inputs:
         containerRegistry: '$(dockerRegistryServiceConnection)'
-        repository: '$(universityFrontendRepo)'
+        repository: '$(healthCenterFrontendRepo)'
         command: 'build'
-        Dockerfile: $(universityFrontendDocker)
-        arguments: '--cache-from=$(universityFrontendRepoEndpoint):latest' 
+        Dockerfile: $(healthCenterFrontendDocker)
+        arguments: '--cache-from=$(healthCenterFrontendRepoEndpoint):latest' 
         tags: |
-          $(tagUniversityFrontend)
+          $(tagHealthCenterFrontend)
           latest
     - task: Docker@2
       displayName: "push"
       inputs:
         command: push
         containerRegistry: "$(dockerRegistryServiceConnection)"
-        repository: $(universityFrontendRepo) 
+        repository: $(healthCenterFrontendRepo) 
         tags: |
-          $(tagUniversityFrontend)
-          latest        
+          $(tagHealthCenterFrontend)
+          latest  
 - stage: Deploy
   displayName: 'Deploy stage'
   dependsOn: Build
   jobs:
-  - deployment: DeployUniversityFrontend
-    displayName: 'Deploy University Frontend'
+  - deployment: DeployHealthCenterFrontend
+    displayName: 'Deploy Health Center Frontend'
     pool:
       vmImage: $(vmImageName)
     environment: 'production'
@@ -102,6 +102,6 @@ stages:
             inputs:              
               kubernetesServiceConnection: $(kubernetesServiceConnection)
               namespace: $(namespace)
-              manifests: $(universityFrontendKubernetes)
+              manifests: $(healthCenterFrontendKubernetes)
               containers: |
-                $(universityFrontendRepoEndpoint):$(tagUniversityFrontend)
+                $(healthCenterFrontendRepoEndpoint):$(tagHealthCenterFrontend)

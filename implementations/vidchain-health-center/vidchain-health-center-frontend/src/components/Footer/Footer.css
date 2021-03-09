@@ -5,19 +5,12 @@
 }
 .textFooter{
   font-size: 12px;
-  color: black;
-  width: 150%;
+  color: white;
 }
 .footer {
   clear: both;
   position: fixed;
   bottom: 0;
   width: 100%;
-  background-color: #ffffff;
-}
-@media only screen and (max-width: 767px) {
-  .textFooter{
-
-    margin-left: -50%;
-  }
+  background-color: #151a35;
 }
