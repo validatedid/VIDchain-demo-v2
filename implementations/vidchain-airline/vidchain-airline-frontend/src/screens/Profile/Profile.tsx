@@ -13,8 +13,6 @@ import { verifiableKYC } from "../../interfaces/dtos";
 import { PresentationPayload, VerifiableCredential } from "../../interfaces/IPresentation";
 import ServicePanel from "../../components/ServicePanel/ServicePanel";
 
-import iconCourse from "../../assets/images/iconCourse.svg";
-import iconLargeFamily from "../../assets/images/iconLargeFamily.svg";
 import iconProfile from "../../assets/images/iconProfile.svg";
 
 
@@ -28,8 +26,8 @@ interface Props {
 interface State {
   did: string;
   verifiableKYC: verifiableKYC;
-  largeFamily: boolean;
-  discountRequested: boolean;
+  vaccinePresented: boolean;
+  vaccineRequested: boolean;
   studentCard: boolean;
   socketSession: string;
   type: string;
@@ -43,8 +41,8 @@ class Profile extends Component<Props, State> {
     const {state} = this.props.location;
     this.state = {
       did: state ? utils.getUserDid(state.id_token) : '',
-      largeFamily: false,
-      discountRequested: false,
+      vaccinePresented: false,
+      vaccineRequested: false,
       studentCard: false,
       socketSession: "",
       verifiableKYC: {} as verifiableKYC,
@@ -53,10 +51,8 @@ class Profile extends Component<Props, State> {
       popUpisOpen: false,
     };
     
-    this.generateCredential = this.generateCredential.bind(this);
+    this.generateTicket = this.generateTicket.bind(this);
     this.claimVP = this.claimVP.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-    this.endTutorial = this.endTutorial.bind(this);
   }
 
   async componentDidMount() {
@@ -87,15 +83,17 @@ class Profile extends Component<Props, State> {
               },
             did: utils.getUserDid(this.props.location.state.id_token),
           });
+          
         }
 
       }
       if(state && state.did){
+        this.generateTicket();
         this.setState({
           did: this.props.location.state.did,
           type: this.props.location.state.type,
           data: this.props.location.state.data,
-          largeFamily: true,
+          vaccinePresented: true,
         });
 
       }
@@ -126,12 +124,10 @@ class Profile extends Component<Props, State> {
 
     socket.on("largeFamilyPresentation", (msg: any) => {
       console.log("receive");
+      this.generateTicket();
       this.setState({
-        largeFamily: true,
+        vaccinePresented: true,
       });
-      if (sessionStorage.getItem("tutorial")) {
-        this.openModal();
-      }
     });
   }
 
@@ -139,7 +135,7 @@ class Profile extends Component<Props, State> {
    * VIDCHAIN API REQUEST: Generate Verifiable Credential
    * An authentication token is requested and it is used to request the generation of a verifiableCredential
    */
-  async generateCredential() {
+  async generateTicket() {
     this.setState({
       studentCard: true,
     });
@@ -147,12 +143,14 @@ class Profile extends Component<Props, State> {
 
     let subject: ICredentialSubject = {
       id: this.state.did,
-      university: "ACME University - Computer Science Department",
-      degree: "Bachelor in Software Engineering",
+      from: "Barcelona-El Prat",
+      to: "Paris Beauvais",
+      date: "Tomorrow at 10:30",
+      seat: "23C"
     };
 
     let credential: ICredentialData = {
-      type: ["VerifiableCredential", "UniversityStudentCard"],
+      type: ["VerifiableCredential", "TicketFlight"],
       issuer: utils.getIssuerDid(token),
       id: this.state.did,
       credentialSubject: subject,
@@ -170,40 +168,27 @@ class Profile extends Component<Props, State> {
   async claimVP() {
     const {did} = this.state;
     this.setState({
-      discountRequested: true,
+      vaccineRequested: true,
     });
     let redirectUri = "";
     if(utils.isMobileOrTablet()){
       const sessionId = utils.randomString(8);
-      redirectUri = config.APP_URL + "/presentation?sessionId="+sessionId+"&did="+did+"&type=LargeFamilyCard";
+      redirectUri = config.APP_URL + "/presentation?sessionId="+sessionId+"&did="+did+"&type=VaccinationCertificate";
       const body = {
         did,
         sessionId,
       }
       await airlineBackend.createSession(body);
     }
-    airlineBackend.claimVP(did, "LargeFamilyCard", redirectUri);
-  }
-
-  openModal = () => this.setState({ popUpisOpen: true });
-  closeModal = () => {
-    this.setState({ popUpisOpen: false });
-    
-  };
-
-  endTutorial = () => {
-    sessionStorage.setItem("step", String(4));
-    window.location.replace("/demo/tutorial?step=4");
+    airlineBackend.claimVP(did, "VaccinationCertificate", redirectUri);
   }
 
   render() {
     const {
       did,
       verifiableKYC,
-      studentCard,
-      largeFamily,
-      discountRequested,
-      popUpisOpen
+      vaccinePresented,
+      vaccineRequested,
     } = this.state;
     return (
       <Grid container 
@@ -219,77 +204,26 @@ class Profile extends Component<Props, State> {
         <Grid item className="titleProfile">
           <Typography variant="h2">{"Welcome to your\nAirline Portal"}</Typography>
           {/* <Typography variant="h1">{'Freedonia Citizen Portal'}</Typography> */}
-          <Typography variant="h5">Here you can check your profile details and manage your activity within the Airline</Typography>
         </Grid>
         <Grid container
           direction="column"
           justify="space-between"
           alignItems="center" 
           className="panels">
-            
-            <ServicePanel 
-              title="Enroled courses"
-              subtitle1="Name"
-              description1="Bachelor's in Software Engineering"
-              subtitle2="Description"
-              description2={"The bachelor's degree in Software Engineering provides the knowledge needed to conceive, develop,"+
-              "mantain and manage computer systems, services, applications and architectures and to understand and apply relevant legislation."+
-              "You will also become an expert in new methods and technologies in the field of ICTs."}
-              subtitle3="Institution"
-              description3="ACME University - Computer Science Department"
-              icon={iconCourse}
-              hasBeenValidated={false}
-              hasBeenRequested={false} />
 
           <ServicePanel 
-              title="Your Profile"
-              subtitle1="Course details"
-              description1={"The bachelor's degree in Software Engineering provides the knowledge needed to conceive, design, develop, mantain and"+
-              "manage computer sysyems, services, applications and architectures and to understand and apply relevant legislation."+
-              "You will also become an expert in new methods and technologies in the ffield of ICTs"}
-              subtitle2="DID"
-              description2={did}
-              subtitle3="Name"
-              description3={verifiableKYC.surname ? (verifiableKYC.name + " " + verifiableKYC.surname) : verifiableKYC.name}
-              icon={iconProfile}
-              textButton="Get Student card credential"
-              functionClickButton={this.generateCredential}
-              hasBeenValidated={false}
-              hasBeenRequested={studentCard} />
-
-          <ServicePanel 
-              title="Request your Large Family credential"
-              subtitle1="Description"
-              description1={"Our university is commited to provide opportunities to everyone. Therefore, this university"+
-              "iis eager to support Large Families and for that reason, all the students who are titled Large Family"+
-              "will have a 25% discount in student's fees. Do not miss the opportunnity to present your credentials before finishing the course."}
+              title="Your Flights"
+              subtitle1={"Hi, "+ (verifiableKYC.surname ? (verifiableKYC.name + " " + verifiableKYC.surname) : verifiableKYC.name)}
+              description1={"You have a flight from Barcelona-El Prat to Paris Beauvais for Tomorrow at 10.30.\n\n\n"+
+              "\nYou can do now the Check In to get the ticket for your flight.\n"}
               subtitle2="Requirements"
-              description2={"In order to get this discount in your students fees, you will have to prove you are in a Large Family."}
-              credentialName="Present your Large Family Card Credential"
-              icon={iconLargeFamily}
-              textButton="Apply for a discount"
+              description2={"In order to get the ticket, you will have to prove you you have received the Covid-19 Vaccination Certificate."}
+              credentialName="Present your Vaccination Certificate"
+              icon={iconProfile}
+              textButton="Check In"
               functionClickButton={this.claimVP}
-              hasBeenValidated={largeFamily}
-              hasBeenRequested={discountRequested} />
-
-            <Dialog
-              open={popUpisOpen}
-              onClose={this.closeModal}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle id="alert-dialog-title">{"Good Job!"}</DialogTitle>
-              <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                You have completed this step successfully.
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={this.endTutorial} color="primary" autoFocus>
-                Go back to tutorial
-                </Button>
-              </DialogActions>
-            </Dialog>
+              hasBeenValidated={vaccinePresented}
+              hasBeenRequested={vaccineRequested} />            
           </Grid>
       </Grid>
     );

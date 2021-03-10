@@ -57,7 +57,7 @@ const ServicePanel = (props: Props) => {
                     </div>
                   }
                   {credentialName &&
-                    <p className="textBody"><b>{credentialName} </b>issued by Government of Freedonia</p>
+                    <p className="textBody"><b>{credentialName} </b>issued by your Health Care Center</p>
                   }
               </div>
             }
@@ -72,7 +72,7 @@ const ServicePanel = (props: Props) => {
               <div className="panelMainContent">
                   <h3 className="titleBody">Done</h3>
                   <p className="textBody">Credential received and verified!</p>
-                  <a href="/demo/tutorial?step=3" className="textBody">Go back to tutorial</a>
+                  <p className="textBody">Check your wallet, you will receive a notification with your ticket.</p>
               </div>
             }
 

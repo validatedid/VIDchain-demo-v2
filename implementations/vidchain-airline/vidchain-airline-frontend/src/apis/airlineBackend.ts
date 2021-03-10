@@ -8,20 +8,7 @@ The request of a Verifiable presentation should be handled in the backend so as 
 */
 
 async function claimVP(target: string, name: string, redirectUri: string) {
-  let presentationType = [] as any;
-  switch (name) {
-    case "Login": {
-      presentationType = ["VerifiableCredential", "VerifiableIdCredential"];
-      break;
-    }
-    case "LargeFamilyCard": {
-      presentationType = ["VerifiableCredential", "LargeFamilyCard"];
-      break;
-    }
-    default: {
-      break;
-    }
-  }
+  let presentationType = ["VerifiableCredential", name];
   const presentation: IPresentation = {
     target: target,
     name: name,

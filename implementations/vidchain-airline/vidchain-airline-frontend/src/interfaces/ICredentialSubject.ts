@@ -1,5 +1,7 @@
 export interface ICredentialSubject {
   id: string;
-  university: string;
-  degree: string;
+  from: string;
+  to: string;
+  date: string;
+  seat: string;
 }
