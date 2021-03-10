@@ -13,8 +13,11 @@ import { verifiableKYC } from "../../interfaces/dtos";
 import { PresentationPayload, VerifiableCredential } from "../../interfaces/IPresentation";
 import ServicePanel from "../../components/ServicePanel/ServicePanel";
 
+<<<<<<< HEAD
+=======
 import iconCourse from "../../assets/images/iconCourse.svg";
 import iconLargeFamily from "../../assets/images/iconLargeFamily.svg";
+>>>>>>> development
 import iconProfile from "../../assets/images/iconProfile.svg";
 
 
@@ -28,8 +31,13 @@ interface Props {
 interface State {
   did: string;
   verifiableKYC: verifiableKYC;
+<<<<<<< HEAD
+  vaccinePresented: boolean;
+  vaccineRequested: boolean;
+=======
   largeFamily: boolean;
   discountRequested: boolean;
+>>>>>>> development
   studentCard: boolean;
   socketSession: string;
   type: string;
@@ -43,8 +51,13 @@ class Profile extends Component<Props, State> {
     const {state} = this.props.location;
     this.state = {
       did: state ? utils.getUserDid(state.id_token) : '',
+<<<<<<< HEAD
+      vaccinePresented: false,
+      vaccineRequested: false,
+=======
       largeFamily: false,
       discountRequested: false,
+>>>>>>> development
       studentCard: false,
       socketSession: "",
       verifiableKYC: {} as verifiableKYC,
@@ -53,10 +66,15 @@ class Profile extends Component<Props, State> {
       popUpisOpen: false,
     };
     
+<<<<<<< HEAD
+    this.generateTicket = this.generateTicket.bind(this);
+    this.claimVP = this.claimVP.bind(this);
+=======
     this.generateCredential = this.generateCredential.bind(this);
     this.claimVP = this.claimVP.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.endTutorial = this.endTutorial.bind(this);
+>>>>>>> development
   }
 
   async componentDidMount() {
@@ -87,15 +105,27 @@ class Profile extends Component<Props, State> {
               },
             did: utils.getUserDid(this.props.location.state.id_token),
           });
+<<<<<<< HEAD
+          
+=======
+>>>>>>> development
         }
 
       }
       if(state && state.did){
+<<<<<<< HEAD
+        this.generateTicket();
+=======
+>>>>>>> development
         this.setState({
           did: this.props.location.state.did,
           type: this.props.location.state.type,
           data: this.props.location.state.data,
+<<<<<<< HEAD
+          vaccinePresented: true,
+=======
           largeFamily: true,
+>>>>>>> development
         });
 
       }
@@ -126,12 +156,19 @@ class Profile extends Component<Props, State> {
 
     socket.on("largeFamilyPresentation", (msg: any) => {
       console.log("receive");
+<<<<<<< HEAD
+      this.generateTicket();
+      this.setState({
+        vaccinePresented: true,
+      });
+=======
       this.setState({
         largeFamily: true,
       });
       if (sessionStorage.getItem("tutorial")) {
         this.openModal();
       }
+>>>>>>> development
     });
   }
 
@@ -139,7 +176,11 @@ class Profile extends Component<Props, State> {
    * VIDCHAIN API REQUEST: Generate Verifiable Credential
    * An authentication token is requested and it is used to request the generation of a verifiableCredential
    */
+<<<<<<< HEAD
+  async generateTicket() {
+=======
   async generateCredential() {
+>>>>>>> development
     this.setState({
       studentCard: true,
     });
@@ -147,12 +188,23 @@ class Profile extends Component<Props, State> {
 
     let subject: ICredentialSubject = {
       id: this.state.did,
+<<<<<<< HEAD
+      from: "Barcelona-El Prat",
+      to: "Paris Beauvais",
+      date: "Tomorrow at 10:30",
+      seat: "23C"
+    };
+
+    let credential: ICredentialData = {
+      type: ["VerifiableCredential", "TicketFlight"],
+=======
       university: "ACME University - Computer Science Department",
       degree: "Bachelor in Software Engineering",
     };
 
     let credential: ICredentialData = {
       type: ["VerifiableCredential", "UniversityStudentCard"],
+>>>>>>> development
       issuer: utils.getIssuerDid(token),
       id: this.state.did,
       credentialSubject: subject,
@@ -170,18 +222,29 @@ class Profile extends Component<Props, State> {
   async claimVP() {
     const {did} = this.state;
     this.setState({
+<<<<<<< HEAD
+      vaccineRequested: true,
+=======
       discountRequested: true,
+>>>>>>> development
     });
     let redirectUri = "";
     if(utils.isMobileOrTablet()){
       const sessionId = utils.randomString(8);
+<<<<<<< HEAD
+      redirectUri = config.APP_URL + "/presentation?sessionId="+sessionId+"&did="+did+"&type=VaccinationCertificate";
+=======
       redirectUri = config.APP_URL + "/presentation?sessionId="+sessionId+"&did="+did+"&type=LargeFamilyCard";
+>>>>>>> development
       const body = {
         did,
         sessionId,
       }
       await airlineBackend.createSession(body);
     }
+<<<<<<< HEAD
+    airlineBackend.claimVP(did, "VaccinationCertificate", redirectUri);
+=======
     airlineBackend.claimVP(did, "LargeFamilyCard", redirectUri);
   }
 
@@ -194,16 +257,22 @@ class Profile extends Component<Props, State> {
   endTutorial = () => {
     sessionStorage.setItem("step", String(4));
     window.location.replace("/demo/tutorial?step=4");
+>>>>>>> development
   }
 
   render() {
     const {
       did,
       verifiableKYC,
+<<<<<<< HEAD
+      vaccinePresented,
+      vaccineRequested,
+=======
       studentCard,
       largeFamily,
       discountRequested,
       popUpisOpen
+>>>>>>> development
     } = this.state;
     return (
       <Grid container 
@@ -219,13 +288,32 @@ class Profile extends Component<Props, State> {
         <Grid item className="titleProfile">
           <Typography variant="h2">{"Welcome to your\nAirline Portal"}</Typography>
           {/* <Typography variant="h1">{'Freedonia Citizen Portal'}</Typography> */}
+<<<<<<< HEAD
+=======
           <Typography variant="h5">Here you can check your profile details and manage your activity within the Airline</Typography>
+>>>>>>> development
         </Grid>
         <Grid container
           direction="column"
           justify="space-between"
           alignItems="center" 
           className="panels">
+<<<<<<< HEAD
+
+          <ServicePanel 
+              title="Your Flights"
+              subtitle1={"Hi, "+ (verifiableKYC.surname ? (verifiableKYC.name + " " + verifiableKYC.surname) : verifiableKYC.name)}
+              description1={"You have a flight from Barcelona-El Prat to Paris Beauvais for Tomorrow at 10.30.\n\n\n"+
+              "\nYou can do now the Check In to get the ticket for your flight.\n"}
+              subtitle2="Requirements"
+              description2={"In order to get the ticket, you will have to prove you you have received the Covid-19 Vaccination Certificate."}
+              credentialName="Present your Vaccination Certificate"
+              icon={iconProfile}
+              textButton="Check In"
+              functionClickButton={this.claimVP}
+              hasBeenValidated={vaccinePresented}
+              hasBeenRequested={vaccineRequested} />            
+=======
             
             <ServicePanel 
               title="Enroled courses"
@@ -290,6 +378,7 @@ class Profile extends Component<Props, State> {
                 </Button>
               </DialogActions>
             </Dialog>
+>>>>>>> development
           </Grid>
       </Grid>
     );

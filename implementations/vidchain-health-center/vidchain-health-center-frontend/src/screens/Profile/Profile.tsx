@@ -2,7 +2,11 @@ import React, { Component } from "react";
 import "./Profile.css";
 import {Typography, Grid, Dialog, DialogActions, DialogTitle, DialogContent, Button, DialogContentText} from '@material-ui/core';
 import Header from "../../components/Header/Header";
+<<<<<<< HEAD
+import { ICredentialData, InputCredential } from "../../interfaces/dtos";
+=======
 import { ICredentialData, CredentialData, InputCredential, InputOptions } from "../../interfaces/dtos";
+>>>>>>> development
 import * as vidchain from "../../apis/vidchain";
 import { OpenIDClient } from "../../libs/openid-connect/client";
 import * as utils from "../../utils/utils";
@@ -26,7 +30,11 @@ interface Props {
 interface State {
   user: ICredentialData;
   did: string;
+<<<<<<< HEAD
+  hasVaccineRequested: boolean;
+=======
   largeFamily: boolean;
+>>>>>>> development
   verifiableKYC: verifiableKYC;
   popUpisOpen: boolean;
 }
@@ -36,15 +44,22 @@ class Profile extends Component<Props, State> {
     super(props);
     this.state = {
       user: {} as ICredentialData,
+<<<<<<< HEAD
+      hasVaccineRequested: false,
+=======
       largeFamily: false,
+>>>>>>> development
       did: "",
       verifiableKYC: {} as verifiableKYC,
       popUpisOpen: false
     };
 
     this.generateCredential = this.generateCredential.bind(this);
+<<<<<<< HEAD
+=======
     this.closeModal = this.closeModal.bind(this);
     this.gotBackToTutorial = this.gotBackToTutorial.bind(this);
+>>>>>>> development
   }
 
   componentDidMount() {
@@ -89,6 +104,37 @@ class Profile extends Component<Props, State> {
    * An authentication token is requested and it is used to request the generation of a verifiableCredential
    */
   async generateCredential() {
+<<<<<<< HEAD
+    const {verifiableKYC} = this.state;
+    const token = await vidchain.getAuthzToken();
+    const credential: InputCredential = {
+        type: ["VerifiableCredential", "VaccinationCertificate"],
+        issuer: utils.getIssuerDid(token),
+        id: "https://example.com/credential/2590",
+        issuanceDate: new Date().toISOString(),
+        credentialSubject: {
+          id: this.state.did,
+          type: "VaccinationEvent",
+          batchNumber: "1183738569",
+          administeringCentre: "Health Care Center",
+          healthProfessional: "MoH",
+          countryOfVaccination: "ES",
+          recipient: {
+            type: "VaccineRecipient",
+            givenName: verifiableKYC.name,
+            familyName: verifiableKYC.surname,
+            gender: verifiableKYC.sex,
+            birthDate: verifiableKYC.dateOfBirth
+          },
+          vaccine: {
+            type: "Vaccine",
+            disease: "COVID-19",
+            atcCode: "J07BX03",
+            medicinalProductName: "COVID-19 Vaccine Moderna",
+            marketingAuthorizationHolder: "Moderna Biotech"
+          }
+        }
+=======
     const token = await vidchain.getAuthzToken();
     const credential: CredentialData = {
       credential: {
@@ -106,6 +152,7 @@ class Profile extends Component<Props, State> {
             password: config.eidasCertificatePassword,
           }
         } as InputOptions,
+>>>>>>> development
     };
     
     const response = await vidchain.generateVerifiableCredential(
@@ -113,6 +160,10 @@ class Profile extends Component<Props, State> {
       credential
     );
     this.setState({
+<<<<<<< HEAD
+      hasVaccineRequested: true,
+    });
+=======
       largeFamily: true,
     });
     if (sessionStorage.getItem("tutorial")) {
@@ -129,14 +180,19 @@ class Profile extends Component<Props, State> {
   gotBackToTutorial = () => {
     sessionStorage.setItem("step", String(3))
     window.location.replace("/demo/tutorial?step=3");
+>>>>>>> development
   }
 
   render() {
     const {
       did,
       verifiableKYC,
+<<<<<<< HEAD
+      hasVaccineRequested
+=======
       largeFamily,
       popUpisOpen
+>>>>>>> development
     } = this.state;
     return (
       <div className="profileHome">
@@ -148,7 +204,11 @@ class Profile extends Component<Props, State> {
         className="profileHome">
 
         <Grid item className="titleProfile">
+<<<<<<< HEAD
+          <Typography variant="h2">{"Welcome to your Health Care Center"}</Typography>
+=======
           <Typography variant="h2">{"Welcome to your\nFreedonia Citizen Portal"}</Typography>
+>>>>>>> development
           {/* <Typography variant="h1">{'Freedonia Citizen Portal'}</Typography> */}
           <Typography variant="h5">Here you can check your profile details and manage your activity within the Freedonia Citizen</Typography>
         </Grid>
@@ -165,6 +225,17 @@ class Profile extends Component<Props, State> {
             />
             
             <ServicePanel 
+<<<<<<< HEAD
+              title="Request your Vaccination Certificate credential"
+              description="You can use it wherever you go: to buy a ticket in an airlines, to travel to another city..."
+              requirements="In order to get this credential you will have to prove you have received the Covid-19 vaccine"
+              credentialName="Present your Vaccination Certificate Credential"
+              icon={profileIcon}
+              textButton="Get Vaccination Certificate Credential"
+              functionClickButton={this.generateCredential}
+              hasBeenRequested={hasVaccineRequested} />
+
+=======
               title="Request your Large Family credential"
               description="You can use it wherever you go: Public Service Providers, Universities, Schools..."
               requirements="In order to get this discount in your students ffees you will have to prove you are in a Large Family"
@@ -192,6 +263,7 @@ class Profile extends Component<Props, State> {
                 </Button>
               </DialogActions>
             </Dialog>
+>>>>>>> development
           </Grid>
       </Grid>
       </div>
