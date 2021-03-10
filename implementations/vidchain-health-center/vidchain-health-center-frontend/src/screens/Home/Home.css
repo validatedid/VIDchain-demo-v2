@@ -1,0 +1,68 @@
+
+.titleHome h2{
+  margin-top: 12rem;
+  margin-left: 10rem;
+  width: 50%
+}
+.titleHome h5{
+  margin-left: 10rem;
+  width: 60%;
+}
+.buttonSignIn {
+  left: 40%;
+} 
+@media only screen and (max-height: 640px) and (max-width: 768px)  {
+  .titleHome h2{
+    margin-top: 6rem;
+    margin-left: 2rem;
+    width: 90%
+  }
+  .titleHome h5{
+    margin-left: 2rem;
+    width: 90%;
+  }
+  .buttonSignIn {
+    position: absolute;
+    left: 25%;
+    bottom: 15%;
+  } 
+}
+@media only screen and (min-height: 640px) and (max-width: 768px) {
+  .titleHome h2{
+    margin-top: 12rem;
+    margin-left: 2rem;
+    width: 90%
+  }
+  .titleHome h5{
+    margin-left: 2rem;
+    width: 90%;
+  }
+  .buttonSignIn {
+    position: absolute;
+    left: 30%;
+    bottom: 15%;
+  } 
+}
+  /* Tablet */
+  @media only screen and (min-device-width: 767px) and (max-device-width: 1024px) {
+    .titleHome h2{
+      margin-top: 15rem;
+      margin-left: 5rem;
+      width: 50%
+    }
+    .titleHome h5{
+      margin-left: 5rem;
+      width: 60%;
+    }
+    .buttonSignIn {
+      left: 45%;
+      bottom: 45%;
+    } 
+  }
+
+.home {
+  background-image: url("../../assets/images/helthcare.jpeg");
+  background-repeat: no-repeat;
+  height: 100%;
+  min-height: 100vh;
+}

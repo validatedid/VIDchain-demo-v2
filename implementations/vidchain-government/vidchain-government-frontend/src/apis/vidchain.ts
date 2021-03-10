@@ -4,7 +4,7 @@ import { ICredentialData, CredentialData } from "../interfaces/dtos";
 import { strB64enc } from "../utils/utils";
 
 
-async function request(token: string, user: any, endpoint: string) {
+async function request(token: string, credentialData: any, endpoint: string) {
   let authorization = {
     headers: {
       Authorization: "Bearer " + token,
@@ -13,7 +13,7 @@ async function request(token: string, user: any, endpoint: string) {
   try {
     const response = await axios.post(
       config.API_URL.concat(endpoint),
-      user,
+      credentialData,
       authorization
     );
     if (response.status !== 200 && response.status !== 201) {
@@ -51,9 +51,9 @@ async function generateVerifiableID(token: string, user: ICredentialData) {
 // Request Verifiable Credential generation
 async function generateVerifiableCredential(
   token: string,
-  user: CredentialData
+  credentialData: CredentialData
 ) {
-  return request(token, user, "/verifiable-credentials");
+  return request(token, credentialData, "/verifiable-credentials");
 }
 
 export { getAuthzToken, generateVerifiableID, generateVerifiableCredential };

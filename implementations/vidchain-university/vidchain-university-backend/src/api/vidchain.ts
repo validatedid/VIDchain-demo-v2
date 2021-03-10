@@ -14,6 +14,7 @@ async function postRequest(token: string, user: any, endpoint: string) {
     },
   };
   try {
+    console.log(JSON.stringify(user));
     const response = await axios.post(
       config.API_URL.concat(endpoint),
       user,

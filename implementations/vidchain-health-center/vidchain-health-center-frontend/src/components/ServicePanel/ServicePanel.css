@@ -1,0 +1,95 @@
+
+  
+  .containerProfile{
+    width: 80%;
+    background: #F2F2F2;
+    box-shadow: 2px 2px 12px #D6D6D6;
+    border-radius: 3px;
+    display: flex;
+    align-self: center;
+    flex-direction: column;
+    margin-bottom: 5%;
+  }
+  .panelTitle {
+    position: absolute;
+    width: 80%;
+    height: 5%;
+    background: linear-gradient(270deg, #E61B72 0%, #F9B95A 100.45%);
+    border-radius: 2px 2px 0px 0px;
+    display: flex;
+    align-items: center;
+    padding-top: 2%;
+    padding-bottom: 2%;
+  }
+  .panelBody {
+    flex-direction: row;
+    display: flex;
+    margin-top: 10%;
+  }
+  .titlePanel {
+    position: relative;
+    color: #FFFFFF;
+    left: 23%
+  }
+  @media only screen and (max-width: 767px) {
+    .panelTitle {
+      height: auto;
+      padding-bottom: 10%;
+      padding-top: 10%;
+    }
+    .titlePanel {
+      position: relative;
+      color: #FFFFFF;
+      left: 5%;
+      width: 95%;
+    }
+  }
+  .titleBody {
+    font-weight: bold;
+    font-size: 18px;
+    color: #7B788A;
+    margin-bottom: -1%;
+  }
+  .textBody {
+    font-size: 16px;
+    color: #7B788A;
+  }
+  .panelMainContent {
+    margin-bottom: 3rem;
+  }
+  .panelImage {
+    position: relative;
+    margin-top: 3rem;
+  }
+  
+  @media only screen and (min-height: 640px) and (max-width: 768px) {
+  .panelImage {
+    margin-top: 55%;
+    margin-left: 35%;
+  }
+  .panelMainContent {
+    text-align: center;
+  }
+  .buttonCredential {
+    position: absolute;
+  }
+}
+@media only screen and (max-height: 640px) and (max-width: 768px)  {
+  .panelImage {
+    margin-top: 85%;
+    margin-left: 35%;
+  }
+  .panelMainContent {
+    text-align: center;
+  }
+  .buttonCredential {
+    position: absolute;
+  }
+}
+@media only screen and (min-device-width: 767px) and (max-device-width: 1024px) {
+  .panelImage {
+    position: relative;
+    top: 2rem;
+  }
+}
+
