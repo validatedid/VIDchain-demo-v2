@@ -44,20 +44,6 @@ class Home extends Component<Props, State> {
     });
   }
 
-<<<<<<< HEAD
-=======
-  async login() {
-    if (this.state.name.toLowerCase() === "santi") {
-      this.props.history.push({
-        pathname: "/profile",
-        state: {
-          fakeLogin: true
-        }
-      });
-    }
-  }
-
->>>>>>> development
   render() {
     return (
       <div className="home">
