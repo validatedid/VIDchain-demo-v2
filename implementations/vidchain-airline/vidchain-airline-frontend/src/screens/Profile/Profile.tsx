@@ -32,7 +32,6 @@ interface State {
   socketSession: string;
   type: string;
   data: any;
-  popUpisOpen: boolean;
 }
 
 class Profile extends Component<Props, State> {
@@ -41,14 +40,13 @@ class Profile extends Component<Props, State> {
     const {state} = this.props.location;
     this.state = {
       did: state ? utils.getUserDid(state.id_token) : '',
-sePresented: false,
+      vaccinePresented: false,
       vaccineRequested: false,
       studentCard: false,
       socketSession: "",
       verifiableKYC: {} as verifiableKYC,
       type: "",
       data: {},
-      popUpisOpen: false,
     };
     
     this.generateTicket = this.generateTicket.bind(this);
@@ -168,7 +166,7 @@ sePresented: false,
   async claimVP() {
     const {did} = this.state;
     this.setState({
-seRequested: true,
+      vaccineRequested: true,
     });
     let redirectUri = "";
     if(utils.isMobileOrTablet()){
