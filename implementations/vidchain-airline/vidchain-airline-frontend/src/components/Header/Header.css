@@ -1,14 +1,12 @@
 .logoHeader{
     position: relative;
     width: 260px;
-    height: 73px;
-    margin-top: 2%;
-    margin-bottom: 1rem;
+    height: 128px;
     left: 5rem;
   }
   .headerBackground {
     position: absolute;
-    background-color:rgba(21,26,53,1);
+    background-color: #ffffff;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -16,7 +14,7 @@
   .powered {
     position: absolute;
     left: 80%;
-    color: white;
+    color: rgba(21,26,53,1);
     margin-top: 3rem;
   }
   @media only screen and (max-width: 768px) {
