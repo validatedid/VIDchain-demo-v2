@@ -2,11 +2,7 @@ import React, { Component } from "react";
 import "./Profile.css";
 import {Typography, Grid, Dialog, DialogActions, DialogTitle, DialogContent, Button, DialogContentText} from '@material-ui/core';
 import Header from "../../components/Header/Header";
-<<<<<<< HEAD
 import { ICredentialData, InputCredential } from "../../interfaces/dtos";
-=======
-import { ICredentialData, CredentialData, InputCredential, InputOptions } from "../../interfaces/dtos";
->>>>>>> development
 import * as vidchain from "../../apis/vidchain";
 import { OpenIDClient } from "../../libs/openid-connect/client";
 import * as utils from "../../utils/utils";
@@ -30,11 +26,7 @@ interface Props {
 interface State {
   user: ICredentialData;
   did: string;
-<<<<<<< HEAD
   hasVaccineRequested: boolean;
-=======
-  largeFamily: boolean;
->>>>>>> development
   verifiableKYC: verifiableKYC;
   popUpisOpen: boolean;
 }
@@ -44,22 +36,13 @@ class Profile extends Component<Props, State> {
     super(props);
     this.state = {
       user: {} as ICredentialData,
-<<<<<<< HEAD
       hasVaccineRequested: false,
-=======
-      largeFamily: false,
->>>>>>> development
       did: "",
       verifiableKYC: {} as verifiableKYC,
       popUpisOpen: false
     };
 
     this.generateCredential = this.generateCredential.bind(this);
-<<<<<<< HEAD
-=======
-    this.closeModal = this.closeModal.bind(this);
-    this.gotBackToTutorial = this.gotBackToTutorial.bind(this);
->>>>>>> development
   }
 
   componentDidMount() {
@@ -104,7 +87,6 @@ class Profile extends Component<Props, State> {
    * An authentication token is requested and it is used to request the generation of a verifiableCredential
    */
   async generateCredential() {
-<<<<<<< HEAD
     const {verifiableKYC} = this.state;
     const token = await vidchain.getAuthzToken();
     const credential: InputCredential = {
@@ -134,25 +116,6 @@ class Profile extends Component<Props, State> {
             marketingAuthorizationHolder: "Moderna Biotech"
           }
         }
-=======
-    const token = await vidchain.getAuthzToken();
-    const credential: CredentialData = {
-      credential: {
-        type: ["VerifiableCredential", "LargeFamilyCard"],
-        issuer: utils.getIssuerDid(token),
-        id: "https://example.com/credential/2390",
-        issuanceDate: new Date().toISOString(),
-        credentialSubject: {
-          id: this.state.did,
-          name: "Large Family Card",
-        }
-      } as InputCredential,
-        options: {
-          eidasBridge: {
-            password: config.eidasCertificatePassword,
-          }
-        } as InputOptions,
->>>>>>> development
     };
     
     const response = await vidchain.generateVerifiableCredential(
@@ -160,39 +123,15 @@ class Profile extends Component<Props, State> {
       credential
     );
     this.setState({
-<<<<<<< HEAD
       hasVaccineRequested: true,
     });
-=======
-      largeFamily: true,
-    });
-    if (sessionStorage.getItem("tutorial")) {
-      this.openModal();
-    }
-  }
-
-  openModal = () => this.setState({ popUpisOpen: true });
-  closeModal = () => {
-    this.setState({ popUpisOpen: false });
-    
-  };
-
-  gotBackToTutorial = () => {
-    sessionStorage.setItem("step", String(3))
-    window.location.replace("/demo/tutorial?step=3");
->>>>>>> development
   }
 
   render() {
     const {
       did,
       verifiableKYC,
-<<<<<<< HEAD
       hasVaccineRequested
-=======
-      largeFamily,
-      popUpisOpen
->>>>>>> development
     } = this.state;
     return (
       <div className="profileHome">
@@ -204,11 +143,7 @@ class Profile extends Component<Props, State> {
         className="profileHome">
 
         <Grid item className="titleProfile">
-<<<<<<< HEAD
           <Typography variant="h2">{"Welcome to your Health Care Center"}</Typography>
-=======
-          <Typography variant="h2">{"Welcome to your\nFreedonia Citizen Portal"}</Typography>
->>>>>>> development
           {/* <Typography variant="h1">{'Freedonia Citizen Portal'}</Typography> */}
           <Typography variant="h5">Here you can check your profile details and manage your activity within the Freedonia Citizen</Typography>
         </Grid>
@@ -225,7 +160,6 @@ class Profile extends Component<Props, State> {
             />
             
             <ServicePanel 
-<<<<<<< HEAD
               title="Request your Vaccination Certificate credential"
               description="You can use it wherever you go: to buy a ticket in an airlines, to travel to another city..."
               requirements="In order to get this credential you will have to prove you have received the Covid-19 vaccine"
@@ -235,35 +169,6 @@ class Profile extends Component<Props, State> {
               functionClickButton={this.generateCredential}
               hasBeenRequested={hasVaccineRequested} />
 
-=======
-              title="Request your Large Family credential"
-              description="You can use it wherever you go: Public Service Providers, Universities, Schools..."
-              requirements="In order to get this discount in your students ffees you will have to prove you are in a Large Family"
-              credentialName="Present your Large Family Card Credential"
-              icon={largeFamilyIcon}
-              textButton="Get large family credential"
-              functionClickButton={this.generateCredential}
-              hasBeenRequested={largeFamily} />
-
-            <Dialog
-              open={popUpisOpen}
-              onClose={this.closeModal}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle id="alert-dialog-title">{"Good Job!"}</DialogTitle>
-              <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                You have completed this step successfully.
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={this.gotBackToTutorial} color="primary" autoFocus>
-                Go back to tutorial
-                </Button>
-              </DialogActions>
-            </Dialog>
->>>>>>> development
           </Grid>
       </Grid>
       </div>
