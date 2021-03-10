@@ -19,35 +19,11 @@ export interface Presentation {
 }
 
 export interface CredentialData {
-  credential: InputCredential;
-  options?: InputOptions;
-}
-
-export interface InputOptions {
-  eidasBridge: EsealOptions;
-}
-
-export interface EsealOptions {
-  id?: string;
-  password: string;
-}
-
-export interface InputCredential {
-  id: string;
-  "@context"?: string[];
   type: string[];
-  credentialSubject: any;
   issuer: string;
-  issuanceDate: string;
-  expirationDate?: string;
-  credentialStatus?: CredentialStatus;
-  [x: string]: unknown;
-}
-export interface CredentialStatus {
   id: string;
-  type: string;
+  credentialSubject: any;
 }
-
 export interface verifiableKYC {
   id: string;
   documentNumber: string;

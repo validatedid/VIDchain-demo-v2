@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Profile.css";
 import {Typography, Grid, Dialog, DialogActions, DialogTitle, DialogContent, Button, DialogContentText} from '@material-ui/core';
 import Header from "../../components/Header/Header";
-import { ICredentialData, CredentialData, InputCredential, InputOptions } from "../../interfaces/dtos";
+import { ICredentialData, CredentialData } from "../../interfaces/dtos";
 import * as vidchain from "../../apis/vidchain";
 import { OpenIDClient } from "../../libs/openid-connect/client";
 import * as utils from "../../utils/utils";
@@ -91,23 +91,14 @@ class Profile extends Component<Props, State> {
   async generateCredential() {
     const token = await vidchain.getAuthzToken();
     const credential: CredentialData = {
-      credential: {
-        type: ["VerifiableCredential", "LargeFamilyCard"],
-        issuer: utils.getIssuerDid(token),
-        id: "https://example.com/credential/2390",
-        issuanceDate: new Date().toISOString(),
-        credentialSubject: {
-          id: this.state.did,
-          name: "Large Family Card",
-        }
-      } as InputCredential,
-        options: {
-          eidasBridge: {
-            password: config.eidasCertificatePassword,
-          }
-        } as InputOptions,
+      type: ["VerifiableCredential", "LargeFamilyCard"],
+      issuer: config.DID,
+      id: "https://example.com/credential/2390",
+      credentialSubject: {
+        id: this.state.did,
+        name: "Large Family Card",
+      },
     };
-    
     const response = await vidchain.generateVerifiableCredential(
       token,
       credential
@@ -167,7 +158,7 @@ class Profile extends Component<Props, State> {
             <ServicePanel 
               title="Request your Large Family credential"
               description="You can use it wherever you go: Public Service Providers, Universities, Schools..."
-              requirements="In order to get this discount in your students fees you will have to prove you are in a Large Family"
+              requirements="In order to get this discount in your students ffees you will have to prove you are in a Large Family"
               credentialName="Present your Large Family Card Credential"
               icon={largeFamilyIcon}
               textButton="Get large family credential"
