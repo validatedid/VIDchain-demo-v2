@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./Profile.css";
 import {Typography, Grid, Dialog, DialogActions, DialogTitle, DialogContent, Button, DialogContentText} from '@material-ui/core';
 import Header from "../../components/Header/Header";
-import { ICredentialData, CredentialData, InputCredential, InputOptions } from "../../interfaces/dtos";
+import { ICredentialData, InputCredential } from "../../interfaces/dtos";
 import * as vidchain from "../../apis/vidchain";
 import { OpenIDClient } from "../../libs/openid-connect/client";
 import * as utils from "../../utils/utils";
@@ -26,7 +26,7 @@ interface Props {
 interface State {
   user: ICredentialData;
   did: string;
-  largeFamily: boolean;
+  hasVaccineRequested: boolean;
   verifiableKYC: verifiableKYC;
   popUpisOpen: boolean;
 }
@@ -36,15 +36,13 @@ class Profile extends Component<Props, State> {
     super(props);
     this.state = {
       user: {} as ICredentialData,
-      largeFamily: false,
+      hasVaccineRequested: false,
       did: "",
       verifiableKYC: {} as verifiableKYC,
       popUpisOpen: false
     };
 
     this.generateCredential = this.generateCredential.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-    this.gotBackToTutorial = this.gotBackToTutorial.bind(this);
   }
 
   componentDidMount() {
@@ -89,23 +87,35 @@ class Profile extends Component<Props, State> {
    * An authentication token is requested and it is used to request the generation of a verifiableCredential
    */
   async generateCredential() {
+    const {verifiableKYC} = this.state;
     const token = await vidchain.getAuthzToken();
-    const credential: CredentialData = {
-      credential: {
-        type: ["VerifiableCredential", "LargeFamilyCard"],
+    const credential: InputCredential = {
+        type: ["VerifiableCredential", "VaccinationCertificate"],
         issuer: utils.getIssuerDid(token),
-        id: "https://example.com/credential/2390",
+        id: "https://example.com/credential/2590",
         issuanceDate: new Date().toISOString(),
         credentialSubject: {
           id: this.state.did,
-          name: "Large Family Card",
-        }
-      } as InputCredential,
-        options: {
-          eidasBridge: {
-            password: config.eidasCertificatePassword,
+          type: "VaccinationEvent",
+          batchNumber: "1183738569",
+          administeringCentre: "Health Care Center",
+          healthProfessional: "MoH",
+          countryOfVaccination: "ES",
+          recipient: {
+            type: "VaccineRecipient",
+            givenName: verifiableKYC.name,
+            familyName: verifiableKYC.surname,
+            gender: verifiableKYC.sex,
+            birthDate: verifiableKYC.dateOfBirth
+          },
+          vaccine: {
+            type: "Vaccine",
+            disease: "COVID-19",
+            atcCode: "J07BX03",
+            medicinalProductName: "COVID-19 Vaccine Moderna",
+            marketingAuthorizationHolder: "Moderna Biotech"
           }
-        } as InputOptions,
+        }
     };
     
     const response = await vidchain.generateVerifiableCredential(
@@ -113,30 +123,15 @@ class Profile extends Component<Props, State> {
       credential
     );
     this.setState({
-      largeFamily: true,
+      hasVaccineRequested: true,
     });
-    if (sessionStorage.getItem("tutorial")) {
-      this.openModal();
-    }
-  }
-
-  openModal = () => this.setState({ popUpisOpen: true });
-  closeModal = () => {
-    this.setState({ popUpisOpen: false });
-    
-  };
-
-  gotBackToTutorial = () => {
-    sessionStorage.setItem("step", String(3))
-    window.location.replace("/demo/tutorial?step=3");
   }
 
   render() {
     const {
       did,
       verifiableKYC,
-      largeFamily,
-      popUpisOpen
+      hasVaccineRequested
     } = this.state;
     return (
       <div className="profileHome">
@@ -148,7 +143,7 @@ class Profile extends Component<Props, State> {
         className="profileHome">
 
         <Grid item className="titleProfile">
-          <Typography variant="h2">{"Welcome to your\nFreedonia Citizen Portal"}</Typography>
+          <Typography variant="h2">{"Welcome to your Health Care Center"}</Typography>
           {/* <Typography variant="h1">{'Freedonia Citizen Portal'}</Typography> */}
           <Typography variant="h5">Here you can check your profile details and manage your activity within the Freedonia Citizen</Typography>
         </Grid>
@@ -165,33 +160,15 @@ class Profile extends Component<Props, State> {
             />
             
             <ServicePanel 
-              title="Request your Large Family credential"
-              description="You can use it wherever you go: Public Service Providers, Universities, Schools..."
-              requirements="In order to get this discount in your students ffees you will have to prove you are in a Large Family"
-              credentialName="Present your Large Family Card Credential"
-              icon={largeFamilyIcon}
-              textButton="Get large family credential"
+              title="Request your Vaccination Certificate credential"
+              description="You can use it wherever you go: to buy a ticket in an airlines, to travel to another city..."
+              requirements="In order to get this credential you will have to prove you have received the Covid-19 vaccine"
+              credentialName="Present your Vaccination Certificate Credential"
+              icon={profileIcon}
+              textButton="Get Vaccination Certificate Credential"
               functionClickButton={this.generateCredential}
-              hasBeenRequested={largeFamily} />
+              hasBeenRequested={hasVaccineRequested} />
 
-            <Dialog
-              open={popUpisOpen}
-              onClose={this.closeModal}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle id="alert-dialog-title">{"Good Job!"}</DialogTitle>
-              <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                You have completed this step successfully.
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={this.gotBackToTutorial} color="primary" autoFocus>
-                Go back to tutorial
-                </Button>
-              </DialogActions>
-            </Dialog>
           </Grid>
       </Grid>
       </div>
