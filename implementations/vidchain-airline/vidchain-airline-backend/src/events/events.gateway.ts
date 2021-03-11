@@ -66,7 +66,7 @@ export class EventsGateway
   async handlePresentationEvent(@MessageBody() credential: any): Promise<any> {
     this.logger.log(`Credential presentation:    ${credential}`);
     const jwt = extractVCfromPresentation(credential);
-    const id = JSON.stringify(jwt.vc.credentialSubject.id);
+    const id = JSON.stringify(jwt.vc ? jwt.vc.credentialSubject.id : jwt.credentialSubject.id);
     const did = `${id.substring(1, id.length - 1)}`;
     const path = `${config.BASE_URL}/users/`;
     console.log("Reach Redis at endpoint: " + path.concat(did));
@@ -88,7 +88,7 @@ export class EventsGateway
     /**
      *  If different kind of presentations are handled by the backend entity, different messages should be emitted depending to avoid cross ws notifications
      */
-    const type = JSON.stringify(jwt.vc.type[1]);
+    const type = JSON.stringify(jwt.vc ? jwt.vc.type[1] : jwt.type[1]);
     if (type.substring(1, type.length - 1) == "LargeFamilyCard") {
       this.wss.to(clientId).emit("largeFamilyPresentation", credential);
     } else {
