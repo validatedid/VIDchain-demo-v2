@@ -76,7 +76,7 @@
 }
 @media only screen and (max-height: 640px) and (max-width: 768px)  {
   .panelImage {
-    margin-top: 85%;
+    margin-top: 45%;
     margin-left: 35%;
   }
   .panelMainContent {

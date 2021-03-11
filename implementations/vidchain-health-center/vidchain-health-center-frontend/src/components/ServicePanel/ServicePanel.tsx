@@ -53,7 +53,6 @@ const ServicePanel = (props: Props) => {
                   <h3 className="titleBody">Credential sent</h3>
                   <p className="textBody">Check your wallet, you will receive a notification.</p>
                   <p className="textBody">Accept it and you will have the credential in your wallet.</p>
-                  <a href="/demo/tutorial?step=3" className="textBody">Go back to tutorial</a>
               </div>
             }
 
