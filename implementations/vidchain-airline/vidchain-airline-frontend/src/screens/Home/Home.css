@@ -12,7 +12,7 @@
   margin-bottom:0px;
   border-radius:0px;
   width: 100%;
-  height: 150%;
+  height: 120%;
   position:absolute;
   opacity: 0.6;
   z-index: -1;
@@ -52,7 +52,7 @@
 }
 .buttonSignIn {
   bottom: 1rem;
-  left: 60%;
+  right: 5rem;
 } 
 @media only screen and (max-height: 640px) and (max-width: 768px)  {
   .title {
@@ -66,8 +66,7 @@
     width: 90%;
   }
   .buttonSignIn {
-    bottom: 1rem;
-    left: 20%;
+    
   } 
   .content{
     position: relative;
@@ -88,8 +87,7 @@
     width: 90%;
   }
   .buttonSignIn {
-    bottom: 1rem;
-    left: 30%;
+    
   } 
   .content{
     position: relative;
@@ -111,8 +109,7 @@
       width: 90%;
     }
     .buttonSignIn {
-      bottom: 4rem;
-      left: 50%;
+      
     } 
     .content{
       position: relative;
@@ -121,13 +118,25 @@
       height:593px;
     }
   }
-  @media only screen and (min-width: 1600px) {
-    .content{
-      position: relative;
-      z-index: 1;
-      top: 5rem;
-      height:693px;
+  @media only screen and (min-width: 1501px){
+    .title{
+      top: 10rem;
+      width: 30%;
+      left: 15rem;
     }
-
+    .subtitle{
+      left: 15rem;
+      top: 12rem;
+    }
+    .buttonSignIn {
+      bottom: -15rem;
+      right: 10rem;
+      width: 10%;
+    } 
+    .subcontent {
+      width: 100%;
+      height: 200%;
+    }
   }
+ 
 

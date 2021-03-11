@@ -191,8 +191,6 @@ class Profile extends Component<Props, State> {
     return (
       <Grid container 
         direction="column"
-        justify="space-between"
-        alignItems="baseline"
         className="profileHome">
 
         <Grid item>

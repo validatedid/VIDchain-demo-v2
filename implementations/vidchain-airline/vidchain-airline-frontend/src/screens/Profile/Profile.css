@@ -1,7 +1,7 @@
 .profileHome{
   background-color: #F2F2F2;
-  height: 100%;
   width: 100%;
+
   min-height: 100vh;
 }
 .titleProfile {
@@ -14,8 +14,14 @@
   margin-top: 10rem;
   width: 60%;
 }
-.titleProfile h5{
-} 
+.panels{
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  position: relative;
+  top: 3rem;
+  background-color: #F2F2F2;
+}
 @media only screen and (max-width: 767px) {
 
   .titleProfile {
@@ -43,11 +49,12 @@
       margin-left: 1rem;
     } 
   }
-.panels{
-  display: flex;
-  align-self: center;
-  justify-content: center;
-  position: relative;
-  top: 3rem;
-  background-color: #F2F2F2;
-}
+  @media only screen and (min-width: 1501px){
+    .titleProfile h2{
+      margin-top: 15rem;
+      width: 60%;
+    }
+    .panels{
+      top: 5rem;
+    }
+  }

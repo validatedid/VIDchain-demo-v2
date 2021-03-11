@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from '@material-ui/styles';
-import { createMuiTheme } from '@material-ui/core';
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core';
 import Home from "./screens/Home/Home";
 import Profile from "./screens/Profile/Profile";
 import Callback from "./screens/Callback/Callback";
@@ -40,7 +40,7 @@ const THEME = createMuiTheme({
 function App() {
   dotenv.config();
   return (
-    <ThemeProvider theme={THEME}>
+    <ThemeProvider theme={responsiveFontSizes(THEME)}>
     <div className="App">
 
       <BrowserRouter basename={basename}>

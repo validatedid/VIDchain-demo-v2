@@ -59,3 +59,14 @@
       margin-top: 3rem;
     }
   }
+  @media only screen and (min-width: 1501px){
+    .panelImage {
+      position: relative;
+      margin-top: 1rem;
+    }
+    .panelBody {
+      flex-direction: row;
+      display: flex;
+      margin-top: 10rem;
+    }
+  }

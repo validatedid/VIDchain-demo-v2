@@ -15,7 +15,7 @@ export const CredentialButton = withStyles((theme) => ({
     color: '#ffffff',
     alignSelf: 'center',
     marginTop: '2%',
-    marginBottom: '5%',
+    marginBottom: '2%',
     fontSize: '16px',
     lineHeight: '19px',
     fontStyle: 'normal',
