@@ -22,7 +22,7 @@ variables:
   # Kubernetes YAML
   healthCenterBackendKubernetes: 'implementations/vidchain-health-center/vidchain-health-center-backend/k8s/k8s-staging.yml'
   # Configmaps
-  healthCenterBackendConfigMap: 'implementations/vidchain-health-center/vidchain-health-centerS-backend/k8s/configmap-staging.yml'
+  healthCenterBackendConfigMap: 'implementations/vidchain-health-center/vidchain-health-center-backend/k8s/configmap-staging.yml'
   # Kubernetes namespace
   namespace: 'staging'
   # Image tagging: application version - build
