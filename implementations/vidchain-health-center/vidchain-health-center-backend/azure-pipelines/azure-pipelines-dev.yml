@@ -26,7 +26,7 @@ variables:
   # Kubernetes namespace
   namespace: 'development'
   # Image tagging: application version - build
-  taghHealthCenterBackend: '$(Build.BuildNumber)'
+  tagHealthCenterBackend: '$(Build.BuildNumber)'
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
   
