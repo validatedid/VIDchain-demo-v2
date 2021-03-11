@@ -48,7 +48,7 @@ function strB64enc(input) {
 
 function extractVCfromPresentation(credential) {
   let jwtObject = strB64dec(credential.data.decrypted);
-  return decodeJWT(jwtObject.verifiableCredential[0]);
+  return jwtObject.verifiableCredential[0];
 }
 
 export { decodeJWT, parseJwt, strB64dec, strB64enc, extractVCfromPresentation };
