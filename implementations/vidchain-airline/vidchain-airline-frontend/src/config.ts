@@ -11,6 +11,7 @@ const BACKEND_URL =
   process.env.REACT_APP_BACKEND_URL|| "undefined";
 const BACKEND_WS = process.env.REACT_APP_WS_URL || "undefined";
 const API_KEY = process.env.REACT_APP_API_KEY || "undefined";
+const API_KEY_DIDKEY = process.env.REACT_APP_API_KEY_DIDKEY|| "undefined";
 const APP_URL = process.env.REACT_APP_DEMO || "undefined";
 
 //Legal Entity
@@ -25,12 +26,29 @@ const Entity = {
 //Entity in Base-64
 const grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 const scope = "vidchain profile entity";
+
+//Legal Entity
+const EntityDidKey = {
+  iss: "Oceanic Airlines DidKey",
+  aud: "vidchain-api",
+  nonce: "z-0427dc2515b1",
+  callbackUrl: BACKEND_URL + "/presentation/validation",
+  apiKey: API_KEY_DIDKEY
+};
+const DID_AUTH_REDIRECT = BACKEND_URL + "/auth/didAuthResponse";
+const DID_AUTH_JWT = BACKEND_URL + "/auth/jwt";
+
 //const scope = "vidchain profile test entity";
 
 const CLIENT_ID = "airline";
 
+const DID_URI_RESOLVER = `${API_URL}/identifiers`;
+
+
+
 export {
   Entity,
+  EntityDidKey,
   grantType,
   scope,
   API_URL,
@@ -39,5 +57,8 @@ export {
   IDENTITY_PROVIDER,
   REDIRECT_CALLBACK,
   CLIENT_ID,
-  APP_URL
+  APP_URL,
+  DID_AUTH_REDIRECT,
+  DID_AUTH_JWT,
+  DID_URI_RESOLVER
 };

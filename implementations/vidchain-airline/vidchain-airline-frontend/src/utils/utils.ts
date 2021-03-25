@@ -40,6 +40,11 @@ function getIssuerDid(jwt: string): string {
   return parseJwt(jwt).did;
 }
 
+function getEnterpriseDID(token: string): string {
+  const { payload } = decodeJWT(token);
+  return (payload).did;
+}
+
 /**
  * Decodes a Base64 string in an UTF-8 string format
  * @param input Base64 encoded string to decode
@@ -88,5 +93,6 @@ export {
   strB64dec,
   strB64enc,
   decodeJWT,
-  isMobileOrTablet
+  isMobileOrTablet,
+  getEnterpriseDID
 };

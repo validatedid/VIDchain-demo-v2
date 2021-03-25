@@ -48,6 +48,24 @@ async function getAuthzToken() {
   }
 }
 
+// Get API authentication token for a did key entity
+async function getAuthzTokendDidKey() {
+  const body = {
+    grantType: config.grantType,
+    assertion: strB64enc(config.EntityDidKey),
+    scope: config.scope,
+  };
+  try {
+    const response = await axios.post(`${config.API_URL}/sessions`, body);
+    if (response.status !== 200 && response.status !== 201) {
+      return "Error";
+    }
+    return response.data.accessToken;
+  } catch (error) {
+    return "Error";
+  }
+}
+
 // Request Verifiable Credential generation
 async function generateVerifiableCredential(
   token: string,
@@ -56,4 +74,4 @@ async function generateVerifiableCredential(
   return request(token, user, "/verifiable-credentials");
 }
 
-export { getAuthzToken, generateVerifiableCredential };
+export { getAuthzToken, generateVerifiableCredential, getAuthzTokendDidKey };

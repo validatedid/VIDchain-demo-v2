@@ -1,6 +1,7 @@
 import { Injectable, Logger} from "@nestjs/common";
 import * as externals from "../api/externals";
 import * as config from "../config";
+import {generateJwtRequest} from '../utils/DidAuthRequest'
 
 @Injectable()
 export class AuthService {
@@ -33,5 +34,19 @@ export class AuthService {
     throw new Error("error");
   }
   }
+
+  async didAuthRequest(): Promise<any> {
+    try{
+      console.log("in did auth request");
+      const uriRequest = await generateJwtRequest();
+      console.log(uriRequest);
+      const uriDecoded = decodeURIComponent(uriRequest.urlEncoded) + "&client_name="+config.EntityDidKey.iss;
+      return uriDecoded;
+    }
+    catch(error){
+      throw new Error("error");
+    }
+  }
+
   
 }

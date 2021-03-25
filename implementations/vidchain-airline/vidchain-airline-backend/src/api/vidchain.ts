@@ -50,6 +50,22 @@ async function getAuthzToken() {
     return "Error";
   }
 }
+async function getAuthzTokendDidKey() {
+  const body = {
+    grantType: config.grantType,
+    assertion: strB64enc(config.EntityDidKey),
+    scope: config.scope,
+  };
+  try {
+    const response = await axios.post(`${config.API_URL}/sessions`, body);
+    if (response.status !== 200 && response.status !== 201) {
+      return "Error";
+    }
+    return response.data.accessToken;
+  } catch (error) {
+    return "Error";
+  }
+}
 
 // Request Presentation
 async function requestVP(token: string, presentation: RequestPresentation) {
@@ -90,4 +106,4 @@ async function retrievePresentation(token: string, url: string) {
   }
 }
 
-export { getAuthzToken, requestVP, retrievePresentation, validateVP };
+export { getAuthzToken, getAuthzTokendDidKey, requestVP, retrievePresentation, validateVP };
