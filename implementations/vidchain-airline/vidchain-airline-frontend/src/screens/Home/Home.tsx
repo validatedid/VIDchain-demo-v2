@@ -64,7 +64,10 @@ class Home extends Component<Props, State> {
           <Typography variant="h2"className="title">Welcome to Oceanic Airlines</Typography> 
           <Typography variant="h5" className="subtitle"><b>We're happy to have you onboard. Login to your site to get your tickets.</b></Typography>
           {isQRdisplayed && 
-                  <QRCode value={qrContent} className="QRDidKeys"/>
+                <div className="QRDidKeys">
+                  <Typography variant="h5" className="scanTitle"><b>Scan the QR code to login.</b></Typography>
+                  <QRCode value={qrContent}  size={window.innerWidth <  1501 ? "136" : "296"}/>
+                  </div>
                 }
           <SignInButton variant="contained" color="primary" className="buttonSignIn" onClick={() => this.loginWithVIDChain()}>
                 Sign in with VIDchain
