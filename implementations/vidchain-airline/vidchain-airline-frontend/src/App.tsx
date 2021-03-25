@@ -41,7 +41,7 @@ function App() {
   dotenv.config();
   return (
     <ThemeProvider theme={responsiveFontSizes(THEME)}>
-    <div className="App">
+    <div>
 
       <BrowserRouter basename={basename}>
         <Switch>
