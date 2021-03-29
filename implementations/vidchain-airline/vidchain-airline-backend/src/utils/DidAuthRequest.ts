@@ -15,7 +15,7 @@ const generateJwtRequest = async (): Promise<UriRequest> => {
           VerifiableIdCredential: { essential: true },
         },
       };
-    const kid = await getKid(did);
+    const kid = `#${did.substring(8)}`;
     //We don't generate a state, but the library will manage the state
     const requestOpts: DidAuthRequestOpts = {
         oidpUri: "vidchain://did-auth",
@@ -31,7 +31,7 @@ const generateJwtRequest = async (): Promise<UriRequest> => {
         },
         registrationType: {
           type: ObjectPassedBy.REFERENCE,
-          referenceUri: `${config.API_URL}/identifiers/${did};transform-keys=jwks`,
+          referenceUri: `${config.API_URL}identifiers/${did};transform-keys=jwks`,
         },
         responseMode: DidAuthResponseMode.FORM_POST,
         responseContext:DidAuthResponseContext.WALLET,
