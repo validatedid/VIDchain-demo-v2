@@ -214,7 +214,7 @@ class Profile extends Component<Props, State> {
               subtitle2="Requirements"
               description2={"In order to get the ticket, you will have to prove you you have received the Covid-19 Vaccination Certificate."}
               credentialName="Present your Vaccination Certificate"
-              icon={flightsIcon}
+              icon={(vaccinePresented || vaccineRequested) ?  credentialSentIcon : flightsIcon}
               textButton="Check In"
               functionClickButton={this.claimVP}
               hasBeenValidated={vaccinePresented}
