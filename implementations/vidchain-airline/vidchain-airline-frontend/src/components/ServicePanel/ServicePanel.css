@@ -2,7 +2,7 @@
   
   .containerProfile{
     width: 80%;
-    background: #F2F2F2;
+    background: #FFFFFF;
     box-shadow: 2px 2px 12px #D6D6D6;
     border-radius: 3px;
     display: flex;
@@ -14,7 +14,7 @@
     position: absolute;
     width: 80%;
     height: 4%;
-    background: #7B788A;
+    background: #F2F2F2;
     border-radius: 2px 2px 0px 0px;
     display: flex;
     align-items: center;
@@ -23,7 +23,7 @@
   }
   .titlePanel {
     position: relative;
-    color: #FFFFFF;
+    color: #000000;
     left: 5%
   }
   .panelBody {
@@ -34,18 +34,22 @@
   .titleBody {
     font-weight: bold;
     font-size: 18px;
-    color: #7B788A;
+    color: #000000;
     margin-bottom: -1%;
   }
   .textBody {
     font-size: 16px;
-    color: #7B788A;
+    color: #000000;
     overflow: hidden;
     text-overflow: ellipsis;
   }
   .panelMainContent {
     margin-bottom: 3rem;
   }
+  .buttonCredential {
+    position: relative;
+    left: 25%;
+  } 
   
   @media only screen and (max-width: 768px) {
     .panelBody {

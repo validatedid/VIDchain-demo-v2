@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import {Typography, Grid, Dialog, DialogActions, DialogTitle, DialogContent, Button, DialogContentText} from '@material-ui/core';
+import {Typography, Grid} from '@material-ui/core';
 import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 import "./Profile.css";
 import * as utils from "../../utils/utils";
 import * as airlineBackend from "../../apis/airlineBackend";
@@ -190,14 +191,11 @@ class Profile extends Component<Props, State> {
       vaccineRequested,
     } = this.state;
     return (
+      <>
+      <Header />
       <Grid container 
         direction="column"
         className="profileHome">
-
-        <Grid item>
-           <Header />
-        </Grid>
-        
         <Grid item className="titleProfile">
           <Typography variant="h2">{"Welcome to your\nAirline Portal"}</Typography>
           {/* <Typography variant="h1">{'Freedonia Citizen Portal'}</Typography> */}
@@ -223,6 +221,8 @@ class Profile extends Component<Props, State> {
               hasBeenRequested={vaccineRequested} />            
           </Grid>
       </Grid>
+      <Footer />
+      </>
     );
   }
 }
