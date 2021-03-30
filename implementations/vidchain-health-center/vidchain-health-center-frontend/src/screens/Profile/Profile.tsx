@@ -13,7 +13,8 @@ import ProfilePanel from "../../components/ProfilePanel/ProfilePanel";
 import ServicePanel from "../../components/ServicePanel/ServicePanel";
 
 import profileIcon from "../../assets/images/profileIcon.svg";
-import largeFamilyIcon from "../../assets/images/iconLargeFamily.svg";
+import certificateIcon from "../../assets/images/certificateIcon.svg";
+import credentialSentIcon from "../../assets/images/credentialSentIcon.svg";
 
 
 
@@ -164,7 +165,7 @@ class Profile extends Component<Props, State> {
               description="You can use it wherever you go: to buy a ticket in an airlines, to travel to another city..."
               requirements="In order to get this credential you will have to prove you have received the Covid-19 vaccine"
               credentialName="Present your Vaccination Certificate Credential"
-              icon={profileIcon}
+              icon={hasVaccineRequested ? credentialSentIcon : certificateIcon}
               textButton="Get Vaccination Certificate Credential"
               functionClickButton={this.generateCredential}
               hasBeenRequested={hasVaccineRequested} />
