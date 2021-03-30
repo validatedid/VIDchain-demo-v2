@@ -3,24 +3,17 @@ import { withStyles} from '@material-ui/core/styles';
 
 export const CredentialButton = withStyles((theme) => ({
     root: {
-    padding: '1%',
-    display: 'block',
-    borderStyle: 'none',
-    width: 'auto',
-    paddingLeft: '2%',
-    paddingRight: '2%',
-    height: '46px',
-    background: '#E61B72',
-    borderRadius: '4px',
-    color: '#ffffff',
-    alignSelf: 'center',
-    marginTop: '2%',
-    marginBottom: '5%',
-    fontSize: '16px',
-    lineHeight: '19px',
-    fontStyle: 'normal',
-    textAlign: 'center',
-    textTransform: 'capitalize',
+      width: window.innerWidth < 768 ? '207px' : '407px',
+      height: '46px',
+      backgroundColor: '#428443',
+      borderRadius: '4px;',
+      color: '#ffffff',
+      fontSize: '18px',
+      lineHeight: '19px',
+      fontStyle: 'normal',
+      textAlign: 'center',
+      textTransform: 'capitalize',
+      marginBottom: '20px'
     },
   }))(Button);
   

@@ -60,7 +60,7 @@ const ServicePanel = (props: Props) => {
               
             </Grid>
               {!hasBeenRequested &&
-                <CredentialButton variant="contained" onClick={functionClickButton}>
+                <CredentialButton variant="contained" className="buttonCredential" onClick={functionClickButton}>
                   {textButton}
                 </CredentialButton>
                 
