@@ -220,8 +220,16 @@ class Profile extends Component<Props, State> {
               hasBeenValidated={vaccinePresented}
               hasBeenRequested={vaccineRequested} />            
           </Grid>
+          <footer style={{flexDirection: 'row',display: 'flex', padding: '1%',backgroundColor: '#FFFFFF'}}>
+            <img
+                className="logoFooter"
+                src={require("../../assets/images/airlinelogo.png")}
+                alt="HealthCare"
+              />
+            <p className="textFooter">This is not an official website of any Airline.</p>
+          </footer>
       </Grid>
-      <Footer />
+     
       </>
     );
   }

@@ -3,7 +3,7 @@
   width: 100%;
   position: absolute;
   top: 8rem;
-  height: 75vmin;
+  height: auto;
 }
 .titleProfile {
   position: relative;
@@ -26,3 +26,21 @@
   position: relative;
   top: 3rem;
 }
+
+@media only screen and (max-width: 768px) {
+  .panels{
+    margin-bottom: 4rem;
+  }
+  .profileHome{
+    top: 5rem;
+    width: 90%;
+  }
+  .titleProfile h5 {
+    width: 80%;
+  }
+  
+  .titleProfile h2{
+    width: 89%;
+  }
+}
+
