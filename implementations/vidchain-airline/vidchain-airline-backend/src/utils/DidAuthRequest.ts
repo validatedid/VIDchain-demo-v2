@@ -36,6 +36,7 @@ const generateJwtRequest = async (): Promise<UriRequest> => {
         responseMode: DidAuthResponseMode.FORM_POST,
         responseContext:DidAuthResponseContext.WALLET,
         claims: claim,
+        state: siopDidAuth.DidAuthUtil.getState()
       };
       console.log("sffsfsfsfs");
       console.log(requestOpts);
