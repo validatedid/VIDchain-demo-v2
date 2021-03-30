@@ -58,6 +58,18 @@ class Profile extends Component<Props, State> {
   async componentDidMount() {
       await this.initiateSocket();
       const {state} = this.props.location;
+      console.log(state.flowCompleted);
+      if(state.flowCompleted){
+        this.generateTicket();
+        this.setState({
+          did: this.props.location.state.did,
+          type: this.props.location.state.type,
+          data: this.props.location.state.data,
+          vaccineRequested: true,
+          vaccinePresented: true,
+        });
+        return;
+      }
       if(state && state.id_token){
         const decodedIdToken = utils.decodeJWT(state.id_token);
         const jwt = decodedIdToken.jwt;
@@ -93,6 +105,7 @@ class Profile extends Component<Props, State> {
           did: this.props.location.state.did,
           type: this.props.location.state.type,
           data: this.props.location.state.data,
+          vaccineRequested: true,
           vaccinePresented: true,
         });
 
@@ -220,15 +233,20 @@ class Profile extends Component<Props, State> {
               hasBeenValidated={vaccinePresented}
               hasBeenRequested={vaccineRequested} />            
           </Grid>
-          <footer style={{flexDirection: 'row',display: 'flex', padding: '1%',backgroundColor: '#FFFFFF'}}>
-            <img
-                className="logoFooter"
-                src={require("../../assets/images/airlinelogo.png")}
-                alt="HealthCare"
-              />
-            <p className="textFooter">This is not an official website of any Airline.</p>
-          </footer>
+          {window.innerWidth < 768 &&
+            <footer style={{flexDirection: 'row',display: 'flex', padding: '1%',backgroundColor: '#FFFFFF'}}>
+              <img
+                  className="logoFooter"
+                  src={require("../../assets/images/airlinelogo.png")}
+                  alt="HealthCare"
+                />
+              <p className="textFooter">This is not an official website of any Airline.</p>
+            </footer>
+          }
       </Grid>
+      {window.innerWidth >= 768 &&
+      <Footer />
+      }
      
       </>
     );

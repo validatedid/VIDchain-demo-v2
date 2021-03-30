@@ -3,7 +3,7 @@
   width: 100%;
   position: absolute;
   top: 8rem;
-  height: auto;
+  height: 75vmin;
 }
 .titleProfile {
   position: relative;
@@ -34,6 +34,7 @@
   .profileHome{
     top: 5rem;
     width: 90%;
+    height: auto;
   }
   .titleProfile h5 {
     width: 80%;
