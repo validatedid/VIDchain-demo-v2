@@ -9,7 +9,7 @@ class Footer extends Component {
       <footer className="footer">
        <img
                 className="logoFooter"
-                src={require("../../assets/images/airlinelogo.jpg")}
+                src={require("../../assets/images/airlinelogo.png")}
                 alt="City"
               />
       <p className="textFooter">This is not an official website of any Airline.</p>

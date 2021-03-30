@@ -13,7 +13,8 @@ import { verifiableKYC } from "../../interfaces/dtos";
 import { PresentationPayload, VerifiableCredential } from "../../interfaces/IPresentation";
 import ServicePanel from "../../components/ServicePanel/ServicePanel";
 
-import iconProfile from "../../assets/images/iconProfile.svg";
+import flightsIcon from "../../assets/images/flightsIcon.svg";
+import credentialSentIcon from "../../assets/images/credentialSent.svg";
 
 
 interface Props {
@@ -215,7 +216,7 @@ class Profile extends Component<Props, State> {
               subtitle2="Requirements"
               description2={"In order to get the ticket, you will have to prove you you have received the Covid-19 Vaccination Certificate."}
               credentialName="Present your Vaccination Certificate"
-              icon={iconProfile}
+              icon={flightsIcon}
               textButton="Check In"
               functionClickButton={this.claimVP}
               hasBeenValidated={vaccinePresented}

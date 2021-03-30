@@ -8,7 +8,7 @@ class Header extends Component {
       <header className="headerBackground">
         <img
           className="logoHeader"
-          src={require("../../assets/images/airlinelogo.jpg")}
+          src={require("../../assets/images/airlineHeader.svg")}
           alt="Logo of the Airlines"
         />
         <p className="powered">Powered by Validated ID</p>
