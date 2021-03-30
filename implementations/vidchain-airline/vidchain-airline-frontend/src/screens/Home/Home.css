@@ -46,6 +46,19 @@
   left: 10rem;
   top: 35rem;
 } 
+.QRDidKeys {
+  position: absolute;
+  left: 70%;
+  top: 25rem;
+}
+.scanTitle {
+  font-family: 'TTNorms';
+  font-style: normal;
+  font-weight: 300; 
+  font-style: normal; 
+  color: #FFFFFF; 
+  margin-bottom: 2rem;
+}
 @media only screen and (min-height: 640px) and (max-width: 768px) {
   .subcontent {
     height: 86%;
