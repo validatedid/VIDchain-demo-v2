@@ -1,95 +1,39 @@
 
-.titleHome h2{
-  margin-top: 12rem;
-  margin-left: 10rem;
-  width: 50%
-}
-.titleHome h5{
-  margin-left: 10rem;
-  width: 60%;
-}
-.buttonSignIn {
-  left: 35%;
-} 
 .home {
   background-image: url("../../assets/images/backgroundImage.png");
   background-repeat:no-repeat;
   background-size: cover; 
   background-position: center center;  
-  height: 100%;
-  min-height: 100vh;
+  height: 80vmin;
+  position: absolute;
+  width: 100%;
+  top: 10%;
 }
-@media only screen and (max-height: 640px) and (max-width: 768px)  {
-  .titleHome h2{
-    margin-top: 6rem;
-    margin-left: 2rem;
-    width: 90%
-  }
-  .titleHome h5{
-    margin-left: 2rem;
-    width: 90%;
-  }
-  .buttonSignIn {
-    position: absolute;
-    left: 25%;
-    bottom: 15%;
-  } 
-  .home {
-    background-image: unset;
-  }
+.title {
+  font-weight: 800;
+  font-style: normal;
+  color: #151A35;
+  position: relative;
+  font-family: 'TTNorms-Bold';
+  font-style: bold;
+  position: absolute;
+  left: 5rem;
+  top: 10rem;
+  width: 40%;
 }
-@media only screen and (min-height: 640px) and (max-width: 768px) {
-  .titleHome h2{
-    margin-top: 12rem;
-    margin-left: 2rem;
-    width: 90%
-  }
-  .titleHome h5{
-    margin-left: 2rem;
-    width: 90%;
-  }
-  .buttonSignIn {
-    position: absolute;
-    left: 30%;
-    bottom: 15%;
-  } 
-  .home {
-    background-image: unset;
-  }
+.subtitle {
+  font-family: 'TTNorms';
+  font-style: normal;
+  font-weight: 300; 
+  font-style: normal; 
+  color: #151A35; 
+  position: absolute;
+  left: 5rem;
+  top: 20rem;
+  width: 40%;
 }
-  /* Tablet */
-  @media only screen and (min-device-width: 767px) and (max-device-width: 1024px) {
-    .titleHome h2{
-      margin-top: 15rem;
-      margin-left: 5rem;
-      width: 50%
-    }
-    .titleHome h5{
-      margin-left: 5rem;
-      width: 60%;
-    }
-    .buttonSignIn {
-      left: 45%;
-      bottom: 45%;
-    } 
-    .home {
-      background-image: unset;
-
-    }
-  }
-
-  @media only screen and (min-width: 1501px){
-    .titleHome h2{
-      margin-top: 25rem;
-      margin-left: 15rem;
-      width: 100%
-    }
-    .titleHome h5{
-      margin-left: 15rem;
-      width: 100%;
-    }
-    .buttonSignIn {
-      left: 45%;
-    } 
-  }
-
+.buttonSignIn {
+  position: absolute;
+  left: 5rem;
+  top: 10rem;
+} 
