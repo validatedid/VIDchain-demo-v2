@@ -2,11 +2,15 @@ import React, { Component } from "react";
 import "./Home.css";
 import {Grid, Typography} from '@material-ui/core';
 import QRCode from 'qrcode.react';
+import {
+  isMobile
+} from "react-device-detect";
 import Header from "../../components/Header/Header";
 import {SignInButton} from "../../components/SignInButton/SignInButton";
 import Footer from "../../components/Footer/Footer";
 import { OpenIDClient } from "../../libs/openid-connect/client";
 import * as airlineBackend from '../../apis/airlineBackend';
+import { isReturnStatement } from "typescript";
 
 interface Props {
   history?: any;
@@ -43,10 +47,15 @@ class Home extends Component<Props, State> {
 
   async loginWithDIDKeys() {
     var qr = await airlineBackend.didAuthResponse();
+    if(isMobile){
+      window.open(qr, "_self");
+      return;
+    }
     this.setState({
       isQRdisplayed: true,
       qrContent: qr
     })
+    
   }
 
   render() {
