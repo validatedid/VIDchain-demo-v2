@@ -61,4 +61,18 @@ async function createSession(body: any) {
   }
 }
 
-export { claimVP, getToken, createSession };
+async function didAuthResponse() {
+  try {
+    const response = await axios.get(
+      `${config.BACKEND_URL}/auth/didAuthRequest`
+    );
+    if (response.status !== 200 && response.status !== 201) {
+      return "Error";
+    }
+    return response.data;
+  } catch (error) {
+    return "Error";
+  }
+}
+
+export { claimVP, getToken, createSession,didAuthResponse };

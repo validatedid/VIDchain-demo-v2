@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import {Typography, Grid, Dialog, DialogActions, DialogTitle, DialogContent, Button, DialogContentText} from '@material-ui/core';
+import {Typography, Grid} from '@material-ui/core';
 import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 import "./Profile.css";
 import * as utils from "../../utils/utils";
 import * as airlineBackend from "../../apis/airlineBackend";
@@ -13,7 +14,8 @@ import { verifiableKYC } from "../../interfaces/dtos";
 import { PresentationPayload, VerifiableCredential } from "../../interfaces/IPresentation";
 import ServicePanel from "../../components/ServicePanel/ServicePanel";
 
-import iconProfile from "../../assets/images/iconProfile.svg";
+import flightsIcon from "../../assets/images/flightsIcon.svg";
+import credentialSentIcon from "../../assets/images/credentialSent.svg";
 
 
 interface Props {
@@ -56,6 +58,18 @@ class Profile extends Component<Props, State> {
   async componentDidMount() {
       await this.initiateSocket();
       const {state} = this.props.location;
+      console.log(state.flowCompleted);
+      if(state.flowCompleted){
+        this.generateTicket();
+        this.setState({
+          did: this.props.location.state.did,
+          type: this.props.location.state.type,
+          data: this.props.location.state.data,
+          vaccineRequested: true,
+          vaccinePresented: true,
+        });
+        return;
+      }
       if(state && state.id_token){
         const decodedIdToken = utils.decodeJWT(state.id_token);
         const jwt = decodedIdToken.jwt;
@@ -91,6 +105,7 @@ class Profile extends Component<Props, State> {
           did: this.props.location.state.did,
           type: this.props.location.state.type,
           data: this.props.location.state.data,
+          vaccineRequested: true,
           vaccinePresented: true,
         });
 
@@ -189,14 +204,11 @@ class Profile extends Component<Props, State> {
       vaccineRequested,
     } = this.state;
     return (
+      <>
+      <Header />
       <Grid container 
         direction="column"
         className="profileHome">
-
-        <Grid item>
-           <Header />
-        </Grid>
-        
         <Grid item className="titleProfile">
           <Typography variant="h2">{"Welcome to your\nAirline Portal"}</Typography>
           {/* <Typography variant="h1">{'Freedonia Citizen Portal'}</Typography> */}
@@ -215,13 +227,28 @@ class Profile extends Component<Props, State> {
               subtitle2="Requirements"
               description2={"In order to get the ticket, you will have to prove you you have received the Covid-19 Vaccination Certificate."}
               credentialName="Present your Vaccination Certificate"
-              icon={iconProfile}
+              icon={(vaccinePresented || vaccineRequested) ?  credentialSentIcon : flightsIcon}
               textButton="Check In"
               functionClickButton={this.claimVP}
               hasBeenValidated={vaccinePresented}
               hasBeenRequested={vaccineRequested} />            
           </Grid>
+          {window.innerWidth < 768 &&
+            <footer style={{flexDirection: 'row',display: 'flex', padding: '1%',backgroundColor: '#FFFFFF'}}>
+              <img
+                  className="logoFooter"
+                  src={require("../../assets/images/airlinelogo.png")}
+                  alt="HealthCare"
+                />
+              <p className="textFooter">This is not an official website of any Airline.</p>
+            </footer>
+          }
       </Grid>
+      {window.innerWidth >= 768 &&
+      <Footer />
+      }
+     
+      </>
     );
   }
 }

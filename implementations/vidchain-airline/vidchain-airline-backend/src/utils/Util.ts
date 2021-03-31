@@ -1,5 +1,6 @@
 import * as jwtDecode from "jwt-decode";
 import { decode as atob, encode } from "base-64";
+import { JWTDecoded } from "../interfaces/Token";
 
 function decodeJWT(token) {
   try {
@@ -51,4 +52,15 @@ function extractVCfromPresentation(credential) {
   return jwtObject.verifiableCredential[0];
 }
 
-export { decodeJWT, parseJwt, strB64dec, strB64enc, extractVCfromPresentation };
+
+function getEnterpriseDID(token: string): string {
+  try{
+  const jwyDecoded = decodeJWT(token);
+  return (jwyDecoded).did;
+  }
+  catch(error){
+    console.log(error);
+  }
+}
+
+export { decodeJWT, parseJwt, strB64dec, strB64enc, extractVCfromPresentation, getEnterpriseDID };

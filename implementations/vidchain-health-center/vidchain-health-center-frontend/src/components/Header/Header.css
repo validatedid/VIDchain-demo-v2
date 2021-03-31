@@ -1,10 +1,8 @@
 .logoHeader{
   position: relative;
-  width: 160px;
-  height: 83px;
   margin-top: 2%;
   margin-bottom: 2%;
-  margin-left: 10rem;
+  margin-left: 10%;
 }
 .headerBackground {
   position: absolute;
@@ -14,9 +12,11 @@
 }
 .powered {
   position: absolute;
+  top: 2rem;
   left: 80%;
   color: black;
   white-space: nowrap;
+  z-index: 100;
 }
 @media only screen and (max-width: 768px) {
   .powered {

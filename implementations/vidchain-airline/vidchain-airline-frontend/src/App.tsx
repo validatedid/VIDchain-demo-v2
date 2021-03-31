@@ -25,7 +25,7 @@ const THEME = createMuiTheme({
     fontSize: 28,
   },
   h2: {
-    fontFamily: 'TTNorms-Light',
+    fontFamily: 'TTNorms-Bold',
     color: '151A35'
   },
 
@@ -41,7 +41,7 @@ function App() {
   dotenv.config();
   return (
     <ThemeProvider theme={responsiveFontSizes(THEME)}>
-    <div className="App">
+    <div>
 
       <BrowserRouter basename={basename}>
         <Switch>
