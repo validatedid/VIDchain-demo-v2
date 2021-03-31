@@ -64,18 +64,18 @@ class Home extends Component<Props, State> {
           <Typography variant="h2" className="title">Welcome to Oceanic Airlines</Typography> 
           <Typography variant="h5" className="subtitle"><b>We're happy to have you onboard. Login to your site to get your tickets.</b></Typography>
           
-          {isQRdisplayed && 
+          {/* {isQRdisplayed && 
                 <div className="QRDidKeys">
                   <Typography variant="h5" className="scanTitle"><b>Scan the QR code to login.</b></Typography>
                   <QRCode value={qrContent}  size={window.innerWidth <  1501 ? "136" : "286"}/>
                   </div>
-                }
+                } */}
           <SignInButton variant="contained" color="primary" className="buttonSignIn" onClick={() => this.loginWithVIDChain()}>
                 Sign in with VIDchain
           </SignInButton>
-          <SignInButton variant="contained" color="primary" className="buttonSignInDidKeys" onClick={() => this.loginWithDIDKeys()}>
+          {/* <SignInButton variant="contained" color="primary" className="buttonSignInDidKeys" onClick={() => this.loginWithDIDKeys()}>
                 Sign in with did:keys
-          </SignInButton>
+          </SignInButton> */}
 
           
           </Grid>
