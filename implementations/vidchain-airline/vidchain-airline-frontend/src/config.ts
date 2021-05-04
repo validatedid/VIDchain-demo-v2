@@ -36,7 +36,6 @@ const EntityDidKey = {
   apiKey: API_KEY_DIDKEY
 };
 const DID_AUTH_REDIRECT = BACKEND_URL + "/auth/didAuthResponse";
-const DID_AUTH_JWT = BACKEND_URL + "/auth/jwt";
 
 //const scope = "vidchain profile test entity";
 
@@ -59,6 +58,5 @@ export {
   CLIENT_ID,
   APP_URL,
   DID_AUTH_REDIRECT,
-  DID_AUTH_JWT,
   DID_URI_RESOLVER
 };

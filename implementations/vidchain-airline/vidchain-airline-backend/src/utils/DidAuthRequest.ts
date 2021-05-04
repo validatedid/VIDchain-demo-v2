@@ -5,7 +5,7 @@ import * as didAuth from '../interfaces/didAuth';
 import {UriRequest, DidAuthRequestOpts,ObjectPassedBy, DidAuthResponseMode, DidAuthResponseContext} from '../interfaces/didAuth';
 import {getEnterpriseDID, getJwtNonce} from './Util';
 
-const generateJwtRequest = async (): Promise<UriRequest> => {
+const generateJwtRequest = async (socketId: string): Promise<UriRequest> => {
     const sessionToken = await vidchain.getAuthzTokendDidKey();
     const jwt: string = sessionToken;
     const did: string = getEnterpriseDID(jwt);
@@ -43,7 +43,6 @@ const generateJwtRequest = async (): Promise<UriRequest> => {
 
 const verifyDidAuthResponse = async(siopResponseJwt: didAuth.SiopResponseJwt): Promise<siopDidAuth.DidAuthTypes.DidAuthValidationResponse> => {
   const authZToken = await vidchain.getAuthzToken();
-  //TODO: Store Nonce at the beginning of the flow and check here 
   const nonce = await getJwtNonce(siopResponseJwt.id_token);
   
   const optsVerify: siopDidAuth.DidAuthTypes.DidAuthVerifyOpts = {
@@ -59,6 +58,7 @@ const verifyDidAuthResponse = async(siopResponseJwt: didAuth.SiopResponseJwt): P
     siopResponseJwt.id_token,
     optsVerify
   );
+  return validationResponse;
 }
 
 export {generateJwtRequest, verifyDidAuthResponse}

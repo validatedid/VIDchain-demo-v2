@@ -114,3 +114,9 @@ export interface DidAuthResponsePayload extends JWTClaims {
     state: string;
     login_challenge?: string;
   }
+
+  export interface BackendResponseSiop {
+    validationResponse: siopDidAuth.DidAuthTypes.DidAuthValidationResponse;
+    socketId: string;
+    redirectUrl?: string;
+  }

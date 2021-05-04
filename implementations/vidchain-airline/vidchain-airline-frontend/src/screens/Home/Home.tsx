@@ -7,6 +7,7 @@ import {SignInButton} from "../../components/SignInButton/SignInButton";
 import Footer from "../../components/Footer/Footer";
 import { OpenIDClient } from "../../libs/openid-connect/client";
 import * as airlineBackend from '../../apis/airlineBackend';
+import * as config from '../../config';
 
 interface Props {
   history?: any;
@@ -42,11 +43,17 @@ class Home extends Component<Props, State> {
   }
 
   async loginWithDIDKeys() {
-    var qr = await airlineBackend.didAuthResponse();
+    const socket = io(config.BACKEND_WS, {
+      path: "/airlinews",
+      transports: ["websocket"],
+    });
+    var qr = await airlineBackend.didAuthRequest(socket.id);
     this.setState({
       isQRdisplayed: true,
       qrContent: qr
-    })
+    });
+    socket.on("didAuthDidKey", () => {
+    });
   }
 
   render() {
