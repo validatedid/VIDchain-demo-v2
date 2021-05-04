@@ -1,7 +1,8 @@
-import { Injectable, Logger} from "@nestjs/common";
+import { Injectable, Logger, BadRequestException} from "@nestjs/common";
 import * as externals from "../api/externals";
 import * as config from "../config";
-import {generateJwtRequest} from '../utils/DidAuthRequest'
+import * as didAuth from '../interfaces/didAuth';
+import {generateJwtRequest, verifyDidAuthResponse} from '../utils/DidAuthRequest'
 
 @Injectable()
 export class AuthService {
@@ -37,14 +38,24 @@ export class AuthService {
 
   async didAuthRequest(): Promise<any> {
     try{
-      console.log("in did auth request");
       const uriRequest = await generateJwtRequest();
-      console.log(uriRequest);
       const uriDecoded = decodeURIComponent(uriRequest.urlEncoded) + "&client_name="+config.EntityDidKey.iss;
       return uriDecoded;
     }
     catch(error){
       throw new Error("error");
+    }
+  }
+
+  async validateResponse(siopResponseJwt: didAuth.SiopResponseJwt): Promise<any> {
+    try{
+      const validationResponse = await verifyDidAuthResponse(siopResponseJwt);
+      if (!validationResponse.signatureValidation) 
+        throw new BadRequestException("Error verifying the DID Auth Token signature.");
+      return validationResponse;
+    }
+    catch(error){
+      throw new Error("Error validating the response");
     }
   }
 

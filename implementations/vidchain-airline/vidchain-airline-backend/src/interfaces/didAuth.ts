@@ -108,3 +108,9 @@ export interface DidAuthResponsePayload extends JWTClaims {
     did: string;
     vp?: VerifiablePresentation;
   }
+
+  export interface SiopResponseJwt {
+    id_token: string;
+    state: string;
+    login_challenge?: string;
+  }

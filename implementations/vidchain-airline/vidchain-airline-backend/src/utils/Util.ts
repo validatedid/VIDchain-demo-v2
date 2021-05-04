@@ -1,6 +1,8 @@
 import * as jwtDecode from "jwt-decode";
+import { BadRequestException, InternalServerErrorException } from "@nestjs/common";
+import * as siopDidAuth from "@validatedid/did-auth";
 import { decode as atob, encode } from "base-64";
-import { JWTDecoded } from "../interfaces/Token";
+import { IEnterpriseAuthZToken } from "../interfaces/Token";
 
 function decodeJWT(token) {
   try {
@@ -63,4 +65,10 @@ function getEnterpriseDID(token: string): string {
   }
 }
 
-export { decodeJWT, parseJwt, strB64dec, strB64enc, extractVCfromPresentation, getEnterpriseDID };
+function getJwtNonce(jwt: string): string {
+  const payload = jwtDecode(jwt);
+  return (payload as IEnterpriseAuthZToken).nonce;
+}
+
+
+export { decodeJWT, parseJwt, strB64dec, strB64enc, extractVCfromPresentation, getEnterpriseDID, getJwtNonce };

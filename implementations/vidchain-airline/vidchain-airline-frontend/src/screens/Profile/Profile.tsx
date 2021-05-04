@@ -98,14 +98,12 @@ class Profile extends Component<Props, State> {
   }
 
   async initiateSocket() {
-    console.log("in socket");
     const socket = io(config.BACKEND_WS, {
       path: "/airlinews",
       transports: ["websocket"],
     });
 
     socket.on("connect", () => {
-      console.log("connect");
       this.setState({
         socketSession: socket.id,
       });
@@ -121,7 +119,6 @@ class Profile extends Component<Props, State> {
     });
 
     socket.on("largeFamilyPresentation", (msg: any) => {
-      console.log("receive");
       this.generateTicket();
       this.setState({
         vaccinePresented: true,

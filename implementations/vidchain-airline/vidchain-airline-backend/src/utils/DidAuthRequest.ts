@@ -1,9 +1,9 @@
 import * as siopDidAuth from "@validatedid/did-auth";
 import * as vidchain from '../api/vidchain';
 import * as config from '../config';
+import * as didAuth from '../interfaces/didAuth';
 import {UriRequest, DidAuthRequestOpts,ObjectPassedBy, DidAuthResponseMode, DidAuthResponseContext} from '../interfaces/didAuth';
-import {getEnterpriseDID} from './Util';
-import {getKid} from '../utils/DidResolver';
+import {getEnterpriseDID, getJwtNonce} from './Util';
 
 const generateJwtRequest = async (): Promise<UriRequest> => {
     const sessionToken = await vidchain.getAuthzTokendDidKey();
@@ -41,4 +41,24 @@ const generateJwtRequest = async (): Promise<UriRequest> => {
     return uriRequest;
 }
 
-export {generateJwtRequest}
+const verifyDidAuthResponse = async(siopResponseJwt: didAuth.SiopResponseJwt): Promise<siopDidAuth.DidAuthTypes.DidAuthValidationResponse> => {
+  const authZToken = await vidchain.getAuthzToken();
+  //TODO: Store Nonce at the beginning of the flow and check here 
+  const nonce = await getJwtNonce(siopResponseJwt.id_token);
+  
+  const optsVerify: siopDidAuth.DidAuthTypes.DidAuthVerifyOpts = {
+    verificationType: {
+      verifyUri: config.SIGNATURE_VALIDATION,
+      authZToken,
+      didUrlResolver: config.DID_URI_RESOLVER,
+    },
+    redirectUri: config.DID_AUTH_REDIRECT,
+    nonce,
+  };
+  const validationResponse = await siopDidAuth.verifyDidAuthResponse(
+    siopResponseJwt.id_token,
+    optsVerify
+  );
+}
+
+export {generateJwtRequest, verifyDidAuthResponse}
