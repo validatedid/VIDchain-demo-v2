@@ -25,7 +25,7 @@ const THEME = createMuiTheme({
     fontSize: 28,
   },
   h2: {
-    fontFamily: 'TTNorms-Light',
+    fontFamily: 'TTNorms-Bold',
     color: '151A35'
   },
 

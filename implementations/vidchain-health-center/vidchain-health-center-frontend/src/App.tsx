@@ -23,7 +23,7 @@ const THEME = createMuiTheme({
     fontFamily: 'TTNorms-Bold',
   },
   h2: {
-    fontFamily: 'TTNorms-Light',
+    fontFamily: 'TTNorms-Bold',
     color: '151A35',
   },
 

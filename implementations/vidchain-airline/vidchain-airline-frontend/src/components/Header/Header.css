@@ -1,7 +1,6 @@
 .logoHeader{
     position: relative;
-    width: 260px;
-    height: 128px;
+    top: 2rem;
     left: 5rem;
   }
   .headerBackground {
@@ -25,7 +24,7 @@
       position: relative;
       width: 120px;
       height: 64px;
-      margin-top: 2%;
+      top: 0rem;
       margin-bottom: 1rem;
       left: 2rem;
     }

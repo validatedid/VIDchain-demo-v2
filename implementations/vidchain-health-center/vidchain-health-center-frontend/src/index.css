@@ -10,7 +10,7 @@
 @font-face {
     font-family: 'TTNorms-Bold';
     font-weight: 900;
-    src: local('TTNorms-Bols'), url(./assets/fonts/TTNorms-Bold.otf) format('opentype');
+    src: local('TTNorms-Bold'), url(./assets/fonts/TTNorms-Bold.otf) format('opentype');
 }
 body {
   margin: 0;

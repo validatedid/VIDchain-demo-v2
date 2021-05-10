@@ -46,25 +46,28 @@ class Home extends Component<Props, State> {
 
   render() {
     return (
-      <div className="home">
+        <>
         <Header />
-        <Grid container 
-          direction="column"
-          justify="center"
-          alignItems="flex-start"
-          className="content">
-          <Grid item className="titleHome">
-            <Typography variant="h2">{"Welcome to your Health Care Center"}</Typography>
-            <Typography variant="h5">From this website you can request your vaccination certificate, manage your appointments...</Typography>
-          </Grid>
-          <Grid item>
-            <SignInButton variant="contained" className="buttonSignIn" color="primary" onClick={() => this.loginWithVIDChain()}>
-              Sign in with VIDchain
-            </SignInButton>
+     
+          <Grid container 
+            direction="column"
+            justify="center"
+            alignItems="flex-start"
+            className="home">
+              
+            <Grid item>
+              <Typography variant="h2" className="title">{"Welcome to your Health Care Center"}</Typography>
+              <Typography variant="h5" className="subtitle">From this website you can request your vaccination certificate, manage your appointments...</Typography>
+
+              <SignInButton variant="contained" className="buttonSignIn" color="primary" onClick={() => this.loginWithVIDChain()}>
+                Sign in with VIDchain
+              </SignInButton>
+              </Grid>
             </Grid>
-          </Grid>
+       
         <Footer></Footer>
-      </div>
+        
+      </>
     );
   }
 }

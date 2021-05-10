@@ -1,6 +1,6 @@
 .logoFooter{
   position: relative;
-  width: 52px;
+  width: 48px;
   height: 48px;
   left: 5rem;
 }
@@ -21,7 +21,13 @@
 }
 @media only screen and (max-width: 767px) {
   .textFooter{
-
-    margin-left: -50%;
+    left: 2rem;
   }
+  .logoFooter{
+    left: 1rem;
+  }
+  .footer {
+    bottom: 0;
+    position: absolute;
+}
 }

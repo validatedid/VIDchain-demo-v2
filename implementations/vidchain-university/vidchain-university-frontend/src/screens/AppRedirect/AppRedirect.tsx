@@ -95,6 +95,7 @@ class AppRedirect extends Component<Props, State> {
         did: did,
         type: type,
         data: data,
+        flowCompleted: true
       },
     });
   }
