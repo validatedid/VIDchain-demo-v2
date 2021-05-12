@@ -120,3 +120,14 @@ export interface DidAuthResponsePayload extends JWTClaims {
     socketId: string;
     redirectUrl?: string;
   }
+
+  export interface AuthenticationQR {
+    response_type: string;
+    client_id: string;
+    scope: string;
+    state?: string;
+    nonce?: string;
+    requestUri?: string;
+    client_name?: string;
+    [x: string]: unknown;
+  }

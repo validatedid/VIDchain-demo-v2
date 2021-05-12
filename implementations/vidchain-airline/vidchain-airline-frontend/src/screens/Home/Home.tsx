@@ -8,6 +8,7 @@ import Footer from "../../components/Footer/Footer";
 import { OpenIDClient } from "../../libs/openid-connect/client";
 import * as airlineBackend from '../../apis/airlineBackend';
 import * as config from '../../config';
+import io from "socket.io-client";
 
 interface Props {
   history?: any;
@@ -47,12 +48,23 @@ class Home extends Component<Props, State> {
       path: "/airlinews",
       transports: ["websocket"],
     });
-    var qr = await airlineBackend.didAuthRequest(socket.id);
-    this.setState({
-      isQRdisplayed: true,
-      qrContent: qr
+    socket.on("connect", async () => {
+      var qr = await airlineBackend.didAuthRequest(socket.id);
+      this.setState({
+        isQRdisplayed: true,
+        qrContent: qr
+      });
     });
-    socket.on("didAuthDidKey", () => {
+    
+    socket.on("didAuthDidKey", (validationResponse) => {
+      console.log("received");
+      console.log(validationResponse);
+      this.props.history.push({
+        pathname: "/profile",
+        state: {
+          presentation: validationResponse,
+        },
+      });
     });
   }
 

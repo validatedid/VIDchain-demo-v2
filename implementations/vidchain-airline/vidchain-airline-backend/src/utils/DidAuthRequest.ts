@@ -5,7 +5,7 @@ import * as didAuth from '../interfaces/didAuth';
 import {UriRequest, DidAuthRequestOpts,ObjectPassedBy, DidAuthResponseMode, DidAuthResponseContext} from '../interfaces/didAuth';
 import {getEnterpriseDID, getJwtNonce} from './Util';
 
-const generateJwtRequest = async (socketId: string): Promise<UriRequest> => {
+const generateJwtRequest = async (): Promise<UriRequest> => {
     const sessionToken = await vidchain.getAuthzTokendDidKey();
     const jwt: string = sessionToken;
     const did: string = getEnterpriseDID(jwt);
@@ -42,7 +42,7 @@ const generateJwtRequest = async (socketId: string): Promise<UriRequest> => {
 }
 
 const verifyDidAuthResponse = async(siopResponseJwt: didAuth.SiopResponseJwt): Promise<siopDidAuth.DidAuthTypes.DidAuthValidationResponse> => {
-  const authZToken = await vidchain.getAuthzToken();
+  const authZToken = await vidchain.getAuthzTokendDidKey();
   const nonce = await getJwtNonce(siopResponseJwt.id_token);
   
   const optsVerify: siopDidAuth.DidAuthTypes.DidAuthVerifyOpts = {
@@ -54,11 +54,17 @@ const verifyDidAuthResponse = async(siopResponseJwt: didAuth.SiopResponseJwt): P
     redirectUri: config.DID_AUTH_REDIRECT,
     nonce,
   };
+  try{
   const validationResponse = await siopDidAuth.verifyDidAuthResponse(
     siopResponseJwt.id_token,
     optsVerify
   );
   return validationResponse;
+  }
+  catch(error){
+    throw new Error("Error verifying the did auth response.");
+  }
+ 
 }
 
 export {generateJwtRequest, verifyDidAuthResponse}

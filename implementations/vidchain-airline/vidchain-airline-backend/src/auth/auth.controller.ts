@@ -7,7 +7,6 @@ import {
     Logger,
     Get,
     Param,
-    Query,
     BadRequestException
   } from "@nestjs/common";
   import { Response } from "express";
@@ -43,10 +42,10 @@ import {
         }
     }
 
-    @Get("didAuthRequest")
-    async didAuthRequest(@Param() params, @Query("socket_id") socketId: string, @Res() res: Response): Promise<Response<any>> {
+    @Get("didAuthRequest/:socketId")
+    async didAuthRequest(@Param() params, @Res() res: Response): Promise<Response<any>> {
         try{
-            const result = await this.authService.didAuthRequest(socketId);
+            const result = await this.authService.didAuthRequest(params.socketId);
             return res.status(HttpStatus.CREATED).send(result);
         }
         catch(error){
@@ -69,11 +68,11 @@ import {
         }
         const result: didAuth.BackendResponseSiop = await this.authService.validateResponse(body);
         //Send info to frontend
-        this.socket.to(result.socketId).emit("didAuthDidKey", result.validationResponse);
-        //If redirectUrl sends to the app for redirection
-        if(result.redirectUrl){
-            return res.status(HttpStatus.CREATED).send(result.redirectUrl);
-        } 
+        this.socket.emit("didAuthReady", result);
+        //Not implemented for App browser flow, but If redirectUrl sends to the app for redirection
+        // if(result.redirectUrl){
+        //     return res.status(HttpStatus.CREATED).send(result.redirectUrl);
+        // } 
         return res.status(HttpStatus.CREATED).send();
     }
 

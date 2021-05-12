@@ -85,6 +85,30 @@ class Profile extends Component<Props, State> {
         }
 
       }
+      if(state && state.presentation){
+        const did = state.presentation.did;
+        const credential: VerifiableCredential = state.presentation.vp.verifiableCredential[0] as VerifiableCredential;
+        this.setState({
+          verifiableKYC: {
+            id: credential.credentialSubject.id as string,
+            documentNumber: credential.credentialSubject.documentNumber as string,
+            documentType: credential.credentialSubject.documentType as string,
+            name: (credential.credentialSubject.firstName ? credential.credentialSubject.firstName : credential.credentialSubject.name) as string,
+            surname: credential.credentialSubject.lastName as string,
+            fullName: credential.credentialSubject.fullName as string,
+            nationality: credential.credentialSubject.nationality as string,
+            stateIssuer: credential.credentialSubject.stateIssuer as string,
+            issuingAuthority: credential.credentialSubject.issuingAuthority as string,
+            dateOfExpiry: credential.credentialSubject.dateOfExpiry as string,
+            dateOfBirth: credential.credentialSubject.dateOfBirth as string,
+            placeOfBirth: credential.credentialSubject.placeOfBirth as string,
+            sex: credential.credentialSubject.gender as string,
+            personalNumber: credential.credentialSubject.personalNumber as string,
+          },
+          did: did,
+          });
+          
+        }
       if(state && state.did){
         this.generateTicket();
         this.setState({

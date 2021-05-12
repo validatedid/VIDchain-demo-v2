@@ -4,7 +4,7 @@ import * as externals from "../api/externals";
 import * as config from "../config";
 import * as didAuth from '../interfaces/didAuth';
 import {generateJwtRequest, verifyDidAuthResponse} from '../utils/DidAuthRequest';
-import {getJwtNonce} from '../utils/Util';
+import {getNonce, getJwtNonce} from '../utils/Util';
 
 @Injectable()
 export class AuthService {
@@ -45,33 +45,30 @@ export class AuthService {
 
   async didAuthRequest(socketId: string): Promise<any> {
     try{
-      const uriRequest = await generateJwtRequest(socketId);
-      //Store the nonce and socketId in DB
-      await this.nonceRedis.set(getJwtNonce(uriRequest.jwt), socketId);
+      const uriRequest = await generateJwtRequest();
       const uriDecoded = decodeURIComponent(uriRequest.urlEncoded) + "&client_name="+config.EntityDidKey.iss;
+      //Store the nonce and socketId in DB
+      const nonce = getNonce(uriDecoded);
+      await this.nonceRedis.set(nonce, socketId);
+      
       return uriDecoded;
     }
     catch(error){
-      throw new Error("error");
+      throw new Error("Error generating the did auth request");
     }
   }
 
   async validateResponse(siopResponseJwt: didAuth.SiopResponseJwt): Promise<didAuth.BackendResponseSiop> {
-    try{
       //Get the nonce and socketId from DB
       const nonce = getJwtNonce(siopResponseJwt.id_token);
       const clientId = await this.nonceRedis.get(nonce);
-      if(!nonce || clientId){
+      if(!nonce || !clientId){
         throw new BadRequestException("Error retriving the nonce of the token");
       }
       const validationResponse = await verifyDidAuthResponse(siopResponseJwt);
       if (!validationResponse.signatureValidation) 
         throw new BadRequestException("Error verifying the DID Auth Token signature.");
       return {validationResponse, socketId: clientId};
-    }
-    catch(error){
-      throw new Error("Error validating the response");
-    }
   }
 
   
