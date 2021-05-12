@@ -46,7 +46,7 @@ class Profile extends Component<Props, State> {
       socketSession: "",
       verifiableKYC: {} as verifiableKYC,
       type: "",
-      data: {},
+      data: {}
     };
     
     this.generateTicket = this.generateTicket.bind(this);
