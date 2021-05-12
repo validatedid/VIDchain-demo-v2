@@ -61,11 +61,12 @@ async function createSession(body: any) {
   }
 }
 
-async function didAuthResponse() {
+async function didAuthRequest(socketId: string) {
   try {
     const response = await axios.get(
-      `${config.BACKEND_URL}/auth/didAuthRequest`
+      `${config.BACKEND_URL}/auth/didAuthRequest/${socketId}`
     );
+    console.log(`${config.BACKEND_URL}/auth/didAuthRequest/socketId=${socketId}`);
     if (response.status !== 200 && response.status !== 201) {
       return "Error";
     }
@@ -75,4 +76,4 @@ async function didAuthResponse() {
   }
 }
 
-export { claimVP, getToken, createSession,didAuthResponse };
+export { claimVP, getToken, createSession,didAuthRequest };

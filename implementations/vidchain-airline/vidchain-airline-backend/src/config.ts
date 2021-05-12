@@ -33,9 +33,8 @@ const scope = "vidchain profile entity";
 //const scope = "vidchain profile test entity";
 
 const DID_AUTH_REDIRECT = BASE_URL + "/auth/didAuthResponse";
-const DID_AUTH_JWT = BASE_URL + "/auth/jwt";
 const DID_URI_RESOLVER = `${API_URL}/identifiers`;
 const SIGNATURE_VALIDATION = `${API_URL}/signature-validations`;
 
 
-export { PORT, API_URL, BASE_URL, Entity, EntityDidKey, grantType, scope, WS_URL, IDENTITY_PROVIDER, CLIENT_SECRET, DID_AUTH_REDIRECT,DID_AUTH_JWT, DID_URI_RESOLVER, SIGNATURE_VALIDATION  };
+export { PORT, API_URL, BASE_URL, Entity, EntityDidKey, grantType, scope, WS_URL, IDENTITY_PROVIDER, CLIENT_SECRET, DID_AUTH_REDIRECT, DID_URI_RESOLVER, SIGNATURE_VALIDATION  };

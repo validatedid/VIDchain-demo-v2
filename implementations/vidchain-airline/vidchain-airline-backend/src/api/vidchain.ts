@@ -34,7 +34,6 @@ async function postRequest(token: string, user: any, endpoint: string) {
 
 // Get API authentication token
 async function getAuthzToken() {
-  console.log(config.Entity);
   const body = {
     grantType: config.grantType,
     assertion: strB64enc(config.Entity),

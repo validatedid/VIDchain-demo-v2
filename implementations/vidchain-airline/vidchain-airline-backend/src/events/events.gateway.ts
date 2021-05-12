@@ -10,6 +10,7 @@ import {
 import { Socket, Server } from "socket.io";
 import axios from "axios";
 import * as config from "./../config";
+import * as didAuth from '../interfaces/didAuth';
 import { Logger } from "@nestjs/common";
 import { extractVCfromPresentation } from "../utils/Util";
 
@@ -91,4 +92,13 @@ export class EventsGateway
     const type = JSON.stringify(jwt.vc ? jwt.vc.type[1] : jwt.type[1]);
     this.wss.to(clientId).emit("largeFamilyPresentation", credential);
   }
+
+  /**
+   *  presentationReady message is used to trigger the response of a Verifiable presentation. Notice that the did of user is retrieved from the credential and the socket clientId from the backend database.
+   */
+   @SubscribeMessage("didAuthReady")
+   async handleDidAuthEvent(@MessageBody() result:  didAuth.BackendResponseSiop): Promise<any> {
+     this.logger.log(`Did Auth ready:    ${result.validationResponse.signatureValidation}`);
+     this.wss.to(result.socketId).emit("didAuthDidKey", result.validationResponse.payload);
+   }
 }

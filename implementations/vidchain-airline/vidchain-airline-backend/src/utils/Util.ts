@@ -1,8 +1,8 @@
+var querystring = require('querystring');
 import * as jwtDecode from "jwt-decode";
-import { BadRequestException, InternalServerErrorException } from "@nestjs/common";
-import * as siopDidAuth from "@validatedid/did-auth";
 import { decode as atob, encode } from "base-64";
-import { IEnterpriseAuthZToken } from "../interfaces/Token";
+import { AuthenticationQR } from "../interfaces/didAuth";
+import {IEnterpriseAuthZToken} from "../interfaces/Token";
 
 function decodeJWT(token) {
   try {
@@ -65,10 +65,17 @@ function getEnterpriseDID(token: string): string {
   }
 }
 
+function getNonce(urlDecoded: string): string {
+  const params: AuthenticationQR = querystring.parse(
+    urlDecoded
+  ) as AuthenticationQR;
+  return (params.nonce as string) || "";
+}
 function getJwtNonce(jwt: string): string {
   const payload = jwtDecode(jwt);
   return (payload as IEnterpriseAuthZToken).nonce;
 }
 
 
-export { decodeJWT, parseJwt, strB64dec, strB64enc, extractVCfromPresentation, getEnterpriseDID, getJwtNonce };
+
+export { decodeJWT, parseJwt, strB64dec, strB64enc, extractVCfromPresentation, getEnterpriseDID, getNonce, getJwtNonce };
