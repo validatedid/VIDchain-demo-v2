@@ -4,12 +4,12 @@
   "private": true,
   "dependencies": {
     "@babel/polyfill": "^7.11.5",
-    "@material-ui/core": "^4.11.2",
-    "@material-ui/styles": "^4.11.3",
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.0.4",
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/styles": "^4.11.4",
+    "@testing-library/jest-dom": "^5.12.0",
+    "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.1.5",
-    "@types/jest": "^26.0.13",
+    "@types/jest": "^26.0.23",
     "@types/react": "^16.9.49",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
@@ -28,7 +28,7 @@
     "react-scripts": "^3.4.3",
     "react-spinners-css": "^1.2.2",
     "socket.io-client": "^2.4.0",
-    "typescript": "~4.0.2"
+    "typescript": "^4.2.4"
   },
   "scripts": {
     "start": "PORT=3032 react-scripts start",
