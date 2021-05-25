@@ -51,10 +51,8 @@ class Profile extends Component<Props, State> {
     try{
       const {id_token} = this.props.location.state;
       if(id_token){
-          const decodedIdToken = utils.decodeJWT(id_token);
-          const jwt = decodedIdToken.jwt;
-          if(jwt){
-              const presentation: PresentationPayload = utils.decodeJWT(jwt);
+
+              const presentation: PresentationPayload = id_token;
               const credential: VerifiableCredential = presentation.vp.verifiableCredential[0] as VerifiableCredential;
               this.setState({
                 verifiableKYC: {
@@ -75,8 +73,8 @@ class Profile extends Component<Props, State> {
                 },
               did: utils.getUserDid(this.props.location.state.id_token)
             });
-          }
-        }
+      }
+        
       var client = OpenIDClient.getInstance().getClient();
       client.wipeTokens();
     }
