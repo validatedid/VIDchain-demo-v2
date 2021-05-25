@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Form.css";
 import { PresentationPayload } from "../../interfaces/IPresentation";
+import * as utils from '../../utils/utils';
 
 
 interface Props {
@@ -26,7 +27,7 @@ class Form extends Component<Props, State> {
     if(this.props.location.state && this.props.location.state.id_token){
 		const { id_token }  = this.props.location.state;
         if(id_token){
-            const presentation: PresentationPayload = id_token.payload;
+            const presentation: PresentationPayload = utils.decodeJWT(id_token.payload);
 			//The second credenntial is the Bank Attestation
 			let credential: any = presentation.vp.verifiableCredential[0];
 			let credentialVerifiableID: any = presentation.vp.verifiableCredential[1];
