@@ -57,7 +57,7 @@ class Profile extends Component<Props, State> {
       await this.initiateSocket();
       const {state} = this.props.location;
       if(state && state.id_token){
-            const presentation: PresentationPayload = utils.decodeJWT(state.id_token.payload);
+            const presentation: PresentationPayload = utils.decodeJWT(state.id_token);
             const credential: VerifiableCredential = presentation.vp.verifiableCredential[0] as VerifiableCredential;
             this.setState({
               verifiableKYC: {

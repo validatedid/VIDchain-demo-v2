@@ -47,29 +47,29 @@ class Profile extends Component<Props, State> {
 
   componentDidMount() {
     try{
-      const {id_token} = this.props.location.state;
-      if(id_token){
-              const presentation: PresentationPayload = utils.decodeJWT(id_token.payload);
-              const credential: VerifiableCredential = presentation.vp.verifiableCredential[0] as VerifiableCredential;
-              this.setState({
-                verifiableKYC: {
-                  id: credential.credentialSubject.id as string,
-                  documentNumber: credential.credentialSubject.documentNumber as string,
-                  documentType: credential.credentialSubject.documentType as string,
-                  name: (credential.credentialSubject.firstName ? credential.credentialSubject.firstName : credential.credentialSubject.name) as string,
-                  surname: credential.credentialSubject.lastName as string,
-                  fullName: credential.credentialSubject.fullName as string,
-                  nationality: credential.credentialSubject.nationality as string,
-                  stateIssuer: credential.credentialSubject.stateIssuer as string,
-                  issuingAuthority: credential.credentialSubject.issuingAuthority as string,
-                  dateOfExpiry: credential.credentialSubject.dateOfExpiry as string,
-                  dateOfBirth: credential.credentialSubject.dateOfBirth as string,
-                  placeOfBirth: credential.credentialSubject.placeOfBirth as string,
-                  sex: credential.credentialSubject.gender as string,
-                  personalNumber: credential.credentialSubject.personalNumber as string,
-                },
-              did: utils.getUserDid(this.props.location.state.id_token)
-            });
+      const {state} = this.props.location;
+      if(state && state.id_token){
+        const presentation: PresentationPayload = utils.decodeJWT(state.id_token);
+        const credential: VerifiableCredential = presentation.vp.verifiableCredential[0] as VerifiableCredential;
+        this.setState({
+          verifiableKYC: {
+            id: credential.credentialSubject.id as string,
+            documentNumber: credential.credentialSubject.documentNumber as string,
+            documentType: credential.credentialSubject.documentType as string,
+            name: (credential.credentialSubject.firstName ? credential.credentialSubject.firstName : credential.credentialSubject.name) as string,
+            surname: credential.credentialSubject.lastName as string,
+            fullName: credential.credentialSubject.fullName as string,
+            nationality: credential.credentialSubject.nationality as string,
+            stateIssuer: credential.credentialSubject.stateIssuer as string,
+            issuingAuthority: credential.credentialSubject.issuingAuthority as string,
+            dateOfExpiry: credential.credentialSubject.dateOfExpiry as string,
+            dateOfBirth: credential.credentialSubject.dateOfBirth as string,
+            placeOfBirth: credential.credentialSubject.placeOfBirth as string,
+            sex: credential.credentialSubject.gender as string,
+            personalNumber: credential.credentialSubject.personalNumber as string,
+          },
+        did: utils.getUserDid(this.props.location.state.id_token)
+      });
         }
       var client = OpenIDClient.getInstance().getClient();
       client.wipeTokens();

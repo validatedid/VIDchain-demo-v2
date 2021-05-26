@@ -24,10 +24,9 @@ class Form extends Component<Props, State> {
   }
 
   componentDidMount() {
-    if(this.props.location.state && this.props.location.state.id_token){
-		const { id_token }  = this.props.location.state;
-        if(id_token){
-            const presentation: PresentationPayload = utils.decodeJWT(id_token.payload);
+	  const {state} = this.props.location;
+      if(state && state.id_token){
+            const presentation: PresentationPayload = utils.decodeJWT(state.id_token);
 			//The second credenntial is the Bank Attestation
 			let credential: any = presentation.vp.verifiableCredential[0];
 			let credentialVerifiableID: any = presentation.vp.verifiableCredential[1];
@@ -42,8 +41,6 @@ class Form extends Component<Props, State> {
 				credentialSubjectVerifiableId: credentialVerifiableID.credentialSubject
 			});
         }
-      }
-
   }
 
   submit(){

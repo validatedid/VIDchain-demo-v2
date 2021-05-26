@@ -49,9 +49,9 @@ class Profile extends Component<Props, State> {
 
   componentDidMount() {
     try{
-      const {id_token} = this.props.location.state;
-      if(id_token){
-              const presentation: PresentationPayload = utils.decodeJWT(id_token.payload);
+      const {state} = this.props.location;
+      if(state && state.id_token){
+            const presentation: PresentationPayload = utils.decodeJWT(state.id_token);
               const credential: VerifiableCredential = presentation.vp.verifiableCredential[0] as VerifiableCredential;
               this.setState({
                 verifiableKYC: {
