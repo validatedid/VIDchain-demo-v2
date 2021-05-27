@@ -80,7 +80,7 @@ class Home extends Component<Props, State> {
           className="content">
         <Grid item>
           <div className="subcontent"></div>
-          <Typography variant="h2"className="title">Welcome to Oceanic Airlines</Typography> 
+          <Typography variant="h2" className="title">Welcome to Oceanic Airlines</Typography> 
           <Typography variant="h5" className="subtitle"><b>We're happy to have you onboard. Login to your site to get your tickets.</b></Typography>
           {isQRdisplayed && 
                 <div className="QRDidKeys">

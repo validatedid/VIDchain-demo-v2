@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Profile.css";
 import {Typography, Grid, Dialog, DialogActions, DialogTitle, DialogContent, Button, DialogContentText} from '@material-ui/core';
 import Header from "../../components/Header/Header";
+import Footer from "../../components/Footer/Footer";
 import { ICredentialData, InputCredential } from "../../interfaces/dtos";
 import * as vidchain from "../../apis/vidchain";
 import { OpenIDClient } from "../../libs/openid-connect/client";
@@ -13,7 +14,8 @@ import ProfilePanel from "../../components/ProfilePanel/ProfilePanel";
 import ServicePanel from "../../components/ServicePanel/ServicePanel";
 
 import profileIcon from "../../assets/images/profileIcon.svg";
-import largeFamilyIcon from "../../assets/images/iconLargeFamily.svg";
+import certificateIcon from "../../assets/images/certificateIcon.svg";
+import credentialSentIcon from "../../assets/images/credentialSentIcon.svg";
 
 
 
@@ -183,12 +185,10 @@ class Profile extends Component<Props, State> {
       hasInsuranceRequested
     } = this.state;
     return (
-      <div className="profileHome">
+      <>
         <Header />
       <Grid container 
         direction="column"
-        justify="center"
-        alignItems="center"
         className="profileHome">
 
         <Grid item className="titleProfile">
@@ -197,7 +197,6 @@ class Profile extends Component<Props, State> {
         </Grid>
         <Grid container
           direction="column"
-          justify="space-between"
           alignItems="center" 
           className="panels">
             <ProfilePanel 
@@ -222,14 +221,24 @@ class Profile extends Component<Props, State> {
               description="You can use it wherever you go: to buy a ticket in an airlines, to travel to another city..."
               requirements="In order to get this credential you will have to prove you have received the Covid-19 vaccine"
               credentialName="Present your Vaccination Certificate Credential"
-              icon={profileIcon}
+              icon={hasVaccineRequested ? credentialSentIcon : certificateIcon}
               textButton="Get Vaccination Certificate Credential"
               functionClickButton={this.generateCredential}
               hasBeenRequested={hasVaccineRequested} />
 
           </Grid>
+          <footer style={{flexDirection: 'row',display: 'flex', padding: '1%'}}>
+            <img
+                className="logoFooter"
+                src={require("../../assets/images/healthCareLogo.png")}
+                alt="HealthCare"
+              />
+            <p className="textFooter">This is not an official website of any Health Care Center.</p>
+          </footer>
       </Grid>
-      </div>
+      
+      {/* <Footer /> */}
+      </>
     );
   }
 }

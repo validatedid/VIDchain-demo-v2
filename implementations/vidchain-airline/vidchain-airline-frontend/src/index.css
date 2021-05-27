@@ -16,7 +16,7 @@
 body {
   background:white;
   margin: 0;
-  
+  height: 100%;
   font-family: "TTNorms", "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;

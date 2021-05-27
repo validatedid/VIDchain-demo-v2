@@ -81,15 +81,11 @@ export class EventsGateway
     );
     if(response.data.lastSessionId){
       const lastSessionId = response.data.lastSessionId;
+      console.log({sessionId: lastSessionId, data: credential});
       await axios.put(config.BASE_URL + "/sessions", {sessionId: lastSessionId, data: credential});
       console.log("Sessions db updated ");
     }
     
-    //
-    /**
-     *  If different kind of presentations are handled by the backend entity, different messages should be emitted depending to avoid cross ws notifications
-     */
-    const type = JSON.stringify(jwt.vc ? jwt.vc.type[1] : jwt.type[1]);
     this.wss.to(clientId).emit("largeFamilyPresentation", credential);
   }
 
