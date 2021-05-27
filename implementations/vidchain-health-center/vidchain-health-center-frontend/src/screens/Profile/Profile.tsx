@@ -27,6 +27,7 @@ interface State {
   user: ICredentialData;
   did: string;
   hasVaccineRequested: boolean;
+  hasInsuranceRequested: boolean;
   verifiableKYC: verifiableKYC;
   popUpisOpen: boolean;
 }
@@ -37,12 +38,14 @@ class Profile extends Component<Props, State> {
     this.state = {
       user: {} as ICredentialData,
       hasVaccineRequested: false,
+      hasInsuranceRequested: false,
       did: "",
       verifiableKYC: {} as verifiableKYC,
       popUpisOpen: false
     };
 
     this.generateCredential = this.generateCredential.bind(this);
+    this.generateEuropeanHealthInsuranceCardCredential = this.generateEuropeanHealthInsuranceCardCredential.bind(this);
   }
 
   componentDidMount() {
@@ -123,11 +126,60 @@ class Profile extends Component<Props, State> {
     });
   }
 
+  async generateEuropeanHealthInsuranceCardCredential() {
+    const {verifiableKYC} = this.state;
+    const token = await vidchain.getAuthzToken();
+    const credential: InputCredential = {
+      "@context": [
+        "https://www.w3.org/2018/credentials/v1",
+        "https://essif-lab.pages.grnet.gr/interoperability/eidas-generic-use-case/contexts/ehic-v1.jsonld",
+        "https://essif-lab.pages.grnet.gr/interoperability/eidas-generic-use-case/contexts/cades-signature.jsonld",
+        "https://essif-lab.pages.grnet.gr/interoperability/eidas-generic-use-case/contexts/train-trustScheme.jsonld"
+      ],
+      id: "https://ec.europa.eu/credentials/83627465",
+      type: [
+        "VerifiableCredential",
+        "EuropeanHealthInsuranceCard"
+      ],
+      issuer: utils.getIssuerDid(token),
+      name: "European Health Insurance Card",
+      description: "Example of a European Health Insurance Card",
+      expirationDate: "2029-12-03T12:19:52Z",
+      institutionID: "09999 - INSS Madrid",
+      issuanceDate: "2029-12-03T12:19:52Z",
+      cardNo: "80756099990000034111",
+      personalID: "09999 111999",
+      credentialSubject: {
+        id: this.state.did,
+        type: [
+          "EuropeanHealthInsuranceHolder",
+          "Person"
+        ],
+        familyName: verifiableKYC.surname,
+        givenName: verifiableKYC.name,
+        birthDate: verifiableKYC.dateOfBirth
+      },
+      termsOfUse: [{
+        "type": "https://train.trust-scheme.de/info",
+        "trustScheme": ["ehic.europe.lightest.nlnetlabs.nl"]
+      }]
+    };
+    
+    const response = await vidchain.generateVerifiableCredential(
+      token,
+      credential
+    );
+    this.setState({
+      hasInsuranceRequested: true,
+    });
+  }
+
   render() {
     const {
       did,
       verifiableKYC,
-      hasVaccineRequested
+      hasVaccineRequested,
+      hasInsuranceRequested
     } = this.state;
     return (
       <div className="profileHome">
@@ -141,7 +193,6 @@ class Profile extends Component<Props, State> {
         <Grid item className="titleProfile">
           <Typography variant="h2">{"Welcome to your Health Care Center"}</Typography>
           {/* <Typography variant="h1">{'Freedonia Citizen Portal'}</Typography> */}
-          <Typography variant="h5">Here you can check your profile details and manage your activity within the Freedonia Citizen</Typography>
         </Grid>
         <Grid container
           direction="column"
@@ -156,7 +207,17 @@ class Profile extends Component<Props, State> {
             />
             
             <ServicePanel 
-              title="Request your Vaccination Certificate credential"
+              title="Request your European Health Insurance Credential"
+              description="Use your European Health Insurance to travel around Europe safely."
+              requirements="In order to get this credential you will have to be authenticated with our services"
+              credentialName="European Health Insurance Credential"
+              icon={profileIcon}
+              textButton="Get European Health Insurance Credential"
+              functionClickButton={this.generateEuropeanHealthInsuranceCardCredential}
+              hasBeenRequested={hasInsuranceRequested} />
+
+            <ServicePanel 
+              title="Request your Vaccination Certificate Credential"
               description="You can use it wherever you go: to buy a ticket in an airlines, to travel to another city..."
               requirements="In order to get this credential you will have to prove you have received the Covid-19 vaccine"
               credentialName="Present your Vaccination Certificate Credential"
