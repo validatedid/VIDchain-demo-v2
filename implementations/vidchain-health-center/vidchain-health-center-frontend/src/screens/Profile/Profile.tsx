@@ -128,7 +128,8 @@ class Profile extends Component<Props, State> {
 
   async generateEuropeanHealthInsuranceCardCredential() {
     const {verifiableKYC} = this.state;
-    const token = await vidchain.getAuthzToken();
+    const token = await vidchain.getAuthzTokenDidKey();
+    console.log(token);
     const credential: InputCredential = {
       "@context": [
         "https://www.w3.org/2018/credentials/v1",

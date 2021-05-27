@@ -10,6 +10,7 @@ const BACKEND_URL =
   process.env.REACT_APP_BACKEND_URL || "undefined";
 const BACKEND_WS = process.env.REACT_APP_WS_URL || "undefined";
 const API_KEY = process.env.REACT_APP_API_KEY || "undefined";
+const API_KEY_DIDKEY = process.env.REACT_APP_API_KEY_DID_KEY || "undefined";
 
 
 //Legal Entity
@@ -19,6 +20,14 @@ const Entity = {
   nonce: "z-0427dc2515b1",
   callbackUrl: BACKEND_URL + "/presentation/validation",
   apiKey: API_KEY
+};
+
+const EntityDidKey = {
+  iss: "Health Care Center DidKey",
+  aud: "vidchain-api",
+  nonce: "z-0427dc2515b1",
+  callbackUrl: BACKEND_URL + "/presentation/validation",
+  apiKey: API_KEY_DIDKEY
 };
 
 const grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer";
@@ -32,6 +41,7 @@ const eidasCertificatePassword = "1234";
 
 export {
   Entity,
+  EntityDidKey,
   grantType,
   scope,
   API_URL,
