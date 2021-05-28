@@ -10,7 +10,7 @@ const BACKEND_URL =
   process.env.REACT_APP_BACKEND_URL || "undefined";
 const BACKEND_WS = process.env.REACT_APP_WS_URL || "undefined";
 const API_KEY = process.env.REACT_APP_API_KEY || "undefined";
-const API_KEY_DIDKEY = process.env.REACT_APP_API_KEY_DID_KEY || "undefined";
+const API_KEY_DIDKEY = process.env.REACT_APP_API_KEY_DIDKEY || "undefined";
 
 
 //Legal Entity
