@@ -3,7 +3,7 @@ import "./Profile.css";
 import {Typography, Grid, Dialog, DialogActions, DialogTitle, DialogContent, Button, DialogContentText} from '@material-ui/core';
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import { ICredentialData, InputCredential } from "../../interfaces/dtos";
+import { CredentialData, ICredentialData, InputCredential, InputOptions } from "../../interfaces/dtos";
 import * as vidchain from "../../apis/vidchain";
 import { OpenIDClient } from "../../libs/openid-connect/client";
 import * as utils from "../../utils/utils";
@@ -121,7 +121,7 @@ class Profile extends Component<Props, State> {
     
     const response = await vidchain.generateVerifiableCredential(
       token,
-      credential
+      { credential }
     );
     this.setState({
       hasVaccineRequested: true,
@@ -168,10 +168,21 @@ class Profile extends Component<Props, State> {
       }]
     };
     
+
+    const credentialData: CredentialData = {
+      credential,
+        options: {
+          eidasBridge: {
+            password: config.eidasCertificatePassword,
+          }
+        } as InputOptions,
+    };
+
     const response = await vidchain.generateVerifiableCredential(
       token,
-      credential
+      credentialData
     );
+    
     this.setState({
       hasInsuranceRequested: true,
     });

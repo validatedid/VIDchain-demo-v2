@@ -1,6 +1,6 @@
 import axios from "axios";
 import * as config from "../config";
-import { ICredentialData, InputCredential } from "../interfaces/dtos";
+import { CredentialData, ICredentialData } from "../interfaces/dtos";
 import { strB64enc } from "../utils/utils";
 
 
@@ -69,7 +69,7 @@ async function generateVerifiableID(token: string, user: ICredentialData) {
 // Request Verifiable Credential generation
 async function generateVerifiableCredential(
   token: string,
-  credentialData: InputCredential
+  credentialData: CredentialData
 ) {
   return request(token, credentialData, "/verifiable-credentials");
 }
