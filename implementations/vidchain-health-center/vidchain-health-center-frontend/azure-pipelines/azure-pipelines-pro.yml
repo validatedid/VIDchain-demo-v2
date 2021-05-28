@@ -51,7 +51,7 @@ stages:
     - bash: |
         cp ./implementations/vidchain-health-center/vidchain-health-center-frontend/envs/.env.production ./implementations/vidchain-health-center/vidchain-health-center-frontend/.env
         echo -e "\nREACT_APP_API_KEY=$API_KEY" >> ./implementations/vidchain-health-center/vidchain-health-center-frontend/.env
-        echo -e "\REACT_APP_API_KEY_DIDKEY=$API_KEY_DIDKEY" >> ./implementations/vidchain-health-center/vidchain-health-center-frontend/.env
+        echo -e "\nREACT_APP_API_KEY_DIDKEY=$API_KEY_DIDKEY" >> ./implementations/vidchain-health-center/vidchain-health-center-frontend/.env
       name: load_env_variables_file
       displayName: 'load env vars'
       env:
