@@ -18,6 +18,10 @@ async function claimVP(target: string, name: string, redirectUri: string) {
       presentationType = ["VerifiableCredential", "LargeFamilyCard"];
       break;
     }
+    case "BankAccountHolderCredential": {
+      presentationType = ["VerifiableCredential", "BankAccountHolderCredential"];
+      break;
+    }
     default: {
       break;
     }
