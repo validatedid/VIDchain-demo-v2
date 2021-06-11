@@ -16,6 +16,7 @@ import ServicePanel from "../../components/ServicePanel/ServicePanel";
 import iconCourse from "../../assets/images/iconCourse.svg";
 import iconLargeFamily from "../../assets/images/iconLargeFamily.svg";
 import iconProfile from "../../assets/images/iconProfile.svg";
+import iconBank from "../../assets/images/iconCourse.svg";
 
 
 interface Props {
@@ -307,15 +308,14 @@ class Profile extends Component<Props, State> {
           <ServicePanel 
               title="Request Bank credential"
               subtitle1="Description"
-              description1={"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum sed leo vel metus sodales fringilla." +
-              "Donec nulla purus, accumsan eu turpis nec, hendrerit blandit urna. Etiam dictum vehicula neque, a congue ligula fringilla sed." +
-              "Etiam tincidunt ligula sit amet nulla volutpat interdum nec nec tortor. Donec eu eleifend urna, eget finibus nisi. "}
+              description1={"Our university works side by side with the cutting edge financial services. For this reason," +
+              "we offer you the possibility to connect with Plaid to validate your financial account."}
               subtitle2="Requirements"
-              description2={"In order to register a payment, you will have to prove your bank account possession."}
+              description2={"In order to register a payment, you will have to prove your bank account ownership."}
               credentialName="Present your Bank account Credential"
               issuedBy="issued by Plaid"
-              icon={iconLargeFamily}
-              textButton="Apply"
+              icon={iconBank}
+              textButton="Register Account"
               functionClickButton={this.claimVPBankCredential}
               hasBeenValidated={bankCredential}
               hasBeenRequested={bankCredentialRequested} />
