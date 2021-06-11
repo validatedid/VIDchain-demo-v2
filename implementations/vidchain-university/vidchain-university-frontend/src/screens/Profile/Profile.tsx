@@ -297,6 +297,7 @@ class Profile extends Component<Props, State> {
               subtitle2="Requirements"
               description2={"In order to get this discount in your students fees, you will have to prove you are in a Large Family."}
               credentialName="Present your Large Family Card Credential"
+              issuedBy="issued by Government of Freedonia"
               icon={iconLargeFamily}
               textButton="Apply for a discount"
               functionClickButton={this.claimVPLargeFamily}
@@ -312,6 +313,7 @@ class Profile extends Component<Props, State> {
               subtitle2="Requirements"
               description2={"In order to register a payment, you will have to prove your bank account possession."}
               credentialName="Present your Bank account Credential"
+              issuedBy="issued by Plaid"
               icon={iconLargeFamily}
               textButton="Apply"
               functionClickButton={this.claimVPBankCredential}
