@@ -1,0 +1,117 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: university-backend-deployment
+  labels:
+    app: university-backend
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: university-backend
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: university-backend
+    spec:
+      containers:
+      - image: k8scrvidchaindev.azurecr.io/university-backend:latest
+        imagePullPolicy: "Always"
+        name: university-backend
+        ports:
+        - containerPort: 3023
+        env:
+        - name: API_URL
+          valueFrom:
+            configMapKeyRef:
+              name: university-backend-configmap
+              key: API_URL
+        - name: BASE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: university-backend-configmap
+              key: BASE_URL
+        - name: PORT
+          valueFrom:
+            configMapKeyRef:
+              name: university-backend-configmap
+              key: PORT
+        - name: REDIS_URL
+          valueFrom:
+            configMapKeyRef:
+              name: university-backend-configmap
+              key: REDIS_URL
+        - name: REDIS_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: university-backend-configmap
+              key: REDIS_PORT
+        - name: WS_URL
+          valueFrom:
+            configMapKeyRef:
+              name: university-backend-configmap
+              key: WS_URL
+        - name: IDENTITY_PROVIDER
+          valueFrom:
+            configMapKeyRef:
+              name: university-backend-configmap
+              key: IDENTITY_PROVIDER
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: university-api-key
+              key: api-key
+        - name: CLIENT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: university-client-secret
+              key: client-secret
+      restartPolicy: Always
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: university-backend-service
+  labels:
+    app: university-backend
+spec:
+  type: ClusterIP
+  ports:
+  - name: "3023"
+    port: 3023
+  selector:
+    app: university-backend
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: university-backend-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  tls:
+  - hosts:
+    - staging.vidchain.net
+    secretName: tls-secret-staging
+  rules:
+  - host: staging.vidchain.net
+    http:
+      paths:
+      - path: /demo/universitybackend
+        backend:
+          serviceName: university-backend-service
+          servicePort: 3023
+      - path: /universityws
+        backend:
+          serviceName: university-backend-service
+          servicePort: 3023

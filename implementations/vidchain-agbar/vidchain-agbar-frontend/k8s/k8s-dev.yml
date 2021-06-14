@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: university-frontend-deployment
+  labels:
+    app: university-frontend
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: university-frontend
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: university-frontend
+    spec:
+      containers:
+      - image: k8scrvidchaindev.azurecr.io/university-frontend:latest
+        imagePullPolicy: "Always"
+        name: university-frontend
+        ports:
+        - containerPort: 3025
+      restartPolicy: Always
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: university-frontend-service
+  labels:
+    app: university-frontend
+spec:
+  type: ClusterIP
+  ports:
+  - name: "3025"
+    port: 3025
+  selector:
+    app: university-frontend
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: university-frontend-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /demo/university/$2
+spec:
+  tls:
+  - hosts:
+    - dev.vidchain.net
+    secretName: tls-secret-development
+  rules:
+  - host: dev.vidchain.net
+    http:
+      paths: 
+      - path: /demo/university(/|$)(.*)
+        backend:
+          serviceName: university-frontend-service
+          servicePort: 3025
