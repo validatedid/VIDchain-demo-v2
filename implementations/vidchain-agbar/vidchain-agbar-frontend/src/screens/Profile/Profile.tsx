@@ -17,6 +17,9 @@ import iconCourse from "../../assets/images/iconCourse.svg";
 import iconLargeFamily from "../../assets/images/iconLargeFamily.svg";
 import iconProfile from "../../assets/images/iconProfile.svg";
 
+//imports
+import { VidchainClient } from "../../libs/openid-connect/vidchainClient";
+
 
 interface Props {
   did: string;
@@ -191,6 +194,17 @@ class Profile extends Component<Props, State> {
     window.location.replace("/demo/tutorial?step=4");
   }
 
+  // Methods
+  async loginWithVIDChain() {
+    var client = VidchainClient.getInstance().getClient();
+    await client.callback();
+    await client.getToken({
+      scopes: {
+        request: ["openid", "VerifiableIdCredential", "BankAccountHolderCredential"]
+      },
+    });
+  }
+
   render() {
     const {
       did,
@@ -212,9 +226,8 @@ class Profile extends Component<Props, State> {
 
         
         <Grid item className="titleProfile">
-          <Typography variant="h2">{"Welcome to your\nStudent Portal"}</Typography>
-          {/* <Typography variant="h1">{'Freedonia Citizen Portal'}</Typography> */}
-          <Typography variant="h5">Here you can check your profile details and manage your activity within the University</Typography>
+          <Typography variant="h2">{"Welcome Alice"}</Typography>
+          <Typography variant="h5">Here you can check your profile details and manage your payment methods</Typography>
         </Grid>
         <Grid container
           direction="column"
@@ -222,7 +235,7 @@ class Profile extends Component<Props, State> {
           alignItems="center" 
           className="panels">
             
-            <ServicePanel 
+            {/* <ServicePanel 
               title="Enroled courses"
               subtitle1="Name"
               description1="Bachelor's in Software Engineering"
@@ -234,9 +247,9 @@ class Profile extends Component<Props, State> {
               description3="ACME University - Computer Science Department"
               icon={iconCourse}
               hasBeenValidated={false}
-              hasBeenRequested={false} />
+              hasBeenRequested={false} /> */}
 
-          <ServicePanel 
+          {/* <ServicePanel 
               title="Your Profile"
               subtitle1="Course details"
               description1={"The bachelor's degree in Software Engineering provides the knowledge needed to conceive, design, develop, mantain and"+
@@ -245,6 +258,20 @@ class Profile extends Component<Props, State> {
               subtitle2="DID"
               description2={did}
               subtitle3="Name"
+              description3={verifiableKYC.surname ? (verifiableKYC.name + " " + verifiableKYC.surname) : verifiableKYC.name}
+              icon={iconProfile}
+              textButton="Get Student card credential"
+              functionClickButton={this.generateCredential}
+              hasBeenValidated={false}
+              hasBeenRequested={studentCard} /> */}
+
+          <ServicePanel 
+              title="Banking details"
+              subtitle1="The bank account selected will be used for the next invoice"
+              description1=""
+              subtitle2="Bank name"
+              description2={did}
+              subtitle3="IBAN"
               description3={verifiableKYC.surname ? (verifiableKYC.name + " " + verifiableKYC.surname) : verifiableKYC.name}
               icon={iconProfile}
               textButton="Get Student card credential"

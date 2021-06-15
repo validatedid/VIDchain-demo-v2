@@ -2,6 +2,8 @@ const dotenv = require("dotenv");
 // importing .env variables
 dotenv.config();
 
+const VIDCHAIN_IDENTITY_PROVIDER = process.env.REACT_APP_VIDCHAIN_IDENTITY_PROVIDER || "undefined";
+
 const API_URL = process.env.REACT_APP_API_URL || "undefined";
 const IDENTITY_PROVIDER =
   process.env.REACT_APP_IDENTITY_PROVIDER || "undefined";
@@ -30,6 +32,8 @@ const scope = "vidchain profile entity";
 
 const CLIENT_ID = "university";
 
+const VIDCHAIN_CLIENT_ID = "agbar";
+
 export {
   Entity,
   grantType,
@@ -41,5 +45,6 @@ export {
   REDIRECT_CALLBACK,
   CLIENT_ID,
   DID,
-  APP_URL
+  APP_URL,
+  VIDCHAIN_CLIENT_ID
 };
