@@ -45,29 +45,21 @@ class Home extends Component<Props, State> {
           <Typography variant="h1"className="title">Accede a tu cuenta</Typography> 
         </Grid>
           <Grid xs={6} item className="gridFormLeft">
-           <form action="/profile" method="post">
-             <table id="formStructure">
-               <tr>
-               <td className="firstCol"><label className="labelForm" htmlFor="fnif"> NIF / NIE(*)</label></td>
-               <td><input id="fname" className="inputForm" type="text" name="fname"></input></td>
-               </tr>
-               <tr>
-                 <td className="firstCol" ><label className="labelForm" htmlFor="fpassw"> Contraseña(*) </label></td>
-                 <td><input id="fpassw" className="inputForm" type="password" name="fpassw"></input></td>
-               </tr>
-               <tr>
-                 <td></td>
-                 <td>
-                   <input id = "submitButton" type="submit" value="Submit">
-                  </input>
-                  </td>
-               </tr>
-            </table>
-
+           <form id="formHome" action="/profile" method="post">
+             <ul className="flex-outer">
+               <li>
+                 <label className="labelForm" htmlFor="fnif"> NIF / NIE(*)</label>
+                 <input id="fname" className="inputForm" type="text" name="fname" required></input>
+               </li>
+               <li>
+               <label className="labelForm" htmlFor="fpassw"> Contraseña(*) </label>
+               <input id="fpassw" className="inputForm" type="password" name="fpassw" required ></input>
+               </li>
+               <li>
+                 <input id = "submitButton" type="submit" value="Submit"></input>
+               </li>
+             </ul>
            </form>
-
-            {/* <div className="formHome"></div> */}
-
           </Grid>
           <Grid xs={6}item className="gridFormRight">
             <img className="imageHome" src="https://www.aiguesdebarcelona.cat/ofexabpublic-theme/images/bg_userlogin_particular.jpg" alt="agbar imag home" />
