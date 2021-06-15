@@ -27,17 +27,12 @@ class Form extends Component<Props, State> {
 	  const {state} = this.props.location;
       if(state && state.id_token){
             const presentation: PresentationPayload = utils.decodeJWT(state.id_token);
-			//The second credenntial is the Bank Attestation
-			let credential: any = presentation.vp.verifiableCredential[0];
-			let credentialVerifiableID: any = presentation.vp.verifiableCredential[1];
+
+			let credentialVerifiableID: any = presentation.vp.verifiableCredential[0];
+			let credentialBankData: any =  presentation.vp.verifiableCredential[1];
 			
-			if(credential.type[1] !== 'BBVAAccountCredential'){
-				credential = presentation.vp.verifiableCredential[1];
-				credentialVerifiableID = presentation.vp.verifiableCredential[0];
-			}
-			console.log(credentialVerifiableID);
 			this.setState({
-				credentialSubjectCredential: credential.credentialSubject,
+				credentialSubjectCredential: credentialBankData.credentialSubject,
 				credentialSubjectVerifiableId: credentialVerifiableID.credentialSubject
 			});
         }
@@ -152,7 +147,7 @@ Data of the interested party</legend>
 					<table cellPadding="0" cellSpacing="0">
 						<tr>
 							<td><input  className="inputDID" type="text" id="IFNombre" name="nombre"
-								value={credentialSubjectCredential["Account Number"] ? credentialSubjectCredential["Account Number"] :  '-'} /> <label>IBAN</label></td>
+								value={credentialSubjectCredential.iban? credentialSubjectCredential.iban:  '-'} /> <label>IBAN</label></td>
 						</tr>
 						<tr>
 							<td>
@@ -179,7 +174,7 @@ Data of the interested party</legend>
 					<table cellPadding="0" cellSpacing="0">
 						<tr>
 							<td><input  className="inputReadOnly" type="text" id="IFNombre" name="nombre"
-								value={credentialSubjectVerifiableId.firstName ? credentialSubjectVerifiableId.firstName : credentialSubjectCredential.given_name} /> <label>Name</label></td>
+								value={credentialSubjectVerifiableId.name ? credentialSubjectVerifiableId.name : '-'} /> <label>Name</label></td>
 						</tr>
 						<tr>
 							<td>
@@ -191,7 +186,7 @@ Data of the interested party</legend>
 					<table cellPadding="0" cellSpacing="0">
 						<tr>
 							<td><input className="inputReadOnly" type="text" id="IFApellido1"  name="apellido1"
-								value={credentialSubjectVerifiableId.lastName ? credentialSubjectVerifiableId.lastName : credentialSubjectCredential.family_name}  /> <label>Surname:</label></td>
+								value={credentialSubjectVerifiableId.lastName ? credentialSubjectVerifiableId.lastName : '-'}  /> <label>Surname:</label></td>
 						</tr>
 						<tr>
 							<td>

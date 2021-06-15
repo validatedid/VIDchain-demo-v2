@@ -90,10 +90,18 @@ export class EventsGateway
      *  If different kind of presentations are handled by the backend entity, different messages should be emitted depending to avoid cross ws notifications
      */
     const type = JSON.stringify(jwt.vc ? jwt.vc.type[1] : jwt.type[1]);
-    if (type.substring(1, type.length - 1) == "LargeFamilyCard") {
-      this.wss.to(clientId).emit("largeFamilyPresentation", credential);
-    } else {
-      this.wss.to(clientId).emit("presentation", credential);
+    const presentation = type.substring(1, type.length - 1) ;
+
+    switch (presentation) {
+      case "LargeFamilyCard":
+        this.wss.to(clientId).emit("largeFamilyPresentation", credential);
+        break;
+      case "BankAccountHolderCredential":
+        this.wss.to(clientId).emit("bankCredentialPresentation", credential);
+        break;   
+      default:
+        this.wss.to(clientId).emit("presentation", credential);
+        break;
     }
   }
 }

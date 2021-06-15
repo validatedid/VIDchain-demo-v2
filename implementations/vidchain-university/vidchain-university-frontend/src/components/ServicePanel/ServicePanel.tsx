@@ -15,12 +15,13 @@ type Props = {
   subtitle3?: string;
   description3?: string;
   credentialName?: string;
+  issuedBy?: string;
   functionClickButton?: any;
   textButton?: string;
 };
 
 const ServicePanel = (props: Props) => {
-  const {title, subtitle1, subtitle2, subtitle3,description1, description2,description3, credentialName, icon, hasBeenValidated, hasBeenRequested,textButton, functionClickButton} = props;
+  const {title, subtitle1, subtitle2, subtitle3,description1, description2,description3, credentialName, issuedBy, icon, hasBeenValidated, hasBeenRequested,textButton, functionClickButton} = props;
   return (
     <Grid className="containerProfile">
         
@@ -57,7 +58,7 @@ const ServicePanel = (props: Props) => {
                     </div>
                   }
                   {credentialName &&
-                    <p className="textBody"><b>{credentialName} </b>issued by Government of Freedonia</p>
+                    <p className="textBody"><b>{credentialName} </b>{issuedBy} </p>
                   }
               </div>
             }

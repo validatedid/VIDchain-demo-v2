@@ -16,6 +16,7 @@ import ServicePanel from "../../components/ServicePanel/ServicePanel";
 import iconCourse from "../../assets/images/iconCourse.svg";
 import iconLargeFamily from "../../assets/images/iconLargeFamily.svg";
 import iconProfile from "../../assets/images/iconProfile.svg";
+import iconBank from "../../assets/images/iconCourse.svg";
 
 
 interface Props {
@@ -29,7 +30,9 @@ interface State {
   did: string;
   verifiableKYC: verifiableKYC;
   largeFamily: boolean;
+  bankCredential: boolean;
   discountRequested: boolean;
+  bankCredentialRequested: boolean;
   studentCard: boolean;
   socketSession: string;
   type: string;
@@ -44,7 +47,9 @@ class Profile extends Component<Props, State> {
     this.state = {
       did: state ? utils.getUserDid(state.id_token) : '',
       largeFamily: false,
+      bankCredential: false,
       discountRequested: false,
+      bankCredentialRequested: false,
       studentCard: false,
       socketSession: "",
       verifiableKYC: {} as verifiableKYC,
@@ -54,7 +59,8 @@ class Profile extends Component<Props, State> {
     };
     
     this.generateCredential = this.generateCredential.bind(this);
-    this.claimVP = this.claimVP.bind(this);
+    this.claimVPLargeFamily = this.claimVPLargeFamily.bind(this);
+    this.claimVPBankCredential = this.claimVPBankCredential.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.endTutorial = this.endTutorial.bind(this);
   }
@@ -91,6 +97,7 @@ class Profile extends Component<Props, State> {
           type: this.props.location.state.type,
           data: this.props.location.state.data,
           largeFamily: true,
+          bankCredential: true,
         });
 
       }
@@ -120,9 +127,19 @@ class Profile extends Component<Props, State> {
     });
 
     socket.on("largeFamilyPresentation", (msg: any) => {
-      console.log("receive");
+      console.log("receive largeFamilyPresentation");
       this.setState({
         largeFamily: true,
+      });
+      if (sessionStorage.getItem("tutorial")) {
+        this.openModal();
+      }
+    });
+
+    socket.on("bankCredentialPresentation", (msg: any) => {
+      console.log("receive bankCredentialPresentation");
+      this.setState({
+        bankCredential: true,
       });
       if (sessionStorage.getItem("tutorial")) {
         this.openModal();
@@ -162,7 +179,7 @@ class Profile extends Component<Props, State> {
    *  VIDCHAIN API REQUEST: Claim Verifiable Presentation (forwarded to backend)
    * The request of a Verifiable presentation is handled in the backend so as to process the whole flow there and receive a response from the API in a callback
    */
-  async claimVP() {
+  async claimVPLargeFamily() {
     const {did} = this.state;
     this.setState({
       discountRequested: true,
@@ -178,6 +195,24 @@ class Profile extends Component<Props, State> {
       await universityBackend.createSession(body);
     }
     universityBackend.claimVP(did, "LargeFamilyCard", redirectUri);
+  }
+
+  async claimVPBankCredential() {
+    const {did} = this.state;
+    this.setState({
+      bankCredentialRequested: true,
+    });
+    let redirectUri = "";
+    if(utils.isMobileOrTablet()){
+      const sessionId = utils.randomString(8);
+      redirectUri = config.APP_URL + "/presentation?sessionId="+sessionId+"&did="+did+"&type=BankAccountHolderCredential";
+      const body = {
+        did,
+        sessionId,
+      }
+      await universityBackend.createSession(body);
+    }
+    universityBackend.claimVP(did, "BankAccountHolderCredential", redirectUri);
   }
 
   openModal = () => this.setState({ popUpisOpen: true });
@@ -197,7 +232,9 @@ class Profile extends Component<Props, State> {
       verifiableKYC,
       studentCard,
       largeFamily,
+      bankCredential,
       discountRequested,
+      bankCredentialRequested,
       popUpisOpen
     } = this.state;
     return (
@@ -261,11 +298,27 @@ class Profile extends Component<Props, State> {
               subtitle2="Requirements"
               description2={"In order to get this discount in your students fees, you will have to prove you are in a Large Family."}
               credentialName="Present your Large Family Card Credential"
+              issuedBy="issued by Government of Freedonia"
               icon={iconLargeFamily}
               textButton="Apply for a discount"
-              functionClickButton={this.claimVP}
+              functionClickButton={this.claimVPLargeFamily}
               hasBeenValidated={largeFamily}
               hasBeenRequested={discountRequested} />
+
+          <ServicePanel 
+              title="Request Bank credential"
+              subtitle1="Description"
+              description1={"Our university works side by side with the cutting edge financial services. For this reason," +
+              "we offer you the possibility to connect with Plaid to validate your financial account."}
+              subtitle2="Requirements"
+              description2={"In order to register a payment, you will have to prove your bank account ownership."}
+              credentialName="Present your Bank account Credential"
+              issuedBy="issued by Plaid"
+              icon={iconBank}
+              textButton="Register Account"
+              functionClickButton={this.claimVPBankCredential}
+              hasBeenValidated={bankCredential}
+              hasBeenRequested={bankCredentialRequested} />
 
             <Dialog
               open={popUpisOpen}
