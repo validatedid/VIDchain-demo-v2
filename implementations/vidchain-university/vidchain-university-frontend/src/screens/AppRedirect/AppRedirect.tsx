@@ -73,7 +73,21 @@ class AppRedirect extends Component<Props, State> {
     });
 
     socket.on("largeFamilyPresentation", (msg: any) => {
-      console.log("arrived Presentation");
+      console.log("arrived largeFamilyPresentation");
+      let presentation = strB64dec(msg.data.decrypted);
+
+      let details = utils.decodeJWT(presentation.verifiableCredential[0]);
+      this.setState({
+          data: details
+      })
+      /**
+       *  This information is not used here, just want to login
+       */
+      this.goToProfile();
+    });
+
+    socket.on("bankCredentialPresentation", (msg: any) => {
+      console.log("arrived bankCredentialPresentation");
       let presentation = strB64dec(msg.data.decrypted);
 
       let details = utils.decodeJWT(presentation.verifiableCredential[0]);
