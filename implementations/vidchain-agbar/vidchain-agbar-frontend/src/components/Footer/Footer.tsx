@@ -15,13 +15,13 @@ class Footer extends Component {
           <Grid item lg={3} xs={5} sm={5} className="logoFooterDiv">
               <img
                 className="logoFooter"
-                src={require("../../assets/images/logoFooter.svg")}
+                src="https://www.aiguesdebarcelona.cat/ofexabpublic-theme/images/ab_logo.png"
                 alt="City"
               />
             </Grid>
             <Grid item lg={3} xs={1} sm={1}></Grid>
             <Grid item lg={4} xs={4} sm={5}>
-              <p className="textFooter">This is not an official website of any University.</p>
+              <p className="textFooter">This is not an official website of Aigües de Barcelona.</p>
             </Grid>
         </Grid>
     );
