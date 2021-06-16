@@ -19,7 +19,7 @@ const APP_URL = process.env.REACT_APP_DEMO || "undefined";
 
 //Legal Entity
 const Entity = {
-  iss: "ACME University",
+  iss: "AGBAR",
   aud: "vidchain-api",
   nonce: "z-0427dc2515b1",
   callbackUrl: BACKEND_URL + "/presentation/validation",

@@ -6,7 +6,7 @@
 }
 .titleProfile {
   position: relative;
-  width: 100%;
+  width: 90%;
   left: 10%;
 }
 
@@ -14,8 +14,20 @@
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
-.titleProfile h5{
-} 
+
+.panels{
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  position: relative;
+  top: 3rem;
+  background-color: #F2F2F2;
+}
+
+.panelImage{
+  margin-top: 1rem;
+  height: 5rem;
+}
 @media only screen and (max-width: 767px) {
 
   .titleProfile {
@@ -23,14 +35,22 @@
   }
   
   .titleProfile h2{
-    margin-top: 6rem;
+    margin-top: 1rem;
     width: 80%;
   }
+
+  .panelImage{
+    height: 5rem;
+  }
+
   .titleProfile h5{
+    width: 80%;
   } 
+  
+
 }
   /* Tablet */
-  @media only screen and (min-device-width: 767px) and (max-device-width: 1024px) {
+  /* @media only screen and (min-device-width: 767px) and (max-device-width: 1024px) {
     .titleProfile {
       width: 100%
     }
@@ -42,12 +62,4 @@
     .titleProfile h5{
       margin-left: 1rem;
     } 
-  }
-.panels{
-  display: flex;
-  align-self: center;
-  justify-content: center;
-  position: relative;
-  top: 3rem;
-  background-color: #F2F2F2;
-}
+  } */

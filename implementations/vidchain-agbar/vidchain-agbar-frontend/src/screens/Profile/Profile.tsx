@@ -17,6 +17,8 @@ import ServicePanel from "../../components/ServicePanel/ServicePanel";
 import iconCourse from "../../assets/images/iconCourse.svg";
 import iconLargeFamily from "../../assets/images/iconLargeFamily.svg";
 import iconProfile from "../../assets/images/iconProfile.svg";
+import iconBank from "../../assets/images/bank.png";
+import iconSeal from "../../assets/images/seal_check.png";
 
 //imports
 import { VidchainClient } from "../../libs/openid-connect/vidchainClient";
@@ -79,6 +81,8 @@ class Profile extends Component<Props, State> {
       
       if(state && state.id_token){
         const presentation: PresentationPayload = utils.decodeJWT(state.id_token);
+        console.log('presentation');
+        console.log(presentation);
 
         let credentialVerifiableID: any = presentation.vp.verifiableCredential[0];
         let credentialBankData: any =  presentation.vp.verifiableCredential[1];
@@ -136,21 +140,27 @@ class Profile extends Component<Props, State> {
    * An authentication token is requested and it is used to request the generation of a verifiableCredential
    */
   async generateCredential() {
+    this.loginUserWithVIDChain();
+
     this.setState({
       studentCard: true,
     });
     const token = await vidchain.getAuthzToken();
 
+    console.log('token');
+    console.log(token);
+    
+
     let subject: ICredentialSubject = {
-      id: this.state.did,
-      university: "ACME University - Computer Science Department",
-      degree: "Bachelor in Software Engineering",
+      id: 'id_demo_agbar',//this.state.did,
+      entity: "Aigües de Barcelona",
+      title: "Good Payer",
     };
 
     let credential: ICredentialData = {
-      type: ["VerifiableCredential", "UniversityStudentCard"],
+      type: ["VerifiableCredential", "GoodPayerCard"],
       issuer: utils.getIssuerDid(token),
-      id: this.state.did,
+      id: '',//did is needed,//this.state.did,
       credentialSubject: subject,
     };
     const response = await vidchain.generateVerifiableCredential(
@@ -203,6 +213,16 @@ class Profile extends Component<Props, State> {
     });
   }
 
+  async loginUserWithVIDChain() {
+    var client = VidchainClient.getInstance().getClient();
+    await client.callback();
+    await client.getToken({
+      scopes: {
+        request: ["openid", "VerifiableIdCredential"]
+      },
+    });
+  }
+
   render() {
     const {
       did,
@@ -250,21 +270,7 @@ class Profile extends Component<Props, State> {
               hasBeenValidated={false}
               hasBeenRequested={false} /> */}
 
-          {/* <ServicePanel 
-              title="Your Profile"
-              subtitle1="Course details"
-              description1={"The bachelor's degree in Software Engineering provides the knowledge needed to conceive, design, develop, mantain and"+
-              "manage computer sysyems, services, applications and architectures and to understand and apply relevant legislation."+
-              "You will also become an expert in new methods and technologies in the ffield of ICTs"}
-              subtitle2="DID"
-              description2={did}
-              subtitle3="Name"
-              description3={verifiableKYC.surname ? (verifiableKYC.name + " " + verifiableKYC.surname) : verifiableKYC.name}
-              icon={iconProfile}
-              textButton="Get Student card credential"
-              functionClickButton={this.generateCredential}
-              hasBeenValidated={false}
-              hasBeenRequested={studentCard} /> */}
+          
 
 
           <ServicePanel 
@@ -275,26 +281,27 @@ class Profile extends Component<Props, State> {
               description2={bic ? bic: 'FREECAMMXXX'}
               subtitle3="IBAN"
               description3={iban ? iban: 'ES9434890120376846303745'}
-              icon={iconProfile}
+              icon={iconBank}
               textButton="Choose bank account"
               functionClickButton={this.loginWithVIDChain}
               hasBeenValidated={false}
               hasBeenRequested={studentCard} />
 
+
           <ServicePanel 
-              title="Request your Large Family credential"
-              subtitle1="Description"
-              description1={"Our university is commited to provide opportunities to everyone. Therefore, this university"+
-              "iis eager to support Large Families and for that reason, all the students who are titled Large Family"+
-              "will have a 25% discount in student's fees. Do not miss the opportunnity to present your credentials before finishing the course."}
-              subtitle2="Requirements"
-              description2={"In order to get this discount in your students fees, you will have to prove you are in a Large Family."}
-              credentialName="Present your Large Family Card Credential"
-              icon={iconLargeFamily}
-              textButton="Apply for a discount"
-              functionClickButton={this.claimVP}
-              hasBeenValidated={largeFamily}
-              hasBeenRequested={discountRequested} />
+              title="Seal of Good Payer"
+              subtitle1="Seal details"
+              description1={"You can request a credential to certificat that you are a Good Payer"}
+              subtitle2="Request your credential"
+              description2=""
+              subtitle3=""
+              description3={verifiableKYC.surname ? (verifiableKYC.name + " " + verifiableKYC.surname) : verifiableKYC.name}
+              icon={iconSeal}
+              textButton="Good Payer credential"
+              functionClickButton={this.generateCredential}
+              hasBeenValidated={false}
+              hasBeenRequested={studentCard} />
+
 
             <Dialog
               open={popUpisOpen}
