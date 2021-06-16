@@ -3,9 +3,10 @@ import {Typography, Grid, Dialog, DialogActions, DialogTitle, DialogContent, But
 import Header from "../../components/Header/Header";
 import "./Profile.css";
 import * as utils from "../../utils/utils";
-import * as universityBackend from "../../apis/universityBackend";
+import * as agbarBackend from "../../apis/agbarBackend";
 import * as vidchain from "../../apis/vidchain";
 import io from "socket.io-client";
+import { ICredentialDataNew } from "../../interfaces/dtos";
 import { ICredentialData } from "../../interfaces/ICredentialData";
 import { ICredentialSubject } from "../../interfaces/ICredentialSubject";
 import * as config from "../../config";
@@ -38,6 +39,9 @@ interface State {
   type: string;
   data: any;
   popUpisOpen: boolean;
+  accountName:string;
+  bic:string;
+  iban:string;
 }
 
 class Profile extends Component<Props, State> {
@@ -46,6 +50,9 @@ class Profile extends Component<Props, State> {
     const {state} = this.props.location;
     this.state = {
       did: state ? utils.getUserDid(state.id_token) : '',
+      accountName: '',
+      bic: '',
+      iban:'',
       largeFamily: false,
       discountRequested: false,
       studentCard: false,
@@ -53,7 +60,7 @@ class Profile extends Component<Props, State> {
       verifiableKYC: {} as verifiableKYC,
       type: "",
       data: {},
-      popUpisOpen: false,
+      popUpisOpen: false
     };
     
     this.generateCredential = this.generateCredential.bind(this);
@@ -63,74 +70,65 @@ class Profile extends Component<Props, State> {
   }
 
   async componentDidMount() {
+    console.log('profile - componentDidMount');
+    
       await this.initiateSocket();
       const {state} = this.props.location;
+      console.log('profile - state');
+      console.log(state);
+      
       if(state && state.id_token){
-            const presentation: PresentationPayload = utils.decodeJWT(state.id_token);
-            const credential: VerifiableCredential = presentation.vp.verifiableCredential[0] as VerifiableCredential;
-            this.setState({
-              verifiableKYC: {
-                id: credential.credentialSubject.id as string,
-                documentNumber: credential.credentialSubject.documentNumber as string,
-                documentType: credential.credentialSubject.documentType as string,
-                name: (credential.credentialSubject.firstName ? credential.credentialSubject.firstName : credential.credentialSubject.name) as string,
-                surname: credential.credentialSubject.lastName as string,
-                fullName: credential.credentialSubject.fullName as string,
-                nationality: credential.credentialSubject.nationality as string,
-                stateIssuer: credential.credentialSubject.stateIssuer as string,
-                issuingAuthority: credential.credentialSubject.issuingAuthority as string,
-                dateOfExpiry: credential.credentialSubject.dateOfExpiry as string,
-                dateOfBirth: credential.credentialSubject.dateOfBirth as string,
-                placeOfBirth: credential.credentialSubject.placeOfBirth as string,
-                sex: credential.credentialSubject.gender as string,
-                personalNumber: credential.credentialSubject.personalNumber as string,
-              },
-            did: utils.getUserDid(this.props.location.state.id_token),
-          });
-      }
-      if(state && state.did){
-        this.setState({
-          did: this.props.location.state.did,
-          type: this.props.location.state.type,
-          data: this.props.location.state.data,
-          largeFamily: true,
-        });
+        const presentation: PresentationPayload = utils.decodeJWT(state.id_token);
 
+        let credentialVerifiableID: any = presentation.vp.verifiableCredential[0];
+        let credentialBankData: any =  presentation.vp.verifiableCredential[1];
+        
+        let credentialSubjectBankData: any = credentialBankData.credentialSubject;
+        let credentialSubjectVerifiableId: any = credentialVerifiableID.credentialSubject;
+
+
+        this.setState({
+          accountName: credentialSubjectBankData.name,
+          bic: credentialSubjectBankData.bic,
+          iban: credentialSubjectBankData.iban,
+        });
       }
+ 
+
   }
 
   async initiateSocket() {
-    console.log("in socket");
-    const socket = io(config.BACKEND_WS, {
-      path: "/universityws",
-      transports: ["websocket"],
-    });
+    // console.log("profile - in socket");
+    // const socket = io(config.BACKEND_WS, {
+    //   path: "/agbarws",
+    //   transports: ["websocket"],
+    // });
 
-    socket.on("connect", () => {
-      console.log("connect");
-      this.setState({
-        socketSession: socket.id,
-      });
-      const socketClient = {
-        did: this.state.did,
-        clientId: this.state.socketSession,
-      };
-      if(socketClient.clientId && socketClient.did && socketClient.clientId !== "" && socketClient.did !== ""){
-        console.log(`FRONT: socketClient.did: ${JSON.stringify(socketClient.did)}`);
-        console.log(`FRONT: socketClient.clientId: ${JSON.stringify(socketClient.clientId)}`);
-        socket.emit("whoami", socketClient);
-      }
-    });
+    // socket.on("connect", () => {
+    //   console.log("connect");
+    //   this.setState({
+    //     socketSession: socket.id,
+    //   });
+    //   const socketClient = {
+    //     did: this.state.did,
+    //     clientId: this.state.socketSession,
+    //   };
+    //   if(socketClient.clientId && socketClient.did && socketClient.clientId !== "" && socketClient.did !== ""){
+    //     console.log(`FRONT: socketClient.did: ${JSON.stringify(socketClient.did)}`);
+    //     console.log(`FRONT: socketClient.clientId: ${JSON.stringify(socketClient.clientId)}`);
+    //     socket.emit("whoami", socketClient);
+    //   }
+    // });
 
-    socket.on("largeFamilyPresentation", (msg: any) => {
-      console.log("receive");
-      this.setState({
-        largeFamily: true,
-      });
-      if (sessionStorage.getItem("tutorial")) {
-        this.openModal();
-      }
-    });
+    // socket.on("largeFamilyPresentation", (msg: any) => {
+    //   console.log("receive");
+    //   this.setState({
+    //     largeFamily: true,
+    //   });
+    //   if (sessionStorage.getItem("tutorial")) {
+    //     this.openModal();
+    //   }
+    // });
   }
 
   /**
@@ -178,9 +176,9 @@ class Profile extends Component<Props, State> {
         did,
         sessionId,
       }
-      await universityBackend.createSession(body);
+      await agbarBackend.createSession(body);
     }
-    universityBackend.claimVP(did, "LargeFamilyCard", redirectUri);
+    agbarBackend.claimVP(did, "LargeFamilyCard", redirectUri);
   }
 
   openModal = () => this.setState({ popUpisOpen: true });
@@ -212,7 +210,10 @@ class Profile extends Component<Props, State> {
       studentCard,
       largeFamily,
       discountRequested,
-      popUpisOpen
+      popUpisOpen,
+      accountName,
+      bic,
+      iban
     } = this.state;
     return (
       <div>
@@ -265,17 +266,18 @@ class Profile extends Component<Props, State> {
               hasBeenValidated={false}
               hasBeenRequested={studentCard} /> */}
 
+
           <ServicePanel 
               title="Banking details"
               subtitle1="The bank account selected will be used for the next invoice"
-              description1=""
-              subtitle2="Bank name"
-              description2={did}
+              description1={accountName ? accountName: 'Freedonia Current Account'}
+              subtitle2="BIC"
+              description2={bic ? bic: 'FREECAMMXXX'}
               subtitle3="IBAN"
-              description3={verifiableKYC.surname ? (verifiableKYC.name + " " + verifiableKYC.surname) : verifiableKYC.name}
+              description3={iban ? iban: 'ES9434890120376846303745'}
               icon={iconProfile}
-              textButton="Get Student card credential"
-              functionClickButton={this.generateCredential}
+              textButton="Choose bank account"
+              functionClickButton={this.loginWithVIDChain}
               hasBeenValidated={false}
               hasBeenRequested={studentCard} />
 

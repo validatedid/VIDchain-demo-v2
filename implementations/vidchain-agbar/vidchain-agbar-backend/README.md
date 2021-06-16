@@ -18,7 +18,7 @@ Then, the enpoint provided by ngrok tunneling your localhost service will be sho
 In the main directory, create an _.env_ file copying _.env.example_ and update "BASE_URL" and "WS_URL" with your tunnel enpoint. These parameter must be updated with the enpoint where **vidchain-university-backend** can be found, i.e. the tunnel, for instance:
 
 ```
-BASE_URL=http://5k3ieae7ac7.ngrok.io/demo/universitybackend
+BASE_URL=http://5k3ieae7ac7.ngrok.io/demo/agbarbackend
 WS_URL=http://5k3ieae7ac7.ngrok.io/
 ```
 

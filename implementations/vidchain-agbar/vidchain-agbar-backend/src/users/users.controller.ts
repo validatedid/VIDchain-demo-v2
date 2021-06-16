@@ -12,7 +12,7 @@ import { Response } from "express";
 import { UsersService } from "./users.service";
 import { SocketClient, SessionClient, SessionData } from "../interfaces/dtos";
 
-@Controller("demo/universitybackend/users")
+@Controller("demo/agbarbackend/users")
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
   /**

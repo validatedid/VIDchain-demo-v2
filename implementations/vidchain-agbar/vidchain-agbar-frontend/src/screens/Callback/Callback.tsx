@@ -5,7 +5,7 @@ import { OpenIDClient } from "../../libs/openid-connect/client";
 import { Redirect } from "react-router-dom";
 import { verifiableKYC } from "../../interfaces/dtos"; 
 import * as utils from "../../utils/utils";
-import * as universityBackend from "../../apis/universityBackend";
+import * as agbarBackend from "../../apis/agbarBackend";
 import io from "socket.io-client";
 import { Ring } from "react-spinners-css";
 import * as config from "../../config";
@@ -61,7 +61,7 @@ class Callback extends Component<Props, State> {
 
   async getAuthToken(code: string){
     try {
-      const response = await universityBackend.getToken(
+      const response = await agbarBackend.getToken(
         {
             code: code,
             client_id: config.CLIENT_ID,
@@ -79,7 +79,7 @@ class Callback extends Component<Props, State> {
 
   async initiateSocket() {
     const socket = io(config.BACKEND_WS, {
-      path: "/universityws",
+      path: "/agbarws",
       transports: ["websocket"],
     });
 

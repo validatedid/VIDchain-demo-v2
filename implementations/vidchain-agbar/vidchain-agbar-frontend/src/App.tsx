@@ -7,6 +7,8 @@ import Home from "./screens/Home/Home";
 import Profile from "./screens/Profile/Profile";
 import Callback from "./screens/Callback/Callback";
 import AppRedirect from "./screens/AppRedirect/AppRedirect";
+import VidchainIdentity from "./screens/VidchainIdentity/VidchainIdentity";
+
 const dotenv = require("dotenv");
 // importing .env variables
 
@@ -55,6 +57,7 @@ function App() {
           <Route exact path="/profile" component={Profile} />
           <Route path="/callback" component={Callback} />
           <Route path="/presentation" component={AppRedirect} />
+          <Route path="/login" component={VidchainIdentity} />
         </Switch>
       </BrowserRouter>
     </div>
