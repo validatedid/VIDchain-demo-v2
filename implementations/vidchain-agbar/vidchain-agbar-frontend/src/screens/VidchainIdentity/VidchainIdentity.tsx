@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import "./VidchainIdentity.css";
 import { VidchainClient } from "../../libs/openid-connect/vidchainClient";
 import { Redirect } from "react-router-dom";
@@ -118,8 +118,6 @@ class VidchainIdentity extends Component<Props, State> {
 
 
   goToProfile(userInfo: UserInfo) {
-    console.log('VidchainIdentity - goToProfile');
-
     const { access_token, refresh_token, id_token } = this.state;
     this.props.history.push({
       pathname: "/profile",
@@ -130,8 +128,6 @@ class VidchainIdentity extends Component<Props, State> {
   }
 
   goToRequest() {
-    console.log('VidchainIdentity - goToRequest');
-    
     const { access_token, refresh_token, id_token } = this.state;
     this.props.history.push({
       pathname: "/profile",
@@ -147,38 +143,12 @@ class VidchainIdentity extends Component<Props, State> {
     const { access_token, error, showCallback } = this.state;
     if (access_token != null && !error) {
       return (
-        <div>
-          <Official></Official>
+        <Fragment>
           <Header></Header>
-          <div className="content">
-            {showCallback && (
-              <div className="wrapper">
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <h2>Error with the identifications,</h2>
-                <h2>please try again.</h2>
-                <br></br>
-                <br></br>
-              </div>
-            )}
-            {!showCallback && (
-              <div className="wrapper">
-                <br></br>
-                <br></br>
-                <br></br>
-                <br></br>
-                <div className="spinnerContainer">
-                  <Ring color="red" />
-                </div>
-              </div>
-            )}
-          </div>
-          <div className="footer">
-            <Footer></Footer>
-          </div>
-        </div>
+
+        </Fragment>
+
+
       );
     } else {
       return <Redirect to="/" />;

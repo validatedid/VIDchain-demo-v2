@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import {Typography, Grid, Dialog, DialogActions, DialogTitle, DialogContent, Button, DialogContentText} from '@material-ui/core';
 import Header from "../../components/Header/Header";
 import "./Profile.css";
@@ -12,7 +12,7 @@ import { ICredentialSubject } from "../../interfaces/ICredentialSubject";
 import * as config from "../../config";
 import { verifiableKYC } from "../../interfaces/dtos";
 import { PresentationPayload, VerifiableCredential } from "../../interfaces/IPresentation";
-import ServicePanel from "../../components/ServicePanel/ServicePanel";
+import ServicePanel, {ServicePanel2} from "../../components/ServicePanel/ServicePanel";
 
 import iconCourse from "../../assets/images/iconCourse.svg";
 import iconLargeFamily from "../../assets/images/iconLargeFamily.svg";
@@ -44,6 +44,7 @@ interface State {
   accountName:string;
   bic:string;
   iban:string;
+  logged:boolean;
 }
 
 class Profile extends Component<Props, State> {
@@ -51,7 +52,7 @@ class Profile extends Component<Props, State> {
     super(props);
     const {state} = this.props.location;
     this.state = {
-      did: state ? utils.getUserDid(state.id_token) : '',
+      did: '',//state ? utils.getUserDid(state.id_token) : '',
       accountName: '',
       bic: '',
       iban:'',
@@ -62,44 +63,47 @@ class Profile extends Component<Props, State> {
       verifiableKYC: {} as verifiableKYC,
       type: "",
       data: {},
-      popUpisOpen: false
+      popUpisOpen: false,
+      logged:false
     };
-    
+
     this.generateCredential = this.generateCredential.bind(this);
+    this.loginUserWithVIDChain = this.loginUserWithVIDChain.bind(this);
     this.claimVP = this.claimVP.bind(this);
     this.closeModal = this.closeModal.bind(this);
     this.endTutorial = this.endTutorial.bind(this);
   }
 
   async componentDidMount() {
-    console.log('profile - componentDidMount');
-    
       await this.initiateSocket();
       const {state} = this.props.location;
-      console.log('profile - state');
-      console.log(state);
+
       
       if(state && state.id_token){
         const presentation: PresentationPayload = utils.decodeJWT(state.id_token);
-        console.log('presentation');
-        console.log(presentation);
 
-        let credentialVerifiableID: any = presentation.vp.verifiableCredential[0];
-        let credentialBankData: any =  presentation.vp.verifiableCredential[1];
-        
-        let credentialSubjectBankData: any = credentialBankData.credentialSubject;
-        let credentialSubjectVerifiableId: any = credentialVerifiableID.credentialSubject;
-
-
-        this.setState({
-          accountName: credentialSubjectBankData.name,
-          bic: credentialSubjectBankData.bic,
-          iban: credentialSubjectBankData.iban,
-        });
+        if (presentation.vp.verifiableCredential && presentation.vp.verifiableCredential.length > 1){
+          let credentialVerifiableID: any = presentation.vp.verifiableCredential[0];
+          let credentialBankData: any =  presentation.vp.verifiableCredential[1];
+          
+          let credentialSubjectBankData: any = credentialBankData.credentialSubject;
+          let credentialSubjectVerifiableId: any = credentialVerifiableID.credentialSubject;
+          window.localStorage.setItem('accountName', credentialSubjectBankData.name);
+          window.localStorage.setItem('bic', credentialSubjectBankData.bic);
+          window.localStorage.setItem('iban', credentialSubjectBankData.iban);
+        }else{
+          window.localStorage.setItem('did', presentation.did);
+        }
+         this.setState({
+            accountName: window.localStorage.getItem('accountName') || 'Freedonia Current Account',
+            bic: window.localStorage.getItem('bic') || 'FREECAMMXXX',
+            iban: window.localStorage.getItem('iban') || 'ES9434890120376846303745',
+            did: window.localStorage.getItem('did') || '',
+            logged: JSON.parse(window.localStorage.getItem('logged') || "false")
+          });
       }
- 
-
   }
+
 
   async initiateSocket() {
     // console.log("profile - in socket");
@@ -140,19 +144,12 @@ class Profile extends Component<Props, State> {
    * An authentication token is requested and it is used to request the generation of a verifiableCredential
    */
   async generateCredential() {
-    this.loginUserWithVIDChain();
-
     this.setState({
       studentCard: true,
     });
     const token = await vidchain.getAuthzToken();
-
-    console.log('token');
-    console.log(token);
-    
-
     let subject: ICredentialSubject = {
-      id: 'id_demo_agbar',//this.state.did,
+      id: this.state.did,
       entity: "Aigües de Barcelona",
       title: "Good Payer",
     };
@@ -160,7 +157,7 @@ class Profile extends Component<Props, State> {
     let credential: ICredentialData = {
       type: ["VerifiableCredential", "GoodPayerCard"],
       issuer: utils.getIssuerDid(token),
-      id: '',//did is needed,//this.state.did,
+      id: this.state.did,
       credentialSubject: subject,
     };
     const response = await vidchain.generateVerifiableCredential(
@@ -214,13 +211,18 @@ class Profile extends Component<Props, State> {
   }
 
   async loginUserWithVIDChain() {
+    
+    window.localStorage.setItem('logged', 'true');
+
     var client = VidchainClient.getInstance().getClient();
-    await client.callback();
+    // await client.callback();
     await client.getToken({
       scopes: {
-        request: ["openid", "VerifiableIdCredential"]
+        request: ["openid"]
       },
     });
+
+    
   }
 
   render() {
@@ -233,10 +235,11 @@ class Profile extends Component<Props, State> {
       popUpisOpen,
       accountName,
       bic,
-      iban
+      iban,
+      logged
     } = this.state;
     return (
-      <div>
+      <Fragment>
         <Header />
 
       <Grid container 
@@ -258,23 +261,6 @@ class Profile extends Component<Props, State> {
           justify="space-between"
           alignItems="center" 
           className="panels">
-            
-            {/* <ServicePanel 
-              title="Enroled courses"
-              subtitle1="Name"
-              description1="Bachelor's in Software Engineering"
-              subtitle2="Description"
-              description2={"The bachelor's degree in Software Engineering provides the knowledge needed to conceive, develop,"+
-              "mantain and manage computer systems, services, applications and architectures and to understand and apply relevant legislation."+
-              "You will also become an expert in new methods and technologies in the field of ICTs."}
-              subtitle3="Institution"
-              description3="ACME University - Computer Science Department"
-              icon={iconCourse}
-              hasBeenValidated={false}
-              hasBeenRequested={false} /> */}
-
-          
-
 
           <ServicePanel 
               title="Banking details"
@@ -288,22 +274,28 @@ class Profile extends Component<Props, State> {
               textButton="Choose bank account"
               functionClickButton={this.loginWithVIDChain}
               hasBeenValidated={false}
-              hasBeenRequested={studentCard} />
+              hasBeenRequested={false} />
 
 
-          <ServicePanel 
+          <ServicePanel2
               title="Seal of Good Payer"
               subtitle1="Seal details"
-              description1={"You can request a credential to certificat that you are a Good Payer"}
-              subtitle2="Request your credential"
+              description1={"You can request a credential to certificate that you are a Good Payer"}
+              subtitle2="Login with VIDchain"
               description2=""
-              subtitle3=""
+              subtitle3="Request your credential"
               description3={verifiableKYC.surname ? (verifiableKYC.name + " " + verifiableKYC.surname) : verifiableKYC.name}
               icon={iconSeal}
               textButton="Good Payer credential"
+              textButtonLogin="Login VIDchain"
+              functionLoginClickButton={this.loginUserWithVIDChain}
               functionClickButton={this.generateCredential}
               hasBeenValidated={false}
-              hasBeenRequested={studentCard} />
+              logged={logged}
+              hasBeenRequested={studentCard}
+              subtitle4="Logged with the did" 
+              description4={did}
+              />
 
 
             <Dialog
@@ -326,7 +318,7 @@ class Profile extends Component<Props, State> {
             </Dialog>
           </Grid>
       </Grid>
-    </div>);
+    </Fragment>);
   }
 }
 

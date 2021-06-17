@@ -46,6 +46,12 @@
   .panelMainContent {
     margin-bottom: 3rem;
   }
+
+  .insideButton{
+    left: 30%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%);
+  }
   
   @media only screen and (max-width: 768px) {
     .panelBody {
@@ -57,5 +63,10 @@
     .panelImage {
       position: relative;
       margin-top: 3rem;
+    }
+    .insideButton{
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%);
     }
   }

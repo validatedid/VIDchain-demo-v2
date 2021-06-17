@@ -17,6 +17,7 @@ class Home extends Component<Props, State> {
     super(props);
   }
   async componentDidMount() {
+    window.localStorage.clear();
     var client = OpenIDClient.getInstance().getClient();
     await client.wipeTokens();
   }
@@ -64,9 +65,6 @@ class Home extends Component<Props, State> {
           <Grid xs={6}item className="gridFormRight">
             <img className="imageHome" src="https://www.aiguesdebarcelona.cat/ofexabpublic-theme/images/bg_userlogin_particular.jpg" alt="agbar imag home" />
           </Grid>
-          {/* <SignInButton variant="contained" color="primary" className="buttonSignIn" onClick={() => this.loginWithVIDChain()}>
-                Sign in with VIDchain
-          </SignInButton> */}
           </Grid>
           <Grid xs={6}item className="test2">
 

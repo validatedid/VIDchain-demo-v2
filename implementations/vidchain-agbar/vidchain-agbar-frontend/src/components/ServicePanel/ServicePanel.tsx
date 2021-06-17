@@ -17,6 +17,11 @@ type Props = {
   credentialName?: string;
   functionClickButton?: any;
   textButton?: string;
+  functionLoginClickButton?: any;
+  textButtonLogin?:string;
+  logged?: boolean;
+  subtitle4?: string;
+  description4?: string;
 };
 
 const ServicePanel = (props: Props) => {
@@ -88,4 +93,102 @@ const ServicePanel = (props: Props) => {
   );
 };
 
-export default ServicePanel;
+const ServicePanel2 = (props: Props) => {
+  const {title, subtitle1, subtitle2, subtitle3,description1, description2,description3, credentialName, icon, hasBeenValidated, hasBeenRequested,textButton, functionClickButton,functionLoginClickButton, textButtonLogin,logged,subtitle4,description4} = props;
+  return (
+    <Grid className="containerProfile">
+        <Grid item xs={12} className="panelTitle">
+            <Typography variant="h6" className="titlePanel">
+                {title}
+            </Typography>
+        </Grid>
+        <Grid container
+            direction="row"
+            justify="space-between"
+            alignItems="flex-start"
+            className="panelBody">
+            <Grid item lg={1} xs={12}></Grid>
+            <Grid item lg={2} sm={12} xs={12}>
+            <img
+                src={icon}
+                alt=""
+                role="presentation"
+                className="panelImage"
+            />
+            </Grid>
+            <Grid item lg={9} sm={12} xs={12}>
+            {!logged &&
+              <div className="panelMainContent">
+                  <h3 className="titleBody">{subtitle1}:</h3>
+                  <p className="textBody">{description1}</p>
+                  <h3 className="titleBody">{subtitle2}:</h3>
+                  {(!hasBeenRequested && functionLoginClickButton) &&
+                    <CredentialButton className="insideButton" variant="contained" onClick={functionLoginClickButton}>
+                      {textButtonLogin}
+                    </CredentialButton>
+                  }
+                  {subtitle3 &&
+                    <div>
+                      <h3 className="titleBody">{subtitle3}:</h3>
+                      {(!hasBeenRequested && functionClickButton) &&
+                        <CredentialButton className="insideButton" variant="contained" onClick={functionClickButton} disabled>
+                          {textButton}
+                        </CredentialButton>
+                      }
+                    </div>
+                  }
+                  {credentialName &&
+                    <p className="textBody"><b>{credentialName} </b>issued by Government of Freedonia</p>
+                  }
+              </div>
+            }
+            {logged && !hasBeenRequested &&
+              <div className="panelMainContent">
+                  <h3 className="titleBody">{subtitle1}:</h3>
+                  <p className="textBody">{description1}</p>
+                  <h3 className="titleBody">{subtitle4}:</h3>
+                  <p className="textBody">{description4}</p>
+                  {subtitle3 &&
+                    <div>
+                      <h3 className="titleBody">{subtitle3}:</h3>
+                      {(!hasBeenRequested && functionClickButton) &&
+                        <CredentialButton className="insideButton" variant="contained" onClick={functionClickButton} >
+                          {textButton}
+                        </CredentialButton>
+                      }
+                    </div>
+                  }
+                  {credentialName &&
+                    <p className="textBody"><b>{credentialName} </b>issued by Government of Freedonia</p>
+                  }
+              </div>
+            }
+
+
+
+
+
+
+            {(hasBeenRequested && !hasBeenValidated) &&
+              <div className="panelMainContent">
+                  <h3 className="titleBody">Credential sent</h3>
+                  <p className="textBody">Check your wallet, you will receive a notification.</p>
+                  <p className="textBody">Accept it and you will have the credential in your wallet.</p>
+              </div>
+            }
+            {/* {hasBeenValidated &&
+              <div className="panelMainContent">
+                  <h3 className="titleBody">Done</h3>
+                  <p className="textBody">Credential received and verified!</p>
+                  <a href="/demo/tutorial?step=3" className="textBody">Go back to tutorial</a>
+              </div>
+            } */}
+
+            </Grid>
+              
+            </Grid>
+    </Grid>
+  );
+};
+export default ServicePanel ;
+export {ServicePanel2};

@@ -15,11 +15,7 @@ class Official extends Component {
               aria-expanded="false"
               aria-controls="trust-seal-content"
             >
-              <img
-                src="https://webapps1.chicago.gov/cdn/chiwds/0.9.1/img/safari-pinned-tab.svg"
-                className="trust-seal-flag"
-                title="Flag"
-              />
+
               <div>
                 <span>This is not an official website of any Government</span>
                 <button
