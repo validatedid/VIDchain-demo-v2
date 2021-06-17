@@ -247,7 +247,10 @@ class Profile extends Component<Props, State> {
 
         
         <Grid item className="titleProfile">
-          <Typography variant="h2">{"Welcome Alice"}</Typography>
+          <div className="titleStruct">
+          <Typography id="wellcome"  variant="h2">{"Welcome"}</Typography>
+          <Typography id="userName" variant="h2">{"Alice"}</Typography>
+          </div>
           <Typography variant="h5">Here you can check your profile details and manage your payment methods</Typography>
         </Grid>
         <Grid container
