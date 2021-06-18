@@ -1,26 +1,15 @@
 import React, { Component, Fragment } from "react";
-import {Typography, Grid, Dialog, DialogActions, DialogTitle, DialogContent, Button, DialogContentText} from '@material-ui/core';
+import {Typography, Grid} from '@material-ui/core';
 import Header from "../../components/Header/Header";
 import "./Profile.css";
 import * as utils from "../../utils/utils";
-import * as agbarBackend from "../../apis/agbarBackend";
 import * as vidchain from "../../apis/vidchain";
-import io from "socket.io-client";
-import { ICredentialDataNew } from "../../interfaces/dtos";
 import { ICredentialData } from "../../interfaces/ICredentialData";
 import { ICredentialSubject } from "../../interfaces/ICredentialSubject";
-import * as config from "../../config";
-import { verifiableKYC } from "../../interfaces/dtos";
 import { PresentationPayload, VerifiableCredential } from "../../interfaces/IPresentation";
 import ServicePanel, {ServicePanel2} from "../../components/ServicePanel/ServicePanel";
-
-import iconCourse from "../../assets/images/iconCourse.svg";
-import iconLargeFamily from "../../assets/images/iconLargeFamily.svg";
-import iconProfile from "../../assets/images/iconProfile.svg";
 import iconBank from "../../assets/images/bank.png";
 import iconSeal from "../../assets/images/seal_check.png";
-
-//imports
 import { VidchainClient } from "../../libs/openid-connect/vidchainClient";
 
 
@@ -33,14 +22,12 @@ interface Props {
 
 interface State {
   did: string;
-  verifiableKYC: verifiableKYC;
   largeFamily: boolean;
   discountRequested: boolean;
-  studentCard: boolean;
+  goodPayerCard: boolean;
   socketSession: string;
   type: string;
   data: any;
-  popUpisOpen: boolean;
   accountName:string;
   bic:string;
   iban:string;
@@ -58,24 +45,18 @@ class Profile extends Component<Props, State> {
       iban:'',
       largeFamily: false,
       discountRequested: false,
-      studentCard: false,
+      goodPayerCard: false,
       socketSession: "",
-      verifiableKYC: {} as verifiableKYC,
       type: "",
       data: {},
-      popUpisOpen: false,
       logged:false
     };
 
     this.generateCredential = this.generateCredential.bind(this);
     this.loginUserWithVIDChain = this.loginUserWithVIDChain.bind(this);
-    this.claimVP = this.claimVP.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-    this.endTutorial = this.endTutorial.bind(this);
   }
 
   async componentDidMount() {
-      await this.initiateSocket();
       const {state} = this.props.location;
 
       
@@ -87,7 +68,7 @@ class Profile extends Component<Props, State> {
           let credentialBankData: any =  presentation.vp.verifiableCredential[1];
           
           let credentialSubjectBankData: any = credentialBankData.credentialSubject;
-          let credentialSubjectVerifiableId: any = credentialVerifiableID.credentialSubject;
+
           window.localStorage.setItem('accountName', credentialSubjectBankData.name);
           window.localStorage.setItem('bic', credentialSubjectBankData.bic);
           window.localStorage.setItem('iban', credentialSubjectBankData.iban);
@@ -105,47 +86,13 @@ class Profile extends Component<Props, State> {
   }
 
 
-  async initiateSocket() {
-    // console.log("profile - in socket");
-    // const socket = io(config.BACKEND_WS, {
-    //   path: "/agbarws",
-    //   transports: ["websocket"],
-    // });
-
-    // socket.on("connect", () => {
-    //   console.log("connect");
-    //   this.setState({
-    //     socketSession: socket.id,
-    //   });
-    //   const socketClient = {
-    //     did: this.state.did,
-    //     clientId: this.state.socketSession,
-    //   };
-    //   if(socketClient.clientId && socketClient.did && socketClient.clientId !== "" && socketClient.did !== ""){
-    //     console.log(`FRONT: socketClient.did: ${JSON.stringify(socketClient.did)}`);
-    //     console.log(`FRONT: socketClient.clientId: ${JSON.stringify(socketClient.clientId)}`);
-    //     socket.emit("whoami", socketClient);
-    //   }
-    // });
-
-    // socket.on("largeFamilyPresentation", (msg: any) => {
-    //   console.log("receive");
-    //   this.setState({
-    //     largeFamily: true,
-    //   });
-    //   if (sessionStorage.getItem("tutorial")) {
-    //     this.openModal();
-    //   }
-    // });
-  }
-
   /**
    * VIDCHAIN API REQUEST: Generate Verifiable Credential
    * An authentication token is requested and it is used to request the generation of a verifiableCredential
    */
   async generateCredential() {
     this.setState({
-      studentCard: true,
+      goodPayerCard: true,
     });
     const token = await vidchain.getAuthzToken();
     let subject: ICredentialSubject = {
@@ -166,38 +113,7 @@ class Profile extends Component<Props, State> {
     );
   }
 
-  /**
-   *  VIDCHAIN API REQUEST: Claim Verifiable Presentation (forwarded to backend)
-   * The request of a Verifiable presentation is handled in the backend so as to process the whole flow there and receive a response from the API in a callback
-   */
-  async claimVP() {
-    const {did} = this.state;
-    this.setState({
-      discountRequested: true,
-    });
-    let redirectUri = "";
-    if(utils.isMobileOrTablet()){
-      const sessionId = utils.randomString(8);
-      redirectUri = config.APP_URL + "/presentation?sessionId="+sessionId+"&did="+did+"&type=LargeFamilyCard";
-      const body = {
-        did,
-        sessionId,
-      }
-      await agbarBackend.createSession(body);
-    }
-    agbarBackend.claimVP(did, "LargeFamilyCard", redirectUri);
-  }
 
-  openModal = () => this.setState({ popUpisOpen: true });
-  closeModal = () => {
-    this.setState({ popUpisOpen: false });
-    
-  };
-
-  endTutorial = () => {
-    sessionStorage.setItem("step", String(4));
-    window.location.replace("/demo/tutorial?step=4");
-  }
 
   // Methods
   async loginWithVIDChain() {
@@ -215,7 +131,7 @@ class Profile extends Component<Props, State> {
     window.localStorage.setItem('logged', 'true');
 
     var client = VidchainClient.getInstance().getClient();
-    // await client.callback();
+    await client.callback(); //TODO perque s'utilitza
     await client.getToken({
       scopes: {
         request: ["openid"]
@@ -228,11 +144,7 @@ class Profile extends Component<Props, State> {
   render() {
     const {
       did,
-      verifiableKYC,
-      studentCard,
-      largeFamily,
-      discountRequested,
-      popUpisOpen,
+      goodPayerCard,
       accountName,
       bic,
       iban,
@@ -284,7 +196,7 @@ class Profile extends Component<Props, State> {
               subtitle2="Login with VIDchain"
               description2=""
               subtitle3="Request your credential"
-              description3={verifiableKYC.surname ? (verifiableKYC.name + " " + verifiableKYC.surname) : verifiableKYC.name}
+              description3=""
               icon={iconSeal}
               textButton="Good Payer credential"
               textButtonLogin="Login VIDchain"
@@ -292,30 +204,10 @@ class Profile extends Component<Props, State> {
               functionClickButton={this.generateCredential}
               hasBeenValidated={false}
               logged={logged}
-              hasBeenRequested={studentCard}
+              hasBeenRequested={goodPayerCard}
               subtitle4="Logged with the did" 
               description4={did}
               />
-
-
-            <Dialog
-              open={popUpisOpen}
-              onClose={this.closeModal}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle id="alert-dialog-title">{"Good Job!"}</DialogTitle>
-              <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                You have completed this step successfully.
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={this.endTutorial} color="primary" autoFocus>
-                Go back to tutorial
-                </Button>
-              </DialogActions>
-            </Dialog>
           </Grid>
       </Grid>
     </Fragment>);

@@ -1,18 +1,10 @@
 import React, { Component, Fragment } from "react";
 import "./VidchainIdentity.css";
-import { VidchainClient } from "../../libs/openid-connect/vidchainClient";
 import { Redirect } from "react-router-dom";
-import Official from "../../components/Official/Official";
 import Header from "../../components/Header/Header";
-import io from "socket.io-client";
 import Footer from "../../components/Footer/Footer";
-import * as governmentBackend from "../../apis/governmentBackend";
-import * as vidchain from "../../apis/vidchain";
-import * as utils from "../../utils/utils";
-import { verifiableKYC } from "../../interfaces/dtos";
+import * as agbarBackend from "../../apis/agbarBackend";
 import { Ring } from "react-spinners-css";
-import { UserInfo} from "../../interfaces/dtos";
-import { ICredentialDataNew } from "../../interfaces/dtos";
 import * as config from "../../config";
 
 interface Props {
@@ -27,8 +19,6 @@ interface State {
   id_token: string;
   expires: number;
   socketSession: string;
-  userInfo: UserInfo;
-  showCallback: boolean;
   error: boolean;
 }
 
@@ -36,13 +26,11 @@ class VidchainIdentity extends Component<Props, State> {
   constructor(props: any) {
     super(props);
     this.state = {
-      userInfo: {} as UserInfo,
       access_token: "",
       refresh_token: "",
       id_token: "",
       expires: 0,
       socketSession: "",
-      showCallback: false,
       error: false,
     };
   }
@@ -51,6 +39,9 @@ class VidchainIdentity extends Component<Props, State> {
     const code = new URLSearchParams(this.props.location.search).get("code");
     if(code){
       const token = await this.getAuthToken(code);
+      console.log('token');
+      console.log(token);
+      
       if (token !== null) {
         this.setState({
           access_token: token.access_token,
@@ -58,49 +49,14 @@ class VidchainIdentity extends Component<Props, State> {
           id_token: token.id_token,
           expires: token.expires,
         });
-      }
-      if (localStorage.getItem("userInfo") && token) {
-          // localStorage.clear();
-          const userInfo: UserInfo = JSON.parse(localStorage.getItem("userInfo") || "");
-          const did = utils.getUserDid(this.state.id_token);
-          userInfo.did = did;
-          console.log(JSON.stringify(userInfo));
-
-          let credentialSubject: ICredentialDataNew = {
-              id: userInfo.did,
-              firstName: userInfo.name || "-",
-              lastName: userInfo.surnames || "-",
-              dateOfBirth: "-",
-              placeOfBirth:  "-",
-              gender:  "-",
-              currentAddress: "-",
-              city:  "-",
-              state: userInfo.countryCode || "-",
-              zip: "-",
-            }
-            /**
-             *  VIDCHAIN API REQUEST: Generate VerifiableID
-             * An authorization token is requested and it is used to request the generation of a verifiableID
-             */
-            const authToken = await vidchain.getAuthzToken();
-            await vidchain.generateVerifiableID(authToken, credentialSubject);
-            this.goToProfile(userInfo);
-      }
-      else {
         this.goToRequest();
       }
     }
-    else{
-        this.setState({
-            showCallback: true
-          });
-    }
-   
   }
 
   async getAuthToken(code: string){
     try {
-      const response = await governmentBackend.getToken(
+      const response = await agbarBackend.getToken(
         {
             code: code,
             client_id: config.VIDCHAIN_CLIENT_ID,
@@ -117,16 +73,6 @@ class VidchainIdentity extends Component<Props, State> {
   }
 
 
-  goToProfile(userInfo: UserInfo) {
-    const { access_token, refresh_token, id_token } = this.state;
-    this.props.history.push({
-      pathname: "/profile",
-      state: {
-        userData: userInfo,
-      },
-    });
-  }
-
   goToRequest() {
     const { access_token, refresh_token, id_token } = this.state;
     this.props.history.push({
@@ -140,11 +86,20 @@ class VidchainIdentity extends Component<Props, State> {
   }
 
   render() {
-    const { access_token, error, showCallback } = this.state;
+    const { access_token, error } = this.state;
     if (access_token != null && !error) {
       return (
         <Fragment>
           <Header></Header>
+            <div className="contentCallback">
+                <div className="spinnerContainer">
+                  <Ring color="red" />
+                </div>
+                <p>Waiting to receive your credential...</p>
+          </div>
+          <div className="footer">
+          </div>
+          <Footer></Footer>
 
         </Fragment>
 

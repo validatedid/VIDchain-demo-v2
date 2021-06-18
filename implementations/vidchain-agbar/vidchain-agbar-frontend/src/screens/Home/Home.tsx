@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./Home.css";
 import {Grid, Typography} from '@material-ui/core';
 import Header from "../../components/Header/Header";
-import {SignInButton} from "../../components/SignInButton/SignInButton";
 import Footer from "../../components/Footer/Footer";
 import { OpenIDClient } from "../../libs/openid-connect/client";
 
@@ -20,16 +19,6 @@ class Home extends Component<Props, State> {
     window.localStorage.clear();
     var client = OpenIDClient.getInstance().getClient();
     await client.wipeTokens();
-  }
-
-  async loginWithVIDChain() {
-    var client = OpenIDClient.getInstance().getClient();
-    await client.callback();
-    await client.getToken({
-      scopes: {
-        request: ["openid", "VerifiableIdCredential"]
-      }, 
-    });
   }
 
   render() {
