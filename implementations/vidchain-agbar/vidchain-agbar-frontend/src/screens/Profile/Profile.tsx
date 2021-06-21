@@ -131,7 +131,7 @@ class Profile extends Component<Props, State> {
     window.localStorage.setItem('logged', 'true');
 
     var client = VidchainClient.getInstance().getClient();
-    await client.callback(); //TODO perque s'utilitza
+    await client.callback();
     await client.getToken({
       scopes: {
         request: ["openid"]
