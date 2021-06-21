@@ -3,7 +3,6 @@ import "./Home.css";
 import {Grid, Typography} from '@material-ui/core';
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
-import { OpenIDClient } from "../../libs/openid-connect/client";
 
 interface Props {
   history?: any;
@@ -17,8 +16,6 @@ class Home extends Component<Props, State> {
   }
   async componentDidMount() {
     window.localStorage.clear();
-    var client = OpenIDClient.getInstance().getClient();
-    await client.wipeTokens();
   }
 
   render() {

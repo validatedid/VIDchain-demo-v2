@@ -8,12 +8,12 @@ export class UsersService {
   private readonly userRedis = new Redis({
     port: process.env.REDIS_PORT, 
     host: process.env.REDIS_URL,
-    keyPrefix: "university-user:",
+    keyPrefix: "agbar-user:",
   });
   private readonly sessionRedis = new Redis({
     port: process.env.REDIS_PORT, 
     host: process.env.REDIS_URL,
-    keyPrefix: "university-user-session:",
+    keyPrefix: "agbar-user-session:",
   });
 
   /**

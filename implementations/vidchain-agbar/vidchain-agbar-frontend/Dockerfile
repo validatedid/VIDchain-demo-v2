@@ -13,12 +13,12 @@ RUN npm ci --quiet --no-progress
 COPY ./ /usr/src/app/
 ARG REACT_APP_DEMO
 ARG REACT_APP_API_URL
-ARG REACT_APP_IDENTITY_PROVIDER
-ARG REACT_APP_REDIRECT_CALLBACK
+ARG REACT_APP_VIDCHAIN_IDENTITY_PROVIDER
+ARG REACT_APP_VIDCHAIN_REDIRECT_CALLBACK
 ARG REACT_APP_BACKEND_URL
 ARG REACT_APP_WS_URL
 ARG REACT_APP_API_KEY
-ARG PUBLIC_URL=/demo/university
+ARG PUBLIC_URL=/demo/agbar
 RUN npm run build
 
 # Stage 2: run nginx
@@ -35,5 +35,5 @@ USER nginx
 COPY --from=builder-demo /usr/src/app/build /app
 
 COPY nginx.conf /etc/nginx/nginx.conf
-EXPOSE 3025
+EXPOSE 3026
 CMD ["nginx", "-g", "daemon off;"]

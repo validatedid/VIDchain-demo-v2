@@ -25,7 +25,7 @@ spec:
         imagePullPolicy: "Always"
         name: agbar-frontend
         ports:
-        - containerPort: 3025
+        - containerPort: 3026
       restartPolicy: Always
 
 ---
@@ -39,8 +39,8 @@ metadata:
 spec:
   type: ClusterIP
   ports:
-  - name: "3025"
-    port: 3025
+  - name: "3026"
+    port: 3026
   selector:
     app: agbar-frontend
 
@@ -66,4 +66,4 @@ spec:
       - path: /demo/agbar(/|$)(.*)
         backend:
           serviceName: agbar-frontend-service
-          servicePort: 3025
+          servicePort: 3026

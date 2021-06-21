@@ -1,4 +1,4 @@
-# University backend demo
+# Agbar backend demo
 
 ### Before running the demo
 
@@ -15,7 +15,7 @@ In order to expose the backend of this application so it can receive callback re
 
 Then, the enpoint provided by ngrok tunneling your localhost service will be shown.
 
-In the main directory, create an _.env_ file copying _.env.example_ and update "BASE_URL" and "WS_URL" with your tunnel enpoint. These parameter must be updated with the enpoint where **vidchain-university-backend** can be found, i.e. the tunnel, for instance:
+In the main directory, create an _.env_ file copying _.env.example_ and update "BASE_URL" and "WS_URL" with your tunnel enpoint. These parameter must be updated with the enpoint where **vidchain-agbar-backend** can be found, i.e. the tunnel, for instance:
 
 ```
 BASE_URL=http://5k3ieae7ac7.ngrok.io/demo/agbarbackend
@@ -39,13 +39,13 @@ npm run start
 Build your local image by running:
 
 ```
-docker build -t vidchain/university-backend:v0.1 .
+docker build -t vidchain/agbar-backend:v0.1 .
 docker images
 ```
 
 Run the container:
 
 ```
-docker run --name myapp -it -d -p 127.0.0.1:3023:3023 vidchain/university-backend:v0.1
+docker run --name myapp -it -d -p 127.0.0.1:3023:3023 vidchain/agbar-backend:v0.1
 docker ps
 ```
