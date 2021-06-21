@@ -4,7 +4,7 @@ trigger:
       - main
   paths:
     include:
-      - implementations/vidchain-university/vidchain-university-frontend
+      - implementations/vidchain-agbar/vidchain-agbar-frontend
 
 pr: none
 
@@ -15,16 +15,16 @@ variables:
   # Docker Buildkit improves image build performance
   DOCKER_BUILDKIT: 1
   # Image repository
-  universityFrontendRepo: 'university-frontend'
-  universityFrontendRepoEndpoint: 'k8scrvidchainpro.azurecr.io/university-frontend'
+  agbarFrontendRepo: 'agbar-frontend'
+  agbarFrontendRepoEndpoint: 'k8scrvidchainpro.azurecr.io/agbar-frontend'
   # Dockerfiles
-  universityFrontendDocker: 'implementations/vidchain-university/vidchain-university-frontend/Dockerfile'
+  agbarFrontendDocker: 'implementations/vidchain-agbar/vidchain-agbar-frontend/Dockerfile'
   # Kubernetes YAML
-  universityFrontendKubernetes: 'implementations/vidchain-university/vidchain-university-frontend/k8s/k8s-pro.yml'
+  agbarFrontendKubernetes: 'implementations/vidchain-agbar/vidchain-agbar-frontend/k8s/k8s-pro.yml'
   # Kubernetes namespace
   namespace: 'production'
   # Image tagging: application version - build
-  tagUniversityFrontend: '$(Build.BuildNumber)'
+  tagAgbarFrontend: '$(Build.BuildNumber)'
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
@@ -42,15 +42,15 @@ stages:
         shortCommit=${commit:0:7}
         echo "##vso[build.updatebuildnumber]$(Build.BuildId)-commit.$shortCommit"
       displayName: 'retrieve $(packageJson) version'
-  - job: BuildUniversityFrontend
-    displayName: 'Build University Frontend'
+  - job: BuildAgbarFrontend
+    displayName: 'Build Agbar Frontend'
     dependsOn: GetShortCommit
     pool:
       vmImage: $(vmImageName)
     steps:
     - bash: |
-        cp ./implementations/vidchain-university/vidchain-university-frontend/envs/.env.production ./implementations/vidchain-university/vidchain-university-frontend/.env
-        echo -e "\nREACT_APP_API_KEY=$API_KEY" >> ./implementations/vidchain-university/vidchain-university-frontend/.env
+        cp ./implementations/vidchain-agbar/vidchain-agbar-frontend/envs/.env.production ./implementations/vidchain-agbar/vidchain-agbar-frontend/.env
+        echo -e "\nREACT_APP_API_KEY=$API_KEY" >> ./implementations/vidchain-agbar/vidchain-agbar-frontend/.env
       name: load_env_variables_file
       displayName: 'load env vars'
       env:
@@ -60,35 +60,35 @@ stages:
       inputs:
         command: login
         containerRegistry: $(dockerRegistryServiceConnection)
-    - script: "docker pull $(universityFrontendRepoEndpoint):latest"
+    - script: "docker pull $(agbarFrontendRepoEndpoint):latest"
       displayName: Pull latest for layer caching
       continueOnError: true # for first build, no cache
     - task: Docker@2
-      displayName: "build --cache-from=$(universityFrontendRepoEndpoint):latest"
+      displayName: "build --cache-from=$(agbarFrontendRepoEndpoint):latest"
       inputs:
         containerRegistry: '$(dockerRegistryServiceConnection)'
-        repository: '$(universityFrontendRepo)'
+        repository: '$(agbarFrontendRepo)'
         command: 'build'
-        Dockerfile: $(universityFrontendDocker)
-        arguments: '--cache-from=$(universityFrontendRepoEndpoint):latest' 
+        Dockerfile: $(agbarFrontendDocker)
+        arguments: '--cache-from=$(agbarFrontendRepoEndpoint):latest' 
         tags: |
-          $(tagUniversityFrontend)
+          $(tagAgbarFrontend)
           latest
     - task: Docker@2
       displayName: "push"
       inputs:
         command: push
         containerRegistry: "$(dockerRegistryServiceConnection)"
-        repository: $(universityFrontendRepo) 
+        repository: $(agbarFrontendRepo) 
         tags: |
-          $(tagUniversityFrontend)
+          $(tagAgbarFrontend)
           latest        
 - stage: Deploy
   displayName: 'Deploy stage'
   dependsOn: Build
   jobs:
-  - deployment: DeployUniversityFrontend
-    displayName: 'Deploy University Frontend'
+  - deployment: DeployAgbarFrontend
+    displayName: 'Deploy Agbar Frontend'
     pool:
       vmImage: $(vmImageName)
     environment: 'production'
@@ -102,6 +102,6 @@ stages:
             inputs:              
               kubernetesServiceConnection: $(kubernetesServiceConnection)
               namespace: $(namespace)
-              manifests: $(universityFrontendKubernetes)
+              manifests: $(agbarFrontendKubernetes)
               containers: |
-                $(universityFrontendRepoEndpoint):$(tagUniversityFrontend)
+                $(agbarFrontendRepoEndpoint):$(tagAgbarFrontend)

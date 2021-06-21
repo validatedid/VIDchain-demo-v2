@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: university-frontend-deployment
+  name: agbar-frontend-deployment
   labels:
-    app: university-frontend
+    app: agbar-frontend
 spec:
   replicas: 1
   revisionHistoryLimit: 1
   selector:
     matchLabels:
-      app: university-frontend
+      app: agbar-frontend
   strategy: 
     type: RollingUpdate
     rollingUpdate:
@@ -18,12 +18,12 @@ spec:
   template:
     metadata:
       labels:
-        app: university-frontend
+        app: agbar-frontend
     spec:
       containers:
-      - image: k8scrvidchainpro.azurecr.io/university-frontend:latest
+      - image: k8scrvidchainpro.azurecr.io/agbar-frontend:latest
         imagePullPolicy: "Always"
-        name: university-frontend
+        name: agbar-frontend
         ports:
         - containerPort: 3025
       restartPolicy: Always
@@ -33,27 +33,27 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: university-frontend-service
+  name: agbar-frontend-service
   labels:
-    app: university-frontend
+    app: agbar-frontend
 spec:
   type: ClusterIP
   ports:
   - name: "3025"
     port: 3025
   selector:
-    app: university-frontend
+    app: agbar-frontend
 
 ---
 
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: university-frontend-ingress
+  name: agbar-frontend-ingress
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /demo/university/$2
+    nginx.ingress.kubernetes.io/rewrite-target: /demo/agbar/$2
 spec:
   tls:
   - hosts:
@@ -63,7 +63,7 @@ spec:
   - host: try.vidchain.net
     http:
       paths: 
-      - path: /demo/university(/|$)(.*)
+      - path: /demo/agbar(/|$)(.*)
         backend:
-          serviceName: university-frontend-service
+          serviceName: agbar-frontend-service
           servicePort: 3025
