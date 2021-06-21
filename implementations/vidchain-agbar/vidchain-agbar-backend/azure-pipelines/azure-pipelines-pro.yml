@@ -4,7 +4,7 @@ trigger:
       - main
   paths:
     include:
-      - implementations/vidchain-university/vidchain-university-backend
+      - implementations/vidchain-agbar/vidchain-agbar-backend
 
 pr: none
 
@@ -15,18 +15,18 @@ variables:
   # Docker Buildkit improves image build performance
   DOCKER_BUILDKIT: 1
   # Image repository
-  universityBackendRepo: 'university-backend'
-  universityBackendRepoEndpoint: 'k8scrvidchainpro.azurecr.io/university-backend'
+  agbarBackendRepo: 'agbar-backend'
+  agbarBackendRepoEndpoint: 'k8scrvidchainpro.azurecr.io/agbar-backend'
   # Dockerfiles
-  universityBackendDocker: 'implementations/vidchain-university/vidchain-university-backend/Dockerfile'
+  agbarBackendDocker: 'implementations/vidchain-agbar/vidchain-agbar-backend/Dockerfile'
   # Kubernetes YAML
-  universityBackendKubernetes: 'implementations/vidchain-university/vidchain-university-backend/k8s/k8s-pro.yml'
+  agbarBackendKubernetes: 'implementations/vidchain-agbar/vidchain-agbar-backend/k8s/k8s-pro.yml'
   # Configmaps
-  universityBackendConfigMap: 'implementations/vidchain-university/vidchain-university-backend/k8s/configmap-pro.yml'  
+  agbarBackendConfigMap: 'implementations/vidchain-agbar/vidchain-agbar-backend/k8s/configmap-pro.yml'  
   # Kubernetes namespace
   namespace: 'production'
   # Image tagging: application version - build
-  tagUniversityBackend: '$(Build.BuildNumber)'
+  tagAgbarBackend: '$(Build.BuildNumber)'
   # Agent VM image name
   vmImageName: 'ubuntu-latest'
 
@@ -44,8 +44,8 @@ stages:
         shortCommit=${commit:0:7}
         echo "##vso[build.updatebuildnumber]$(Build.BuildId)-commit.$shortCommit"
       displayName: 'retrieve $(packageJson) version'
-  - job: BuildUniversityBackend
-    displayName: 'Build University Backend'
+  - job: BuildAgbarBackend
+    displayName: 'Build Agbar Backend'
     dependsOn: GetShortCommit
     pool:
       vmImage: $(vmImageName)
@@ -55,35 +55,35 @@ stages:
       inputs:
         command: login
         containerRegistry: $(dockerRegistryServiceConnection)
-    - script: "docker pull $(universityBackendRepoEndpoint):latest"
+    - script: "docker pull $(agbarBackendRepoEndpoint):latest"
       displayName: Pull latest for layer caching
       continueOnError: true # for first build, no cache
     - task: Docker@2
-      displayName: "build --cache-from=$(universityBackendRepoEndpoint):latest"
+      displayName: "build --cache-from=$(agbarBackendRepoEndpoint):latest"
       inputs:
         containerRegistry: '$(dockerRegistryServiceConnection)'
-        repository: '$(universityBackendRepo)'
+        repository: '$(agbarBackendRepo)'
         command: 'build'
-        Dockerfile: $(universityBackendDocker)
-        arguments: '--cache-from=$(universityBackendRepoEndpoint):latest' 
+        Dockerfile: $(agbarBackendDocker)
+        arguments: '--cache-from=$(agbarBackendRepoEndpoint):latest' 
         tags: |
-          $(tagUniversityBackend)
+          $(tagAgbarBackend)
           latest
     - task: Docker@2
       displayName: "push"
       inputs:
         command: push
         containerRegistry: "$(dockerRegistryServiceConnection)"
-        repository: $(universityBackendRepo) 
+        repository: $(agbarBackendRepo) 
         tags: |
-          $(tagUniversityBackend)
+          $(tagAgbarBackend)
           latest        
 - stage: Deploy
   displayName: 'Deploy stage'
   dependsOn: Build
   jobs:
-  - deployment: DeployUniversityBackend
-    displayName: 'Deploy University Backend'
+  - deployment: DeployAgbarBackend
+    displayName: 'Deploy Agbar Backend'
     pool:
       vmImage: $(vmImageName)
     environment: 'production'
@@ -100,12 +100,12 @@ stages:
               azureResourceGroup: $(azureResourceGroup)
               kubernetesCluster: $(kubernetesCluster)
               command: apply
-              arguments: -f $(universityBackendConfigMap) -n $(namespace)
+              arguments: -f $(agbarBackendConfigMap) -n $(namespace)
           - task: KubernetesManifest@0
             displayName: Create/update deployment
             inputs:              
               kubernetesServiceConnection: $(kubernetesServiceConnection)
               namespace: $(namespace)
-              manifests: $(universityBackendKubernetes)
+              manifests: $(agbarBackendKubernetes)
               containers: |
-                $(universityBackendRepoEndpoint):$(tagUniversityBackend)
+                $(agbarBackendRepoEndpoint):$(tagAgbarBackend)

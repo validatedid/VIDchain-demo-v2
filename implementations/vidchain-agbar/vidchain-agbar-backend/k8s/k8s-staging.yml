@@ -1,15 +1,15 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: university-backend-deployment
+  name: agbar-backend-deployment
   labels:
-    app: university-backend
+    app: agbar-backend
 spec:
   replicas: 1
   revisionHistoryLimit: 1
   selector:
     matchLabels:
-      app: university-backend
+      app: agbar-backend
   strategy: 
     type: RollingUpdate
     rollingUpdate:
@@ -18,59 +18,59 @@ spec:
   template:
     metadata:
       labels:
-        app: university-backend
+        app: agbar-backend
     spec:
       containers:
-      - image: k8scrvidchaindev.azurecr.io/university-backend:latest
+      - image: k8scrvidchaindev.azurecr.io/agbar-backend:latest
         imagePullPolicy: "Always"
-        name: university-backend
+        name: agbar-backend
         ports:
-        - containerPort: 3023
+        - containerPort: 3025
         env:
         - name: API_URL
           valueFrom:
             configMapKeyRef:
-              name: university-backend-configmap
+              name: agbar-backend-configmap
               key: API_URL
         - name: BASE_URL
           valueFrom:
             configMapKeyRef:
-              name: university-backend-configmap
+              name: agbar-backend-configmap
               key: BASE_URL
         - name: PORT
           valueFrom:
             configMapKeyRef:
-              name: university-backend-configmap
+              name: agbar-backend-configmap
               key: PORT
         - name: REDIS_URL
           valueFrom:
             configMapKeyRef:
-              name: university-backend-configmap
+              name: agbar-backend-configmap
               key: REDIS_URL
         - name: REDIS_PORT
           valueFrom:
             configMapKeyRef:
-              name: university-backend-configmap
+              name: agbar-backend-configmap
               key: REDIS_PORT
         - name: WS_URL
           valueFrom:
             configMapKeyRef:
-              name: university-backend-configmap
+              name: agbar-backend-configmap
               key: WS_URL
         - name: IDENTITY_PROVIDER
           valueFrom:
             configMapKeyRef:
-              name: university-backend-configmap
+              name: agbar-backend-configmap
               key: IDENTITY_PROVIDER
         - name: API_KEY
           valueFrom:
             secretKeyRef:
-              name: university-api-key
+              name: agbar-api-key
               key: api-key
         - name: CLIENT_SECRET
           valueFrom:
             secretKeyRef:
-              name: university-client-secret
+              name: agbar-client-secret
               key: client-secret
       restartPolicy: Always
 ---
@@ -78,23 +78,23 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: university-backend-service
+  name: agbar-backend-service
   labels:
-    app: university-backend
+    app: agbar-backend
 spec:
   type: ClusterIP
   ports:
-  - name: "3023"
-    port: 3023
+  - name: "3025"
+    port: 3025
   selector:
-    app: university-backend
+    app: agbar-backend
 
 ---
 
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: university-backend-ingress
+  name: agbar-backend-ingress
   annotations:
     kubernetes.io/ingress.class: nginx
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
@@ -107,11 +107,11 @@ spec:
   - host: staging.vidchain.net
     http:
       paths:
-      - path: /demo/universitybackend
+      - path: /demo/agbarbackend
         backend:
-          serviceName: university-backend-service
-          servicePort: 3023
-      - path: /universityws
+          serviceName: agbar-backend-service
+          servicePort: 3025
+      - path: /agbarws
         backend:
-          serviceName: university-backend-service
-          servicePort: 3023
+          serviceName: agbar-backend-service
+          servicePort: 3025
