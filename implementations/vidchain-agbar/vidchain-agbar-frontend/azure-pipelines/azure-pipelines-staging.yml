@@ -1,0 +1,107 @@
+trigger:
+  branches:
+    include:
+      - staging
+  paths:
+    include:
+      - implementations/vidchain-agbar/vidchain-agbar-frontend
+
+pr: none
+
+resources:
+- repo: self
+
+variables:
+  # Docker Buildkit improves image build performance
+  DOCKER_BUILDKIT: 1
+  # Image repository
+  agbarFrontendRepo: 'agbar-frontend'
+  agbarFrontendRepoEndpoint: 'k8scrvidchaindev.azurecr.io/agbar-frontend'
+  # Dockerfiles
+  agbarFrontendDocker: 'implementations/vidchain-agbar/vidchain-agbar-frontend/Dockerfile'
+  # Kubernetes YAML
+  agbarFrontendKubernetes: 'implementations/vidchain-agbar/vidchain-agbar-frontend/k8s/k8s-staging.yml'
+  # Kubernetes namespace
+  namespace: 'staging'
+  # Image tagging: application version - build
+  tagAgbarFrontend: '$(Build.BuildNumber)'
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+stages:
+- stage: Build
+  displayName: 'Build stage'
+  jobs:
+  - job: GetShortCommit
+    displayName: 'retrieve commit hash'
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - script: |
+        commit=$(Build.SourceVersion)
+        shortCommit=${commit:0:7}
+        echo "##vso[build.updatebuildnumber]$(Build.BuildId)-commit.$shortCommit"
+      displayName: 'retrieve $(packageJson) version'
+  - job: BuildAgbarFrontend
+    displayName: 'Build Agbar Frontend'
+    dependsOn: GetShortCommit
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+    - bash: |
+        cp ./implementations/vidchain-agbar/vidchain-agbar-frontend/envs/.env.staging ./implementations/vidchain-agbar/vidchain-agbar-frontend/.env
+        echo -e "\nREACT_APP_API_KEY=$API_KEY" >> ./implementations/vidchain-agbar/vidchain-agbar-frontend/.env
+      name: load_env_variables_file
+      displayName: 'load env vars'
+      env:
+        API_KEY: $(API_KEY_AGBAR)
+    - task: Docker@2
+      displayName: Login ACR
+      inputs:
+        command: login
+        containerRegistry: $(dockerRegistryServiceConnection)
+    - script: "docker pull $(agbarFrontendRepoEndpoint):latest"
+      displayName: Pull latest for layer caching
+      continueOnError: true # for first build, no cache
+    - task: Docker@2
+      displayName: "build --cache-from=$(agbarFrontendRepoEndpoint):latest"
+      inputs:
+        containerRegistry: '$(dockerRegistryServiceConnection)'
+        repository: '$(agbarFrontendRepo)'
+        command: 'build'
+        Dockerfile: $(agbarFrontendDocker)
+        arguments: '--cache-from=$(agbarFrontendRepoEndpoint):latest' 
+        tags: |
+          $(tagAgbarFrontend)
+          latest
+    - task: Docker@2
+      displayName: "push"
+      inputs:
+        command: push
+        containerRegistry: "$(dockerRegistryServiceConnection)"
+        repository: $(agbarFrontendRepo) 
+        tags: |
+          $(tagAgbarFrontend)
+          latest        
+- stage: Deploy
+  displayName: 'Deploy stage'
+  dependsOn: Build
+  jobs:
+  - deployment: DeployAgbarFrontend
+    displayName: 'Deploy Agbar Frontend'
+    pool:
+      vmImage: $(vmImageName)
+    environment: 'staging'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - checkout: self
+          - task: KubernetesManifest@0
+            displayName: Create/update deployment
+            inputs:              
+              kubernetesServiceConnection: $(kubernetesServiceConnection)
+              namespace: $(namespace)
+              manifests: $(agbarFrontendKubernetes)
+              containers: |
+                $(agbarFrontendRepoEndpoint):$(tagAgbarFrontend)

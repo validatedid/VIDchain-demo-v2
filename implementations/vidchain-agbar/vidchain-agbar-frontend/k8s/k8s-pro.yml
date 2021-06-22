@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agbar-frontend-deployment
+  labels:
+    app: agbar-frontend
+spec:
+  replicas: 1
+  revisionHistoryLimit: 1
+  selector:
+    matchLabels:
+      app: agbar-frontend
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: agbar-frontend
+    spec:
+      containers:
+      - image: k8scrvidchainpro.azurecr.io/agbar-frontend:latest
+        imagePullPolicy: "Always"
+        name: agbar-frontend
+        ports:
+        - containerPort: 3026
+      restartPolicy: Always
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: agbar-frontend-service
+  labels:
+    app: agbar-frontend
+spec:
+  type: ClusterIP
+  ports:
+  - name: "3026"
+    port: 3026
+  selector:
+    app: agbar-frontend
+
+---
+
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: agbar-frontend-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /demo/agbar/$2
+spec:
+  tls:
+  - hosts:
+    - try.vidchain.net
+    secretName: tls-secret-production
+  rules:
+  - host: try.vidchain.net
+    http:
+      paths: 
+      - path: /demo/agbar(/|$)(.*)
+        backend:
+          serviceName: agbar-frontend-service
+          servicePort: 3026
