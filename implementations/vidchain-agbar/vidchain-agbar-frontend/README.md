@@ -28,7 +28,7 @@ docker images
 Run the container:
 
 ```
-docker run --name myapp -it -d -p 127.0.0.1:3025:3025 vidchain/agbar-frontend:v0.1
+docker run --name myapp -it -d -p 127.0.0.1:3026:3026 vidchain/agbar-frontend:v0.1
 docker ps
 ```
 
@@ -37,5 +37,5 @@ docker ps
 In any of the cases you have decided to use, you can now find in your browser this React Native application at:
 
 ```
-127.0.0.1:3025/demo/agbar/
+127.0.0.1:3026/demo/agbar/
 ```

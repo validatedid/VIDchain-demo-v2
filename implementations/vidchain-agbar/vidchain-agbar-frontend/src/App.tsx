@@ -11,7 +11,7 @@ const dotenv = require("dotenv");
 // importing .env variables
 
 const publicUrl =
-  process.env.REACT_APP_DEMO || "http://localhost:3025/demo/agbar";
+  process.env.REACT_APP_DEMO || "http://localhost:3026/demo/agbar";
 const basename = publicUrl ? new URL(publicUrl).pathname : "";
 
 const THEME = createMuiTheme({

@@ -17,5 +17,5 @@ RUN npm prune --production && \
   chown -R node:node log
 USER node
 ENV NODE_ENV production
-EXPOSE 3023
+EXPOSE 3025
 CMD [ "node", "dist/main.js" ]

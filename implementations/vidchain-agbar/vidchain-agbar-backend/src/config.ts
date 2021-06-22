@@ -1,7 +1,7 @@
 const dotenv = require("dotenv");
 // importing .env variables
 dotenv.config();
-const PORT = process.env.PORT || 3023;
+const PORT = process.env.PORT || 3025;
 const API_URL = process.env.API_URL || "undefined";
 const BASE_URL =
   process.env.BASE_URL || "undefined";;

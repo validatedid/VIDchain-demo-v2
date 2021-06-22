@@ -10,7 +10,7 @@ docker run -d -p 127.0.0.1:6379:6379 redis:alpine
 In order to expose the backend of this application so it can receive callback responses from VIDChain API, install [ngrok](https://ngrok.com/) in your machine and run in your terminal:
 
 ```
-./ngrok http 3023
+./ngrok http 3025
 ```
 
 Then, the enpoint provided by ngrok tunneling your localhost service will be shown.
@@ -46,6 +46,6 @@ docker images
 Run the container:
 
 ```
-docker run --name myapp -it -d -p 127.0.0.1:3023:3023 vidchain/agbar-backend:v0.1
+docker run --name myapp -it -d -p 127.0.0.1:3025:3025 vidchain/agbar-backend:v0.1
 docker ps
 ```

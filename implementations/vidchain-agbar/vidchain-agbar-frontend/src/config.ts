@@ -27,8 +27,6 @@ const grantType = "urn:ietf:params:oauth:grant-type:jwt-bearer";
 const scope = "vidchain profile entity";
 //const scope = "vidchain profile test entity";
 
-const CLIENT_ID = "agbar";
-
 const VIDCHAIN_CLIENT_ID = "agbar";
 
 export {
@@ -38,7 +36,6 @@ export {
   API_URL,
   BACKEND_URL,
   BACKEND_WS,
-  CLIENT_ID,
   APP_URL,
   VIDCHAIN_CLIENT_ID,
   VIDCHAIN_IDENTITY_PROVIDER,
