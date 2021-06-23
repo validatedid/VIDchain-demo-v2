@@ -67,6 +67,11 @@ spec:
             secretKeyRef:
               name: airline-api-key
               key: api-key
+        - name: API_KEY_DIDKEY
+          valueFrom:
+            secretKeyRef:
+              name: airline-api-key-did-key
+              key: api-key-did-key
         - name: CLIENT_SECRET
           valueFrom:
             secretKeyRef:
