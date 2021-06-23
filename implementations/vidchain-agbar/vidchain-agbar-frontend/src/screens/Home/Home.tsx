@@ -3,6 +3,7 @@ import "./Home.css";
 import {Grid, Typography} from '@material-ui/core';
 import Header from "../../components/Header/Header";
 import Footer from "../../components/Footer/Footer";
+import * as config from "../../config";
 
 interface Props {
   history?: any;
@@ -11,11 +12,18 @@ interface Props {
 interface State {}
 
 class Home extends Component<Props, State> {
+  
   constructor(props: any) {
     super(props);
   }
   async componentDidMount() {
     window.localStorage.clear();
+  }
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.props.history.push({
+      pathname: "/profile"});
   }
 
   render() {
@@ -32,7 +40,7 @@ class Home extends Component<Props, State> {
           <Typography variant="h1"className="title">Accede a tu cuenta</Typography> 
         </Grid>
           <Grid xs={6} item className="gridFormLeft">
-           <form id="formHome" action="/profile" method="post">
+           <form id="formHome" onSubmit={this.handleSubmit}>
              <ul className="flex-outer">
                <li>
                  <label className="labelForm" htmlFor="fnif"> NIF / NIE(*)</label>
